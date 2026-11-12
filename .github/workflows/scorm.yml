@@ -84,9 +84,14 @@ jobs:
           with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
               f.write('# SCORM build validation\n\n')
               f.write(f'Validated packages: **{len(data)}**. Static ZIP/manifest/diff and JS runtime checks passed.\n\n')
-              f.write('| Package | Lessons | SHA-256 |\n|---|---:|---|\n')
+              f.write('| Package | Lessons | Operation | SHA-256 |\n|---|---:|---|---|\n')
               for row in data:
-                  f.write(f'| {row["artifact"]} | {row["lesson_count"]} | \`{row["sha256"][:12]}…\` |\n')
+                  mode = ('formal quiz removed' if row['removed_quiz'] else
+                          'embedded test removed' if row['embedded_test_removed'] else
+                          'progress tracking updated')
+                  f.write(f'| {row["artifact"]} | {row["lesson_count"]} | {mode} | {row["sha256"][:12]}… |\n')
+                  if row['manual_review']:
+                      f.write('Manual content review: ' + ', '.join(row['manual_review']) + '\n')
               f.write('\nMoodle end-to-end test remains required before publishing.\n')
           PY
       - name: Ensure source tree remains unchanged
