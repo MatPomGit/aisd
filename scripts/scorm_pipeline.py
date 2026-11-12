@@ -167,16 +167,32 @@ def get_quiz(data):
 
 def new_course(original, tracking):
     data = copy.deepcopy(original)
-    quiz = get_quiz(data)
-    qid = quiz["id"]
-    if tracking["quizId"] != qid or tracking["storylineId"] is not None:
-        raise BuildError("Quiz tracking ID differs from terminal quiz ID")
+    lessons = data["course"]["lessons"]
+    quiz_count = sum(isinstance(l, dict) and l.get("type") == "quiz" for l in lessons)
     settings = data["course"].get("exportSettings")
     if not isinstance(settings, dict):
         raise BuildError("Missing course.exportSettings")
-    if settings.get("quizId") != qid or settings.get("completeWith") != "quiz":
-        raise BuildError("Unsupported course exportSettings for quiz completion")
-    data["course"]["lessons"].pop()
+    if tracking["storylineId"] is not None:
+        raise BuildError("Unsupported Storyline tracking")
+    if quiz_count:
+        quiz = get_quiz(data)
+        qid = quiz["id"]
+        if tracking["quizId"] != qid or settings.get("quizId") != qid:
+            raise BuildError("Quiz tracking ID differs from terminal quiz ID")
+        if settings.get("completeWith") != "quiz":
+            raise BuildError("Unsupported quiz completion mode")
+        lessons.pop()
+    else:
+        # Some originals already contain no formal Rise quiz. Keep all lessons:
+        # arbitrary 'test' blocks may also contain explanations and examples.
+        quiz = None
+        qid = None
+        if tracking["quizId"] is not None or settings.get("quizId") is not None:
+            raise BuildError("No quiz in lessons but quiz tracking still configured")
+        if settings.get("completeWith") not in ("reporting", "course"):
+            raise BuildError("Unsupported no-quiz completion mode")
+        if not lessons:
+            raise BuildError("Empty course")
     settings.update({
         "quizId": None,
         "completeWith": "course",
@@ -184,7 +200,7 @@ def new_course(original, tracking):
         "completionPercentage": 100,
         "reporting": "completed-incomplete",
     })
-    if qid in json.dumps(data, ensure_ascii=False):
+    if qid and qid in json.dumps(data, ensure_ascii=False):
         raise BuildError("Removed quiz is still referenced elsewhere")
     return data, quiz
 
@@ -216,9 +232,17 @@ def build_one(source, output):
         except Exception:
             output.unlink(missing_ok=True)
             raise
+    manual_review = [
+        l.get("title", "") for l in result["course"]["lessons"]
+        if isinstance(l, dict) and any(
+            word in str(l.get("title", "")).lower()
+            for word in ("test końcowy", "egzamin końcowy", "final quiz")
+        )
+    ]
     return {"source": source.name, "artifact": output.name,
-            "removed_quiz": quiz.get("title", quiz["id"]),
+            "removed_quiz": quiz.get("title", quiz["id"]) if quiz else None,
             "lesson_count": len(result["course"]["lessons"]),
+            "manual_review": manual_review,
             "sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
 
 
@@ -233,8 +257,11 @@ def validate_pair(source, output):
         new_path, _, _, new = get_data(dst)
         if old_path != new_path:
             raise BuildError("Data container changed")
-        removed = get_quiz(old)
-        if new["course"]["lessons"] != old["course"]["lessons"][:-1]:
+        has_quiz = any(isinstance(x, dict) and x.get("type") == "quiz"
+                       for x in old["course"]["lessons"])
+        removed = get_quiz(old) if has_quiz else None
+        expected_lessons = old["course"]["lessons"][:-1] if has_quiz else old["course"]["lessons"]
+        if new["course"]["lessons"] != expected_lessons:
             raise BuildError("Non-quiz lessons changed")
         expected, _ = new_course(old, get_tracking(src.read(HTML).decode("utf-8-sig")))
         if new != expected:
@@ -251,7 +278,7 @@ def validate_pair(source, output):
                 raise BuildError("ZIP entry metadata changed: " + item.filename)
             if item.filename not in changed and src.read(item.filename) != dst.read(item.filename):
                 raise BuildError("Non-course asset changed: " + item.filename)
-        return {"removed_quiz_id": removed["id"],
+        return {"removed_quiz_id": removed["id"] if removed else None,
                 "lessons": len(new["course"]["lessons"]), "status": "PASS"}
 
 
