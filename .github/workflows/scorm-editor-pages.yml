@@ -16,6 +16,7 @@ on:
       - 'docs/index.html'
       - 'docs/.nojekyll'
       - 'tests/scorm_editor.test.mjs'
+      - 'tests/scorm_editor.browser.mjs'
       - '.github/workflows/scorm-editor-pages.yml'
   workflow_dispatch:
 
@@ -23,7 +24,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: scorm-editor-pages-\${{ github.ref }}
+  group: scorm-editor-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -74,7 +75,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: \${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Checkout static site
         uses: actions/checkout@v4
