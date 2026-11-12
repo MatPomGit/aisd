@@ -285,11 +285,11 @@ export async function buildRiseZip(doc, JSZip) {
       createFolders: false
     });
   }
-  const output = await clone.generateAsync({
-    type: "blob", compression: "DEFLATE",
+  const outputBytes = await clone.generateAsync({
+    type: "uint8array", compression: "DEFLATE",
     compressionOptions: { level: 6 }, streamFiles: true
   });
-  const roundtrip = await JSZip.loadAsync(output, { checkCRC32: true, createFolders: false });
+  const roundtrip = await JSZip.loadAsync(outputBytes, { checkCRC32: true, createFolders: false });
   await inspectZip(roundtrip);
   ensure(JSON.stringify(Object.keys(roundtrip.files)) === JSON.stringify(doc.originalNames),
          "Liczba lub kolejność plików archiwum zmieniła się.");
@@ -312,7 +312,7 @@ export async function buildRiseZip(doc, JSZip) {
       if (before[i] !== after[i]) throw new ScormError("Zmieniono zasób: " + path);
     }
   }
-  return output;
+  return new Blob([outputBytes], { type: "application/zip" });
 }
 export function finalFilename(name) {
   return String(name || "kurs.zip").replace(/\.zip$/i, "")
