@@ -181,7 +181,7 @@ Ta procedura nie obejmuje automatycznego wdrożenia na produkcyjny Moodle, SCORM
 
 ## 10. Przeglądarkowy edytor GitHub Pages: SCORM Studio
 
-Statyczna strona znajduje się w [\`docs/editor/index.html\`](editor/index.html); po włączeniu GitHub Pages jej standardowy adres to **https://matpomgit.github.io/aisd/editor/**. Strona startowa jest w [\`docs/index.html\`](index.html).
+Statyczna strona znajduje się w [`docs/editor/index.html`](editor/index.html); po włączeniu GitHub Pages jej standardowy adres to **https://matpomgit.github.io/aisd/editor/**. Strona startowa jest w [`docs/index.html`](index.html).
 
 ### Funkcje i sposób użycia
 
@@ -189,9 +189,9 @@ Statyczna strona znajduje się w [\`docs/editor/index.html\`](editor/index.html)
 2. Odczytaj listę lekcji, tytuł kursu, obecność quizu i tryb raportowania.
 3. Wybierz lekcję. Możesz edytować jej tytuł, opis oraz pola tekstowe bloków Rise (w tym źródłowe fragmenty HTML).
 4. W razie potrzeby rozwiń sekcję **Zaawansowane**. Możesz edytować dane JSON kursu i zatwierdzić je przyciskiem „Zastosuj JSON”. Nie modyfikuj struktury ani identyfikatorów bez dokładnej znajomości schematu.
-5. Kliknij **Usuń test końcowy i oceny**. Przetwarzanie odpowiada sprawdzonemu algorytmowi z \`scripts/scorm_pipeline.py\`. Rozpoznaje formalny test na końcu kursu, specyficzny test blokowy kursu 04 oraz pakiet bez testu.
+5. Kliknij **Usuń test końcowy i oceny**. Przetwarzanie odpowiada sprawdzonemu algorytmowi z `scripts/scorm_pipeline.py`. Rozpoznaje formalny test na końcu kursu, specyficzny test blokowy kursu 04 oraz pakiet bez testu.
 6. Ustaw nazwę i kliknij **Sprawdź i pobierz ZIP**. Aplikacja ponownie odczytuje nowy ZIP, sprawdza manifest, zawartość danych, tracking i bajtową identyczność zasobów niewymagających zmian.
-7. Wgraj nowy ZIP do **testowej** aktywności Moodle. Sprawdź otwieranie, przejście, wznowienie, status \`completed\` po 100% oraz brak nowego \`cmi.core.score.raw\`.
+7. Wgraj nowy ZIP do **testowej** aktywności Moodle. Sprawdź otwieranie, przejście, wznowienie, status `completed` po 100% oraz brak nowego `cmi.core.score.raw`.
 
 Edycja jest lokalna w przeglądarce: ZIP nie jest przesyłany na serwer ani do GitHub. Biblioteka JSZip v3.10.1 jest pobierana z publicznej CDN z przypiętą sumą Subresource Integrity. Wszystkie modyfikowane pliki pozostają na urządzeniu użytkownika.
 
@@ -205,8 +205,8 @@ Edycja jest lokalna w przeglądarce: ZIP nie jest przesyłany na serwer ani do G
 
 ### Wdrożenie GitHub Pages
 
-Automatyzacja znajduje się w \`.github/workflows/scorm-editor-pages.yml\`. PR uruchamia testy JS na rzeczywistych paczkach z \`raw/\`. Po scaleniu do \`main\` i po **jednorazowej konfiguracji Pages** workflow publikuje wyłącznie katalog \`docs/\`.
+Automatyzacja znajduje się w `.github/workflows/scorm-editor-pages.yml`. PR uruchamia testy JS na rzeczywistych paczkach z `raw/`, w tym przebudowę i walidację wszystkich 20 ZIP. Dodatkowo Chromium automatycznie testuje interfejs: wczytanie pliku nr 13, zmianę tytułu, usunięcie testu, pobranie nowego ZIP oraz kontrolę jego zawartości. Po scaleniu do `main` i po **jednorazowej konfiguracji Pages** workflow publikuje wyłącznie katalog `docs/`.
 
-Jeśli Pages jeszcze nie jest skonfigurowane, wykonaj **Settings → Pages → Build and deployment → Source: GitHub Actions**. Nie trzeba dodawać sekretów, tokenów ani repozytorium \`gh-pages\`. Ponów przebieg „SCORM Studio | test and publish Pages” po włączeniu usługi, jeśli wcześniejsze wdrożenie zakończyło się błędem. Dla kontroli testów i statusu wdrożenia przejdź do repozytorium → **Actions**.
+Jeśli Pages jeszcze nie jest skonfigurowane, wykonaj **Settings → Pages → Build and deployment → Source: GitHub Actions**. Nie trzeba dodawać sekretów, tokenów ani repozytorium `gh-pages`. Ponów przebieg „SCORM Studio | test and publish Pages” po włączeniu usługi, jeśli wcześniejsze wdrożenie zakończyło się błędem. Dla kontroli testów i statusu wdrożenia przejdź do repozytorium → **Actions**.
 
-Strona używa statycznych ścieżek względnych, dzięki czemu działa również w gałęzi Pages z katalogu \`docs/\`.
+Strona używa statycznych ścieżek względnych, dzięki czemu działa również w gałęzi Pages z katalogu `docs/`.
