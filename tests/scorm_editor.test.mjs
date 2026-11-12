@@ -5,7 +5,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { createRequire } from "node:module";
 import {
   openRiseZip, makeUngraded, listEditableFields, buildRiseZip,
-  readTracking, TRACKING, validateCourse
+  readTracking, TRACKING, validateCourse, planFiles
 } from "../docs/editor/core.mjs";
 
 const require = createRequire(import.meta.url);
@@ -74,10 +74,19 @@ test("unknown malformed lesson is rejected", () => {
                                                   exportSettings: {} } }), /identyfikator/);
 });
 
-test("all 20 real exports can be inspected in the browser core", async () => {
+test("structural changes in JSON are blocked before ZIP generation", async () => {
+  const doc = await open(13);
+  doc.data.course.lessons[0].id = "renamed-id";
+  assert.throws(() => planFiles(doc), /identyfikatorów/);
+});
+
+test("all 20 real Rise ZIPs can be edited and rebuilt with valid completion", async () => {
   for (let n = 1; n <= 20; n++) {
     const doc = await open(n);
     assert.ok(doc.entryCount > 1);
     assert.equal(doc.data.course.exportSettings.target, "scorm12");
+    makeUngraded(doc);
+    const output = await buildRiseZip(doc, JSZip);
+    assert.ok(output.size > 1000, "empty artifact for course " + n);
   }
 });
