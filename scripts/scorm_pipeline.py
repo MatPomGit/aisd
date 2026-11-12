@@ -1,0 +1,315 @@
+#!/usr/bin/env python3
+"""Build and validate ungraded SCORM 1.2 Rise packages. Python 3.11+, stdlib only.
+
+Fail-closed: only tested embedded Base64 JSON in scormcontent/index.html
+(and compatible runtime-data.js wrappers) with explicit quiz-based tracking.
+This tool does not upload to Moodle or claim LMS conformance.
+"""
+import argparse
+import base64
+import copy
+import hashlib
+import json
+import re
+import sys
+import zipfile
+from pathlib import Path
+from xml.etree import ElementTree as ET
+
+HTML = "scormcontent/index.html"
+MODERN = "scormcontent/runtime-data.js"
+LEGACY_RE = re.compile(
+    r'(?P<start>async\s+function\s+__fetchCourse\s*\(\s*\)\s*\{\s*'
+    r'return\s+Promise\.resolve\s*\(\s*deserialize\s*\(\s*")'
+    r'(?P<blob>[A-Za-z0-9+/=]+)(?P<end>"\s*\)\s*\))'
+)
+MODERN_RE = re.compile(
+    r'(?P<start>__jsonp\s*\(\s*["\']runtime-data\.js["\']\s*,\s*["\'])'
+    r'(?P<blob>[A-Za-z0-9+/=]+)(?P<end>["\']\s*\))'
+)
+FIELDS = ("quizId", "storylineId", "completionPercentage", "reporting")
+TRACKING = {
+    "quizId": None,
+    "storylineId": None,
+    "completionPercentage": 100,
+    "reporting": "completed-incomplete",
+}
+
+
+class BuildError(Exception):
+    """Unsupported or invalid package; do not publish it."""
+
+
+def open_zip(path):
+    try:
+        archive = zipfile.ZipFile(path)
+        names = archive.namelist()
+        if len(names) != len(set(names)):
+            raise BuildError("Duplicate ZIP entries")
+        for name in names:
+            parts = name.replace("\\", "/").split("/")
+            if name.startswith("/") or ".." in parts or "\\" in name:
+                raise BuildError("Unsafe archive entry: " + name)
+        if "imsmanifest.xml" not in names:
+            raise BuildError("Missing root imsmanifest.xml")
+        if archive.testzip() is not None:
+            raise BuildError("ZIP checksum failure")
+        return archive
+    except (zipfile.BadZipFile, OSError, ValueError) as exc:
+        raise BuildError(str(exc)) from exc
+
+
+def check_manifest(zf):
+    try:
+        root = ET.fromstring(zf.read("imsmanifest.xml"))
+    except ET.ParseError as exc:
+        raise BuildError("Invalid imsmanifest.xml") from exc
+    versions = [e.text.strip() for e in root.iter()
+                if e.tag.rsplit("}", 1)[-1] == "schemaversion" and e.text]
+    if versions != ["1.2"]:
+        raise BuildError("Only SCORM 1.2 supported; found " + repr(versions))
+    names = set(zf.namelist())
+    base_attr = "{http://www.w3.org/XML/1998/namespace}base"
+    root_base = root.get(base_attr, "")
+    launches = []
+    for resource in root.iter():
+        if resource.tag.rsplit("}", 1)[-1] != "resource":
+            continue
+        resource_base = resource.get(base_attr, "")
+        hrefs = [resource.get("href", "")]
+        hrefs += [e.get("href", "") for e in resource
+                  if e.tag.rsplit("}", 1)[-1] == "file"]
+        for i, href in enumerate(hrefs):
+            if not href:
+                continue
+            from urllib.parse import unquote
+            path = unquote(href.split("#")[0].split("?")[0])
+            if "://" in path:
+                raise BuildError("External manifest resource: " + href)
+            resolved = (root_base + resource_base + path).replace("\\", "/")
+            if resolved not in names:
+                raise BuildError("Missing referenced resource: " + resolved)
+            if i == 0:
+                launches.append(resolved)
+    if not launches or any(not x.endswith("indexAPI.html") for x in launches):
+        raise BuildError("Unexpected launch targets: " + repr(launches))
+    return launches
+
+
+def get_data(zf):
+    path = MODERN if MODERN in zf.namelist() else HTML
+    if path not in zf.namelist():
+        raise BuildError("No recognized Rise data container")
+    html = zf.read(path).decode("utf-8-sig")
+    regex = MODERN_RE if path == MODERN else LEGACY_RE
+    matches = list(regex.finditer(html))
+    if len(matches) != 1:
+        raise BuildError("Unsupported Rise data encoding in " + path)
+    hit = matches[0]
+    try:
+        data = json.loads(base64.b64decode(hit["blob"], validate=True).decode("utf-8-sig"))
+    except (ValueError, UnicodeError) as exc:
+        raise BuildError("Base64/JSON decoding failed") from exc
+    if not isinstance(data, dict) or not isinstance(data.get("course"), dict):
+        raise BuildError("Missing course object")
+    if not isinstance(data["course"].get("lessons"), list):
+        raise BuildError("Missing course.lessons array")
+    return path, html, hit, data
+
+
+def get_tracking(html):
+    result = {}
+    for key in FIELDS:
+        regex = re.compile(r"(?P<prefix>\bvar\s+" + key
+                           + r"\s*=\s*)(?P<value>[^;\r\n]+)(?P<suffix>\s*;)")
+        matches = list(regex.finditer(html))
+        if len(matches) != 1:
+            raise BuildError("Missing/ambiguous tracking field: " + key)
+        val = matches[0]["value"].strip()
+        try:
+            result[key] = json.loads(val.replace("'", '"')) if val != "undefined" else None
+        except ValueError as exc:
+            raise BuildError("Unsupported tracking value: " + key) from exc
+    return result
+
+
+def set_tracking(html, values):
+    for key, value in values.items():
+        regex = re.compile(r"(?P<prefix>\bvar\s+" + key
+                           + r"\s*=\s*)(?P<value>[^;\r\n]+)(?P<suffix>\s*;)")
+        if len(regex.findall(html)) != 1:
+            raise BuildError("Cannot safely patch: " + key)
+        html = regex.sub(lambda m: m["prefix"]
+                         + json.dumps(value) + m["suffix"], html, count=1)
+    return html
+
+
+def encode(html, hit, data):
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    blob = base64.b64encode(payload).decode("ascii")
+    return (html[:hit.start("blob")] + blob + html[hit.end("blob"):]).encode("utf-8")
+
+
+def get_quiz(data):
+    lessons = data["course"]["lessons"]
+    quizzes = [(i, l) for i, l in enumerate(lessons)
+               if isinstance(l, dict) and l.get("type") == "quiz"]
+    if len(quizzes) != 1 or quizzes[0][0] != len(lessons) - 1:
+        raise BuildError("Expected exactly one terminal quiz; found "
+                         + repr([l.get("id") for _, l in quizzes]))
+    if len(lessons) < 2:
+        raise BuildError("No instructional lessons to retain")
+    quiz = quizzes[0][1]
+    if not isinstance(quiz.get("id"), str) or not quiz["id"]:
+        raise BuildError("Missing quiz ID")
+    return quiz
+
+
+def new_course(original, tracking):
+    data = copy.deepcopy(original)
+    quiz = get_quiz(data)
+    qid = quiz["id"]
+    if tracking["quizId"] != qid or tracking["storylineId"] is not None:
+        raise BuildError("Quiz tracking ID differs from terminal quiz ID")
+    settings = data["course"].get("exportSettings")
+    if not isinstance(settings, dict):
+        raise BuildError("Missing course.exportSettings")
+    if settings.get("quizId") != qid or settings.get("completeWith") != "quiz":
+        raise BuildError("Unsupported course exportSettings for quiz completion")
+    data["course"]["lessons"].pop()
+    settings.update({
+        "quizId": None,
+        "completeWith": "course",
+        "quizComplete": False,
+        "completionPercentage": 100,
+        "reporting": "completed-incomplete",
+    })
+    if qid in json.dumps(data, ensure_ascii=False):
+        raise BuildError("Removed quiz is still referenced elsewhere")
+    return data, quiz
+
+
+def build_one(source, output):
+    source, output = Path(source), Path(output)
+    if source.resolve() == output.resolve() or output.exists():
+        raise BuildError("Output exists or would overwrite original: " + str(output))
+    with open_zip(source) as src:
+        check_manifest(src)
+        path, text, match, data = get_data(src)
+        if HTML not in src.namelist():
+            raise BuildError("No HTML tracking runtime")
+        original_html = src.read(HTML).decode("utf-8-sig")
+        tracking = get_tracking(original_html)
+        result, quiz = new_course(data, tracking)
+        replacements = {path: encode(text, match, result)}
+        if path == HTML:
+            replacements[HTML] = set_tracking(replacements[HTML].decode("utf-8"), TRACKING).encode("utf-8")
+        else:
+            replacements[HTML] = set_tracking(original_html, TRACKING).encode("utf-8")
+        output.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            with zipfile.ZipFile(output, "w") as dst:
+                dst.comment = src.comment
+                for item in src.infolist():
+                    dst.writestr(item, replacements.get(item.filename, src.read(item.filename)))
+            validate_pair(source, output)
+        except Exception:
+            output.unlink(missing_ok=True)
+            raise
+    return {"source": source.name, "artifact": output.name,
+            "removed_quiz": quiz.get("title", quiz["id"]),
+            "lesson_count": len(result["course"]["lessons"]),
+            "sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
+
+
+def validate_pair(source, output):
+    with open_zip(source) as src, open_zip(output) as dst:
+        check_manifest(src)
+        check_manifest(dst)
+        original_names = src.namelist()
+        if original_names != dst.namelist():
+            raise BuildError("Archive member list/order changed")
+        old_path, _, _, old = get_data(src)
+        new_path, _, _, new = get_data(dst)
+        if old_path != new_path:
+            raise BuildError("Data container changed")
+        removed = get_quiz(old)
+        if new["course"]["lessons"] != old["course"]["lessons"][:-1]:
+            raise BuildError("Non-quiz lessons changed")
+        expected, _ = new_course(old, get_tracking(src.read(HTML).decode("utf-8-sig")))
+        if new != expected:
+            raise BuildError("Unexpected JSON changes")
+        if get_tracking(dst.read(HTML).decode("utf-8-sig")) != TRACKING:
+            raise BuildError("Incorrect completion tracking; potential grade reporting")
+        if any(isinstance(x, dict) and x.get("type") == "quiz"
+               for x in new["course"]["lessons"]):
+            raise BuildError("Quiz remains")
+        changed = {old_path, HTML}
+        for item in src.infolist():
+            other = dst.getinfo(item.filename)
+            if item.compress_type != other.compress_type or item.date_time != other.date_time:
+                raise BuildError("ZIP entry metadata changed: " + item.filename)
+            if item.filename not in changed and src.read(item.filename) != dst.read(item.filename):
+                raise BuildError("Non-course asset changed: " + item.filename)
+        return {"removed_quiz_id": removed["id"],
+                "lessons": len(new["course"]["lessons"]), "status": "PASS"}
+
+
+def enumerate_raw(directory, course):
+    paths = sorted(Path(directory).glob("*.zip"),
+                   key=lambda p: (int(p.name.split("-", 1)[0])
+                                  if p.name.split("-", 1)[0].isdigit() else 9999, p.name))
+    if course != "all":
+        if not course.isdigit() or not (1 <= int(course) <= 20):
+            raise BuildError("Course must be 'all' or number 1..20")
+        paths = [p for p in paths if p.name.split("-", 1)[0].isdigit()
+                 and int(p.name.split("-", 1)[0]) == int(course)]
+    if not paths:
+        raise BuildError("No source ZIP matched " + course)
+    if course == "all" and len(paths) != 20:
+        raise BuildError("Expected 20 raw packages, found " + str(len(paths)))
+    return paths
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    subs = parser.add_subparsers(dest="command", required=True)
+    build = subs.add_parser("build", help="Rebuild raw ZIP(s) into ungraded SCORM ZIP(s)")
+    build.add_argument("--course", default="all")
+    build.add_argument("--raw-dir", default="raw")
+    build.add_argument("--output-dir", default="build/scorm")
+    validate = subs.add_parser("validate", help="Compare rebuilt ZIP with original")
+    validate.add_argument("source")
+    validate.add_argument("output")
+    inspect = subs.add_parser("inspect", help="Inspect a Rise ZIP (no mutation)")
+    inspect.add_argument("source")
+    args = parser.parse_args(argv)
+    try:
+        if args.command == "build":
+            results = []
+            for raw in enumerate_raw(args.raw_dir, args.course):
+                target = Path(args.output_dir) / (raw.stem + "-noquiz.zip")
+                result = build_one(raw, target)
+                results.append(result)
+                print(json.dumps(result, ensure_ascii=False), flush=True)
+            manifest = Path(args.output_dir) / "build-report.json"
+            manifest.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        elif args.command == "validate":
+            print(json.dumps(validate_pair(args.source, args.output), ensure_ascii=False))
+        elif args.command == "inspect":
+            with open_zip(args.source) as zf:
+                launches = check_manifest(zf)
+                path, _, _, data = get_data(zf)
+                print(json.dumps({"container": path, "launch": launches,
+                                  "lessons": [{"title": l.get("title"), "type": l.get("type")}
+                                              for l in data["course"]["lessons"]],
+                                  "tracking": get_tracking(zf.read(HTML).decode("utf-8-sig"))},
+                                 ensure_ascii=False, indent=2))
+        return 0
+    except (BuildError, OSError, UnicodeError, zipfile.BadZipFile) as exc:
+        print("SCORM ERROR:", exc, file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
