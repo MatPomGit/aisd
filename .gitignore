@@ -1,0 +1,5 @@
+# Generated SCORM packages and transient test output
+/build/
+__pycache__/
+*.pyc
+.pytest_cache/
