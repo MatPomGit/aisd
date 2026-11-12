@@ -26,7 +26,7 @@ Builder jest ograniczony do SCORM **1.2**, eksportów Rise, w których:
 
 1. `imsmanifest.xml` znajduje się na najwyższym poziomie archiwum, a launch prowadzi do `scormdriver/indexAPI.html`.
 2. Dane kursu znajdują się w rozpoznanym Base64/JSON wrapperze: `__fetchCourse() → deserialize(...)` w `scormcontent/index.html` lub `__jsonp("runtime-data.js", ...)` w `scormcontent/runtime-data.js`.
-3. Kurs ma **dokładnie jeden quiz** i jest on ostatnią lekcją.
+3. Kurs ma **jeden formalny quiz na końcu** albo **zero formalnych quizów**. W przypadku zera wszystkie lekcje są zachowywane, poza dokładnie rozpoznanym testem blokowym kursu nr 4 opisanym poniżej.
 4. `course.exportSettings.completeWith == "quiz"`, identyfikator quizu zgadza się z `exportSettings.quizId` oraz zmienną `quizId` w HTML.
 5. `storylineId == null`; w HTML występują dokładnie po jednym: `quizId`, `storylineId`, `completionPercentage` oraz `reporting`.
 6. Po usunięciu quizu jego ID nie jest używane nigdzie indziej w danych kursu.
@@ -46,6 +46,13 @@ Przykład dla `raw/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_
 - Manifest, SCORM driver, wszystkie pozostałe lekcje i zasoby pozostają bez zmian.
 
 ZIP jest przepakowywany przy zachowaniu nazw wpisów, kolejności, dat i metody kompresji. Sama edycja manifestu nie usunie quizu, ponieważ Rise przechowuje lekcje wewnątrz pojedynczego SCO.
+
+### Rozpoznane wyjątki: kursy 4 i 5
+
+- **Kurs 4** nie ma formalnego quizu, ale ostatnia lekcja „Test końcowy i omówienie rozwiązań” zawiera siedem interaktywnych bloków `knowledgeCheck` oraz klucz odpowiedzi. Reguła jest **ściśle powiązana z oryginalnym ID lekcji i listą typów 17 bloków**. Usuwa wprowadzenie do testu, pytania i klucz odpowiedzi, zachowuje wyłącznie końcowe „Najczęstsze błędy i wskazówki” (3 bloki), nie zmienia ID lekcji. Każda zmiana schematu tych bloków zatrzymuje operację. Wymagany przegląd wizualny.
+- **Kurs 5** już nie zawiera quizu ani testu końcowego. Builder zachowuje wszystkie 12 lekcji i normalizuje śledzenie do ukończenia po 100% materiału.
+
+Pozostałe kursy z formalnym quizem zachowują swoje lekcje dydaktyczne bez zmian. Wynik i wariant transformacji znajdują się w `build-report.json` (`removed_quiz`, `embedded_test_removed`, `manual_review`).
 
 ## 4. Lokalna przebudowa na Fedorze
 
@@ -74,7 +81,7 @@ for z in build/scorm/*.zip; do
 done
 
 # Sumy kontrolne
-(cd build/scorm && sha256sum -c <(sha256sum *.zip))
+(cd build/scorm && sha256sum -- *.zip)
 ```
 
 Uwaga: builder nie nadpisuje plików wyjściowych. Przed ponowną przebudową usuń wyłącznie stare artefakty z `build/scorm/`. Nigdy nie usuwaj `raw/`.
