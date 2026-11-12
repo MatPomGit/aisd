@@ -251,6 +251,23 @@ function patchedText(payload, wrapper, data) {
 }
 export function planFiles(doc) {
   validateCourse(doc.data);
+  const original = doc.originalData.course.lessons;
+  const current = doc.data.course.lessons;
+  const expected = (doc.transform && original.at(-1)?.type === "quiz")
+    ? original.slice(0, -1) : original;
+  ensure(JSON.stringify(current.map(l => l.id)) === JSON.stringify(expected.map(l => l.id)),
+         "Zmiana identyfikatorów, kolejności lub liczby lekcji wymaga edycji w Rise.");
+  const oldSettings = doc.originalData.course.exportSettings;
+  const settings = doc.data.course.exportSettings;
+  ensure(settings.identifier === oldSettings.identifier &&
+         settings.target === oldSettings.target,
+         "Nie wolno zmieniać identyfikatora ani standardu eksportu LMS.");
+  if (!doc.transform) {
+    for (const key of ["quizId", "completeWith", "completionPercentage", "reporting", "storylineId"]) {
+      ensure(JSON.stringify(settings[key]) === JSON.stringify(oldSettings[key]),
+             "Ustawienia SCORM należy zmieniać przez akcję usunięcia testu: " + key);
+    }
+  }
   const json = JSON.stringify(doc.data);
   if (doc.removedId) ensure(!json.includes(doc.removedId),
                              "Pozostały odniesienia do usuniętego quizu.");
