@@ -1,0 +1,80 @@
+name: SCORM Studio | test and publish Pages
+
+on:
+  pull_request:
+    paths:
+      - 'docs/editor/**'
+      - 'docs/index.html'
+      - 'docs/.nojekyll'
+      - 'tests/scorm_editor.test.mjs'
+      - '.github/workflows/scorm-editor-pages.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/editor/**'
+      - 'docs/index.html'
+      - 'docs/.nojekyll'
+      - 'tests/scorm_editor.test.mjs'
+      - '.github/workflows/scorm-editor-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorm-editor-pages-\${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned ZIP library for tests (not published)
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund jszip@3.10.1
+      - name: Validate JS and HTML source
+        run: |
+          node --check docs/editor/core.mjs
+          node --check docs/editor/app.mjs
+          test -f docs/index.html
+          test -f docs/editor/index.html
+          test -f docs/editor/style.css
+          test -f docs/.nojekyll
+      - name: Real ZIP integration tests
+        run: node --test tests/scorm_editor.test.mjs
+      - name: Check repo unchanged
+        run: git diff --exit-code -- docs raw files scripts
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: \${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout static site
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Publish only docs
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/
+      - name: Deploy Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
