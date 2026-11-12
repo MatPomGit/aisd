@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Bezpieczna lokalna edycja paczek Articulate Rise SCORM 1.2 w przeglądarce.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>SCORM Studio — edytor Rise 360 | AIiSD</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true"><svg viewBox="0 0 48 48" width="28" height="28" fill="none"><rect x="4" y="8" width="40" height="32" rx="7" stroke="currentColor" stroke-width="2.8"/><path d="M13 18h22M13 25h14M13 32h20" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><circle cx="35" cy="25" r="5" fill="#60a5fa"/></svg></div>
+        <div><strong>SCORM Studio</strong><span>AIiSD · Articulate Rise 360</span></div>
+      </div>
+      <nav class="navigation" aria-label="Nawigacja">
+        <a href="../scorm.md">Dokumentacja</a>
+        <a href="https://github.com/MatPomGit/aisd" target="_blank" rel="noopener noreferrer">Repozytorium</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow"><span class="dot"></span> Narzędzie przeglądarkowe · SCORM 1.2</p>
+        <h1 id="page-title">Edytuj kurs. Zachowaj zgodność.</h1>
+        <p class="lede">Wczytaj pakiet ZIP z Rise 360, popraw nazwy i treści lekcji, usuń test końcowy i pobierz gotowy plik do Moodle. Całe przetwarzanie odbywa się lokalnie w Twojej przeglądarce.</p>
+        <div class="feature-row"><span>Bez konta Articulate</span><span>Bez przesyłania plików</span><span>Zachowanie struktury SCORM</span></div>
+      </section>
+
+      <section class="panel upload-card" aria-labelledby="upload-title">
+        <div class="section-line"><div><p class="step-number">KROK 01</p><h2 id="upload-title">Wczytaj pakiet SCORM</h2></div><span class="tag">ZIP · SCORM 1.2</span></div>
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Wybierz lub przeciągnij pakiet SCORM ZIP">
+          <div class="upload-symbol" aria-hidden="true">↑</div>
+          <strong>Przeciągnij paczkę ZIP tutaj</strong>
+          <span>lub wybierz plik z dysku (maks. 120 MB)</span>
+          <button id="chooseButton" class="button button-muted" type="button">Wybierz plik ZIP</button>
+        </div>
+        <input type="file" id="fileInput" accept=".zip,application/zip" hidden>
+        <div id="fileLine" class="file-line" hidden></div>
+      </section>
+
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+      <section id="workspace" class="workspace" hidden aria-label="Edytor kursu">
+        <div class="summary-grid">
+          <div class="metric"><span>LEKCJE</span><strong id="lessonCount">0</strong><small>elementy kursu</small></div>
+          <div class="metric"><span>TEST KOŃCOWY</span><strong id="quizState">—</strong><small id="quizDetail">analiza paczki</small></div>
+          <div class="metric"><span>UKOŃCZENIE</span><strong id="completionState">—</strong><small id="reportingState">tryb SCORM</small></div>
+        </div>
+
+        <section class="panel action-panel" aria-labelledby="assessment-title">
+          <div class="section-line"><div><p class="step-number">KROK 02</p><h2 id="assessment-title">Test i ukończenie kursu</h2></div><span class="tag tag-blue">Moodle</span></div>
+          <p class="helper">Usunięcie testu wyłącza przesyłanie jego oceny, a status kursu zostaje oparty na 100% postępu. Test z pytaniami do oceny należy dodać jako oddzielną aktywność Moodle.</p>
+          <div class="action-row">
+            <button id="removeQuiz" class="button button-primary" type="button">Usuń test końcowy i oceny</button>
+            <button id="resetButton" class="button button-secondary" type="button">Przywróć oryginał</button>
+          </div>
+          <p id="transformNote" class="hint" aria-live="polite">Najpierw wczytaj pakiet.</p>
+        </section>
+
+        <section class="editor-area" aria-labelledby="edit-title">
+          <div class="section-line title-inline"><div><p class="step-number">KROK 03</p><h2 id="edit-title">Edycja zawartości</h2></div><span class="hint">Zmiany trafiają wyłącznie do nowego ZIP</span></div>
+          <div class="editor-grid">
+            <aside class="panel lesson-sidebar" aria-label="Lista lekcji">
+              <div class="sidebar-title">STRUKTURA KURSU</div>
+              <div id="lessonList" class="lesson-list" role="listbox" aria-label="Wybierz lekcję"></div>
+            </aside>
+            <div class="panel lesson-main">
+              <div class="field">
+                <label for="courseTitle">Nazwa kursu</label>
+                <input id="courseTitle" type="text" autocomplete="off">
+              </div>
+              <div class="divider"></div>
+              <div id="lessonEditor">
+                <p class="hint">Wybierz lekcję z listy.</p>
+              </div>
+            </div>
+          </div>
+          <details class="advanced panel" id="advancedPanel">
+            <summary>Zaawansowane: edycja danych JSON kursu <span>→</span></summary>
+            <div class="advanced-body">
+              <p class="helper">Dla osób znających format Rise. Edytuj wyłącznie pola danych. Nie usuwaj identyfikatorów ani struktury <code>course.lessons</code>. W edytorze nie jest uruchamiany kod pakietu.</p>
+              <label for="jsonEditor">Dane kursu (JSON)</label>
+              <textarea id="jsonEditor" rows="12" spellcheck="false" class="code-area" aria-describedby="jsonHint"></textarea>
+              <p id="jsonHint" class="hint">Zmiany JSON trzeba zatwierdzić poniższym przyciskiem.</p>
+              <div class="action-row"><button id="applyJson" type="button" class="button button-secondary">Zastosuj JSON</button><button id="refreshJson" type="button" class="button button-muted">Przywróć widok JSON</button></div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel export-panel" aria-labelledby="export-title">
+          <div class="section-line"><div><p class="step-number">KROK 04</p><h2 id="export-title">Weryfikacja i eksport</h2></div><span class="tag tag-blue">SCORM 1.2</span></div>
+          <p class="helper">Przed pobraniem ponownie weryfikujemy ZIP, manifest, dane Rise i niezmienność pozostałych plików. Nie jest to test komunikacji z rzeczywistym Moodle.</p>
+          <label for="outputFilename">Nazwa pliku wynikowego</label>
+          <input id="outputFilename" type="text" spellcheck="false">
+          <div class="action-row export-actions">
+            <button id="downloadButton" type="button" class="button button-primary button-large">Sprawdź i pobierz ZIP <span aria-hidden="true">↓</span></button>
+          </div>
+          <ul class="checks"><li>Sprawdzenie manifestu i pliku startowego</li><li>Zachowanie lekcji, multimediów i pozostałych zasobów</li><li>Kontrola trybu ukończenia po usunięciu testu</li></ul>
+        </section>
+      </section>
+      <section class="footer-note">
+        <strong>Ważne:</strong> Przed użyciem w kursie produkcyjnym przetestuj plik na testowym koncie Moodle: otwarcie lekcji, wznowienie postępu, status <code>completed</code> przy 100% i brak nowej oceny <code>cmi.core.score.raw</code>. Pozycję SCORM w dzienniku ocen wyłącz z agregacji.
+      </section>
+    </main>
+    <footer class="footer"><span>SCORM Studio · AIiSD</span><span>Pliki nie opuszczają urządzenia · <a href="https://github.com/MatPomGit/aisd/blob/main/docs/scorm.md" target="_blank" rel="noopener noreferrer">Instrukcja techniczna</a></span></footer>
+  </div>
+</body>
+</html>
