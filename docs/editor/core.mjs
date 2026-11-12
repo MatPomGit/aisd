@@ -144,7 +144,8 @@ export async function inspectZip(zip) {
   return { entries: entries.length };
 }
 export async function openRiseZip(file, JSZip) {
-  ensure(file && typeof file.size === "number" && file.size <= MAX_ZIP_SIZE,
+  const size = typeof file?.size === "number" ? file.size : file?.byteLength;
+  ensure(typeof size === "number" && size <= MAX_ZIP_SIZE,
          "Plik ZIP przekracza limit 120 MB.");
   ensure(typeof JSZip?.loadAsync === "function", "Biblioteka JSZip nie została załadowana.");
   let zip;
