@@ -37,7 +37,7 @@ jobs:
     timeout-minutes: 30
     env:
       PYTHONDONTWRITEBYTECODE: '1'
-      SCORM_OUT: ${{ runner.temp }}/scorm-packages
+      SCORM_OUT: build/scorm-packages
     steps:
       - name: Checkout source (no write token)
         uses: actions/checkout@v4
@@ -96,6 +96,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: scorm-noquiz-${{ inputs.course }}-${{ github.run_number }}
-          path: ${{ runner.temp }}/scorm-packages/
+          path: build/scorm-packages/
           retention-days: 7
           if-no-files-found: error
