@@ -7,6 +7,7 @@ on:
       - 'docs/index.html'
       - 'docs/.nojekyll'
       - 'tests/scorm_editor.test.mjs'
+      - 'tests/scorm_editor.browser.mjs'
       - '.github/workflows/scorm-editor-pages.yml'
   push:
     branches: [main]
@@ -39,7 +40,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install pinned ZIP library for tests (not published)
-        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund jszip@3.10.1
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund jszip@3.10.1 playwright-core@1.57.0
       - name: Validate JS and HTML source
         run: |
           node --check docs/editor/core.mjs
@@ -50,6 +51,16 @@ jobs:
           test -f docs/.nojekyll
       - name: Real ZIP integration tests
         run: node --test tests/scorm_editor.test.mjs
+      - name: Headless browser upload-edit-download smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          python3 -m http.server 8787 --bind 127.0.0.1 --directory docs > /tmp/scorm-editor-web.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          sleep 2
+          node tests/scorm_editor.browser.mjs
       - name: Check repo unchanged
         run: git diff --exit-code -- docs raw files scripts
   deploy:
