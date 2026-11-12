@@ -165,6 +165,33 @@ def get_quiz(data):
     return quiz
 
 
+def adapt_embedded_final_test(data):
+    """Known course 04: keep learning advice, remove terminal self-test and answer key.
+
+    This is an exact-schema allowlist, never a title-based global heuristic.
+    Unknown block structures must be reviewed rather than auto-trimmed.
+    """
+    lessons = data["course"]["lessons"]
+    last = lessons[-1]
+    if last.get("id") != "cmiej97dl000d207092aujenc":
+        return False
+    if last.get("title") != "Test końcowy i omówienie rozwiązań":
+        raise BuildError("Known final assessment changed its title")
+    expected_types = (["text", "text", "list", "divider"]
+                      + ["knowledgeCheck"] * 7
+                      + ["divider", "text", "interactive", "text", "interactive", "text"])
+    items = last.get("items")
+    if not isinstance(items, list) or [x.get("type") for x in items] != expected_types:
+        raise BuildError("Known course 04 block layout changed; refuse automatic edit")
+    if items[13].get("variant") != "tabs" or items[15].get("variant") != "accordion":
+        raise BuildError("Known answer-key/advice structure changed")
+    # Remove test introduction, seven assessment questions and the answer key.
+    # Preserve only 'common mistakes and tips' and the course closing message.
+    last["items"] = items[14:17]
+    last["title"] = "Najczęstsze błędy i wskazówki"
+    return True
+
+
 def new_course(original, tracking):
     data = copy.deepcopy(original)
     lessons = data["course"]["lessons"]
@@ -193,6 +220,7 @@ def new_course(original, tracking):
             raise BuildError("Unsupported no-quiz completion mode")
         if not lessons:
             raise BuildError("Empty course")
+        adapt_embedded_final_test(data)
     settings.update({
         "quizId": None,
         "completeWith": "course",
@@ -239,9 +267,12 @@ def build_one(source, output):
             for word in ("test końcowy", "egzamin końcowy", "final quiz")
         )
     ]
+    adapted_review = (not quiz and result["course"]["lessons"]
+                      != data["course"]["lessons"])
     return {"source": source.name, "artifact": output.name,
             "removed_quiz": quiz.get("title", quiz["id"]) if quiz else None,
             "lesson_count": len(result["course"]["lessons"]),
+            "embedded_test_removed": adapted_review,
             "manual_review": manual_review,
             "sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
 
@@ -260,10 +291,9 @@ def validate_pair(source, output):
         has_quiz = any(isinstance(x, dict) and x.get("type") == "quiz"
                        for x in old["course"]["lessons"])
         removed = get_quiz(old) if has_quiz else None
-        expected_lessons = old["course"]["lessons"][:-1] if has_quiz else old["course"]["lessons"]
-        if new["course"]["lessons"] != expected_lessons:
-            raise BuildError("Non-quiz lessons changed")
         expected, _ = new_course(old, get_tracking(src.read(HTML).decode("utf-8-sig")))
+        if new["course"]["lessons"] != expected["course"]["lessons"]:
+            raise BuildError("Unexpected lesson changes")
         if new != expected:
             raise BuildError("Unexpected JSON changes")
         if get_tracking(dst.read(HTML).decode("utf-8-sig")) != TRACKING:
