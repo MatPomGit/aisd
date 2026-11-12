@@ -47,6 +47,35 @@ def sample(*, nonterminal=False, wrong_id=False, dangling=False, version="1.2"):
             "scormcontent/assets/lesson.png": b"\x89PNGtest"}
 
 
+def noquiz_fixture(*, embedded=False):
+    """Fixture for an existing lesson-only Rise export."""
+    files = sample()
+    import re
+    html = files["scormcontent/index.html"].decode()
+    match = re.search(r'deserialize\("([A-Za-z0-9+/=]+)"\)', html)
+    data = json.loads(base64.b64decode(match.group(1)))
+    data["course"]["lessons"].pop()
+    settings = data["course"]["exportSettings"]
+    settings.update({"quizId": None, "completeWith": "reporting",
+                     "quizComplete": False})
+    if embedded:
+        item_types = (["text", "text", "list", "divider"]
+                      + ["knowledgeCheck"] * 7
+                      + ["divider", "text", "interactive", "text", "interactive", "text"])
+        first = data["course"]["lessons"][0]
+        first["id"] = "cmiej97dl000d207092aujenc"
+        first["title"] = "Test końcowy i omówienie rozwiązań"
+        first["items"] = [{"id": str(i), "type": typ,
+                            "variant": "tabs" if i == 13
+                            else "accordion" if i == 15 else ""}
+                           for i, typ in enumerate(item_types)]
+    encoded = base64.b64encode(json.dumps(data).encode()).decode()
+    html = html.replace(match.group(1), encoded, 1)
+    html = html.replace('var quizId = "quiz-final";', "var quizId = null;")
+    files["scormcontent/index.html"] = html.encode()
+    return files
+
+
 class PipelineTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -73,6 +102,26 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(scorm.TRACKING, scorm.get_tracking(
                 zf.read("scormcontent/index.html").decode()))
             self.assertEqual(b"\x89PNGtest", zf.read("scormcontent/assets/lesson.png"))
+
+    def test_existing_quiz_free_course_keeps_all_lessons(self):
+        self.write(noquiz_fixture())
+        report = scorm.build_one(self.original, self.output)
+        self.assertIsNone(report["removed_quiz"])
+        self.assertEqual(1, report["lesson_count"])
+        self.assertFalse(report["embedded_test_removed"])
+        self.assertEqual("PASS", scorm.validate_pair(self.original, self.output)["status"])
+
+    def test_known_embedded_final_test_removed_without_losing_advice(self):
+        self.write(noquiz_fixture(embedded=True))
+        report = scorm.build_one(self.original, self.output)
+        self.assertTrue(report["embedded_test_removed"])
+        with zipfile.ZipFile(self.output) as zf:
+            _, _, _, data = scorm.get_data(zf)
+            last = data["course"]["lessons"][-1]
+            self.assertEqual("Najczęstsze błędy i wskazówki", last["title"])
+            self.assertEqual(["text", "interactive", "text"],
+                             [x["type"] for x in last["items"]])
+        self.assertEqual("PASS", scorm.validate_pair(self.original, self.output)["status"])
 
     def test_refuse_nonterminal_quiz(self):
         self.write(sample(nonterminal=True))
