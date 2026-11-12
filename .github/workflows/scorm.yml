@@ -1,0 +1,101 @@
+name: SCORM | rebuild and validate
+
+on:
+  pull_request:
+    paths:
+      - 'raw/**'
+      - 'scripts/scorm_pipeline.py'
+      - 'tests/**'
+      - 'docs/**'
+      - '.github/workflows/scorm.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'raw/**'
+      - 'scripts/scorm_pipeline.py'
+      - 'tests/**'
+      - '.github/workflows/scorm.yml'
+  workflow_dispatch:
+    inputs:
+      course:
+        description: 'Numer kursu 1..20 lub all'
+        required: true
+        type: choice
+        default: all
+        options: [all, '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorm-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      SCORM_OUT: ${{ runner.temp }}/scorm-packages
+    steps:
+      - name: Checkout source (no write token)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit and negative tests
+        run: python -m unittest discover -s tests -p 'test_scorm_pipeline.py' -v
+      - name: Rebuild and compare original ZIPs
+        shell: bash
+        env:
+          SELECTED_COURSE: ${{ github.event_name == 'workflow_dispatch' && inputs.course || 'all' }}
+        run: |
+          set -euo pipefail
+          python scripts/scorm_pipeline.py build --course "$SELECTED_COURSE" --raw-dir raw --output-dir "$SCORM_OUT"
+      - name: Test real Rise SCORM runtime contract for every output
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          packages=("$SCORM_OUT"/*.zip)
+          test "${#packages[@]}" -gt 0
+          for zip in "${packages[@]}"; do
+            echo "::group::$(basename "$zip")"
+            unzip -p "$zip" scormcontent/index.html | node tests/scorm_runtime.test.cjs
+            echo "::endgroup::"
+          done
+      - name: Create report and SHA-256 checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd "$SCORM_OUT" && sha256sum -- *.zip > SHA256SUMS.txt)
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          data=json.loads((Path(os.environ['SCORM_OUT'])/'build-report.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
+              f.write('# SCORM build validation\n\n')
+              f.write(f'Validated packages: **{len(data)}**. Static ZIP/manifest/diff and JS runtime checks passed.\n\n')
+              f.write('| Package | Lessons | SHA-256 |\n|---|---:|---|\n')
+              for row in data:
+                  f.write(f'| {row["artifact"]} | {row["lesson_count"]} | \`{row["sha256"][:12]}…\` |\n')
+              f.write('\nMoodle end-to-end test remains required before publishing.\n')
+          PY
+      - name: Ensure source tree remains unchanged
+        run: git diff --exit-code -- raw files scripts
+      - name: Upload validated SCORM ZIPs (manual execution only)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: scorm-noquiz-${{ inputs.course }}-${{ github.run_number }}
+          path: ${{ runner.temp }}/scorm-packages/
+          retention-days: 7
+          if-no-files-found: error
