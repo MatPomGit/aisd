@@ -90,5 +90,43 @@
     "pyj0ol19ot9le5x9is0mjud4": {
       "paragraph": "<p>Pseudokod opisuje sposób rozwiązania, a program jest jego wykonywalną realizacją. O jakości obu decyduje jawny kontrakt i zgodność kroków, nie nazwy instrukcji. Dalsze możliwości zapisu (schematy blokowe i konwencje języków) zostaną rozwinięte w pakiecie 03.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7guc35000u2a73eec988zy": [
+      {
+        "id": "cmi7guc35000v2a737c6mtn3z",
+        "title": "Nazewnictwo zmiennych i struktur danych"
+      },
+      {
+        "id": "cmi7guc35000w2a73py5p8b7w",
+        "title": "Opis kroków algorytmu"
+      },
+      {
+        "id": "cmi7guc35000x2a731vv4rllf",
+        "title": "Warunki i pętle"
+      },
+      {
+        "id": "cmi7guc35000y2a73qvporqvb",
+        "title": "Komentarze i czytelność"
+      }
+    ],
+    "cmi7guc35000z2a737n9m2s3a": [
+      {
+        "id": "cmi7guc3500102a73bzr2jp3x",
+        "title": "Cel i zastosowanie"
+      },
+      {
+        "id": "cmi7guc3600112a7393vwwslp",
+        "title": "Składnia"
+      },
+      {
+        "id": "cmi7guc3600122a736unqpl8r",
+        "title": "Czytelność"
+      },
+      {
+        "id": "cmi7guc3600132a73zryvxsyu",
+        "title": "Wykonywalność"
+      }
+    ]
   }
 }
