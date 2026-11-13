@@ -1,5 +1,9 @@
 """Scientific/editorial regression for all eleven revised SCORM 01 lessons."""
+import ast
 import copy
+import html
+import json
+import subprocess
 import re
 import sys
 import tempfile
@@ -69,25 +73,62 @@ class EditorialPilotTests(unittest.TestCase):
                 self.assertIn(term, lesson)
         self.assertNotIn("W tej lekcji skupimy się", lesson)
 
+    @staticmethod
+    def execute_published_python(code, cases):
+        """Parse the actual Rise Python listing and execute in a separate interpreter."""
+        tree = ast.parse(code)
+        allowed = (ast.Module, ast.FunctionDef, ast.arguments, ast.arg, ast.For,
+                   ast.If, ast.Compare, ast.Name, ast.Load, ast.Store, ast.Call,
+                   ast.Eq, ast.Return, ast.Constant, ast.Tuple, ast.UnaryOp,
+                   ast.USub)
+        assert all(isinstance(node, allowed) for node in ast.walk(tree)), (
+            "Unsupported constructs in the published code")
+        assert len(tree.body) == 1 and isinstance(tree.body[0], ast.FunctionDef)
+        fn = tree.body[0]
+        assert fn.name == "pierwsze" and [arg.arg for arg in fn.args.args] == ["A", "x"]
+        assert not fn.decorator_list and not fn.args.defaults
+        assert all(isinstance(call.func, ast.Name) and
+                   call.func.id == "enumerate" and len(call.args) == 1 and
+                   not call.keywords for call in ast.walk(tree)
+                   if isinstance(call, ast.Call))
+        harness = (
+            "import json, sys\n" + code +
+            "\ncases = json.load(sys.stdin)\n"
+            "print(json.dumps([pierwsze(a, x) for a, x in cases]))\n"
+        )
+        child = subprocess.run(
+            [sys.executable, "-I", "-S", "-c", harness],
+            input=json.dumps(cases), capture_output=True, text=True,
+            timeout=4, check=True,
+        )
+        return json.loads(child.stdout)
+
     def test_pseudocode_and_python_have_same_first_occurrence_contract(self):
-        lesson = str(self.prepared()["course"]["lessons"][2]["items"])
+        lesson = self.prepared()["course"]["lessons"][2]
+        text = str(lesson["items"])
         for term in ("DOPÓKI i &lt; n", "i ← i + 1",
                      "enumerate(A)", "return -1", "== x"):
             with self.subTest(term=term):
-                self.assertIn(term, lesson)
-        def search_linear(values, needle):
-            for index, value in enumerate(values):
-                if value == needle:
-                    return index
-            return -1
+                self.assertIn(term, text)
+        tabs = next(block for block in lesson["items"]
+                    if block.get("variant") == "tabs")
+        raw_html = tabs["items"][1]["description"]
+        first_paragraph = re.search(r"<p>(.*?)</p>", raw_html, flags=re.DOTALL)
+        self.assertIsNotNone(first_paragraph, "Published Python listing missing")
+        lines = re.findall(r"<code>(.*?)</code>", first_paragraph.group(1))
+        code = "\n".join(html.unescape(line).replace("\xa0", " ")
+                         for line in lines)
         cases = [
-            ([], 7, -1), ([7], 7, 0), ([3, 5, 7], 7, 2),
-            ([31, 7, 42, 7], 7, 1), ([3, 5], 7, -1),
-            ([-4, 0, -4], -4, 0),
+            ([], 7), ([7], 7), ([3, 5, 7], 7),
+            ([31, 7, 42, 7], 7), ([3, 5], 7),
+            ([-4, 0, -4], -4),
         ]
-        for a, x, expected in cases:
-            with self.subTest(a=a, x=x):
-                self.assertEqual(search_linear(a, x), expected)
+        expected = [-1, 0, 2, 1, -1, 0]
+        self.assertEqual(self.execute_published_python(code, cases), expected)
+        # A deliberately broken return must not receive a false-positive PASS.
+        mutated = code.replace("return i", "return -1")
+        self.assertNotEqual(self.execute_published_python(mutated, cases),
+                            expected)
 
     def test_complexity_states_average_case_assumptions(self):
         lessons = self.prepared()["course"]["lessons"]
@@ -140,6 +181,24 @@ class EditorialPilotTests(unittest.TestCase):
             with self.subTest(lesson=index + 1):
                 with self.assertRaisesRegex(scorm.BuildError,
                                             "Editorial overlay rejected"):
+                    scorm.new_course(original, self.tracking)
+
+    def test_changed_interactive_row_identity_or_order_fails_closed(self):
+        for mutation in ("swap", "rename", "change_id"):
+            original = copy.deepcopy(self.original)
+            lesson = original["course"]["lessons"][2]
+            block = next(b for b in lesson["items"]
+                         if b["id"] == "cmi7guc35000z2a737n9m2s3a")
+            rows = block["items"]
+            if mutation == "swap":
+                rows[0], rows[1] = rows[1], rows[0]
+            elif mutation == "rename":
+                rows[0]["title"] = "Changed original tab"
+            else:
+                rows[0]["id"] = "unexpected-entry-id"
+            with self.subTest(mutation=mutation):
+                with self.assertRaisesRegex(scorm.BuildError,
+                                            "Interactive source row identity/order"):
                     scorm.new_course(original, self.tracking)
 
     def test_missing_required_rise_field_fails_closed(self):
