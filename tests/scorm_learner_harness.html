@@ -11,27 +11,44 @@
   <script>
     // CI-only harness; NOT a substitute for a Moodle SCORM 1.2 integration test.
     // It exposes the Rustici proxy API expected by the bundled Rise player.
-    window.__scormAudit = { calls: [], suspend: "", bookmark: "", status: "incomplete" };
+    const SCORM_CI_KEY = "scorm01-ci-inmemory-lms-v1";
+    // sessionStorage only survives a reload of this isolated test tab.
+    // It is not Moodle, an LMS backend, or a conformance implementation.
+    let prior = {};
+    try { prior = JSON.parse(sessionStorage.getItem(SCORM_CI_KEY) || "{}"); }
+    catch { prior = {}; }
+    window.__scormAudit = {
+      calls: [], suspend: prior.suspend || "", bookmark: prior.bookmark || "",
+      status: prior.status || "incomplete"
+    };
+    function persistAudit() {
+      const { suspend, bookmark, status } = window.__scormAudit;
+      sessionStorage.setItem(SCORM_CI_KEY,
+                             JSON.stringify({ suspend, bookmark, status }));
+    }
     window.IsLmsPresent = function () { return true; };
     window.GetDataChunk = function () { return window.__scormAudit.suspend; };
     window.SetDataChunk = function (value) {
       window.__scormAudit.calls.push(["SetDataChunk", String(value).length]);
-      window.__scormAudit.suspend = String(value); return "true";
+      window.__scormAudit.suspend = String(value);
+      persistAudit(); return "true";
     };
     window.GetStatus = function () { return window.__scormAudit.status; };
     window.ResetStatus = function () {
-      window.__scormAudit.calls.push(["ResetStatus"]); return "true";
+      window.__scormAudit.calls.push(["ResetStatus"]);
+      window.__scormAudit.status = "incomplete"; persistAudit(); return "true";
     };
     window.SetReachedEnd = function () {
       window.__scormAudit.calls.push(["SetReachedEnd"]);
-      window.__scormAudit.status = "completed"; return "true";
+      window.__scormAudit.status = "completed"; persistAudit(); return "true";
     };
     window.SetPassed = function () {
       window.__scormAudit.calls.push(["SetPassed"]);
-      window.__scormAudit.status = "passed"; return "true";
+      window.__scormAudit.status = "passed"; persistAudit(); return "true";
     };
     window.SetFailed = function () {
-      window.__scormAudit.calls.push(["SetFailed"]); return "true";
+      window.__scormAudit.calls.push(["SetFailed"]);
+      window.__scormAudit.status = "failed"; persistAudit(); return "true";
     };
     window.SetScore = function (score) {
       window.__scormAudit.calls.push(["SetScore", score]); return "true";
@@ -40,7 +57,8 @@
       window.__scormAudit.calls.push(["CommitData"]); return "true";
     };
     window.SetBookmark = function (value) {
-      window.__scormAudit.bookmark = String(value); return "true";
+      window.__scormAudit.bookmark = String(value);
+      persistAudit(); return "true";
     };
     window.GetStudentID = function () { return "scorm-ci-browser-test"; };
     window.SetLanguagePreference = function () { return "true"; };
