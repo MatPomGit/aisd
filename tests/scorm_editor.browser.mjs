@@ -34,7 +34,8 @@ try {
   assert.match(await page.locator("#repoCourseMeta").innerText(), /raw\/13-/);
   await page.locator("#openRepoCourse").click();
   await page.locator("#workspace").waitFor({ state: "visible", timeout: 30000 });
-  assert.equal(await page.locator("#quizState").innerText(), "Obecny");
+  assert.equal(await page.locator("#quizState").innerText(), "Brak");
+  assert.match(await page.locator("#repoCourseMeta").innerText(), /usuniętych bloków sprawdzania wiedzy/);
 
   await page.locator("#courseTitle").fill("Algorytmy i struktury danych — zmiana z katalogu");
   await page.locator("#removeQuiz").click();
