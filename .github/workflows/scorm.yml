@@ -3,6 +3,7 @@ name: SCORM | rebuild and validate
 on:
   pull_request:
     paths:
+      - 'AGENTS.md'
       - 'raw/**'
       - 'scripts/scorm_pipeline.py'
       - 'tests/**'
@@ -11,6 +12,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'AGENTS.md'
       - 'raw/**'
       - 'scripts/scorm_pipeline.py'
       - 'tests/**'
@@ -53,6 +55,8 @@ jobs:
           node-version: '22'
       - name: Unit and negative tests
         run: python -m unittest discover -s tests -p 'test_scorm_pipeline.py' -v
+      - name: Verify editorial policy and documentation links
+        run: python -m unittest discover -s tests -p 'test_editorial_policy_docs.py' -v
       - name: Rebuild and compare original ZIPs
         shell: bash
         env:

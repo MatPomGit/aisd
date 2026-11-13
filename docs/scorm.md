@@ -1,8 +1,10 @@
 # Przebudowa pakietów SCORM (Articulate Rise 360)
 
-**Wersja procedury:** 1.1.0 · **Data:** 2026-11-13  
+**Wersja procedury:** 1.1.1 · **Data:** 2026-11-13  
 **Zakres:** repozytorium `MatPomGit/aisd`, pakiety SCORM 1.2 w `raw/`.  
 **Cel:** zachować materiał dydaktyczny Rise, usunąć końcowe quizy, wszystkie bloki `knowledgeCheck` i rozpoznane sekcje „Sprawdź swoją wiedzę”, a ukończenie opierać na 100% postępu. Weryfikacja wiedzy odbywa się w oddzielnym teście Moodle.
+
+**Przed zmianą treści dowolnej lekcji:** zastosuj [standard niezależnej recenzji i przebudowy](lesson-review-and-rebuild.md) oraz wypełnij [kartę przeglądu](templates/lesson-review-template.md). Niniejszy dokument określa warunki techniczne pracy z formatem SCORM; nie zastępuje recenzji merytorycznej ani dydaktycznej.
 
 ## 1. Zasady i źródła prawdy
 
