@@ -31,6 +31,16 @@ const uniqueText = [
 ];
 assert.equal(uniqueText.length, lessons.length);
 
+// Representative user interactions, evaluated against the rendered Rise UI.
+const interactionChecks = new Map([
+  [1, { control: "Iteracyjny lub rekurencyjny",
+        revealed: "powtarza kroki w pętli", kind: "accordion" }],
+  [2, { control: "Python",
+        revealed: "def pierwsze(A, x):", kind: "tabs" }],
+  [7, { control: "2. LOAD 1",
+        revealed: "kopiuje zawartość", kind: "process" }],
+]);
+
 const screenshotDir = "build/scorm-learner-screenshots";
 mkdirSync(screenshotDir, { recursive: true });
 const report = { kind: "isolated-rise-learner-qa", disclaimer:
@@ -113,6 +123,23 @@ try {
       report.images.push(shot);
       report.metrics.push({ viewport: viewport.name, lesson: i + 1,
                             visibleParagraphPx: Math.round(visibleHeight), ...metrics });
+      const scenario = interactionChecks.get(i);
+      if (scenario) {
+        const button = frameLocator.getByText(scenario.control, { exact: true }).first();
+        await button.click({ timeout: 20000 });
+        const revealed = frameLocator.getByText(scenario.revealed,
+                                                { exact: false }).first();
+        await revealed.waitFor({ state: "visible", timeout: 15000 });
+        await revealed.scrollIntoViewIfNeeded({ timeout: 10000 });
+        const controlShot = join(screenshotDir,
+          "scorm01-rise-" + viewport.name + "-" +
+          String(i + 1).padStart(2, "0") + "-" + scenario.kind + ".png");
+        await page.screenshot({ path: controlShot, fullPage: true });
+        report.images.push(controlShot);
+        if (!report.interactions) report.interactions = [];
+        report.interactions.push({ viewport: viewport.name, lesson: i + 1,
+                                   kind: scenario.kind, result: "visible" });
+      }
     }
     report.errors.push(...errors.map(message => ({ viewport: viewport.name, message })));
     const events = await page.evaluate(() => window.__scormAudit?.calls || []);
@@ -121,7 +148,7 @@ try {
     await page.close();
   }
   assert.deepEqual(report.errors, [], "Unexpected error in rendered Rise player");
-  console.log("Rise learner browser QA PASS: 11 lessons x 2 viewports, 22 screenshots, zero SetScore");
+  console.log("Rise learner browser QA PASS: 11 lessons x 2 viewports, plus accordion/tabs/process interactions, zero SetScore");
 } finally {
   writeFileSync(join(screenshotDir, "report.json"),
                 JSON.stringify(report, null, 2) + "\n");
