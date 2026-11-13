@@ -4,7 +4,7 @@
   "course_title": "1. Podstawy algorytmów",
   "lesson_id": "cmi7gplw400022a736fjtty6j",
   "expected_lesson_title": "Wprowadzenie do algorytmów",
-  "revision": "1.0.0",
+  "revision": "1.0.1",
   "editorial_status": "pilot pierwszej części; pozostałe części SCORM 01 wymagają osobnej redakcji",
   "expected_block_ids": [
     "cmieftubo006p20707m0vsy8i",
@@ -38,7 +38,7 @@
       "paragraph": "<p>Wyobraź sobie, że system przechowuje milion identyfikatorów. Chcesz znaleźć <strong>pierwsze wystąpienie</strong> wskazanego identyfikatora. Czy wystarczy napisać pętlę, która sprawdza kolejne elementy? Zanim wybierzesz instrukcje, musisz ustalić, co dokładnie oznacza „znaleźć” i jaki wynik zwrócić, jeśli wartości nie ma.</p><p>To jest punkt wyjścia projektowania algorytmów: najpierw precyzyjny problem, potem sposób jego rozwiązania. Kod będzie dopiero implementacją tego sposobu.</p>"
     },
     "a4510uh7bxgw5qx0whxch0d0": {
-      "paragraph": "<p>Rozważmy tablicę <code>A</code> zawierającą <code>n</code> identyfikatorów, które nie muszą być posortowane oraz szukaną wartość <code>x</code>. Indeksy zaczynają się od zera. Dla <code>A = [31, 7, 42, 7]</code> i <code>x = 7</code> poprawnym wynikiem jest <code>1</code>, a nie <code>3</code>. Ta różnica określa, jakie zachowanie algorytmu uznamy za poprawne.</p>"
+      "paragraph": "<p>Rozważmy tablicę <code>A</code> zawierającą <code>n</code> identyfikatorów, które nie muszą być posortowane, oraz szukaną wartość <code>x</code>. Indeksy zaczynają się od zera. Dla <code>A = [31, 7, 42, 7]</code> i <code>x = 7</code> poprawnym wynikiem jest <code>1</code>, a nie <code>3</code>. Ta różnica określa, jakie zachowanie algorytmu uznamy za poprawne.</p>"
     },
     "fqqty113x5h5vxdcdcv8bhau": {
       "list_paragraphs": [
