@@ -153,6 +153,27 @@ try {
                                                 { exact: false }).first();
         await revealed.waitFor({ state: "visible", timeout: 15000 });
         await revealed.scrollIntoViewIfNeeded({ timeout: 10000 });
+        // Rise animates opacity and slide positions. Playwright's visible state
+        // may be true while a panel is almost transparent. Wait for settling.
+        await page.waitForTimeout(1100);
+        await revealed.scrollIntoViewIfNeeded({ timeout: 10000 });
+        await page.waitForTimeout(250);
+        const visibleState = await revealed.evaluate(el => {
+          let opacity = 1;
+          for (let current = el; current; current = current.parentElement) {
+            const value = Number.parseFloat(getComputedStyle(current).opacity);
+            if (Number.isFinite(value)) opacity *= value;
+          }
+          return opacity;
+        });
+        const afterRect = await revealed.boundingBox();
+        const onScreen = afterRect &&
+          Math.min(afterRect.y + afterRect.height, viewport.height) -
+            Math.max(afterRect.y, 0) > 20;
+        assert.ok(visibleState > 0.85 && onScreen,
+          "Interactive content not visually settled: " + scenario.kind +
+          " " + viewport.name + " opacity=" + visibleState +
+          " rect=" + JSON.stringify(afterRect));
         const controlShot = join(screenshotDir,
           "scorm01-rise-" + viewport.name + "-" +
           String(i + 1).padStart(2, "0") + "-" + scenario.kind + ".png");
