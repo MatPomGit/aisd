@@ -54,5 +54,6 @@
       "heading": "Co dalej?",
       "paragraph": "<p>Te pięć zasad zastosujemy ponownie przy bardziej złożonych strukturach danych. W następnych pakietach zdefiniujemy dokładniej język RAM, zapis algorytmów i formalne narzędzia analizy, a potem przejdziemy do tablic, list, drzew, grafów i sortowania. Najważniejsza umiejętność pozostanie ta sama: <strong>nie tylko napisać algorytm, lecz wyjaśnić, dlaczego działa i jaki ma koszt</strong>.</p>"
     }
-  }
+  },
+  "expected_interactive_rows": {}
 }
