@@ -46,7 +46,7 @@ mkdirSync(screenshotDir, { recursive: true });
 const report = { kind: "isolated-rise-learner-qa", disclaimer:
   "Local static browser harness only; not Moodle SCORM compliance or suspend/resume",
   lessons: lessons.map(l => ({ id: l.id, title: l.title })),
-  images: [], errors: [], metrics: [] };
+  images: [], errors: [], metrics: [], interactiveInventory: [] };
 const browser = await chromium.launch({
   headless: true,
   executablePath: process.env.CHROME_BIN || "/usr/bin/google-chrome",
@@ -148,6 +148,26 @@ try {
       report.images.push(shot);
       report.metrics.push({ viewport: viewport.name, lesson: i + 1,
                             visibleParagraphPx: Math.round(visibleHeight), ...metrics });
+      // Verify ALL retained interactive Rise blocks are present on each screen.
+      // The click tests below additionally exercise representative behaviors.
+      const variants = ["accordion", "tabs", "process"];
+      const expectedBlocks = Object.fromEntries(variants.map(kind => [
+        kind, lesson.items.filter(block =>
+          block.type === "interactive" && block.variant === kind).length
+      ]));
+      const renderedBlocks = await player.evaluate(kinds =>
+        Object.fromEntries(kinds.map(kind =>
+          [kind, document.querySelectorAll(".block-" + kind).length])),
+        variants);
+      report.interactiveInventory.push({
+        viewport: viewport.name, lesson: i + 1,
+        expected: expectedBlocks, rendered: renderedBlocks,
+      });
+      console.log("Rise interactive inventory", viewport.name, i + 1,
+                  JSON.stringify({ expectedBlocks, renderedBlocks }));
+      assert.deepEqual(renderedBlocks, expectedBlocks,
+        "Missing or unexpected interactive blocks in rendered Rise lesson " +
+        (i + 1) + " on " + viewport.name);
       const scenario = interactionChecks.get(i);
       if (scenario) {
         if (scenario.kind === "process") {
