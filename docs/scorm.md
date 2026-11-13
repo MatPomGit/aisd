@@ -91,7 +91,7 @@ Do pojedynczej walidacji porównawczej:
 ```bash
 python3 scripts/scorm_pipeline.py validate \
   raw/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_d.zip \
-  build/scorm/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_d-noquiz.zip
+  build/scorm/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_d-bez-testow.zip
 ```
 
 W `build/scorm/` otrzymasz zmodyfikowane ZIP, `build-report.json` i listę SHA-256 w przypadku wykonania workflow.
