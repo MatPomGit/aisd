@@ -85,5 +85,43 @@
     "s1hwpqnjvsufcpqemoi30kl8": {
       "paragraph": "<p>Poprawny program jest zgodny ze specyfikacją, kończy się dla dopuszczalnych wejść i ma uzasadniony koszt w przyjętym modelu. To trzy różne twierdzenia wymagające trzech uzasadnień. Pełne obliczenia w modelu RAM i formalna asymptotyka zostaną rozwinięte w osobnych częściach kursu.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7gy6cg00402a73vog8pqr8": [
+      {
+        "id": "cmi7gy6cg00412a73nn8i5alo",
+        "title": "Suma liczb do napotkania zera"
+      },
+      {
+        "id": "cmi7gy6cg00422a73689e5scz",
+        "title": "Zliczanie wystąpień liczby w sekwencji"
+      },
+      {
+        "id": "cmi7gy6cg00432a731gvodjh6",
+        "title": "Obliczanie potęgi liczby"
+      },
+      {
+        "id": "cmi7gy6cg00442a73hr1yc6sd",
+        "title": "Prosty algorytm sortowania"
+      }
+    ],
+    "cmi7gy6ch00452a735ejvrcd0": [
+      {
+        "id": "cmi7gy6ch00462a73gzuqdsed",
+        "title": "Poprawność – najczęstsze błędy"
+      },
+      {
+        "id": "cmi7gy6ch00472a73ued8rkzz",
+        "title": "Złożoność – typowe klasy"
+      },
+      {
+        "id": "cmi7gy6ch00482a73dotp5t71",
+        "title": "Wpływ rozmiaru wejścia"
+      },
+      {
+        "id": "cmi7gy6ch00492a7384yf03e4",
+        "title": "Wskazówki do dalszej optymalizacji"
+      }
+    ]
   }
 }
