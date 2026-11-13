@@ -152,6 +152,8 @@ try {
         const revealed = frameLocator.getByText(scenario.revealed,
                                                 { exact: false }).first();
         await revealed.waitFor({ state: "visible", timeout: 15000 });
+        // Wait before choosing between active and pre-rendered hidden carousel slides.
+        await page.waitForTimeout(1000);
         if (scenario.kind === "process") {
           const diagShot = join(screenshotDir, "scorm01-rise-" + viewport.name +
                                  "-08-after-click.png");
