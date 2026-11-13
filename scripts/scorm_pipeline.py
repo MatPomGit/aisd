@@ -281,7 +281,7 @@ def remove_knowledge_checks(data):
                 continue
             output.append(block)
             i += 1
-        if not output:
+        if items and not output:
             raise BuildError("Assessment removal would empty lesson: " + str(lesson.get("id")))
         lesson["items"] = output
     remaining = assessment_counts(data)
