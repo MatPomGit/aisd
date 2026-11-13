@@ -69,5 +69,25 @@
     "tuyq9z8zi8t4j6kw9i3qr0jf": {
       "paragraph": "<p>Wniosek jest prosty: zanim ocenimy szybkość rozwiązania, trzeba ustalić, <strong>co ma obliczać</strong> i <strong>dla jakich danych jest poprawne</strong>. W kolejnym kroku zobaczymy, jak zapisać ten kontrakt i kroki algorytmu, aby inna osoba mogła prześledzić wykonanie bez domysłów.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7gtwgf000l2a73yrsrqjds": [
+      {
+        "id": "cmi7gtwgf000m2a73cvegvwym",
+        "title": "Ze względu na sposób działania"
+      },
+      {
+        "id": "cmi7gtwgf000n2a73e6bexb6u",
+        "title": "Ze względu na cel"
+      },
+      {
+        "id": "cmi7gtwgf000o2a73bwja4lna",
+        "title": "Ze względu na strukturę danych"
+      },
+      {
+        "id": "cmi7gtwgf000p2a73z37nrqpr",
+        "title": "Ze względu na deterministyczność"
+      }
+    ]
   }
 }
