@@ -90,5 +90,43 @@
     "qiw4d5gfewrvtzplyzrsy8r1": {
       "paragraph": "<p>Poprawność i koszt odpowiadają na różne pytania: <strong>czy wynik jest właściwy?</strong> i <strong>ile pracy kosztuje jego uzyskanie?</strong>. Wyszukiwanie liniowe ma koszt najwyżej <code>n</code> porównań, a jego całkowitą poprawność można uzasadnić niezmiennikiem i skończoną liczbą iteracji. Dokładniejsze modele i metody analizy poznasz w pakiecie 04.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7guvoe00182a73icr0x091": [
+      {
+        "id": "cmi7guvoe00192a73upcgu49n",
+        "title": "Złożoność czasowa"
+      },
+      {
+        "id": "cmi7guvoe001a2a73f0x0lpz7",
+        "title": "Złożoność pamięciowa"
+      },
+      {
+        "id": "cmi7guvof001b2a731h4qtp1l",
+        "title": "Złożoność pesymistyczna, średnia i optymistyczna"
+      },
+      {
+        "id": "cmi7guvof001c2a7328ptyeqs",
+        "title": "Złożoność względem rozmiaru zadania"
+      }
+    ],
+    "cmi7guvoi001d2a73bacy3mpd": [
+      {
+        "id": "cmi7guvoi001e2a73puhvpbwr",
+        "title": "Analiza teoretyczna"
+      },
+      {
+        "id": "cmi7guvoi001f2a7337ugo5d2",
+        "title": "Analiza empiryczna"
+      },
+      {
+        "id": "cmi7guvoi001g2a737l7gdfex",
+        "title": "Analiza asymptotyczna"
+      },
+      {
+        "id": "cmi7guvoi001h2a73a2f5f308",
+        "title": "Analiza porównawcza"
+      }
+    ]
   }
 }
