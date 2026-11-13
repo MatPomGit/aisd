@@ -12,9 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SCORM01_DIR = ROOT / "editorial" / "scorm01"
 SCORM01_COURSE_ID = "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro"
 SCORM01_LESSON_FILES = tuple(
-    SCORM01_DIR / f"lesson-{index:02d}.json" for index in range(1, 6)
+    SCORM01_DIR / f"lesson-{index:02d}.json" for index in range(1, 7)
 )
-SCORM01_RELEASE = "scorm01/lessons-01-05@1.1.0"
+SCORM01_RELEASE = "scorm01/lessons-01-06@1.2.0"
 
 
 class EditorialError(ValueError):
@@ -86,10 +86,13 @@ def _apply_lesson(course: dict, overlay: dict) -> dict:
                 require("paragraph" in row and isinstance(value, str) and value.strip(),
                         "Unexpected numbered-list item")
                 row["paragraph"] = value
-        elif set(change) in ({"accordion_entries"}, {"tabs_entries"}):
-            tabbed = "tabs_entries" in change
-            key = "tabs_entries" if tabbed else "accordion_entries"
-            expected = "tabs" if tabbed else "accordion"
+        elif set(change) in ({"accordion_entries"}, {"tabs_entries"}, {"process_entries"}):
+            key = next(iter(change))
+            expected = {
+                "accordion_entries": "accordion",
+                "tabs_entries": "tabs",
+                "process_entries": "process",
+            }[key]
             values = change[key]
             require(kind == "interactive" and variant == expected and
                     isinstance(values, list) and len(values) == len(rows),
