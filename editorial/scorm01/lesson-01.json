@@ -84,5 +84,25 @@
     "kpxeip15anxql2hn5lmoxnjn": {
       "paragraph": "<p>Wykonaliśmy pełen cykl projektowania: <strong>specyfikacja → pseudokod → przykład wykonania → uzasadnienie poprawności → koszt</strong>. W kolejnych częściach poznasz język precyzyjnego opisu algorytmów, modele obliczeń i formalne metody porównywania złożoności. Ich rolą będzie odpowiadać na pytania, które pojawiły się tutaj, a nie zastępować myślenie samą składnią.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7gtkq4000c2a73iybrdt1o": [
+      {
+        "id": "cmi7gtkq4000d2a736y0tr1zh",
+        "title": "Rola algorytmów w informatyce"
+      },
+      {
+        "id": "cmi7gtkq4000e2a73wvi0dhri",
+        "title": "Algorytmy w życiu codziennym"
+      },
+      {
+        "id": "cmi7gtkq4000f2a73f1ik4jis",
+        "title": "Algorytmy w programowaniu"
+      },
+      {
+        "id": "cmi7gtkq4000g2a73on9jtv23",
+        "title": "Znaczenie efektywności algorytmów"
+      }
+    ]
   }
 }
