@@ -16,7 +16,7 @@ import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from scorm_editorial import EditorialError, apply_editorial
+from scorm_editorial import EditorialError, apply_editorial, SCORM01_COURSE_ID, SCORM01_RELEASE
 
 HTML = "scormcontent/index.html"
 MODERN = "scormcontent/runtime-data.js"
@@ -390,8 +390,8 @@ def build_one(source, output):
             "removed_quiz": quiz.get("title", quiz["id"]) if quiz else None,
             "lesson_count": len(result["course"]["lessons"]),
             "editorial_overlay": (
-                "scorm01/lesson-01@1.0.0"
-                if result["course"].get("id") == "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro"
+                SCORM01_RELEASE
+                if result["course"].get("id") == SCORM01_COURSE_ID
                 else None
             ),
             "knowledge_checks_removed": removed_checks,
