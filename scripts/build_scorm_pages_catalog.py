@@ -62,7 +62,7 @@ def stage_site(raw_dir: Path, docs_dir: Path, destination: Path) -> dict:
             title = settings.get("title") or data["course"].get("title")
             if not isinstance(title, str) or not title.strip():
                 raise ValueError("Missing Rise title: " + file.name)
-        output = target / file.name
+        output = target / (file.stem + "-bez-testow.zip")
         report = build_one(file, output)
         with open_zip(output) as prepared_zip:
             _, _, _, prepared = get_data(prepared_zip)
@@ -72,8 +72,9 @@ def stage_site(raw_dir: Path, docs_dir: Path, destination: Path) -> dict:
         entries.append({
             "number": number,
             "title": title.strip(),
-            "filename": file.name,
-            "url": "./packages/" + quote(file.name, safe=""),
+            "filename": output.name,
+            "source_filename": file.name,
+            "url": "./packages/" + quote(output.name, safe=""),
             "bytes": output.stat().st_size,
             "sha256": file_sha256(output),
             "source_sha256": file_sha256(file),
