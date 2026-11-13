@@ -15,6 +15,27 @@ from pathlib import Path
 from urllib.parse import quote
 
 from scorm_pipeline import assessment_counts, build_one, check_manifest, get_data, open_zip
+from scorm_editorial import SCORM01_RELEASE
+
+APPROVAL_FILE = Path(__file__).resolve().parents[1] / "editorial" / "approved-releases.json"
+
+
+def load_approved_releases(path: Path = APPROVAL_FILE) -> set[str]:
+    """Only explicitly accepted editorial revisions are published via Pages.
+
+    Missing, malformed or unknown approval records abort deployment.
+    A successful CI build is not a pedagogical/Moodle release approval.
+    """
+    config = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(config, dict) or set(config) != {"approved_releases"}:
+        raise ValueError("Invalid editorial release approval structure")
+    approved = config["approved_releases"]
+    if (not isinstance(approved, list) or
+            any(not isinstance(x, str) for x in approved) or
+            len(approved) != len(set(approved)) or
+            set(approved) - {SCORM01_RELEASE}):
+        raise ValueError("Unrecognized or duplicate editorial release approval")
+    return set(approved)
 
 
 def file_sha256(file: Path) -> str:
@@ -35,6 +56,7 @@ def stage_site(raw_dir: Path, docs_dir: Path, destination: Path) -> dict:
         raise ValueError("Output must be outside raw/ and docs/")
     if raw_dir.is_relative_to(destination) or docs_dir.is_relative_to(destination):
         raise ValueError("Output cannot contain the source directories")
+    approved = load_approved_releases()
     archives = sorted(raw_dir.glob("*.zip"),
                       key=lambda p: (int(p.name.split("-", 1)[0]), p.name))
     if not archives:
@@ -63,7 +85,10 @@ def stage_site(raw_dir: Path, docs_dir: Path, destination: Path) -> dict:
             if not isinstance(title, str) or not title.strip():
                 raise ValueError("Missing Rise title: " + file.name)
         output = target / (file.stem + "-bez-testow.zip")
-        report = build_one(file, output)
+        # Until manual visual and Moodle gates pass, publish the last safe
+        # assessment-free derivative of SCORM 01, not its draft editorial text.
+        include_editorial = number != 1 or SCORM01_RELEASE in approved
+        report = build_one(file, output, include_editorial=include_editorial)
         with open_zip(output) as prepared_zip:
             _, _, _, prepared = get_data(prepared_zip)
             if any(assessment_counts(prepared).values()):
@@ -80,6 +105,7 @@ def stage_site(raw_dir: Path, docs_dir: Path, destination: Path) -> dict:
             "source_sha256": file_sha256(file),
             "lessons": len(prepared["course"]["lessons"]),
             "prepared": True,
+            "editorial_overlay": report["editorial_overlay"],
             "knowledge_checks_removed": report["knowledge_checks_removed"],
             "assessment_sections_removed": report["assessment_sections_removed"],
             "removed_quiz": bool(report["removed_quiz"]),
