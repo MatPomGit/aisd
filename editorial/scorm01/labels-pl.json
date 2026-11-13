@@ -204,6 +204,10 @@
     "a11yCarouselPrevious": {
       "expected": "Previous",
       "replace": "Poprzedni"
+    },
+    "a11yAuthorPrefix": {
+      "expected": "By",
+      "replace": "Autor"
     }
   }
 }
