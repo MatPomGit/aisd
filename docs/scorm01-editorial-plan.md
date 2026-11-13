@@ -1,8 +1,8 @@
 # SCORM 01 – projekt redakcji
 
-**Wersja planu:** 1.1.0 · **Data:** 2026-11-13  
+**Wersja planu:** 1.2.0 · **Data:** 2026-11-13  
 **Pakiet:** `raw/1-podstawy-algorytmów.zip` · **Odbiorca:** III rok informatyki  
-**Stan:** nowe, testowalne nakładki dla części **01–05**; części 06–11 oraz błędne przykłady RAM pozostają w kolejce niezależnej recenzji. PR jest roboczy, nie do publikacji w Moodle.
+**Stan:** nowe, testowalne nakładki dla części **01–06**; części 06–11 oraz błędne przykłady RAM pozostają w kolejce niezależnej recenzji. PR jest roboczy, nie do publikacji w Moodle.
 
 ## Teza dydaktyczna
 
@@ -41,7 +41,7 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 | 03 Pseudokod | **Zredagowano:** jasne konwencje, poprawny pseudokod, równoważny program w Pythonie i ślad wykonania; szczegóły reprezentacji w SCORM 03 |
 | 04 Poprawność i złożoność | **Zredagowano:** poprawność częściowa/całkowita, niezmiennik, zakończenie, koszt 1–n porównań i średnia pod jawnym założeniem |
 | 05 O, Ω, Θ | **Zredagowano i skrócono:** znaczenie rozmiaru wejścia, trzy rodzaje granic i przykład liniowy; formalne rozwinięcie pozostaje w SCORM 05 |
-| 06 Przykłady analizy | Zastąpić jednym spójnym przykładem śledzenia i niezmiennika |
+| 06 Przykłady analizy | **Zredagowano:** studium przypadku błędnej optymalizacji, kontrprzykład `[8, 3, 7]`, ślad i uzasadnienie poprawności |
 | 07 Model RAM | Zastąpić krótką zapowiedzią; pełna definicja SCORM 02 |
 | 08 Instrukcje RAM | Przenieść do 02 po naprawie semantyki i kodu |
 | 09 Implementacje RAM | Nie publikować niepoprawnych przykładów; korekta w #8, selektywne przeniesienie do 02–03 |
@@ -50,10 +50,11 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 
 ## Stan wykonania i pozostające ryzyka
 
-- Zredagowane: **pierwszych 5 spośród 11 części dydaktycznych**. Dla każdej istnieje osobna, deklaratywna nakładka, bez modyfikacji `raw/`.
-- Pierwsza część utrzymuje algorytm wyszukiwania liniowego jako temat przewodni. Części 02–05 rozdzielają kontrakt problemu, zapis, dowód poprawności oraz intuicję asymptotycznego tempa wzrostu.
+- Zredagowane: **pierwszych 6 spośród 11 części dydaktycznych**. Dla każdej istnieje osobna, deklaratywna nakładka, bez modyfikacji `raw/`.
+- Pierwsza część utrzymuje algorytm wyszukiwania liniowego jako temat przewodni. Części 02–06 rozdzielają kontrakt problemu, zapis, dowód poprawności oraz intuicję asymptotycznego tempa wzrostu.
+- W części 06 przedstawiono pięć kroków niezależnej analizy błędnej optymalizacji i cztery typowe błędy pętli, bez testu końcowego.
 - W części 02 usunięto mylące utożsamienie randomizacji z niedeterminizmem. W części 04 jawnie określono warunek dla średniej `(n+1)/2`; w części 05 poprawiono błędne utożsamianie `O` z przypadkiem najgorszym.
-- **Nie uznawać SCORM 01 za gotowy do publikacji.** Części 06–11 nadal wymagają korekty i skrócenia, a zwłaszcza błędne przykłady sumowania, NWD i maksimum w RAM oraz błędne uogólnienia dotyczące sortowania. Zagadnienia te są ewidencjonowane w [#8](https://github.com/MatPomGit/aisd/issues/8) i [#10](https://github.com/MatPomGit/aisd/issues/10).
+- **Nie uznawać SCORM 01 za gotowy do publikacji.** Części 07–11 nadal wymagają korekty i skrócenia, a zwłaszcza błędne przykłady sumowania, NWD i maksimum w RAM oraz błędne uogólnienia dotyczące sortowania. Zagadnienia te są ewidencjonowane w [#8](https://github.com/MatPomGit/aisd/issues/8) i [#10](https://github.com/MatPomGit/aisd/issues/10).
 - Obecnie zachowano wszystkie **11 identyfikatorów lekcji**, by nie ryzykować niepotwierdzonej migracji stanu wznowienia; celem końcowym jest bardziej zwarta, spójna struktura, co wymaga odrębnych testów nawigacji w Moodle.
 - Akceptacja dydaktyczna wymaga wizualnego przeglądu układu bloków Rise po przebudowie i testu na właściwej instancji Moodle. Test statyczny nie zastępuje tych kontroli.
 
