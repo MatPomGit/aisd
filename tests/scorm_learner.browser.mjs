@@ -82,7 +82,7 @@ try {
                 JSON.stringify(earlyDiag), "page errors", JSON.stringify(errors));
     assert.equal(earlyDiag.playerLang, "pl", "Rise player document is not Polish");
     assert.equal(earlyDiag.sourceLabelLang, "pl");
-    assert.equal(earlyDiag.sourceExitLabel, "WYJDŹ Z KURSU");
+    assert.equal(earlyDiag.sourceExitLabel, "WYJDŹ");
     await frameLocator.getByText("ROZPOCZNIJ KURS", { exact: true })
       .waitFor({ state: "visible", timeout: 10000 });
     for (let i = 0; i < lessons.length; i++) {
@@ -113,7 +113,7 @@ try {
                         (i + 1) + " " + JSON.stringify(diagnostic), { cause: err });
       }
       if (i === 0) {
-        await frameLocator.getByText("WYJDŹ Z KURSU", { exact: true })
+        await frameLocator.getByText("WYJDŹ", { exact: true })
           .waitFor({ state: "visible", timeout: 10000 });
       }
       // DOM presence alone is insufficient: the early screenshots showed
