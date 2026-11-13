@@ -28,18 +28,19 @@ class PagesCatalogTests(unittest.TestCase):
         self.assertEqual(list(range(1, 21)), [i["number"] for i in items])
         self.assertEqual(
             {f.name for f in self.raw.glob("*.zip")},
-            {i["filename"] for i in items},
+            {i["source_filename"] for i in items},
         )
 
     def test_every_published_package_is_assessment_free(self):
         for item in self.catalog["items"]:
             with self.subTest(item=item["number"]):
                 name = item["filename"]
-                original = self.raw / name
+                original = self.raw / item["source_filename"]
                 published = self.stage / "editor" / "packages" / name
                 self.assertTrue(original.is_file())
                 self.assertTrue(published.is_file())
                 self.assertTrue(item["prepared"])
+                self.assertTrue(item["filename"].endswith("-bez-testow.zip"))
                 self.assertGreaterEqual(item["knowledge_checks_removed"], 0)
                 self.assertEqual(file_sha256(original), item["source_sha256"])
                 self.assertEqual(published.stat().st_size, item["bytes"])
