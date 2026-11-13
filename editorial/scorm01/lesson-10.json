@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 9,
+  "lesson_id": "cmi7gplw4000b2a73w6d8l7vv",
+  "expected_lesson_title": "Analiza poprawności i złożoności algorytmów w modelu RAM",
+  "new_lesson_title": "Analiza programu: dowód i koszt wykonania",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja gotowa do testów automatycznych; wymaga QA wizualnego i Moodle",
+  "expected_block_ids": [
+    "y1qhgdlw2a42erevnfosp2ka",
+    "fzyj4g2qo8q80ddcbm3jjhq8",
+    "e8rnmmkvz7ruea1wtlx1rkbh",
+    "so28rbz4p5tovjy9bd0ibt4u",
+    "cmi7gy6cg00402a73vog8pqr8",
+    "opeytpulcx8h8u00rhaqpny8",
+    "cmi7gy6ch00452a735ejvrcd0",
+    "cmi7gy6cm004a2a731qcchat9",
+    "cmi7gy6cn004c2a73zxrzvmge",
+    "s1hwpqnjvsufcpqemoi30kl8",
+    "gcutjs6gnz8ufc1n304f30u0"
+  ],
+  "keep_block_ids": [
+    "y1qhgdlw2a42erevnfosp2ka",
+    "so28rbz4p5tovjy9bd0ibt4u",
+    "cmi7gy6cg00402a73vog8pqr8",
+    "opeytpulcx8h8u00rhaqpny8",
+    "cmi7gy6ch00452a735ejvrcd0",
+    "s1hwpqnjvsufcpqemoi30kl8"
+  ],
+  "updates": {
+    "y1qhgdlw2a42erevnfosp2ka": {
+      "heading": "Jak ocenić program, który właśnie zbudowaliśmy?",
+      "paragraph": "<p>Program sumujący wartości do pierwszego zera wygląda poprawnie dla wejścia <code>4, −2, 0</code>, ale jeden przykład nie wystarcza. Musimy ustalić, co się stanie przy pustym ciągu danych, jak reaguje na wartości ujemne i ile instrukcji wykona dla dłuższego wejścia. Ta analiza zamyka drogę od specyfikacji do programu, którego zachowanie potrafimy uzasadnić.</p>"
+    },
+    "so28rbz4p5tovjy9bd0ibt4u": {
+      "heading": "Cztery sprawdzenia przed zaakceptowaniem programu",
+      "paragraph": "<p>Rozważamy dokładnie określony wariant RAM i ciąg zawierający zero kończące. Każdy z poniższych przypadków ujawnia inny aspekt poprawności.</p>"
+    },
+    "cmi7gy6cg00402a73vog8pqr8": {
+      "accordion_entries": [
+        {
+          "title": "Zero jako pierwszy element",
+          "description": "<p>Dla wejścia <code>0</code> program inicjalizuje sumę, odczytuje zero, wykonuje <code>LOAD 2</code>, a następnie <code>JZERO end</code>. Wypisuje <code>0</code> bez wykonania dodawania.</p>"
+        },
+        {
+          "title": "Wartości ujemne i suma równa zeru",
+          "description": "<p>Dla <code>4, −4, 0</code> program powinien wypisać <code>0</code>, ale dopiero po trzecim odczycie. Po dodaniu <code>−4</code> sumator może wynosić zero; nie oznacza to jednak końca danych, bo <code>JZERO</code> jest wykonywane dopiero po <code>LOAD 2</code> następnej liczby.</p>"
+        },
+        {
+          "title": "Brak zera kończącego",
+          "description": "<p>Specyfikacja wymaga zera kończącego po skończonej liczbie odczytów. Jeśli go zabraknie, program nie ma określonego warunku zatrzymania i może próbować odczytać dane spoza wejścia. Nie wolno deklarować poprawności całkowitej dla takich niedopuszczalnych danych bez osobnego protokołu końca strumienia.</p>"
+        },
+        {
+          "title": "Ślad instrukcji i niezmiennik",
+          "description": "<p>Przed każdym wykonaniem <code>READ 2</code> rejestr <code>R[1]</code> zawiera sumę już przetworzonych wartości. <code>LOAD 2</code> wyznacza warunek zakończenia, a <code>ADD 1; STORE 1</code> zachowuje niezmiennik dla kolejnej iteracji. Poprawność nie wynika z liczby pomyślnych testów.</p>"
+        }
+      ]
+    },
+    "opeytpulcx8h8u00rhaqpny8": {
+      "heading": "Koszt zależy od tego, co liczymy",
+      "paragraph": "<p>Niech <code>m</code> będzie liczbą wartości przed pierwszym zerem. Program wykona <code>m + 1</code> odczytów, dokładnie <code>m</code> dodawań i stałą liczbę dodatkowych instrukcji na każdą niezerową wartość. Przy jednostkowym koszcie rozkazów daje to <code>Θ(m + 1)</code> instrukcji. Dodatkowe wykorzystanie rejestrów jest stałe. Gdy rozmiar liczb jest nieograniczony, analiza kosztu bitowego wymaga dodatkowych założeń.</p>"
+    },
+    "cmi7gy6ch00452a735ejvrcd0": {
+      "tabs_entries": [
+        {
+          "title": "Dokładna jednostka kosztu",
+          "description": "<p>Jeśli liczymy instrukcje RAM w modelu jednostkowym, każda instrukcja wnosi jeden krok. Jeżeli liczymy wyłącznie dodawania, koszt wynosi <code>m</code>, a gdy odczyty, <code>m + 1</code>. Bez określenia jednostki nie istnieje jednoznaczna „liczba operacji”.</p>"
+        },
+        {
+          "title": "Nie myl rodzaju przypadku z notacją",
+          "description": "<p><code>O</code>, <code>Ω</code> i <code>Θ</code> opisują asymptotyczne ograniczenia funkcji kosztu. Najlepszy i najgorszy przypadek określają natomiast, z jakich wejść wyznaczamy tę funkcję. Dla sumowania do zera długość przedrostka <code>m</code> już wyznacza liczbę iteracji.</p>"
+        },
+        {
+          "title": "Nie każde sortowanie jest kwadratowe",
+          "description": "<p>Klasyczne sortowanie przez wybór porównuje elementy <code>n(n − 1)/2</code> razy, czyli <code>Θ(n²)</code>. Z kolei sortowanie przez scalanie wykonuje <code>O(n log n)</code> porównań w najgorszym przypadku. Złożoności nie wolno przypisywać całej klasie „sortowań przez porównania” na podstawie jednego przykładu.</p>"
+        },
+        {
+          "title": "Przypadki wymagające nowej specyfikacji",
+          "description": "<p>Jeżeli wejście może być nieskończone, może nie zawierać zera albo mieścić się wyłącznie w słowie maszynowym, najpierw trzeba ustalić nowe warunki poprawności i model kosztu. Dopiero potem należy modyfikować program i analizować jego działanie.</p>"
+        }
+      ]
+    },
+    "s1hwpqnjvsufcpqemoi30kl8": {
+      "paragraph": "<p>Poprawny program jest zgodny ze specyfikacją, kończy się dla dopuszczalnych wejść i ma uzasadniony koszt w przyjętym modelu. To trzy różne twierdzenia wymagające trzech uzasadnień. Pełne obliczenia w modelu RAM i formalna asymptotyka zostaną rozwinięte w osobnych częściach kursu.</p>"
+    }
+  }
+}
