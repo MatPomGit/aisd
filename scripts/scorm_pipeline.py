@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and validate ungraded SCORM 1.2 Rise packages. Python 3.11+, stdlib only.
+"""Build and validate assessment-free SCORM 1.2 Rise packages. Python 3.11+, stdlib only.
 
 Fail-closed: only tested embedded Base64 JSON in scormcontent/index.html
 (and compatible runtime-data.js wrappers) with explicit quiz-based tracking.
@@ -460,7 +460,7 @@ def main(argv=None):
         if args.command == "build":
             results = []
             for raw in enumerate_raw(args.raw_dir, args.course):
-                target = Path(args.output_dir) / (raw.stem + "-noquiz.zip")
+                target = Path(args.output_dir) / (raw.stem + "-bez-testow.zip")
                 result = build_one(raw, target)
                 results.append(result)
                 print(json.dumps(result, ensure_ascii=False), flush=True)
