@@ -34,6 +34,12 @@ W wydzielonym kursie/testowej aktywności Moodle importować nowy ZIP SCORM 1.2 
 | M08 | Sprawdzić dostęp klawiaturą i czytnikiem ekranu dla reprezentatywnych kontrolek | Logiczna kolejność fokusu, nazwy kontrolek i ogłoszenia stanu rozwinięcia | ☐ NIE WYKONANO | — |
 | M09 | Odłączyć/ponownie otworzyć kurs i porównać identyfikatory lekcji | Brak utraty postępu i błędnego przypisania ukończeń po aktualizacji | ☐ NIE WYKONANO | — |
 
+## Dane z symulacji, które nie zamykają M01–M09
+
+[CI z 13.11.2026](https://github.com/MatPomGit/aisd/actions/runs/43487615640) potwierdziło zachowanie funkcji `Runtime` Rise z lokalnym, izolowanym adapterem LMS: zapamiętanie przykładowego postępu, wznowienie po przeładowaniu, `incomplete` przy 99%, `completed` przy 100% oraz brak wywołania `SetScore`. Raport znajduje się w artefakcie `scorm01-editor-and-rise-qa-104`, `scorm-lms-simulation/report.json`.
+
+**Wszystkie M01–M09 pozostają NIE WYKONANO**, ponieważ żadnej z tych operacji nie wykonano na rzeczywistej instancji Moodle. Test syntetyczny używał 407 znaków zapamiętanego stanu i nie obejmował całej ścieżki studenta ani agregacji ocen. Sam test struktury 14 interakcji × dwa widoki także nie jest manualną recenzją dostępności każdego elementu.
+
 ## Reguły akceptacji
 
 Wynik **PASS** wolno wpisać tylko po wykonaniu kroku i przypięciu dowodu. Wynik **FAIL** wymaga opisu błędu, zrzutu lub logu, wersji środowiska i nowego testu po poprawce. Wynik **NIE WYKONANO** nie jest PASS.
