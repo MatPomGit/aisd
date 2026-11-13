@@ -18,6 +18,20 @@ Dla każdej lekcji test ustawia trasę `#/lessons/<id>`, wyszukuje unikatowy fra
 - **Odkryty i poprawiony błąd merytoryczno-prezentacyjny:** elementy procesu Rise zapisuje jako `intro`, `summary`, a następnie `step`. Wyświetla je jednak jako **wprowadzenie → kroki → podsumowanie**. Nakładki 06 i 08 zostały skorygowane, a nowe testy sprawdzają widoczną kolejność `1…5` oraz `1…7` i odrzucają zmieniony schemat źródłowy. Po zmianach kontrola procesu wykazuje widoczny krok „2. LOAD 1” na desktopie i mobile.
 - Na desktopie przejście procesu wykonuje się przyciskiem strzałki, na telefonie przyciskiem `START` rozpoczynającym proces. Testy dostosowano do faktycznego interfejsu użytkownika.
 
+## Aktualizacja: inwentarz wszystkich interakcji i test wznowienia (13.11.2026)
+
+**Commit:** `0863579a6d20a8c674a3d03ee53ec7db233f76c5`.
+
+- [SCORM rebuild and validate, PASS](https://github.com/MatPomGit/aisd/actions/runs/43487615487).
+- [SCORM Studio / Rise i symulacja LMS, PASS](https://github.com/MatPomGit/aisd/actions/runs/43487615640). Zrzuty oraz dwa raporty JSON w [artefakcie `scorm01-editor-and-rise-qa-104`](https://github.com/MatPomGit/aisd/actions/runs/43487615640/artifacts/14067937230).
+- **22/22 ekranów**: 11 lekcji w rozdzielczościach 1440 × 900 i 390 × 844; brak błędów JS i poziomego przepełnienia.
+- **28/28 kontrole struktury interaktywnej**: każda wersja wyświetla dokładnie 8 akordeonów, 4 zestawy zakładek i 2 bloki typu `process`, zgodnie z wynikowym JSON. Kontrola używa rzeczywistych klas Rise: `.blocks-accordion`, `.blocks-tabs`, `.block-process`.
+- **6/6 reprezentatywnych interakcji**: otwarcie akordeonu, zakładki z Pythonem i przejście do kolejnego kroku `process` na desktopie i telefonie; weryfikacja widoczności, położenia i przezroczystości wyświetlanej treści.
+- **Symulacja LMS**: faktyczny runtime Rise zapisał 407 znaków przykładowego `suspend_data` i zakładkę, odzyskał je po przeładowaniu, nie ukończył kursu przy `finish(99)`, zgłosił `completed` przy `finish(100)`, bez wywołania `SetScore` ani `SetPassed`. Dowód: `scorm-lms-simulation/report.json`.
+- Limit `cmi.suspend_data` w SCORM 1.2 wynosi 4096 znaków ([tabela elementów runtime SCORM](https://scorm.com/scorm-explained/technical-scorm/run-time/run-time-reference/)). Zmierzone 407 znaków dotyczy **syntetycznego znacznika stanu**, nie postępu faktycznego studenta przez 11 lekcji.
+
+**Zakres niedomknięty:** zgodność liczby i typu 14 komponentów nie dowodzi funkcjonalności wszystkich przycisków i kart w każdym z nich. Test bezpośrednio aktywuje po jednym przykładzie trzech typów. Ręczny przegląd całych 14 komponentów, klawiatury i czytnika ekranu oraz faktyczna obsługa `suspend_data` i raportowanie w Moodle pozostają obowiązkowe. Symulacji LMS **nie wolno oznaczyć jako PASS testu Moodle**.
+
 ## Ograniczenia i otwarte bramki
 
 To **przegląd renderowania pierwszych akapitów**, nie wizualna recenzja każdego bloku. Wykonano **reprezentatywne** interakcje akordeonu, zakładek i procesu; nie przejrzano ręcznie wszystkich rozwijanych bloków, wszystkich kroków procesów i list. Nie wykonano kontroli czytnikiem ekranu ani niezależnego manualnego testu klawiatury w odtwarzaczu Rise.
