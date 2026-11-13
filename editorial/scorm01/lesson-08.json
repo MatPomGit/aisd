@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 7,
+  "lesson_id": "cmi7gplw400092a733iv3sowk",
+  "expected_lesson_title": "Komendy maszyny RAM i ich zastosowanie",
+  "new_lesson_title": "Od algorytmu do śladu instrukcji",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja wstępna; wymaga kontroli wizualnej i Moodle",
+  "expected_block_ids": [
+    "bit1w34yep7jtuqejfb3sh0p",
+    "g4l918ya55234r59q8w7iu03",
+    "fyo4tzfjahjazsr7h2p9n4er",
+    "eo7eknhwafgxysgtjqtm7g89",
+    "fv2fndudnalnrptgbbmox5m6",
+    "ekrgzl6kbkoem7bmzc1bwjpf",
+    "cmi7gwqtm002s2a73zowbfjg0",
+    "de4ku8afgwb9nzfnmkp3aeey",
+    "cmi7gwqtn003a2a73elha9f6l",
+    "cmi7gwqtn003b2a73jouwo0ds",
+    "cmi7gwqto003d2a73pqygxjyf",
+    "hr66sbl2r3w43rt20a8jthwy"
+  ],
+  "keep_block_ids": [
+    "bit1w34yep7jtuqejfb3sh0p",
+    "de4ku8afgwb9nzfnmkp3aeey",
+    "cmi7gwqtn003a2a73elha9f6l",
+    "hr66sbl2r3w43rt20a8jthwy"
+  ],
+  "updates": {
+    "bit1w34yep7jtuqejfb3sh0p": {
+      "heading": "Co naprawdę zmienia pojedyncza instrukcja?",
+      "paragraph": "<p>W pseudokodzie można napisać <code>wynik ← a + b</code>. Model RAM rozbija tę operację na zmianę stanu sumatora i rejestrów. Ustalmy prostą konwencję: <code>LOAD i</code> kopiuje wartość rejestru <code>R[i]</code> do sumatora, <code>ADD i</code> dodaje do sumatora wartość <code>R[i]</code>, a <code>STORE i</code> zapisuje sumator do <code>R[i]</code>. Każdy z tych rozkazów ma jednostkowy koszt w przyjętym modelu.</p>"
+    },
+    "de4ku8afgwb9nzfnmkp3aeey": {
+      "heading": "Trzy instrukcje, jeden wynik",
+      "paragraph": "<p>Przyjmijmy początkowo <code>R[1] = 3</code> oraz <code>R[2] = 5</code>. Chcemy zapisać ich sumę do <code>R[3]</code>. Prześledź zmiany stanu, zamiast zapamiętywać nazwy rozkazów bez zrozumienia.</p>"
+    },
+    "cmi7gwqtn003a2a73elha9f6l": {
+      "process_entries": [
+        {
+          "title": "1. Określamy stan początkowy",
+          "description": "<p>Rejestr <code>R[1]</code> zawiera <code>3</code>, a <code>R[2]</code> zawiera <code>5</code>. Poprzednia zawartość sumatora i <code>R[3]</code> nie ma znaczenia, ponieważ najpierw nadpiszemy sumator, a na końcu wynikowy rejestr.</p>"
+        },
+        {
+          "title": "2. LOAD 1",
+          "description": "<p>Rozkaz <code>LOAD 1</code> kopiuje zawartość <code>R[1]</code> do sumatora. Teraz <code>ACC = 3</code>; wartość <code>R[1]</code> pozostaje bez zmian.</p>"
+        },
+        {
+          "title": "3. ADD 2",
+          "description": "<p><code>ADD 2</code> oblicza <code>ACC ← ACC + R[2]</code>. Ponieważ <code>3 + 5 = 8</code>, po wykonaniu rozkazu <code>ACC = 8</code>. Rejestr <code>R[2]</code> wciąż zawiera <code>5</code>.</p>"
+        },
+        {
+          "title": "4. STORE 3",
+          "description": "<p><code>STORE 3</code> kopiuje bieżącą zawartość sumatora do <code>R[3]</code>. Mamy <code>R[3] = 8</code>. To jest miejsce przechowywania wyniku; operacja nie powtarza dodawania.</p>"
+        },
+        {
+          "title": "5. Sprawdzamy stan końcowy",
+          "description": "<p>Wynik spełnia kontrakt: <code>R[3] = R[1] + R[2]</code>. Prześledzone instrukcje nie zmieniły argumentów wejściowych. Dla innych liczb całkowitych identyczny argument działa, o ile model nie wprowadza przepełnienia.</p>"
+        },
+        {
+          "title": "6. Liczymy koszt",
+          "description": "<p>Wykonano dokładnie trzy rozkazy: jedno ładowanie, jedno dodawanie i jeden zapis. W jednostkowym modelu RAM daje to trzy jednostki kosztu bez względu na wartości argumentów w dozwolonym zakresie.</p>"
+        },
+        {
+          "title": "7. Widzimy ograniczenie przykładu",
+          "description": "<p>Argumenty zostały już umieszczone w rejestrach. Pełny program pobierający dane, zapisujący wynik na wyjściu i kończący działanie wymaga dodatkowych rozkazów, które zależą od przyjętego języka RAM. Nie należy nazywać tych trzech instrukcji kompletnym programem wejścia–wyjścia.</p>"
+        }
+      ]
+    },
+    "hr66sbl2r3w43rt20a8jthwy": {
+      "paragraph": "<p>Instrukcje mają precyzyjne znaczenie: modyfikują określone składniki stanu. Jeśli pomylimy zawartość rejestru z zawartością sumatora, nawet prosty program może zwrócić błędny wynik. W następnej części zastosujemy tę obserwację do programu z pętlą.</p>"
+    }
+  }
+}
