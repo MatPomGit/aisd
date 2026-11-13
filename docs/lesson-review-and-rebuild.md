@@ -169,7 +169,7 @@ Dla każdego przeglądu utwórz kartę według [szablonu](templates/lesson-revie
 
 ## 8. Zasady publicznej dokumentacji
 
-Dokumentacja publikowana studentom opisuje wyłącznie treść dydaktyczną, pracę z materiałem, wymagania techniczne i weryfikowalne kryteria jakości. Nie publikuj w niej informacji o wewnętrznych systemach organizacji prac, agentach lub ich sposobie działania. Dokumentacja nie może zawierać sekretów, danych studentów ani informacji o niepublicznej infrastrukturze.
+Dokumentacja publikowana studentom opisuje wyłącznie treść dydaktyczną, pracę z materiałem, wymagania techniczne i weryfikowalne kryteria jakości. Nie ujawniaj w niej szczegółów wewnętrznej organizacji prac ani niepublicznych procesów operacyjnych. Dokumentacja nie może zawierać sekretów, danych studentów ani informacji o niepublicznej infrastrukturze.
 
 ## 9. Powtarzanie procesu w całym kursie
 
