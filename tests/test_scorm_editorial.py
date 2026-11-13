@@ -35,7 +35,8 @@ class EditorialPilotTests(unittest.TestCase):
         self.assertEqual(intro["items"][1]["items"][0]["heading"],
                          "Milion rekordów. Od czego zacząć?")
         text = str(intro["items"])
-        for phrase in ("ZWRÓĆ -1", "niezmiennik pętli", "O(n)", "O(1)",
+        for phrase in ("ZWRÓĆ -1", "DOPÓKI i &lt; n", "i ← i + 1",
+                       "niezmiennik pętli", "O(n)", "O(1)",
                        "Pusta tablica", "Powtarzające się wartości"):
             self.assertIn(phrase, text)
         self.assertNotIn("Jasne określenie celów", text)
