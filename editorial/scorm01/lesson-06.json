@@ -44,6 +44,10 @@
           "description": "<p>Wejście to dowolna skończona tablica, niekoniecznie posortowana. Wynik musi być najmniejszym indeksem <code>i</code>, dla którego <code>A[i] = x</code>, albo <code>-1</code>. Nie można wprowadzać ukrytego wymagania uporządkowania danych.</p>"
         },
         {
+          "title": "5. Oceń koszt i ograniczenia",
+          "description": "<p>Przy trafieniu na początku wystarczy jedno porównanie, w najgorszym przypadku potrzeba <code>n</code>. Dodatkowa pamięć jest stała. Zatrzymanie po warunku <code>A[i] &gt; x</code> byłoby uzasadnione dopiero po zmianie specyfikacji wejścia na tablicę niemalejącą.</p>"
+        },
+        {
           "title": "2. Prześledź proponowane przyspieszenie",
           "description": "<p>Niepoprawna reguła: <code>JEŻELI A[i] &gt; x: ZWRÓĆ -1</code>. Już dla <code>i = 0</code> mamy <code>A[0] = 8 &gt; 7</code>, więc procedura zwraca <code>-1</code>, chociaż <code>A[2] = 7</code>. To konkretny kontrprzykład.</p>"
         },
@@ -54,10 +58,6 @@
         {
           "title": "4. Uzasadnij poprawność",
           "description": "<p>Przed porównaniem na pozycji <code>i</code> wszystkie wcześniejsze pozycje były różne od <code>x</code>. Jeśli znajdziesz trafienie, jest ono pierwsze. Jeśli pętla zakończy się bez trafienia, żaden element nie spełnia warunku. Indeks rośnie, więc pętla ma co najwyżej <code>n</code> iteracji.</p>"
-        },
-        {
-          "title": "5. Oceń koszt i ograniczenia",
-          "description": "<p>Przy trafieniu na początku wystarczy jedno porównanie, w najgorszym przypadku potrzeba <code>n</code>. Dodatkowa pamięć jest stała. Zatrzymanie po warunku <code>A[i] &gt; x</code> byłoby uzasadnione dopiero po zmianie specyfikacji wejścia na tablicę niemalejącą.</p>"
         }
       ]
     },
