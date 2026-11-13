@@ -13,9 +13,16 @@ const ui = {
   lessonList: el("lessonList"), lessonEditor: el("lessonEditor"),
   courseTitle: el("courseTitle"), advanced: el("advancedPanel"),
   json: el("jsonEditor"), applyJson: el("applyJson"), refreshJson: el("refreshJson"),
-  filename: el("outputFilename"), download: el("downloadButton")
+  filename: el("outputFilename"), download: el("downloadButton"),
+  repoSelect: el("repoCourseSelect"), openRepo: el("openRepoCourse"),
+  repoMeta: el("repoCourseMeta"), catalogStatus: el("catalogStatus"),
+  localUpload: el("localUpload")
 };
-const state = { doc: null, lessonIndex: 0, busy: false };
+const state = { doc: null, lessonIndex: 0, busy: false, dirty: false, catalog: [] };
+function markDirty() { state.dirty = true; }
+function canReplace() {
+  return !state.dirty || window.confirm("Masz niezapisane zmiany. Otworzyć inny plik i je odrzucić?");
+}
 
 function message(text, kind = "info") {
   ui.message.hidden = false;
@@ -26,6 +33,8 @@ function busy(value) {
   state.busy = value;
   for (const button of [ui.choose, ui.remove, ui.reset, ui.applyJson,
                         ui.refreshJson, ui.download]) button.disabled = value;
+  ui.repoSelect.disabled = value || state.catalog.length === 0;
+  ui.openRepo.disabled = value || state.catalog.length === 0;
   ui.dropzone.classList.toggle("is-busy", value);
 }
 function node(tag, cls, text) {
@@ -49,7 +58,7 @@ function labelControl(parent, text, value, multiline, callback, cssClass = "") {
     input.spellcheck = false;
   } else input.type = "text";
   input.value = value ?? "";
-  input.addEventListener("input", () => callback(input.value));
+  input.addEventListener("input", () => { markDirty(); callback(input.value); });
   wrapper.append(label, input);
   parent.appendChild(wrapper);
   return input;
@@ -163,8 +172,21 @@ function refreshJSON() {
   if (!state.doc) return;
   ui.json.value = JSON.stringify(state.doc.data, null, 2);
 }
+async function presentFile(file, origin) {
+  const doc = await openRiseZip(file, window.JSZip);
+  state.doc = doc;
+  state.dirty = false;
+  state.lessonIndex = 0;
+  ui.filename.value = finalFilename(file.name);
+  ui.fileLine.hidden = false;
+  ui.fileLine.textContent = origin + " · " + file.name + " · " +
+    (file.size / 1024 / 1024).toFixed(2) + " MB · " +
+    doc.entryCount + " wpisów · SCORM 1.2";
+  renderAll();
+  message("Pakiet wczytany. Możesz edytować lekcje lub usunąć test.", "success");
+}
 async function load(file) {
-  if (!file || state.busy) return;
+  if (!file || state.busy || !canReplace()) return;
   if (!/\.zip$/i.test(file.name)) {
     message("Wybierz oryginalny plik .zip z Articulate Rise.", "error");
     return;
@@ -174,22 +196,10 @@ async function load(file) {
     return;
   }
   busy(true);
-  message("Odczytuję ZIP, manifest i dane kursu. Plik pozostaje w przeglądarce.");
+  message("Odczytuję ZIP, manifest i dane kursu. Plik pozostaje na Twoim urządzeniu.");
   try {
-    const doc = await openRiseZip(file, window.JSZip);
-    state.doc = doc;
-    state.lessonIndex = 0;
-    ui.filename.value = finalFilename(file.name);
-    ui.fileLine.hidden = false;
-    ui.fileLine.textContent = file.name + " · " +
-      (file.size / 1024 / 1024).toFixed(2) + " MB · " +
-      doc.entryCount + " wpisów archiwum · SCORM 1.2";
-    renderAll();
-    message("Pakiet wczytany. Możesz edytować lekcje lub usunąć test.", "success");
+    await presentFile(file, "Plik lokalny");
   } catch (error) {
-    state.doc = null;
-    ui.workspace.hidden = true;
-    ui.fileLine.hidden = true;
     message("Nie udało się wczytać pakietu: " + error.message, "error");
   } finally {
     busy(false);
@@ -197,6 +207,95 @@ async function load(file) {
     ui.input.value = "";
   }
 }
+function selectedCourse() {
+  return state.catalog.find(item => String(item.number) === ui.repoSelect.value);
+}
+function updateRepoMeta() {
+  const item = selectedCourse();
+  ui.repoMeta.hidden = !item;
+  ui.repoMeta.textContent = item ? item.lessons + " lekcji · " +
+    (item.bytes / 1024 / 1024).toFixed(2) + " MB · źródło: raw/" + item.filename : "";
+}
+async function loadCatalog() {
+  try {
+    const response = await fetch(new URL("./catalog.json", import.meta.url),
+      { cache: "no-store", credentials: "omit" });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const catalog = await response.json();
+    if (catalog.version !== 1 || !Array.isArray(catalog.items) || !catalog.items.length)
+      throw new ScormError("Nieprawidłowy katalog pakietów.");
+    const seen = new Set();
+    for (const item of catalog.items) {
+      if (!Number.isInteger(item.number) || seen.has(item.number) ||
+          typeof item.title !== "string" || !item.title ||
+          typeof item.filename !== "string" || !item.filename.toLowerCase().endsWith(".zip") ||
+          typeof item.url !== "string" || !item.url.startsWith("./packages/") ||
+          !Number.isInteger(item.bytes) || item.bytes <= 0 || item.bytes > MAX_ZIP_SIZE ||
+          !/^[a-f0-9]{64}$/.test(item.sha256) ||
+          !Number.isInteger(item.lessons) || item.lessons <= 0)
+        throw new ScormError("Nieprawidłowy wpis w katalogu SCORM.");
+      const base = new URL("./packages/", import.meta.url);
+      const url = new URL(item.url, import.meta.url);
+      if (base.origin !== url.origin || !url.pathname.startsWith(base.pathname) ||
+          url.search || url.hash || url.pathname.includes("../"))
+        throw new ScormError("Niedozwolona ścieżka paczki w katalogu.");
+      seen.add(item.number);
+    }
+    state.catalog = catalog.items.sort((a, b) => a.number - b.number);
+    ui.repoSelect.replaceChildren();
+    for (const item of state.catalog) {
+      const option = node("option", "", String(item.number).padStart(2, "0") +
+        ". " + item.title);
+      option.value = String(item.number);
+      ui.repoSelect.appendChild(option);
+    }
+    ui.repoSelect.disabled = false;
+    ui.openRepo.disabled = false;
+    ui.catalogStatus.textContent = "Dostępne kursy: " + state.catalog.length +
+      ". Wybierz kurs i kliknij „Otwórz do edycji”.";
+    updateRepoMeta();
+  } catch (error) {
+    state.catalog = [];
+    ui.catalogStatus.textContent = "Nie udało się załadować biblioteki (" +
+      error.message + "). Możesz nadal otworzyć własny plik ZIP.";
+    ui.localUpload.open = true;
+  }
+}
+async function openRepositoryCourse() {
+  const item = selectedCourse();
+  if (!item || state.busy || !canReplace()) return;
+  busy(true);
+  message("Pobieram paczkę nr " + item.number +
+    " z repozytorium i weryfikuję sumę SHA-256…");
+  try {
+    const sourceUrl = new URL(item.url, import.meta.url);
+    const response = await fetch(sourceUrl, { cache: "no-store", credentials: "omit" });
+    if (!response.ok) throw new ScormError("Nie udało się pobrać ZIP: HTTP " + response.status);
+    const headerSize = Number(response.headers.get("content-length"));
+    if (headerSize > MAX_ZIP_SIZE) throw new ScormError("Zbyt duży ZIP.");
+    const buffer = await response.arrayBuffer();
+    if (buffer.byteLength !== item.bytes) {
+      throw new ScormError("Rozmiar ZIP różni się od katalogu.");
+    }
+    const digest = await crypto.subtle.digest("SHA-256", buffer);
+    const sha = Array.from(new Uint8Array(digest), byte =>
+      byte.toString(16).padStart(2, "0")).join("");
+    if (sha !== item.sha256) {
+      throw new ScormError("Suma SHA-256 nie zgadza się z katalogiem. Nie otwarto kursu.");
+    }
+    const file = new File([buffer], item.filename, { type: "application/zip" });
+    await presentFile(file, "Repozytorium AIiSD");
+  } catch (error) {
+    message("Nie udało się otworzyć kursu z repozytorium: " + error.message, "error");
+  } finally {
+    busy(false);
+    if (state.doc) renderStats();
+  }
+}
+
+ui.repoSelect.addEventListener("change", updateRepoMeta);
+ui.openRepo.addEventListener("click", openRepositoryCourse);
+void loadCatalog();
 
 ui.choose.addEventListener("click", event => {
   event.stopPropagation();
@@ -232,6 +331,7 @@ ui.dropzone.addEventListener("drop", event => {
 ui.courseTitle.addEventListener("input", event => {
   const doc = state.doc;
   if (!doc) return;
+  markDirty();
   doc.data.course.exportSettings.title = event.target.value;
   if (typeof doc.data.course.title === "string") doc.data.course.title = event.target.value;
 });
@@ -239,6 +339,7 @@ ui.remove.addEventListener("click", () => {
   if (!state.doc || state.busy) return;
   try {
     const operation = makeUngraded(state.doc);
+    markDirty();
     state.lessonIndex = Math.min(state.lessonIndex,
       state.doc.data.course.lessons.length - 1);
     renderAll();
@@ -254,6 +355,7 @@ ui.reset.addEventListener("click", () => {
   state.doc.removedId = null;
   state.lessonIndex = 0;
   state.doc.changes = [];
+  state.dirty = false;
   renderAll();
   message("Przywrócono dane z oryginalnego ZIP. Oryginalny plik nie był modyfikowany.");
 });
@@ -273,6 +375,7 @@ ui.applyJson.addEventListener("click", () => {
       throw new ScormError("W trybie bez ocen nie można przywrócić quizu w JSON.");
     }
     state.doc.data = data;
+    markDirty();
     state.lessonIndex = Math.min(state.lessonIndex, data.course.lessons.length - 1);
     renderAll();
     message("Zastosowano zmiany JSON. Przed publikacją zweryfikuj treść w Moodle.", "success");

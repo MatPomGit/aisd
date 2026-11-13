@@ -8,6 +8,9 @@ on:
       - 'docs/.nojekyll'
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
+      - 'scripts/build_scorm_pages_catalog.py'
+      - 'scripts/scorm_pipeline.py'
+      - 'raw/**'
       - '.github/workflows/scorm-editor-pages.yml'
   push:
     branches: [main]
@@ -17,6 +20,9 @@ on:
       - 'docs/.nojekyll'
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
+      - 'scripts/build_scorm_pages_catalog.py'
+      - 'scripts/scorm_pipeline.py'
+      - 'raw/**'
       - '.github/workflows/scorm-editor-pages.yml'
   workflow_dispatch:
 
@@ -50,6 +56,10 @@ jobs:
           test -f docs/editor/index.html
           test -f docs/editor/style.css
           test -f docs/.nojekyll
+      - name: Generate catalog and stage original repository ZIPs
+        run: python scripts/build_scorm_pages_catalog.py --raw raw --docs docs --output build/scorm-pages
+      - name: Validate generated catalog and staged sources
+        run: python -m unittest discover -s tests -p 'test_scorm_pages_catalog.py' -v
       - name: Real ZIP integration tests
         run: node --test tests/scorm_editor.test.mjs
       - name: Headless browser upload-edit-download smoke
@@ -57,7 +67,7 @@ jobs:
         run: |
           set -euo pipefail
           export CHROME_BIN="$(command -v google-chrome || command -v chromium)"
-          python3 -m http.server 8787 --bind 127.0.0.1 --directory docs > /tmp/scorm-editor-web.log 2>&1 &
+          python3 -m http.server 8787 --bind 127.0.0.1 --directory build/scorm-pages > /tmp/scorm-editor-web.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           sleep 2
@@ -83,10 +93,12 @@ jobs:
           persist-credentials: false
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Publish only docs
+      - name: Prepare Pages library from canonical raw ZIPs
+        run: python scripts/build_scorm_pages_catalog.py --raw raw --docs docs --output build/scorm-pages
+      - name: Publish static editor and catalog
         uses: actions/upload-pages-artifact@v4
         with:
-          path: docs/
+          path: build/scorm-pages/
       - name: Deploy Pages
         id: deploy
         uses: actions/deploy-pages@v4

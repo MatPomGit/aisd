@@ -183,9 +183,19 @@ Ta procedura nie obejmuje automatycznego wdrożenia na produkcyjny Moodle, SCORM
 
 Statyczna strona znajduje się w [`docs/editor/index.html`](editor/index.html); po włączeniu GitHub Pages jej standardowy adres to **https://matpomgit.github.io/aisd/editor/**. Strona startowa jest w [`docs/index.html`](index.html).
 
+### Domyślna biblioteka kursów repozytorium
+
+Źródłem prawdy pozostaje **20 oryginalnych plików ZIP w `raw/`**. Edytor domyślnie pokazuje ich katalog: numer, nazwę kursu, liczbę lekcji i rozmiar. Wybierz kurs i kliknij **Otwórz do edycji**. Nie trzeba wcześniej pobierać pliku z GitHub ani rozpakowywać go ręcznie.
+
+**Architektura:** wybrany ZIP jest lepszy niż rozpakowane pliki `files/scorm_XX/`, ponieważ jest dokładnie tym samym, samowystarczalnym artefaktem, który trafi później do Moodle. Pozwala zachować `imsmanifest.xml`, ścieżki, zasoby, sterownik SCORM i strukturę archiwum. Edytor rozpakowuje ZIP **wyłącznie w pamięci przeglądarki**, modyfikuje dozwolone pola Rise i zapisuje kopię jako nowy ZIP. Praca na `files/scorm_XX/` wymagałaby odtworzenia opakowania i mogłaby wprowadzić rozbieżności względem `raw/`.
+
+Przy każdym wdrożeniu GitHub Actions uruchamia `scripts/build_scorm_pages_catalog.py`. Skrypt weryfikuje paczki źródłowe, generuje `catalog.json` z sumami SHA-256 i **tymczasowo** kopiuje ZIP do artefaktu Pages jako `editor/packages/`. W repozytorium nie powstaje druga kopia pakietów. Publikowane zasoby odpowiadają bitowo oryginałom, co sprawdzają testy. Przeglądarka pobiera wyłącznie wybrany plik, porównuje jego długość i sumę SHA-256 z katalogiem, a niezgodny plik odrzuca. Katalog nie wymaga tokenów ani uwierzytelniania, gdyż `raw/` i GitHub Pages są publiczne.
+
+**Zapis w edytorze oznacza pobranie nowego ZIP na komputer.** Strona statyczna nie nadpisuje `raw/` ani nie tworzy commitów. Jeżeli wynik ma być zapisany również w repozytorium, musi przejść przez normalną recenzję zmian i kontrolę CI. Oryginał należy zachować. Można też używać poprzedniego trybu „Lub otwórz własny plik ZIP”, rozwijając go pod katalogiem.
+
 ### Funkcje i sposób użycia
 
-1. Otwórz stronę i przeciągnij **oryginalny ZIP Articulate Rise 360 SCORM 1.2** do obszaru wyboru. Limit jednego pliku: 120 MB.
+1. Otwórz stronę. Domyślnie wybierz gotowy kurs z biblioteki `raw/`, kliknij **Otwórz do edycji**; alternatywnie rozwiń „Lub otwórz własny plik ZIP”. Limit jednego pliku: 120 MB.
 2. Odczytaj listę lekcji, tytuł kursu, obecność quizu i tryb raportowania.
 3. Wybierz lekcję. Możesz edytować jej tytuł, opis oraz pola tekstowe bloków Rise (w tym źródłowe fragmenty HTML).
 4. W razie potrzeby rozwiń sekcję **Zaawansowane**. Możesz edytować dane JSON kursu i zatwierdzić je przyciskiem „Zastosuj JSON”. Nie modyfikuj struktury ani identyfikatorów bez dokładnej znajomości schematu.
@@ -193,7 +203,7 @@ Statyczna strona znajduje się w [`docs/editor/index.html`](editor/index.html); 
 6. Ustaw nazwę i kliknij **Sprawdź i pobierz ZIP**. Aplikacja ponownie odczytuje nowy ZIP, sprawdza manifest, zawartość danych, tracking i bajtową identyczność zasobów niewymagających zmian.
 7. Wgraj nowy ZIP do **testowej** aktywności Moodle. Sprawdź otwieranie, przejście, wznowienie, status `completed` po 100% oraz brak nowego `cmi.core.score.raw`.
 
-Edycja jest lokalna w przeglądarce: ZIP nie jest przesyłany na serwer ani do GitHub. Biblioteka JSZip v3.10.1 jest pobierana z publicznej CDN z przypiętą sumą Subresource Integrity. Wszystkie modyfikowane pliki pozostają na urządzeniu użytkownika.
+Pobranie wybranego pakietu z repozytorium odbywa się przez GitHub Pages. Dalsza edycja i tworzenie wynikowego ZIP są lokalne: zmiany nie są przesyłane na serwer ani do GitHub. Biblioteka JSZip v3.10.1 jest pobierana z publicznej CDN z przypiętą sumą Subresource Integrity. Wszystkie modyfikowane pliki pozostają na urządzeniu użytkownika.
 
 ### Ograniczenia
 
@@ -205,7 +215,7 @@ Edycja jest lokalna w przeglądarce: ZIP nie jest przesyłany na serwer ani do G
 
 ### Wdrożenie GitHub Pages
 
-Automatyzacja znajduje się w `.github/workflows/scorm-editor-pages.yml`. PR uruchamia testy JS na rzeczywistych paczkach z `raw/`, w tym przebudowę i walidację wszystkich 20 ZIP. Dodatkowo Chromium automatycznie testuje interfejs: wczytanie pliku nr 13, zmianę tytułu, usunięcie testu, pobranie nowego ZIP oraz kontrolę jego zawartości. Po scaleniu do `main` i po **jednorazowej konfiguracji Pages** workflow publikuje wyłącznie katalog `docs/`.
+Automatyzacja znajduje się w `.github/workflows/scorm-editor-pages.yml`. PR uruchamia generator katalogu i testy JS na rzeczywistych paczkach z `raw/`, w tym przebudowę i walidację wszystkich 20 ZIP. Kontrole katalogu porównują SHA-256 każdej kopii publikacyjnej z jej źródłem. Dodatkowo Chromium automatycznie testuje interfejs: wczytanie pliku nr 13, zmianę tytułu, usunięcie testu, pobranie nowego ZIP oraz kontrolę jego zawartości. Po scaleniu do `main` i po **jednorazowej konfiguracji Pages** workflow publikuje wyłącznie katalog `docs/`.
 
 Jeśli Pages jeszcze nie jest skonfigurowane, wykonaj **Settings → Pages → Build and deployment → Source: GitHub Actions**. Nie trzeba dodawać sekretów, tokenów ani repozytorium `gh-pages`. Ponów przebieg „SCORM Studio | test and publish Pages” po włączeniu usługi, jeśli wcześniejsze wdrożenie zakończyło się błędem. Dla kontroli testów i statusu wdrożenia przejdź do repozytorium → **Actions**.
 

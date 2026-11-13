@@ -179,3 +179,63 @@ code { background: #eaf0f7; padding: 1px 4px; border-radius: 4px; font-size: .94
   .dropzone { min-height: 210px; }
   .section-line { align-items: flex-start; }
 }
+
+/* The repository ZIP library is the default way to open a course. */
+.repo-picker {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.repo-picker-field { flex: 1 1 370px; min-width: 215px; }
+.repo-picker select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #cbdbee;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fcfdff;
+  font: inherit;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.repo-picker select:focus-visible {
+  outline: 3px solid #a5cdf7;
+  outline-offset: 2px;
+}
+.repo-picker .button { min-height: 44px; padding: 10px 19px; }
+#catalogStatus { margin: 13px 0 0; }
+.repo-meta {
+  margin-top: 12px;
+  border: 1px solid #e0e9f3;
+  border-radius: 8px;
+  background: #f7faff;
+  color: #5b7189;
+  padding: 9px 12px;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.local-upload {
+  border-top: 1px solid #e3ebf5;
+  margin-top: 20px;
+  padding-top: 14px;
+}
+.local-upload > summary {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #365a82;
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 800;
+  list-style: none;
+}
+.local-upload > summary::-webkit-details-marker { display: none; }
+.local-upload .dropzone { margin-top: 12px; min-height: 190px; }
+@media (max-width: 570px) {
+  .repo-picker .button { width: 100%; }
+  .repo-picker-field { min-width: 0; flex-basis: 100%; }
+}
