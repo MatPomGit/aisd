@@ -8,6 +8,8 @@ on:
       - 'docs/.nojekyll'
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
+      - 'tests/scorm_learner.browser.mjs'
+      - 'tests/scorm_learner_harness.html'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
       - 'scripts/scorm_editorial.py'
@@ -22,6 +24,8 @@ on:
       - 'docs/.nojekyll'
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
+      - 'tests/scorm_learner.browser.mjs'
+      - 'tests/scorm_learner_harness.html'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
       - 'scripts/scorm_editorial.py'
@@ -68,6 +72,16 @@ jobs:
         run: node --test tests/scorm_editor.test.mjs
       - name: Build revised SCORM 01 exclusively for PR browser QA
         run: python scripts/scorm_pipeline.py build --course 1 --raw-dir raw --output-dir build/scorm-preview
+      - name: Prepare isolated offline Rise learner preview (not published)
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          packages=(build/scorm-preview/*.zip)
+          test "${#packages[@]}" -eq 1
+          mkdir -p build/scorm-pages/learner-preview
+          unzip -qq "${packages[0]}" -d build/scorm-pages/learner-preview
+          cp tests/scorm_learner_harness.html build/scorm-pages/learner-harness.html
       - name: Headless browser upload-edit-download smoke
         shell: bash
         run: |
@@ -78,12 +92,15 @@ jobs:
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           sleep 2
           node tests/scorm_editor.browser.mjs
-      - name: Attach editor desktop/mobile screenshots for independent visual QA
+          node tests/scorm_learner.browser.mjs
+      - name: Attach editor and real Rise desktop/mobile screenshots for visual QA
         if: ${{ always() && github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v4
         with:
-          name: scorm01-editor-qa-${{ github.run_number }}
-          path: build/scorm-review-screenshots/
+          name: scorm01-editor-and-rise-qa-${{ github.run_number }}
+          path: |
+            build/scorm-review-screenshots/
+            build/scorm-learner-screenshots/
           retention-days: 7
           if-no-files-found: warn
       - name: Check repo unchanged
