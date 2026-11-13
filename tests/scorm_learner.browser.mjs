@@ -126,23 +126,24 @@ try {
       const scenario = interactionChecks.get(i);
       if (scenario) {
         if (scenario.kind === "process") {
-          // Rise process blocks use Previous/Next carousel controls; the
-          // inactive step title is not itself a clickable target.
-          const candidates = await player.evaluate(() =>
-            [...document.querySelectorAll("button")].filter(el => {
-              const r = el.getBoundingClientRect();
-              return r.width > 0 && r.height > 0 && r.bottom > 0 &&
-                     r.top < window.innerHeight;
-            }).slice(-25).map(el => ({
-              label: el.getAttribute("aria-label"),
-              text: (el.innerText || "").slice(0, 50),
-              classes: el.className,
-            }))
-          );
-          console.log("Rise process visible buttons:", JSON.stringify(candidates));
-          await frameLocator.getByRole("button", {
-            name: /next|dalej|następny/i
-          }).last().click({ timeout: 12000 });
+          // Rise uses the carousel's next arrow on desktop. On narrow
+          // viewports the controls can be hidden and swipe is the intended UI.
+          const firstStep = frameLocator.getByText(
+            "1. Określamy stan początkowy", { exact: true }).first();
+          await firstStep.scrollIntoViewIfNeeded({ timeout: 15000 });
+          const nextArrow = frameLocator.locator("button.carousel-controls-next");
+          if (await nextArrow.isVisible()) {
+            await nextArrow.click({ timeout: 15000 });
+          } else {
+            const bounds = await firstStep.boundingBox();
+            assert.ok(bounds, "Cannot locate mobile process slide for swiping");
+            const y = Math.min(viewport.height - 90,
+                               Math.max(90, bounds.y + bounds.height / 2));
+            await page.mouse.move(bounds.x + bounds.width * 0.85, y);
+            await page.mouse.down();
+            await page.mouse.move(bounds.x + bounds.width * 0.15, y, { steps: 20 });
+            await page.mouse.up();
+          }
         } else {
           const button = frameLocator.getByText(scenario.control,
                                                 { exact: true }).first();
