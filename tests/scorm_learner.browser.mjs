@@ -64,6 +64,22 @@ try {
                     { waitUntil: "domcontentloaded", timeout: 30000 });
     const frameLocator = page.frameLocator("#content-frame");
     await frameLocator.locator("#app").waitFor({ state: "attached", timeout: 30000 });
+    await page.waitForTimeout(1500);
+    const earlyDiag = await page.frames().find(f =>
+      f.url().includes("/learner-preview/scormcontent/index.html"))
+      .evaluate(async () => {
+        const data = await window.__fetchCourse();
+        return {
+          playerLang: document.documentElement.lang,
+          sourceLabelLang: data?.labelSet?.iso639Code,
+          sourceExitLabel: data?.labelSet?.labels?.courseExit,
+          courseLocale: data?.course?.locale,
+          defaultLocaleId: data?.course?.defaultLocaleId,
+          pageContent: document.body.innerText.slice(0, 170),
+        };
+      });
+    console.log("Rise early locale diagnostic", viewport.name,
+                JSON.stringify(earlyDiag), "page errors", JSON.stringify(errors));
     await frameLocator.getByText(/EXIT COURSE|WYJDŹ Z KURSU/)
       .first().waitFor({ state: "visible", timeout: 30000 });
     const runtimeLang = await page.frames().find(f =>
