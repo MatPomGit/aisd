@@ -61,5 +61,21 @@
       "paragraph": "<p>Widzimy już, dlaczego poprawne porównanie algorytmów wymaga wskazania zarówno miary rozmiaru danych, jak i rodzaju kosztu. Nie potrzebujemy jeszcze pełnej algebry notacji asymptotycznych: po poznaniu modelu obliczeń i metod liczenia operacji wrócimy do ich formalnych definicji w pakiecie 05.</p>"
     }
   },
-  "new_lesson_title": "Rozmiar danych i tempo wzrostu kosztu"
+  "new_lesson_title": "Rozmiar danych i tempo wzrostu kosztu",
+  "expected_interactive_rows": {
+    "cmi7gvfhq001m2a73czva4q5j": [
+      {
+        "id": "cmi7gvfhq001n2a73ab8d11ps",
+        "title": "Granica górna (O)"
+      },
+      {
+        "id": "cmi7gvfhq001o2a73dtct8tmq",
+        "title": "Granica dolna (Ω)"
+      },
+      {
+        "id": "cmi7gvfhq001p2a7372z7czqa",
+        "title": "Granica ścisła (Θ)"
+      }
+    ]
+  }
 }
