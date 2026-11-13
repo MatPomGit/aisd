@@ -185,6 +185,77 @@ function knownEmbeddedTest(data) {
   last.title = "Najczęstsze błędy i wskazówki";
   return true;
 }
+const CHECK_HEADINGS = new Set([
+  "sprawdź swoją wiedzę", "sprawdzanie wiedzy",
+  "sprawdzenie wiedzy", "check your understanding"
+]);
+export function isAssessmentHeading(block) {
+  return !!(block && block.type === "text" &&
+    String(block.variant || "").includes("heading") &&
+    Array.isArray(block.items) && block.items.some(item =>
+      item && typeof item.heading === "string" &&
+      CHECK_HEADINGS.has(item.heading.trim().toLocaleLowerCase("pl"))));
+}
+export function assessmentStats(data) {
+  const lessons = data.course.lessons;
+  return {
+    quizzes: lessons.filter(l => l.type === "quiz").length,
+    knowledgeChecks: lessons.reduce((sum, l) =>
+      sum + (l.items || []).filter(x => x.type === "knowledgeCheck").length, 0),
+    assessmentHeadings: lessons.reduce((sum, l) =>
+      sum + (l.items || []).filter(isAssessmentHeading).length, 0)
+  };
+}
+function removeAssessmentSections(data) {
+  const removed = { checks: 0, headings: 0, blocks: 0 };
+  for (const lesson of data.course.lessons) {
+    ensure(lesson.type !== "quiz", "Najpierw usuń formalny quiz.");
+    const blocks = lesson.items || [];
+    ensure(Array.isArray(blocks), "Nieznany format bloków lekcji: " + lesson.id);
+    const keep = [];
+    let i = 0;
+    while (i < blocks.length) {
+      const block = blocks[i];
+      ensure(block && typeof block === "object", "Nieprawidłowy blok lekcji.");
+      if (isAssessmentHeading(block)) {
+        let j = i + 1;
+        let found = false;
+        while (j < blocks.length) {
+          const part = blocks[j];
+          ensure(part && typeof part === "object", "Nieprawidłowy blok sprawdzania wiedzy.");
+          if (part.type === "divider" && part.variant === "continue") { j++; break; }
+          if (found && part.type === "text" && ["b", "paragraph"].includes(part.variant)) {
+            break;
+          }
+          if (part.type === "knowledgeCheck") found = true;
+          j++;
+        }
+        ensure(found, "Nie rozpoznano bezpiecznie sekcji sprawdzania wiedzy: " + lesson.title);
+        removed.headings++;
+        removed.blocks += j - i;
+        removed.checks += blocks.slice(i, j).filter(x => x.type === "knowledgeCheck").length;
+        i = j;
+        continue;
+      }
+      if (block.type === "knowledgeCheck") {
+        removed.checks++;
+        removed.blocks++;
+        i++;
+        continue;
+      }
+      keep.push(block);
+      i++;
+    }
+    ensure(!blocks.length || keep.length,
+           "Usunięcie sprawdzania wiedzy opróżniłoby lekcję: " + lesson.title);
+    lesson.items = keep;
+  }
+  const remaining = assessmentStats(data);
+  ensure(!Object.values(remaining).some(Boolean),
+         "Po przebudowie nadal pozostały bloki sprawdzania wiedzy.");
+  return removed;
+}
+
 export function makeUngraded(doc) {
   const data = copyJSON(validateCourse(doc.data));
   const settings = data.course.exportSettings;
@@ -208,6 +279,7 @@ export function makeUngraded(doc) {
            "Brak quizu, ale kurs ma nieznane śledzenie quizowe.");
     if (knownEmbeddedTest(data)) operation = "Usunięto test blokowy, zachowano wskazówki";
   }
+  const removedChecks = removeAssessmentSections(data);
   settings.quizId = null;
   settings.completeWith = "course";
   settings.quizComplete = false;
@@ -220,6 +292,8 @@ export function makeUngraded(doc) {
   doc.data = data;
   doc.transform = operation;
   doc.removedId = deletedId;
+  doc.removedChecks = removedChecks.checks;
+  doc.removedSections = removedChecks.headings;
   doc.changes.push(operation);
   return operation;
 }
@@ -274,6 +348,8 @@ export function planFiles(doc) {
   const payload = patchedText(doc.payload, doc.wrapper, doc.data);
   let html = doc.wrapper.path === HTML_PATH ? payload : doc.html;
   if (doc.transform) {
+    ensure(!Object.values(assessmentStats(doc.data)).some(Boolean),
+           "W kursie pozostały testy albo sprawdzania wiedzy.");
     ensure(!doc.data.course.lessons.some(l => l.type === "quiz"),
            "Kurs nadal zawiera formalny quiz.");
     ensure(doc.data.course.exportSettings.quizId === null &&
