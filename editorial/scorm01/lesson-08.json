@@ -44,6 +44,10 @@
           "description": "<p>Rejestr <code>R[1]</code> zawiera <code>3</code>, a <code>R[2]</code> zawiera <code>5</code>. Poprzednia zawartość sumatora i <code>R[3]</code> nie ma znaczenia, ponieważ najpierw nadpiszemy sumator, a na końcu wynikowy rejestr.</p>"
         },
         {
+          "title": "7. Widzimy ograniczenie przykładu",
+          "description": "<p>Argumenty zostały już umieszczone w rejestrach. Pełny program pobierający dane, zapisujący wynik na wyjściu i kończący działanie wymaga dodatkowych rozkazów, które zależą od przyjętego języka RAM. Nie należy nazywać tych trzech instrukcji kompletnym programem wejścia–wyjścia.</p>"
+        },
+        {
           "title": "2. LOAD 1",
           "description": "<p>Rozkaz <code>LOAD 1</code> kopiuje zawartość <code>R[1]</code> do sumatora. Teraz <code>ACC = 3</code>; wartość <code>R[1]</code> pozostaje bez zmian.</p>"
         },
@@ -62,10 +66,6 @@
         {
           "title": "6. Liczymy koszt",
           "description": "<p>Wykonano dokładnie trzy rozkazy: jedno ładowanie, jedno dodawanie i jeden zapis. W jednostkowym modelu RAM daje to trzy jednostki kosztu bez względu na wartości argumentów w dozwolonym zakresie.</p>"
-        },
-        {
-          "title": "7. Widzimy ograniczenie przykładu",
-          "description": "<p>Argumenty zostały już umieszczone w rejestrach. Pełny program pobierający dane, zapisujący wynik na wyjściu i kończący działanie wymaga dodatkowych rozkazów, które zależą od przyjętego języka RAM. Nie należy nazywać tych trzech instrukcji kompletnym programem wejścia–wyjścia.</p>"
         }
       ]
     },
