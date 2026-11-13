@@ -356,6 +356,16 @@ def build_one(source, output, *, include_editorial=True):
             replacements[HTML] = set_tracking(replacements[HTML].decode("utf-8"), TRACKING).encode("utf-8")
         else:
             replacements[HTML] = set_tracking(original_html, TRACKING).encode("utf-8")
+        if include_editorial and result["course"].get("id") == SCORM01_COURSE_ID:
+            # The course is in Polish. Set the first paint language for
+            # assistive technologies; the Rise player also reads labelSet
+            # and course locale metadata from the edited JSON.
+            content_html = replacements[HTML].decode("utf-8")
+            if content_html.count('<html lang="en"') != 1:
+                raise BuildError("Unexpected Rise HTML document language")
+            replacements[HTML] = content_html.replace(
+                '<html lang="en"', '<html lang="pl"', 1
+            ).encode("utf-8")
         output.parent.mkdir(parents=True, exist_ok=True)
         try:
             with zipfile.ZipFile(output, "w") as dst:
