@@ -1,8 +1,8 @@
 # SCORM 01 – projekt redakcji
 
-**Wersja planu:** 1.2.0 · **Data:** 2026-11-13  
+**Wersja planu:** 2.0.0 · **Data:** 2026-11-13  
 **Pakiet:** `raw/1-podstawy-algorytmów.zip` · **Odbiorca:** III rok informatyki  
-**Stan:** nowe, testowalne nakładki dla części **01–06**; części 06–11 oraz błędne przykłady RAM pozostają w kolejce niezależnej recenzji. PR jest roboczy, nie do publikacji w Moodle.
+**Stan:** nakładki redakcyjne obejmują **11 z 11 części**; pakiet pozostaje w statusie Draft do przeglądu wizualnego, niezależnej recenzji merytorycznej i testu integracyjnego Moodle.
 
 ## Teza dydaktyczna
 
@@ -42,19 +42,19 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 | 04 Poprawność i złożoność | **Zredagowano:** poprawność częściowa/całkowita, niezmiennik, zakończenie, koszt 1–n porównań i średnia pod jawnym założeniem |
 | 05 O, Ω, Θ | **Zredagowano i skrócono:** znaczenie rozmiaru wejścia, trzy rodzaje granic i przykład liniowy; formalne rozwinięcie pozostaje w SCORM 05 |
 | 06 Przykłady analizy | **Zredagowano:** studium przypadku błędnej optymalizacji, kontrprzykład `[8, 3, 7]`, ślad i uzasadnienie poprawności |
-| 07 Model RAM | Zastąpić krótką zapowiedzią; pełna definicja SCORM 02 |
-| 08 Instrukcje RAM | Przenieść do 02 po naprawie semantyki i kodu |
-| 09 Implementacje RAM | Nie publikować niepoprawnych przykładów; korekta w #8, selektywne przeniesienie do 02–03 |
-| 10 Analiza RAM | Wyprowadzić do 04 i naprawić pomyłki w sortowaniu |
-| 11 Podsumowanie | Jedno zwięzłe zakończenie i logiczny pomost do następnej części; bez duplikatów |
+| 07 Model RAM | **Zredagowano:** rola modelu jednostkowego, rejestry, koszt bitowy i granice uproszczenia; pełne rozwinięcie w SCORM 02 |
+| 08 Instrukcje RAM | **Zredagowano:** siedmioetapowy ślad `LOAD 1; ADD 2; STORE 3`, suma 3 + 5 i jednoznaczny stan rejestrów |
+| 09 Implementacje RAM | **Zredagowano:** kompletny, testowalny program sumowania liczb do zera, jawne założenia `READ`, `LOAD`, `JZERO`, ślad i niezmiennik; usunięto błędne programy NWD i maksimum |
+| 10 Analiza RAM | **Zredagowano:** kontrprzykłady, koszt `Θ(m+1)`, warunek obecności zera, rozróżnienie sortowania przez wybór i scalanie |
+| 11 Podsumowanie | **Zredagowano:** pięć zasad projektowania, usunięto powtarzane fiszki i błędne definicje, wprowadzono pomost do kolejnych pakietów |
 
 ## Stan wykonania i pozostające ryzyka
 
-- Zredagowane: **pierwszych 6 spośród 11 części dydaktycznych**. Dla każdej istnieje osobna, deklaratywna nakładka, bez modyfikacji `raw/`.
-- Pierwsza część utrzymuje algorytm wyszukiwania liniowego jako temat przewodni. Części 02–06 rozdzielają kontrakt problemu, zapis, dowód poprawności oraz intuicję asymptotycznego tempa wzrostu.
+- Zredagowane: **11 z 11 części dydaktycznych**. Dla każdej istnieje osobna, deklaratywna nakładka, bez modyfikacji `raw/`.
+- Pierwsza część utrzymuje algorytm wyszukiwania liniowego jako temat przewodni. Części 02–11 rozdzielają kontrakt problemu, zapis, dowód poprawności oraz intuicję asymptotycznego tempa wzrostu.
 - W części 06 przedstawiono pięć kroków niezależnej analizy błędnej optymalizacji i cztery typowe błędy pętli, bez testu końcowego.
 - W części 02 usunięto mylące utożsamienie randomizacji z niedeterminizmem. W części 04 jawnie określono warunek dla średniej `(n+1)/2`; w części 05 poprawiono błędne utożsamianie `O` z przypadkiem najgorszym.
-- **Nie uznawać SCORM 01 za gotowy do publikacji.** Części 07–11 nadal wymagają korekty i skrócenia, a zwłaszcza błędne przykłady sumowania, NWD i maksimum w RAM oraz błędne uogólnienia dotyczące sortowania. Zagadnienia te są ewidencjonowane w [#8](https://github.com/MatPomGit/aisd/issues/8) i [#10](https://github.com/MatPomGit/aisd/issues/10).
+- **Nie uznawać SCORM 01 za gotowy do publikacji.** Stare błędne przykłady NWD, maksimum, sortowania i błędna wersja sumowania zostały usunięte z paczki 01; poprawny przykład sumowania jest poddawany testowi emulatora. Pełna naprawa i ewentualna migracja pozostałych przykładów do ich docelowych pakietów jest nadal otwartym zadaniem [#8](https://github.com/MatPomGit/aisd/issues/8). Konieczny pozostaje niezależny przegląd i test Moodle.
 - Obecnie zachowano wszystkie **11 identyfikatorów lekcji**, by nie ryzykować niepotwierdzonej migracji stanu wznowienia; celem końcowym jest bardziej zwarta, spójna struktura, co wymaga odrębnych testów nawigacji w Moodle.
 - Akceptacja dydaktyczna wymaga wizualnego przeglądu układu bloków Rise po przebudowie i testu na właściwej instancji Moodle. Test statyczny nie zastępuje tych kontroli.
 
