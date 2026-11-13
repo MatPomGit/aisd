@@ -1,6 +1,6 @@
 import {
   ScormError, MAX_ZIP_SIZE, copyJSON, validateCourse, openRiseZip,
-  makeUngraded, listEditableFields, buildRiseZip, finalFilename
+  makeUngraded, assessmentStats, listEditableFields, buildRiseZip, finalFilename
 } from "./core.mjs";
 
 const el = id => document.getElementById(id);
@@ -76,25 +76,30 @@ function renderStats() {
   const doc = state.doc;
   const lessons = doc.data.course.lessons;
   const quizCount = lessons.filter(l => l.type === "quiz").length;
+  const checkCount = assessmentStats(doc.data).knowledgeChecks;
   const knownBlock = lessons.some(l => l.id === "cmiej97dl000d207092aujenc" &&
                                        l.title === "Test końcowy i omówienie rozwiązań");
   ui.count.textContent = String(lessons.length);
   ui.quiz.textContent = doc.transform ? "Wyłączony" :
     quizCount ? "Obecny" : knownBlock ? "Blokowy" : "Brak";
   ui.quizDetail.textContent = doc.transform || (quizCount ?
-    "Formalny quiz Rise · " + quizCount : knownBlock ?
-    "Test w blokach lekcji" : "Brak formalnego quizu");
+    "Formalny quiz Rise · " + quizCount + ", sprawdzania wiedzy: " + checkCount : knownBlock ?
+    "Test w blokach lekcji · sprawdzania wiedzy: " + checkCount :
+    "Sprawdzania wiedzy: " + checkCount);
   ui.completion.textContent = getScoreMode();
   ui.reporting.textContent = doc.transform ? "completed-incomplete" :
     String(doc.tracking.reporting);
   ui.transform.textContent = doc.transform
-    ? doc.transform + ". Kurs nie powinien przesyłać punktowego wyniku quizu. Test Moodle musi być osobną aktywnością."
+    ? doc.transform + ". Usunięto " + (doc.removedChecks || 0) +
+      " bloków sprawdzania wiedzy. Test Moodle musi być osobną aktywnością."
     : doc.tracking.quizId
       ? "Ten pakiet pierwotnie śledził wynik quizu. Usuń test przed publikacją, jeśli ma pozostać wyłącznie materiałem."
-      : "Wykryto pakiet bez formalnego quizu. Sprawdź, czy nie zawiera testu w bloku lekcji.";
+      : checkCount
+        ? "Wykryto " + checkCount + " bloków sprawdzania wiedzy. Użyj przycisku usuwania."
+        : "Kurs nie zawiera quizów ani sprawdzania wiedzy. Ocena odbywa się w osobnym teście Moodle.";
   ui.remove.disabled = state.busy || Boolean(doc.transform);
-  ui.remove.textContent = doc.transform ? "Test usunięty / ukończenie ustawione ✓" :
-    "Usuń test końcowy i oceny";
+  ui.remove.textContent = doc.transform ? "Testy i sprawdzania wiedzy usunięte ✓" :
+    "Usuń testy i sprawdzania wiedzy";
 }
 function renderLessons() {
   const list = ui.lessonList;
@@ -214,7 +219,9 @@ function updateRepoMeta() {
   const item = selectedCourse();
   ui.repoMeta.hidden = !item;
   ui.repoMeta.textContent = item ? item.lessons + " lekcji · " +
-    (item.bytes / 1024 / 1024).toFixed(2) + " MB · źródło: raw/" + item.filename : "";
+    (item.bytes / 1024 / 1024).toFixed(2) + " MB · bez quizu i " +
+    item.knowledge_checks_removed + " usuniętych bloków sprawdzania wiedzy · źródło: raw/" +
+    item.filename : "";
 }
 async function loadCatalog() {
   try {
@@ -222,7 +229,7 @@ async function loadCatalog() {
       { cache: "no-store", credentials: "omit" });
     if (!response.ok) throw new Error("HTTP " + response.status);
     const catalog = await response.json();
-    if (catalog.version !== 1 || !Array.isArray(catalog.items) || !catalog.items.length)
+    if (catalog.version !== 2 || !Array.isArray(catalog.items) || !catalog.items.length)
       throw new ScormError("Nieprawidłowy katalog pakietów.");
     const seen = new Set();
     for (const item of catalog.items) {
@@ -232,7 +239,10 @@ async function loadCatalog() {
           typeof item.url !== "string" || !item.url.startsWith("./packages/") ||
           !Number.isInteger(item.bytes) || item.bytes <= 0 || item.bytes > MAX_ZIP_SIZE ||
           !/^[a-f0-9]{64}$/.test(item.sha256) ||
-          !Number.isInteger(item.lessons) || item.lessons <= 0)
+          !Number.isInteger(item.lessons) || item.lessons <= 0 ||
+          item.prepared !== true ||
+          !Number.isInteger(item.knowledge_checks_removed) || item.knowledge_checks_removed < 0 ||
+          !Number.isInteger(item.assessment_sections_removed) || item.assessment_sections_removed < 0)
         throw new ScormError("Nieprawidłowy wpis w katalogu SCORM.");
       const base = new URL("./packages/", import.meta.url);
       const url = new URL(item.url, import.meta.url);
@@ -251,8 +261,8 @@ async function loadCatalog() {
     }
     ui.repoSelect.disabled = false;
     ui.openRepo.disabled = false;
-    ui.catalogStatus.textContent = "Dostępne kursy: " + state.catalog.length +
-      ". Wybierz kurs i kliknij „Otwórz do edycji”.";
+    ui.catalogStatus.textContent = "Gotowe wersje bez quizów i sprawdzania wiedzy: " +
+      state.catalog.length + ". Wybierz kurs i kliknij „Otwórz do edycji”.";
     updateRepoMeta();
   } catch (error) {
     state.catalog = [];
