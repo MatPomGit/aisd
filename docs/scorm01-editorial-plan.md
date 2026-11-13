@@ -1,8 +1,8 @@
 # SCORM 01 – projekt redakcji
 
-**Wersja planu:** 1.0.0 · **Data:** 2026-11-13  
+**Wersja planu:** 1.1.0 · **Data:** 2026-11-13  
 **Pakiet:** `raw/1-podstawy-algorytmów.zip` · **Odbiorca:** III rok informatyki  
-**Stan:** rozpoczęto pilot pierwszej części; pozostała część pakietu nadal wymaga redakcji merytorycznej.
+**Stan:** nowe, testowalne nakładki dla części **01–05**; części 06–11 oraz błędne przykłady RAM pozostają w kolejce niezależnej recenzji. PR jest roboczy, nie do publikacji w Moodle.
 
 ## Teza dydaktyczna
 
@@ -36,11 +36,11 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 
 | Część źródłowa SCORM 01 | Działanie |
 |---|---|
-| 01 Wprowadzenie do algorytmów | **W realizacji:** nowa narracja, specyfikacja, liniowe wyszukiwanie, dowód, przypadki brzegowe |
-| 02 Definicja i klasyfikacje | Zredukować do precyzyjnej definicji i 2–3 odróżnień pojęciowych; obszerne klasyfikacje wyprowadzić z problemów |
-| 03 Pseudokod | Ograniczyć do wprowadzenia i odsyłacza do szczegółów w SCORM 03 |
-| 04 Poprawność i złożoność | Zachować tylko motywację, podstawowe rozróżnienie i powiązanie z przykładem; formalizm w SCORM 04 |
-| 05 O, Ω, Θ | Usunąć formalne przykłady z SCORM 01; SCORM 05 jako miejsce szczegółowe |
+| 01 Wprowadzenie do algorytmów | **Zredagowano:** specyfikacja, wyszukiwanie liniowe, dowód, przypadki brzegowe |
+| 02 Definicja i klasyfikacje | **Zredagowano:** kontrprzykład na nieposortowanej tablicy; osobno terminacja, poprawność, iteracja, rekurencja, randomizacja i niedeterminizm |
+| 03 Pseudokod | **Zredagowano:** jasne konwencje, poprawny pseudokod, równoważny program w Pythonie i ślad wykonania; szczegóły reprezentacji w SCORM 03 |
+| 04 Poprawność i złożoność | **Zredagowano:** poprawność częściowa/całkowita, niezmiennik, zakończenie, koszt 1–n porównań i średnia pod jawnym założeniem |
+| 05 O, Ω, Θ | **Zredagowano i skrócono:** znaczenie rozmiaru wejścia, trzy rodzaje granic i przykład liniowy; formalne rozwinięcie pozostaje w SCORM 05 |
 | 06 Przykłady analizy | Zastąpić jednym spójnym przykładem śledzenia i niezmiennika |
 | 07 Model RAM | Zastąpić krótką zapowiedzią; pełna definicja SCORM 02 |
 | 08 Instrukcje RAM | Przenieść do 02 po naprawie semantyki i kodu |
@@ -48,9 +48,18 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 | 10 Analiza RAM | Wyprowadzić do 04 i naprawić pomyłki w sortowaniu |
 | 11 Podsumowanie | Jedno zwięzłe zakończenie i logiczny pomost do następnej części; bez duplikatów |
 
+## Stan wykonania i pozostające ryzyka
+
+- Zredagowane: **pierwszych 5 spośród 11 części dydaktycznych**. Dla każdej istnieje osobna, deklaratywna nakładka, bez modyfikacji `raw/`.
+- Pierwsza część utrzymuje algorytm wyszukiwania liniowego jako temat przewodni. Części 02–05 rozdzielają kontrakt problemu, zapis, dowód poprawności oraz intuicję asymptotycznego tempa wzrostu.
+- W części 02 usunięto mylące utożsamienie randomizacji z niedeterminizmem. W części 04 jawnie określono warunek dla średniej `(n+1)/2`; w części 05 poprawiono błędne utożsamianie `O` z przypadkiem najgorszym.
+- **Nie uznawać SCORM 01 za gotowy do publikacji.** Części 06–11 nadal wymagają korekty i skrócenia, a zwłaszcza błędne przykłady sumowania, NWD i maksimum w RAM oraz błędne uogólnienia dotyczące sortowania. Zagadnienia te są ewidencjonowane w [#8](https://github.com/MatPomGit/aisd/issues/8) i [#10](https://github.com/MatPomGit/aisd/issues/10).
+- Obecnie zachowano wszystkie **11 identyfikatorów lekcji**, by nie ryzykować niepotwierdzonej migracji stanu wznowienia; celem końcowym jest bardziej zwarta, spójna struktura, co wymaga odrębnych testów nawigacji w Moodle.
+- Akceptacja dydaktyczna wymaga wizualnego przeglądu układu bloków Rise po przebudowie i testu na właściwej instancji Moodle. Test statyczny nie zastępuje tych kontroli.
+
 ## Wdrożenie i kontrola jakości
 
-Przejście od źródłowej wersji Rise do ZIP realizuje wersjonowana nakładka `editorial/scorm01/lesson-01.json`. Dzięki temu zmiany są przeglądalne w PR, a archiwum źródłowe pozostaje niezmienne. Adapter sprawdza identyfikator kursu, identyfikator pierwszej lekcji i identyfikatory wszystkich bloków, zanim wymieni tekst i usunie zbędne bloki.
+Przejście od źródłowej wersji Rise do ZIP realizują wersjonowane nakładki `editorial/scorm01/lesson-01.json` do `lesson-05.json`. Dzięki temu zmiany są przeglądalne w PR, a archiwum źródłowe pozostaje niezmienne. Adapter sprawdza identyfikator kursu, indeks i identyfikator lekcji oraz pełną sekwencję identyfikatorów bloków po usunięciu quizów, zanim wymieni treść i usunie zbędne bloki.
 
 **Kontrole automatyczne:** test jednostkowy danych, odmowa nieznanego schematu, regresja wszystkich 20 pakietów, pełny round-trip ZIP/SCORM 1.2, brak quizów i sprawdzań wiedzy, kontrakt raportowania `completed` bez `score.raw`.
 
