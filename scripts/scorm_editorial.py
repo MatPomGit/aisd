@@ -1,7 +1,7 @@
-"""Deterministic, fail-closed editorial overlays for Rise SCORM data.
+"""Versioned, fail-closed editorial overlays for Articulate Rise SCORM 01.
 
-Overlays operate on the decoded course JSON AFTER assessment removal and BEFORE
-re-encoding the ZIP. No edits to binary sources, manifests or identifiers.
+Text-only overlays operate after knowledge-check removal and before re-encoding.
+They preserve source ZIP, lesson IDs and media, and reject unexpected layouts.
 """
 from __future__ import annotations
 
@@ -9,62 +9,73 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCORM01_OVERLAY = ROOT / "editorial" / "scorm01" / "lesson-01.json"
+SCORM01_DIR = ROOT / "editorial" / "scorm01"
 SCORM01_COURSE_ID = "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro"
+SCORM01_LESSON_FILES = tuple(
+    SCORM01_DIR / f"lesson-{index:02d}.json" for index in range(1, 6)
+)
+SCORM01_RELEASE = "scorm01/lessons-01-05@1.1.0"
 
 
 class EditorialError(ValueError):
-    """Refuse editorial changes on an unexpected Rise structure."""
+    """Unknown or changed Rise structure: do not publish a speculative edit."""
 
 
-def require(predicate: bool, reason: str) -> None:
-    if not predicate:
+def require(condition: bool, reason: str) -> None:
+    if not condition:
         raise EditorialError(reason)
 
 
-def apply_editorial(data: dict) -> dict | None:
-    """Apply only known course overlays; return an audit summary or None."""
-    course = data.get("course")
-    if not isinstance(course, dict) or course.get("id") != SCORM01_COURSE_ID:
-        return None
-    overlay = json.loads(SCORM01_OVERLAY.read_text(encoding="utf-8"))
-    require(overlay["schema_version"] == 1, "Unsupported editorial overlay schema")
-    require(overlay["course_id"] == course["id"], "Editorial course ID mismatch")
-    require(overlay["course_title"] == course.get("title"), "Editorial course title changed")
+def _apply_lesson(course: dict, overlay: dict) -> dict:
+    require(overlay.get("schema_version") == 1,
+            "Unsupported editorial overlay schema")
+    require(overlay.get("course_id") == course["id"],
+            "Editorial course ID mismatch")
+    require(overlay.get("course_title") == course.get("title"),
+            "Editorial course title changed")
+    index = overlay.get("lesson_index", 0)
     lessons = course.get("lessons")
-    require(isinstance(lessons, list) and bool(lessons), "No lessons in course 01")
-    lesson = lessons[0]
-    require(lesson.get("id") == overlay["lesson_id"], "Introductory lesson ID changed")
-    require(lesson.get("title") == overlay["expected_lesson_title"],
-            "Introductory lesson title changed")
+    require(isinstance(index, int) and not isinstance(index, bool) and
+            isinstance(lessons, list) and 0 <= index < len(lessons),
+            "Invalid target lesson index")
+    lesson = lessons[index]
+    require(lesson.get("id") == overlay.get("lesson_id"),
+            f"Lesson ID changed: {index + 1}")
+    require(lesson.get("title") == overlay.get("expected_lesson_title"),
+            f"Lesson title changed: {index + 1}")
     blocks = lesson.get("items")
     require(isinstance(blocks, list), "Unexpected lesson blocks")
-    ids = [b.get("id") for b in blocks if isinstance(b, dict)]
-    require(len(ids) == len(blocks), "Invalid Rise block")
-    require(ids == overlay["expected_block_ids"],
-            "Source block IDs/order differ; do not apply speculative patch")
+    require(all(isinstance(b, dict) and isinstance(b.get("id"), str)
+                for b in blocks), "Invalid Rise block")
+    ids = [b["id"] for b in blocks]
+    require(len(set(ids)) == len(ids), "Duplicate block ID")
+    require(ids == overlay.get("expected_block_ids"),
+            f"Source block IDs/order differ in lesson {index + 1}")
 
-    keep_ids = overlay["keep_block_ids"]
+    keep_ids = overlay.get("keep_block_ids")
+    changes = overlay.get("updates")
+    require(isinstance(keep_ids, list) and bool(keep_ids) and
+            isinstance(changes, dict), "Invalid overlay changes")
     require(len(set(keep_ids)) == len(keep_ids), "Duplicate keep ID")
-    require(all(i in ids for i in keep_ids), "Unknown keep ID")
-    require([i for i in ids if i in keep_ids] == keep_ids, "Keep order has changed")
-    updates = overlay["updates"]
-    require(set(updates).issubset(set(keep_ids)), "Updates target removed blocks")
+    require([i for i in ids if i in set(keep_ids)] == keep_ids,
+            "Unexpected keep-list order or unknown ID")
+    require(set(changes).issubset(set(keep_ids)),
+            "Updates refer to a removed block")
+    edited = [b for b in blocks if b["id"] in set(keep_ids)]
+    by_id = {b["id"]: b for b in edited}
 
-    kept = [block for block in blocks if block["id"] in keep_ids]
-    index = {block["id"]: block for block in kept}
-    for block_id, change in updates.items():
-        block = index[block_id]
-        kind = block.get("type")
-        variant = block.get("variant")
+    for block_id, change in changes.items():
+        block = by_id[block_id]
+        kind, variant = block.get("type"), block.get("variant")
         rows = block.get("items")
-        require(isinstance(rows, list) and bool(rows), "Missing Rise block items")
-        if set(change).issubset({"heading", "paragraph"}) and change:
+        require(isinstance(change, dict) and isinstance(rows, list) and bool(rows),
+                "Missing Rise block items")
+        if set(change) in ({"paragraph"}, {"heading"}, {"heading", "paragraph"}):
             require(kind == "text" and len(rows) == 1,
                     "Text edit does not target a single text item")
             for key, value in change.items():
-                require(key in rows[0] and isinstance(value, str),
-                        "Text field missing from Rise item: " + key)
+                require(key in rows[0] and isinstance(value, str) and value.strip(),
+                        "Text field missing or empty: " + key)
                 rows[0][key] = value
         elif set(change) == {"list_paragraphs"}:
             values = change["list_paragraphs"]
@@ -72,31 +83,62 @@ def apply_editorial(data: dict) -> dict | None:
                     isinstance(values, list) and len(values) == len(rows),
                     "Unexpected numbered-list layout")
             for row, value in zip(rows, values):
-                require("paragraph" in row and isinstance(value, str),
-                        "Unexpected numbered list item")
+                require("paragraph" in row and isinstance(value, str) and value.strip(),
+                        "Unexpected numbered-list item")
                 row["paragraph"] = value
-        elif set(change) == {"accordion_entries"}:
-            values = change["accordion_entries"]
-            require(kind == "interactive" and variant == "accordion" and
+        elif set(change) in ({"accordion_entries"}, {"tabs_entries"}):
+            tabbed = "tabs_entries" in change
+            key = "tabs_entries" if tabbed else "accordion_entries"
+            expected = "tabs" if tabbed else "accordion"
+            values = change[key]
+            require(kind == "interactive" and variant == expected and
                     isinstance(values, list) and len(values) == len(rows),
-                    "Unexpected accordion layout")
+                    "Unexpected interactive layout: " + expected)
             for row, value in zip(rows, values):
-                require(set(value) == {"title", "description"} and
-                        "title" in row and "description" in row,
-                        "Unexpected accordion item")
-                for key, text in value.items():
-                    require(isinstance(text, str), "Invalid accordion text")
-                    row[key] = text
+                require(isinstance(value, dict) and
+                        set(value) == {"title", "description"} and
+                        all(key in row for key in ("title", "description")),
+                        "Unexpected interactive item")
+                for field, txt in value.items():
+                    require(isinstance(txt, str) and txt.strip(),
+                            "Empty interactive text")
+                    row[field] = txt
         else:
             raise EditorialError("Unsupported editorial operation: " + block_id)
 
-    require(all("<script" not in str(v).lower() for v in updates.values()),
-            "Embedded script in editorial text")
-    lesson["items"] = kept
+    require("<script" not in json.dumps(changes, ensure_ascii=False).lower(),
+            "Embedded script in editorial content")
+    title = overlay.get("new_lesson_title")
+    if title is not None:
+        require(isinstance(title, str) and title.strip(),
+                "Invalid new lesson title")
+        lesson["title"] = title
+    lesson["items"] = edited
     return {
-        "course": 1,
+        "lesson_index": index,
         "lesson_id": lesson["id"],
-        "overlay_version": overlay["revision"],
-        "edited_blocks": len(updates),
-        "removed_redundant_blocks": len(blocks) - len(kept),
+        "version": overlay["revision"],
+        "updated_blocks": len(changes),
+        "removed_redundant_blocks": len(blocks) - len(edited),
     }
+
+
+def apply_editorial(data: dict) -> list[dict] | None:
+    """Modify a known course in-place, or return None without changes.
+
+    Every file is required for SCORM 01. Callers must work on a deep copy:
+    if a later lesson fails its structural checks, the entire build is aborted.
+    """
+    course = data.get("course")
+    if not isinstance(course, dict) or course.get("id") != SCORM01_COURSE_ID:
+        return None
+    results = []
+    for expected_index, path in enumerate(SCORM01_LESSON_FILES):
+        try:
+            overlay = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise EditorialError(f"Cannot read overlay {path.name}: {exc}") from exc
+        require(overlay.get("lesson_index", 0) == expected_index,
+                f"Overlay targets wrong lesson: {path.name}")
+        results.append(_apply_lesson(course, overlay))
+    return results
