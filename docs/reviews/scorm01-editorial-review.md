@@ -63,6 +63,7 @@ Wniosek z testów jest ograniczony do **zdefiniowanego wariantu modelu** i wymie
 - [x] Testy strukturalne i wykonywanie przykładu RAM w testowym interpreterze.
 - [x] Przebudowa i kontrola runtime 20 pakietów SCORM 1.2 w CI.
 - [x] Test przeglądarkowego otwarcia i eksportu pakietów w SCORM Studio.
+- [x] Automatyczny render rzeczywistych lekcji Rise w Chromium: 11/11 × desktop/mobile, 0 px poziomego przepełnienia, zapis 22 ekranów ([raport](scorm01-browser-qa.md)).
 - [ ] Ręczny przegląd **każdego zmienionego bloku** w docelowym wyglądzie (różne rozmiary ekranu).
 - [ ] Niezależny przegląd językowo-naukowy i akceptacja prowadzącego.
 - [ ] Import do testowej aktywności Moodle, nawigacja po wszystkich 11 częściach.
