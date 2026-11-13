@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 6,
+  "lesson_id": "cmi7gplw400082a739ezqaf0l",
+  "expected_lesson_title": "Model obliczeniowy RAM: budowa i zasada działania",
+  "new_lesson_title": "Dlaczego potrzebujemy modelu obliczeń?",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja wstępna; wymaga kontroli wizualnej i Moodle",
+  "expected_block_ids": [
+    "c4r6vldced2eql0eoab5slml",
+    "jwirf2ixjuz2ioeac8tq6oqw",
+    "poaayv0x1mekg91sd57lx4rx",
+    "iy7oipz8bmad8yu8xgpbnohq",
+    "eh6uzyoyyllj63fv9287bfmu",
+    "gi2ajghprf2ivbp2rupb21ep",
+    "uost48vp8sc3ub7ov6ef8sov",
+    "cmi7gwb1d002e2a73crzbukfd",
+    "sm69wvhfrr57a87tv8lzsdpy",
+    "cmi7gwb1e002j2a73io3bdsym",
+    "cmi7gwb1e002o2a73o6dvo98n",
+    "cmi7gwb1e002q2a7342lua29r",
+    "zur0uo6w3hscz9456v55zrks"
+  ],
+  "keep_block_ids": [
+    "c4r6vldced2eql0eoab5slml",
+    "iy7oipz8bmad8yu8xgpbnohq",
+    "uost48vp8sc3ub7ov6ef8sov",
+    "cmi7gwb1d002e2a73crzbukfd",
+    "zur0uo6w3hscz9456v55zrks"
+  ],
+  "updates": {
+    "c4r6vldced2eql0eoab5slml": {
+      "heading": "Jak policzyć koszt niezależnie od komputera?",
+      "paragraph": "<p>Wyszukiwanie identyfikatora przebiega tak samo na szybkim serwerze i na małym komputerze, ale pomiar czasu w sekundach da inne wyniki. Aby porównywać pomysły, przyjmujemy uproszczony opis wykonania programu. <strong>Model obliczeniowy</strong> określa, jakie operacje są dostępne i jaki koszt im przypisujemy. Nie jest projektem konkretnego procesora.</p>"
+    },
+    "iy7oipz8bmad8yu8xgpbnohq": {
+      "paragraph": "<p>W modelu <strong>RAM</strong> (<em>Random Access Machine</em>) korzystamy z rejestrów, pamięci z bezpośrednim dostępem, prostych operacji i sterowania skokami. Jego wersje różnią się szczegółami, dlatego przed użyciem programu trzeba ustalić znaczenie instrukcji, sposób adresowania i model kosztu. Wariant z jednostkowym kosztem operacji jest użyteczny przy analizie wielu prostych algorytmów, ale <strong>nie oznacza</strong>, że mnożenie liczb dowolnej długości jest w rzeczywistym komputerze bezpłatne lub zawsze równie szybkie.</p>"
+    },
+    "uost48vp8sc3ub7ov6ef8sov": {
+      "heading": "Co wynika z tego uproszczenia?",
+      "paragraph": "<p>Na przykładzie wyszukiwania liniowego zobaczmy, co wolno wnioskować z modelu RAM, a co pozostaje poza jego zakresem.</p>"
+    },
+    "cmi7gwb1d002e2a73crzbukfd": {
+      "accordion_entries": [
+        {
+          "title": "Koszt pojedynczego dostępu",
+          "description": "<p>W typowym jednostkowym modelu RAM odczyt lub zapis komórki pamięci liczymy jako operację o stałym koszcie, niezależnie od adresu. To założenie modelu, nie pomiar opóźnienia pamięci operacyjnej lub podręcznej.</p>"
+        },
+        {
+          "title": "Stan maszyny",
+          "description": "<p>Stan opisują m.in. wartości w rejestrach, sumatorze oraz położenie bieżącej instrukcji. Każdy rozkaz przekształca ten stan według określonej semantyki. Dzięki temu można prześledzić program krok po kroku.</p>"
+        },
+        {
+          "title": "Wielkość operandów ma znaczenie",
+          "description": "<p>Jeżeli dopuszczamy liczby o dowolnej liczbie bitów, jednostkowy koszt operacji arytmetycznej bywa nierealistyczny. W modelu kosztu bitowego trzeba uwzględnić długość operandów. W dalszych analizach zawsze określamy, który wariant rozważamy.</p>"
+        },
+        {
+          "title": "Model nie dowodzi poprawności",
+          "description": "<p>Policzenie instrukcji nie dowodzi, że wynik spełnia specyfikację. Nadal trzeba sprawdzić niezmienniki, warunki zakończenia i dane brzegowe. RAM jest narzędziem opisu wykonania i kosztu, a nie gwarancją poprawnego programu.</p>"
+        }
+      ]
+    },
+    "zur0uo6w3hscz9456v55zrks": {
+      "paragraph": "<p>W następnym kroku prześledzimy kilka instrukcji na konkretnym stanie rejestrów. Pełny język RAM, jego warianty i szczegółowe analizy są tematem osobnego pakietu 02; tutaj potrzebujemy tylko intuicji, jak z algorytmu powstają operacje policzalne w wybranym modelu.</p>"
+    }
+  }
+}
