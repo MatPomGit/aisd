@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 3,
+  "lesson_id": "cmi7gplw400052a73blcd9ng6",
+  "expected_lesson_title": "Podstawy analizy algorytmów: poprawność i złożoność",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja narracyjna; wymaga oceny wizualnej i Moodle",
+  "expected_block_ids": [
+    "iw8uxn3mgp4gdnw42vptjpwr",
+    "zmlie0fobv9hsrvk2ajhg3l3",
+    "xelltpwz2rbrkesl2uzb5zo3",
+    "zoni8fwovwbnxjewxsj59d3b",
+    "gs7pvc27efw0oycdqjkxbyrl",
+    "w4394s9nqtcjfdfdytzwjglw",
+    "ljg6kvf5s9whvlyd0wd58sz4",
+    "cmi7guvoe00182a73icr0x091",
+    "ymni2jhzu6m4yzkjo8r5ma0q",
+    "cmi7guvoi001d2a73bacy3mpd",
+    "cmi7guvok001i2a73d7v8pjug",
+    "cmi7guvok001k2a73rlhrfgre",
+    "qiw4d5gfewrvtzplyzrsy8r1"
+  ],
+  "keep_block_ids": [
+    "iw8uxn3mgp4gdnw42vptjpwr",
+    "w4394s9nqtcjfdfdytzwjglw",
+    "ljg6kvf5s9whvlyd0wd58sz4",
+    "cmi7guvoe00182a73icr0x091",
+    "ymni2jhzu6m4yzkjo8r5ma0q",
+    "cmi7guvoi001d2a73bacy3mpd",
+    "qiw4d5gfewrvtzplyzrsy8r1"
+  ],
+  "updates": {
+    "iw8uxn3mgp4gdnw42vptjpwr": {
+      "heading": "Skąd wiadomo, że wynik można uznać za poprawny?",
+      "paragraph": "<p>Dwa programy mogą zwracać <code>1</code> dla <code>A = [31, 7, 42, 7]</code> i <code>x = 7</code>, choć tylko jeden działa prawidłowo dla wszystkich dopuszczalnych tablic. Kilka pozytywnych prób nie stanowi dowodu poprawności. Potrzebujemy argumentu, który obejmie zarówno trafienie, jak i brak wartości.</p>"
+    },
+    "w4394s9nqtcjfdfdytzwjglw": {
+      "paragraph": "<p><strong>Poprawność częściowa</strong> oznacza: jeżeli wykonanie się zakończy, wynik spełnia specyfikację. <strong>Poprawność całkowita</strong> wymaga ponadto, aby obliczenie zakończyło się dla każdego dopuszczalnego wejścia. W wyszukiwaniu liniowym inicjalizacja <code>i = 0</code>, warunek <code>i &lt; n</code> i zwiększanie <code>i</code> o jeden ograniczają liczbę iteracji do najwyżej <code>n</code>. Poprawność zwracanego indeksu wynika z niezmiennika: przed sprawdzeniem pozycji <code>i</code> żadna wcześniejsza pozycja nie zawierała <code>x</code>.</p>"
+    },
+    "ljg6kvf5s9whvlyd0wd58sz4": {
+      "heading": "Ile sprawdzeń rzeczywiście wykonujemy?",
+      "paragraph": "<p>Wartość <code>n</code> to liczba elementów tablicy. Jako jednostkę kosztu wybierzmy <strong>porównanie identyfikatora z <code>x</code></strong>. Zmiana jednostki (np. na instrukcje procesora) wymagałaby osobnego modelu obliczeń. W tych prostych przykładach porównujemy nie czas w sekundach, lecz liczbę operacji zależną od wejścia.</p>"
+    },
+    "cmi7guvoe00182a73icr0x091": {
+      "accordion_entries": [
+        {
+          "title": "Pierwszy element pasuje",
+          "description": "<p>Dla niepustej tablicy z <code>A[0] = x</code> algorytm wykonuje dokładnie <code>1</code> porównanie. To najlepszy przypadek przy <code>n &gt; 0</code>.</p>"
+        },
+        {
+          "title": "Wartości nie ma",
+          "description": "<p>Jeśli <code>x</code> nie występuje w tablicy długości <code>n</code>, potrzeba dokładnie <code>n</code> porównań. Dla <code>n = 0</code> jest ich zero; w każdym przypadku algorytm zwraca <code>-1</code>.</p>"
+        },
+        {
+          "title": "Trafienie na ostatniej pozycji",
+          "description": "<p>Jeżeli pierwsze wystąpienie <code>x</code> znajduje się na indeksie <code>n - 1</code>, wynik pojawia się po <code>n</code> porównaniach. Taki przypadek pokazuje, że nie można przypisać wszystkim danym tego samego kosztu.</p>"
+        },
+        {
+          "title": "Przypadek średni wymaga założeń",
+          "description": "<p>Jeśli wiadomo, że wartość występuje dokładnie raz i jej położenie jest jednostajnie losowane spośród <code>n &gt; 0</code> pozycji, oczekiwana liczba porównań wynosi <code>(n + 1)/2</code>. Bez modelu rozkładu danych nie można podać jednej uniwersalnej średniej.</p>"
+        }
+      ]
+    },
+    "ymni2jhzu6m4yzkjo8r5ma0q": {
+      "heading": "Niezmiennik nie jest tym samym co test",
+      "paragraph": "<p>Dokładne prześledzenie czterech tablic pomaga znaleźć błędy. Dowód wymaga natomiast wykazania, że właściwość jest zachowana <strong>dla każdego</strong> dopuszczalnego kroku. Wykorzystajmy niezmiennik już wprowadzony w pierwszej części.</p>"
+    },
+    "cmi7guvoi001d2a73bacy3mpd": {
+      "tabs_entries": [
+        {
+          "title": "Inicjalizacja",
+          "description": "<p>Przed pierwszą iteracją <code>i = 0</code>. Zbiór wcześniejszych indeksów jest pusty, więc warunek „na wcześniejszych pozycjach nie ma <code>x</code>” zachodzi automatycznie.</p>"
+        },
+        {
+          "title": "Zachowanie",
+          "description": "<p>Jeśli <code>A[i] ≠ x</code>, algorytm przechodzi do <code>i + 1</code>. Wcześniejsze elementy nie były równe <code>x</code>, a kolejny właśnie to potwierdził. Niezmiennik nadal obowiązuje.</p>"
+        },
+        {
+          "title": "Trafienie lub brak",
+          "description": "<p>Przy <code>A[i] = x</code> wcześniejsze pozycje nie zawierają tej wartości, zatem <code>i</code> jest najmniejszym poprawnym indeksem. Jeśli pętla kończy się bez trafienia, nie ma wartości na żadnej pozycji i poprawnym wynikiem jest <code>-1</code>.</p>"
+        },
+        {
+          "title": "Zakończenie i pamięć",
+          "description": "<p>Indeks zwiększa się o jeden, dopóki jest mniejszy od skończonej długości <code>n</code>; obliczenie musi się skończyć. Do działania wystarczy stała liczba zmiennych pomocniczych, czyli <code>O(1)</code> dodatkowej pamięci.</p>"
+        }
+      ]
+    },
+    "qiw4d5gfewrvtzplyzrsy8r1": {
+      "paragraph": "<p>Poprawność i koszt odpowiadają na różne pytania: <strong>czy wynik jest właściwy?</strong> i <strong>ile pracy kosztuje jego uzyskanie?</strong>. Wyszukiwanie liniowe ma koszt najwyżej <code>n</code> porównań, a jego całkowitą poprawność można uzasadnić niezmiennikiem i skończoną liczbą iteracji. Dokładniejsze modele i metody analizy poznasz w pakiecie 04.</p>"
+    }
+  }
+}
