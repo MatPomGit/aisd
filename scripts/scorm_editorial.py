@@ -106,6 +106,12 @@ def _apply_lesson(course: dict, overlay: dict) -> dict:
             require(kind == "interactive" and variant == expected and
                     isinstance(values, list) and len(values) == len(rows),
                     "Unexpected interactive layout: " + expected)
+            if expected == "process":
+                # Rise renders intro first, step rows next, and summary last.
+                # Their serialized position differs from the displayed order.
+                require([row.get("type") for row in rows] ==
+                        ["intro", "summary"] + ["step"] * (len(rows) - 2),
+                        "Unexpected Rise process intro/summary/step roles")
             source_rows = expected_rows[block_id]
             require(isinstance(source_rows, list) and
                     all(isinstance(r, dict) and
