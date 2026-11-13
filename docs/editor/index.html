@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="description" content="Bezpieczna lokalna edycja paczek Articulate Rise SCORM 1.2 w przeglądarce.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
   <title>SCORM Studio — edytor Rise 360 | AIiSD</title>
   <link rel="stylesheet" href="./style.css">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -28,18 +28,36 @@
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow"><span class="dot"></span> Narzędzie przeglądarkowe · SCORM 1.2</p>
         <h1 id="page-title">Edytuj kurs. Zachowaj zgodność.</h1>
-        <p class="lede">Wczytaj pakiet ZIP z Rise 360, popraw nazwy i treści lekcji, usuń test końcowy i pobierz gotowy plik do Moodle. Całe przetwarzanie odbywa się lokalnie w Twojej przeglądarce.</p>
-        <div class="feature-row"><span>Bez konta Articulate</span><span>Bez przesyłania plików</span><span>Zachowanie struktury SCORM</span></div>
+        <p class="lede">Wybierz kurs z biblioteki repozytorium lub wczytaj własny ZIP. Popraw lekcje, usuń test końcowy i pobierz plik do Moodle. Edycja oraz eksport odbywają się lokalnie w przeglądarce.</p>
+        <div class="feature-row"><span>Bez konta Articulate</span><span>20 kursów w katalogu</span><span>Zachowanie struktury SCORM</span></div>
       </section>
 
       <section class="panel upload-card" aria-labelledby="upload-title">
-        <div class="section-line"><div><p class="step-number">KROK 01</p><h2 id="upload-title">Wczytaj pakiet SCORM</h2></div><span class="tag">ZIP · SCORM 1.2</span></div>
-        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Wybierz lub przeciągnij pakiet SCORM ZIP">
-          <div class="upload-symbol" aria-hidden="true">↑</div>
-          <strong>Przeciągnij paczkę ZIP tutaj</strong>
-          <span>lub wybierz plik z dysku (maks. 120 MB)</span>
-          <button id="chooseButton" class="button button-muted" type="button">Wybierz plik ZIP</button>
+        <div class="section-line">
+          <div><p class="step-number">KROK 01</p><h2 id="upload-title">Wybierz kurs z repozytorium</h2></div>
+          <span class="tag">SCORM 1.2 · ZIP</span>
         </div>
+        <p class="helper">Domyślnie pracujesz na oryginalnych paczkach <code>raw/</code> z repozytorium AIiSD. Wybierz kurs, a edytor pobierze jego ZIP z GitHub Pages i sprawdzi sumę SHA-256.</p>
+        <div class="repo-picker">
+          <div class="repo-picker-field">
+            <label for="repoCourseSelect">Kurs z biblioteki</label>
+            <select id="repoCourseSelect" disabled aria-describedby="catalogStatus">
+              <option value="">Wczytywanie katalogu…</option>
+            </select>
+          </div>
+          <button type="button" class="button button-primary" id="openRepoCourse" disabled>Otwórz do edycji</button>
+        </div>
+        <div id="catalogStatus" class="hint" role="status" aria-live="polite">Ładowanie katalogu kursów…</div>
+        <div id="repoCourseMeta" class="repo-meta" hidden></div>
+        <details class="local-upload" id="localUpload">
+          <summary>Lub otwórz własny plik ZIP <span>↓</span></summary>
+          <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Wybierz lub przeciągnij własny pakiet ZIP">
+            <div class="upload-symbol" aria-hidden="true">↑</div>
+            <strong>Przeciągnij paczkę ZIP tutaj</strong>
+            <span>lub wybierz plik z dysku (maks. 120 MB)</span>
+            <button id="chooseButton" class="button button-muted" type="button">Wybierz plik ZIP</button>
+          </div>
+        </details>
         <input type="file" id="fileInput" accept=".zip,application/zip" hidden>
         <div id="fileLine" class="file-line" hidden></div>
       </section>
@@ -108,7 +126,7 @@
         <strong>Ważne:</strong> Przed użyciem w kursie produkcyjnym przetestuj plik na testowym koncie Moodle: otwarcie lekcji, wznowienie postępu, status <code>completed</code> przy 100% i brak nowej oceny <code>cmi.core.score.raw</code>. Pozycję SCORM w dzienniku ocen wyłącz z agregacji.
       </section>
     </main>
-    <footer class="footer"><span>SCORM Studio · AIiSD</span><span>Pliki nie opuszczają urządzenia · <a href="https://github.com/MatPomGit/aisd/blob/main/docs/scorm.md" target="_blank" rel="noopener noreferrer">Instrukcja techniczna</a></span></footer>
+    <footer class="footer"><span>SCORM Studio · AIiSD</span><span>Edycja lokalna · bez wysyłania zmian · <a href="https://github.com/MatPomGit/aisd/blob/main/docs/scorm.md" target="_blank" rel="noopener noreferrer">Instrukcja techniczna</a></span></footer>
   </div>
 </body>
 </html>
