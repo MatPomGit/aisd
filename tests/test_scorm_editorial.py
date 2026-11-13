@@ -1,4 +1,4 @@
-"""Scientific/editorial regression for six revised SCORM 01 lessons."""
+"""Scientific/editorial regression for all eleven revised SCORM 01 lessons."""
 import copy
 import re
 import sys
@@ -37,13 +37,13 @@ class EditorialPilotTests(unittest.TestCase):
         self.assertIsNotNone(quiz)
         return result
 
-    def test_revisions_are_applied_to_six_specific_lessons(self):
+    def test_revisions_are_applied_to_all_eleven_lessons(self):
         edited = self.prepared()
         lessons = edited["course"]["lessons"]
         self.assertEqual(edited["course"]["id"], SCORM01_COURSE_ID)
         self.assertEqual(len(lessons), 11)
-        self.assertEqual([len(l["items"]) for l in lessons[:6]],
-                         [10, 7, 7, 7, 5, 6])
+        self.assertEqual([len(l["items"]) for l in lessons],
+                         [10, 7, 7, 7, 5, 6, 5, 4, 4, 6, 3])
         self.assertEqual([l["id"] for l in lessons],
                          [l["id"] for l in self.original["course"]["lessons"][:-1]])
         self.assertEqual(lessons[4]["title"],
@@ -120,12 +120,12 @@ class EditorialPilotTests(unittest.TestCase):
         self.assertTrue(all("description" in row and "title" in row
                             for row in process["items"]))
 
-    def test_no_redundant_boilerplate_and_shorter_six_lessons(self):
+    def test_no_redundant_boilerplate_and_shorter_full_course(self):
         edited = self.prepared()
         before = sum(count_words(l["items"]) for l in
-                     self.original["course"]["lessons"][:6])
+                     self.original["course"]["lessons"][:-1])
         after = sum(count_words(l["items"]) for l in
-                    edited["course"]["lessons"][:6])
+                    edited["course"]["lessons"])
         self.assertLess(after, before * 0.85,
                         f"Redaction did not reduce redundancy: {before}, {after}")
         for lesson in edited["course"]["lessons"][:6]:
@@ -134,7 +134,7 @@ class EditorialPilotTests(unittest.TestCase):
             self.assertNotIn("Zanim przejdziesz dalej, sprawdź", content)
 
     def test_changes_to_known_block_ids_fail_closed(self):
-        for index in range(6):
+        for index in range(11):
             original = copy.deepcopy(self.original)
             original["course"]["lessons"][index]["items"][0]["id"] = "unknown-id"
             with self.subTest(lesson=index + 1):
@@ -147,6 +147,84 @@ class EditorialPilotTests(unittest.TestCase):
         del original["course"]["lessons"][1]["items"][1]["items"][0]["heading"]
         with self.assertRaises(scorm.BuildError):
             scorm.new_course(original, self.tracking)
+
+
+    def test_unverified_ram_algorithms_are_removed(self):
+        lessons = self.prepared()["course"]["lessons"]
+        text = str(lessons[6:])
+        for old in ("DIV 2", "MULT 2", "SUB 1", "READ 0",
+                    "loop: JZERO end", "pętle porównujące i zamieniające"):
+            with self.subTest(old=old):
+                self.assertNotIn(old, text)
+        self.assertIn("n(n − 1)/2", text)
+        self.assertIn("O(n log n)", text)
+
+    def test_ram_sum_program_runs_on_emulated_defined_semantics(self):
+        """Execute actual instructions extracted from published Rise text."""
+        lesson = self.prepared()["course"]["lessons"][8]
+        tabs = next(b for b in lesson["items"] if b.get("variant") == "tabs")
+        code = re.findall(r"<code>(.*?)</code>",
+                          tabs["items"][1]["description"])
+        start = code.index("LOAD =0")
+        program = code[start:code.index("HALT", start) + 1]
+        self.assertEqual(program, [
+            "LOAD =0", "STORE 1", "loop: READ 2", "LOAD 2",
+            "JZERO end", "ADD 1", "STORE 1", "JUMP loop",
+            "end: WRITE 1", "HALT",
+        ])
+        lines, labels = [], {}
+        for raw in program:
+            label, sep, cmd = raw.partition(": ")
+            if sep:
+                labels[label] = len(lines)
+            else:
+                cmd = raw
+            op, _, arg = cmd.partition(" ")
+            lines.append((op, arg))
+
+        def execute(input_values):
+            regs = {}
+            acc = pc = offset = 0
+            output = []
+            for _ in range(1000):
+                op, arg = lines[pc]
+                if op == "LOAD":
+                    acc = int(arg[1:]) if arg.startswith("=") else regs[int(arg)]
+                    pc += 1
+                elif op == "STORE":
+                    regs[int(arg)] = acc
+                    pc += 1
+                elif op == "READ":
+                    if offset == len(input_values):
+                        raise ValueError("Input ended without zero sentinel")
+                    regs[int(arg)] = input_values[offset]
+                    offset += 1
+                    pc += 1
+                elif op == "JZERO":
+                    pc = labels[arg] if acc == 0 else pc + 1
+                elif op == "ADD":
+                    acc += regs[int(arg)]
+                    pc += 1
+                elif op == "JUMP":
+                    pc = labels[arg]
+                elif op == "WRITE":
+                    output.append(regs[int(arg)])
+                    pc += 1
+                elif op == "HALT":
+                    return output
+                else:
+                    self.fail("Unknown RAM instruction: " + op)
+            self.fail("RAM program failed to halt within 1000 instructions")
+
+        for inp, result in [
+            ([0], 0), ([4, -2, 0], 2), ([4, -4, 0], 0),
+            ([-5, 2, 0], -3), ([1, 2, 3, 0], 6),
+            ([0, 1, 2], 0),
+        ]:
+            with self.subTest(inp=inp):
+                self.assertEqual(execute(inp), [result])
+        with self.assertRaises(ValueError):
+            execute([5])
 
     def test_other_courses_remain_unaffected(self):
         other = {"course": {"id": "different-course", "lessons": []}}
@@ -163,7 +241,7 @@ class EditorialPilotTests(unittest.TestCase):
             self.assertEqual(scorm.validate_pair(SOURCE, output)["status"], "PASS")
             with scorm.open_zip(output) as source:
                 _, _, _, edited = scorm.get_data(source)
-                self.assertEqual(len(edited["course"]["lessons"][5]["items"]), 6)
+                self.assertEqual(len(edited["course"]["lessons"][10]["items"]), 3)
                 self.assertEqual(scorm.get_tracking(
                     source.read(scorm.HTML).decode("utf-8-sig")), scorm.TRACKING)
         self.assertEqual(SOURCE.stat().st_size, before)
