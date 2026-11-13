@@ -9,8 +9,9 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from build_scorm_pages_catalog import file_sha256
+from build_scorm_pages_catalog import file_sha256, load_approved_releases
 from scorm_pipeline import assessment_counts, get_data, get_tracking, open_zip, TRACKING, validate_pair
+from scorm_editorial import SCORM01_RELEASE
 
 
 class PagesCatalogTests(unittest.TestCase):
@@ -45,7 +46,12 @@ class PagesCatalogTests(unittest.TestCase):
                 self.assertEqual(file_sha256(original), item["source_sha256"])
                 self.assertEqual(published.stat().st_size, item["bytes"])
                 self.assertEqual(file_sha256(published), item["sha256"])
-                self.assertEqual(validate_pair(original, published)["status"], "PASS")
+                approved = load_approved_releases()
+                expected_overlay = (SCORM01_RELEASE if item["number"] == 1 and
+                                    SCORM01_RELEASE in approved else None)
+                self.assertEqual(item["editorial_overlay"], expected_overlay)
+                self.assertEqual(validate_pair(original, published,
+                    include_editorial=bool(expected_overlay))["status"], "PASS")
                 with open_zip(published) as zf:
                     _, _, _, data = get_data(zf)
                     self.assertEqual(assessment_counts(data),
@@ -53,6 +59,25 @@ class PagesCatalogTests(unittest.TestCase):
                                       "assessment_headings": 0})
                     self.assertEqual(get_tracking(zf.read("scormcontent/index.html").decode()),
                                      TRACKING)
+
+    def test_release_gate_rejects_unknown_or_malformed_approvals(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "releases.json"
+            for invalid in ('{}', '{"approved_releases": ["unknown"]}',
+                            '{"approved_releases": [true]}',
+                            '{"approved_releases": ["' + SCORM01_RELEASE +
+                            '", "' + SCORM01_RELEASE + '"]}'):
+                with self.subTest(config=invalid):
+                    path.write_text(invalid, encoding="utf-8")
+                    with self.assertRaises(ValueError):
+                        load_approved_releases(path)
+
+    def test_scorm01_draft_is_not_in_public_catalog(self):
+        if SCORM01_RELEASE in load_approved_releases():
+            self.skipTest("SCORM 01 release explicitly approved")
+        course = next(i for i in self.catalog["items"] if i["number"] == 1)
+        self.assertIsNone(course["editorial_overlay"])
 
     def test_catalog_urls_resolve_only_to_relative_packages(self):
         for item in self.catalog["items"]:
