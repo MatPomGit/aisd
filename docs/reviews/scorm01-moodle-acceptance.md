@@ -54,4 +54,4 @@ Jeżeli testowana jest **aktualizacja istniejącej aktywności**, a nie nowa akt
 - [ ] Odnotowano wynik niezależnej recenzji wizualnej każdego zmienionego bloku.
 - [ ] Osoba zatwierdzająca i data: **NIE UZUPEŁNIONO**.
 
-**Dopóki bramki nie są zamknięte:** PR #14 pozostaje Draft, a lista `editorial/approved-releases.json` pusta. Dopiero osobny PR wydawniczy, po dowodowym odbiorze, może umieścić `scorm01/lessons-01-11@2.0.0` na liście zatwierdzonych wydań.
+**Dopóki bramki nie są zamknięte:** PR #14 pozostaje Draft, a lista `editorial/approved-releases.json` pusta. Dopiero osobny PR wydawniczy, po dowodowym odbiorze, może umieścić rekord z `release = scorm01/lessons-01-11@2.0.0` i **SHA-256 sprawdzonego ZIP** na liście zatwierdzonych wydań. Zmiana choćby jednego bajtu od czasu akceptacji musi spowodować odmowę publikacji.
