@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCORM 01 — isolated browser-only learner QA</title>
+  <style>
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    #content-frame { display: block; border: 0; width: 100%; height: 100%; }
+  </style>
+  <script>
+    // CI-only harness; NOT a substitute for a Moodle SCORM 1.2 integration test.
+    // It exposes the Rustici proxy API expected by the bundled Rise player.
+    window.__scormAudit = { calls: [], suspend: "", bookmark: "", status: "incomplete" };
+    window.IsLmsPresent = function () { return true; };
+    window.GetDataChunk = function () { return window.__scormAudit.suspend; };
+    window.SetDataChunk = function (value) {
+      window.__scormAudit.calls.push(["SetDataChunk", String(value).length]);
+      window.__scormAudit.suspend = String(value); return "true";
+    };
+    window.GetStatus = function () { return window.__scormAudit.status; };
+    window.ResetStatus = function () {
+      window.__scormAudit.calls.push(["ResetStatus"]); return "true";
+    };
+    window.SetReachedEnd = function () {
+      window.__scormAudit.calls.push(["SetReachedEnd"]);
+      window.__scormAudit.status = "completed"; return "true";
+    };
+    window.SetPassed = function () {
+      window.__scormAudit.calls.push(["SetPassed"]);
+      window.__scormAudit.status = "passed"; return "true";
+    };
+    window.SetFailed = function () {
+      window.__scormAudit.calls.push(["SetFailed"]); return "true";
+    };
+    window.SetScore = function (score) {
+      window.__scormAudit.calls.push(["SetScore", score]); return "true";
+    };
+    window.CommitData = function () {
+      window.__scormAudit.calls.push(["CommitData"]); return "true";
+    };
+    window.SetBookmark = function (value) {
+      window.__scormAudit.bookmark = String(value); return "true";
+    };
+    window.GetStudentID = function () { return "scorm-ci-browser-test"; };
+    window.SetLanguagePreference = function () { return "true"; };
+    window.ConcedeControl = function () { return "true"; };
+    window.Finish = function () { return "true"; };
+    window.WriteToDebug = function () { return "true"; };
+    window.CreateResponseIdentifier = function (a, b) { return a + ":" + b; };
+    window.RecordFillInInteraction = function () { return "true"; };
+    window.RecordMatchingInteraction = function () { return "true"; };
+    window.RecordMultipleChoiceInteraction = function () { return "true"; };
+    window.INTERACTION_RESULT_CORRECT = "correct";
+    window.INTERACTION_RESULT_WRONG = "wrong";
+    window.LESSON_STATUS_PASSED = "passed";
+  </script>
+</head>
+<body>
+  <iframe id="content-frame" title="SCORM 01 learner preview"
+          src="./learner-preview/scormcontent/index.html#/preview"></iframe>
+</body>
+</html>
