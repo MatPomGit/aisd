@@ -9,7 +9,8 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from build_scorm_pages_catalog import file_sha256, load_approved_releases
+from build_scorm_pages_catalog import (file_sha256, load_approved_releases,
+                                       verify_approved_artifact)
 from scorm_pipeline import assessment_counts, get_data, get_tracking, open_zip, TRACKING, validate_pair
 from scorm_editorial import SCORM01_RELEASE
 
@@ -72,6 +73,48 @@ class PagesCatalogTests(unittest.TestCase):
                     path.write_text(invalid, encoding="utf-8")
                     with self.assertRaises(ValueError):
                         load_approved_releases(path)
+
+    def test_approval_must_pin_exact_rebuilt_zip_digest(self):
+        import tempfile
+        good = "a" * 64
+        bad = "b" * 64
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "approved-releases.json"
+            record = {"release": SCORM01_RELEASE, "sha256": good}
+            path.write_text(json.dumps({"approved_releases": [record]}),
+                            encoding="utf-8")
+            approved = load_approved_releases(path)
+            self.assertEqual(approved, {SCORM01_RELEASE: good})
+            verify_approved_artifact(approved, SCORM01_RELEASE, good)
+            with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+                verify_approved_artifact(approved, SCORM01_RELEASE, bad)
+            with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+                verify_approved_artifact({}, SCORM01_RELEASE, good)
+
+            malformed = [
+                {"release": SCORM01_RELEASE},
+                {"release": SCORM01_RELEASE, "sha256": "x" * 64},
+                {"release": SCORM01_RELEASE, "sha256": "A" * 64},
+                {"release": SCORM01_RELEASE, "sha256": 1},
+                {"release": SCORM01_RELEASE, "sha256": good, "extra": True},
+                {"release": "unknown-release", "sha256": good},
+            ]
+            for entry in malformed:
+                with self.subTest(record=entry):
+                    path.write_text(json.dumps({"approved_releases": [entry]}),
+                                    encoding="utf-8")
+                    with self.assertRaises(ValueError):
+                        load_approved_releases(path)
+            path.write_text(json.dumps(
+                {"approved_releases": [record, record]}), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "duplicate"):
+                load_approved_releases(path)
+
+    def test_published_packages_match_catalog_with_no_stale_files(self):
+        package_dir = self.stage / "editor" / "packages"
+        actual = {p.name for p in package_dir.iterdir()}
+        expected = {item["filename"] for item in self.catalog["items"]}
+        self.assertEqual(actual, expected)
 
     def test_scorm01_draft_is_not_in_public_catalog(self):
         if SCORM01_RELEASE in load_approved_releases():
