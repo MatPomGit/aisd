@@ -220,3 +220,21 @@ Automatyzacja znajduje się w `.github/workflows/scorm-editor-pages.yml`. PR uru
 Jeśli Pages jeszcze nie jest skonfigurowane, wykonaj **Settings → Pages → Build and deployment → Source: GitHub Actions**. Nie trzeba dodawać sekretów, tokenów ani repozytorium `gh-pages`. Ponów przebieg „SCORM Studio | test and publish Pages” po włączeniu usługi, jeśli wcześniejsze wdrożenie zakończyło się błędem. Dla kontroli testów i statusu wdrożenia przejdź do repozytorium → **Actions**.
 
 Strona używa statycznych ścieżek względnych, dzięki czemu działa również w gałęzi Pages z katalogu `docs/`.
+
+
+## 11. Pakiety bez quizów i sprawdzania wiedzy (13 listopada 2026)
+
+Z 20 oryginalnych paczek przeprowadzono spójną przebudowę:
+
+- Usunięto **18 formalnych quizów końcowych Rise** oraz osobny test blokowy w kursie 04 (zachowując końcowe wskazówki).
+- Usunięto **504 bloki `knowledgeCheck`** i **207 sekcji „Sprawdź swoją wiedzę” / „Check Your Understanding”** wraz z ćwiczeniami znajdującymi się w sekcjach kontrolnych i ich zbędnymi separatorami.
+- Zachowano objaśnienia, przykłady, multimedia i interakcje edukacyjne niezwiązane z testami.
+- Ustawiono `quizId = null`, `completionPercentage = 100` i `reporting = "completed-incomplete"`, bez punktowej oceny quizu.
+- Oryginały w `raw/` pozostały niezmienione. Każda przygotowana paczka opublikowana w Pages ma sufiks `-bez-testow.zip`.
+
+**Pobieranie pojedynczych kursów:** [SCORM Studio](https://matpomgit.github.io/aisd/editor/) pokazuje 20 gotowych pakietów bez sprawdzania wiedzy. Po wybraniu kursu można go edytować i pobrać jako nowy ZIP.
+
+**Pobranie kompletu:** artefakty najnowszego poprawnego przebiegu [SCORM | rebuild and validate](../.github/workflows/scorm.yml) na `main` zawierają 20 zmodyfikowanych plików ZIP, `build-report.json` i `SHA256SUMS.txt`.
+
+**Walidacja:** kontrolowane są manifest, CRC ZIP, komplet zasobów i niezmienność plików innych niż dane kursu; zero obiektów `quiz`, `knowledgeCheck` i nagłówków sekcji oceniania; kod raportowania ukończenia; przeglądarkowa edycja i ponowny eksport. Testy nie zastępują próby integracyjnej na instancji Moodle, zwłaszcza kontroli wznowienia postępu i dziennika ocen.
+
