@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_scorm_pages_catalog import (file_sha256, load_approved_releases,
-                                       verify_approved_artifact)
+                                       verify_approved_artifact, stage_site)
 from scorm_pipeline import assessment_counts, get_data, get_tracking, open_zip, TRACKING, validate_pair
 from scorm_editorial import SCORM01_RELEASE
 
@@ -115,6 +115,40 @@ class PagesCatalogTests(unittest.TestCase):
         actual = {p.name for p in package_dir.iterdir()}
         expected = {item["filename"] for item in self.catalog["items"]}
         self.assertEqual(actual, expected)
+
+    def test_staging_rejects_wrong_approved_zip_and_discards_stale_packages(self):
+        import shutil
+        import tempfile
+        from unittest.mock import patch
+
+        # Use one real SCORM 01 source. The minimal staging fixture tests the
+        # production stage_site path rather than only its digest helper.
+        source = next(self.raw.glob("1-*.zip"))
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            raw = root / "raw"
+            docs = root / "docs"
+            target = root / "site"
+            raw.mkdir()
+            stale = docs / "editor" / "packages"
+            stale.mkdir(parents=True)
+            (stale / "stale-unapproved.zip").write_bytes(b"old bytes")
+            shutil.copy2(source, raw / source.name)
+
+            with patch("build_scorm_pages_catalog.load_approved_releases",
+                       return_value={SCORM01_RELEASE: "f" * 64}):
+                with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+                    stage_site(raw, docs, target)
+
+            with patch("build_scorm_pages_catalog.load_approved_releases",
+                       return_value={}):
+                catalog = stage_site(raw, docs, target)
+
+            names = {p.name for p in
+                     (target / "editor" / "packages").iterdir()}
+            self.assertEqual(names, {catalog["items"][0]["filename"]})
+            self.assertNotIn("stale-unapproved.zip", names)
+            self.assertIsNone(catalog["items"][0]["editorial_overlay"])
 
     def test_scorm01_draft_is_not_in_public_catalog(self):
         if SCORM01_RELEASE in load_approved_releases():
