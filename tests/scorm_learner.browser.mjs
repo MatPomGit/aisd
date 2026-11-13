@@ -64,6 +64,8 @@ try {
                     { waitUntil: "domcontentloaded", timeout: 30000 });
     const frameLocator = page.frameLocator("#content-frame");
     await frameLocator.locator("#app").waitFor({ state: "attached", timeout: 30000 });
+    await frameLocator.getByText("WYJDŹ Z KURSU", { exact: true })
+      .waitFor({ state: "visible", timeout: 30000 });
     for (let i = 0; i < lessons.length; i++) {
       const lesson = lessons[i];
       const player = page.frames().find(f =>
@@ -212,6 +214,15 @@ try {
           "Interactive content not visually settled: " + scenario.kind +
           " " + viewport.name + " opacity=" + visibleState +
           " rect=" + JSON.stringify(afterRect));
+        if (scenario.kind === "process") {
+          await frameLocator.getByText("Krok 1", { exact: true })
+            .waitFor({ state: "visible", timeout: 15000 });
+          if (viewport.name === "mobile") {
+            await frameLocator.getByText("Przesuń, aby kontynuować",
+                                         { exact: true })
+              .waitFor({ state: "visible", timeout: 15000 });
+          }
+        }
         const controlShot = join(screenshotDir,
           "scorm01-rise-" + viewport.name + "-" +
           String(i + 1).padStart(2, "0") + "-" + scenario.kind + ".png");
