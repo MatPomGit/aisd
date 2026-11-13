@@ -155,30 +155,22 @@ try {
         kind, lesson.items.filter(block =>
           block.type === "interactive" && block.variant === kind).length
       ]));
-      const { renderedBlocks, interactiveClasses } = await player.evaluate(kinds => {
-        const renderedBlocks = Object.fromEntries(kinds.map(kind =>
-          [kind, document.querySelectorAll(".block-" + kind).length]));
-        const interactiveClasses = [...new Set(
-          [...document.querySelectorAll("[class]")]
-            .map(el => typeof el.className === "string" ? el.className : "")
-            .filter(x => /accordion|tabs|process|blocks?-/i.test(x))
-        )].slice(0, 100);
-        return { renderedBlocks, interactiveClasses };
-      }, variants);
+      const renderedBlocks = await player.evaluate(kinds =>
+        Object.fromEntries(kinds.map(kind => {
+          // Rise uses plural "blocks-" for accordions and tabs, but
+          // singular "block-" for its process carousel.
+          const selector = kind === "process" ? ".block-process" : ".blocks-" + kind;
+          return [kind, document.querySelectorAll(selector).length];
+        })), variants);
       report.interactiveInventory.push({
         viewport: viewport.name, lesson: i + 1,
         expected: expectedBlocks, rendered: renderedBlocks,
       });
       console.log("Rise interactive inventory", viewport.name, i + 1,
                   JSON.stringify({ expectedBlocks, renderedBlocks }));
-      if (JSON.stringify(renderedBlocks) !== JSON.stringify(expectedBlocks)) {
-        console.log("Rise interactive selector diagnostic", viewport.name,
-                    i + 1, JSON.stringify(interactiveClasses));
-        if (!report.inventoryDiagnostics) report.inventoryDiagnostics = [];
-        report.inventoryDiagnostics.push({
-          lesson: i + 1, viewport: viewport.name, interactiveClasses,
-        });
-      }
+      assert.deepEqual(renderedBlocks, expectedBlocks,
+        "Missing or unexpected interactive blocks in rendered Rise lesson " +
+        (i + 1) + " on " + viewport.name);
       const scenario = interactionChecks.get(i);
       if (scenario) {
         if (scenario.kind === "process") {
