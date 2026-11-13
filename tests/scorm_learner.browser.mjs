@@ -56,8 +56,6 @@ try {
     await frameLocator.locator("#app").waitFor({ state: "attached", timeout: 30000 });
     for (let i = 0; i < lessons.length; i++) {
       const lesson = lessons[i];
-      const frame = page.frame({ name: "" }) || page.frames().find(f =>
-        f.url().includes("/learner-preview/scormcontent/index.html"));
       const player = page.frames().find(f =>
         f.url().includes("/learner-preview/scormcontent/index.html"));
       assert.ok(player, "Rise player iframe missing");
