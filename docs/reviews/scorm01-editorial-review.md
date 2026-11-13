@@ -71,4 +71,12 @@ Wniosek z testów jest ograniczony do **zdefiniowanego wariantu modelu** i wymie
 
 **Decyzja:** redakcja treści jest kompletna; pakiet **nie jest jeszcze zatwierdzony do publikacji studentom**. Automatyczne testy nie zastępują ręcznej oceny w Moodle.
 
+## 5. Literatura odniesienia
+
+- [MIT OpenCourseWare, 6.006 — Introduction to Algorithms](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/) — algorytmy, niezmienniki, analiza asymptotyczna i sortowanie; rozróżnienie kosztu selection sort oraz merge sort.
+- [Wolfram MathWorld — Random Access Machine](https://mathworld.wolfram.com/RandomAccessMachine.html) — definicja abstrakcyjnego modelu RAM i ograniczenia założeń dotyczących długości słowa.
+- [Efficient Algorithms, Unit 2: Machines & Models](https://www.wild-inter.net/teaching/ea/02-machines-and-models) — stosunek pomiarów empirycznych do modelu RAM, rodzaje przypadków wejścia oraz notacje asymptotyczne.
+
+Materiały te wspierają ogólne rozróżnienia teoretyczne. Dokładną semantykę rozkazów `READ`, `LOAD`, `JZERO` i `WRITE` zredagowanego przykładu definiuje **ten kurs**; nazwy rozkazów nie narzucają jednej uniwersalnej wersji maszyny RAM.
+
 Standard: [Ocena i przebudowa lekcji](../lesson-review-and-rebuild.md) · [Plan SCORM 01](../scorm01-editorial-plan.md).
