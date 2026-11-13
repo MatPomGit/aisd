@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 4,
+  "lesson_id": "cmi7gplw400062a731q5ycne8",
+  "expected_lesson_title": "Rozmiar zadania i asymptotyczne granice: O, Ω, Θ",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja narracyjna; wymaga oceny wizualnej i Moodle",
+  "expected_block_ids": [
+    "hu2bk9ypd45u7ieeg6z9v0uw",
+    "prxsevuksz4c00go35sbqpsg",
+    "vdowt17ytktn8kkz0aqndgic",
+    "cutvqeg76r6c225ixpbtwyzz",
+    "vhckmaqr97q6iw6t0j3rf7pq",
+    "zdm58x1gnwiua9qozd6y1b60",
+    "a6pzzmcadm9dmsowlkbd6zpk",
+    "cmi7gvfhq001m2a73czva4q5j",
+    "uwsbmeliok54bjpu1vai1iwk",
+    "cmi7gvfhr001q2a73vjtup1q2",
+    "cmi7gvfhr001v2a7362e0g40t",
+    "cmi7gvfhr001x2a73q25cl4of",
+    "panyfsdsim209nwhpchwple5"
+  ],
+  "keep_block_ids": [
+    "hu2bk9ypd45u7ieeg6z9v0uw",
+    "zdm58x1gnwiua9qozd6y1b60",
+    "a6pzzmcadm9dmsowlkbd6zpk",
+    "cmi7gvfhq001m2a73czva4q5j",
+    "panyfsdsim209nwhpchwple5"
+  ],
+  "updates": {
+    "hu2bk9ypd45u7ieeg6z9v0uw": {
+      "heading": "Milion rekordów to duży problem. Czy zawsze?",
+      "paragraph": "<p>Czas działania wyszukiwania liniowego zależy od tego, ilu elementom musimy się przyjrzeć. Dla jednego trafienia na początku nawet milion rekordów nie stanowi dużego kosztu: wystarczy jedno porównanie. Gdy wartości nie ma, trzeba wykonać milion porównań. Dlatego ocena algorytmu wymaga jednocześnie określenia <strong>rozmiaru wejścia</strong> i tego, jaki przypadek danych rozważamy.</p>"
+    },
+    "zdm58x1gnwiua9qozd6y1b60": {
+      "paragraph": "<p>W tym przykładzie rozmiarem wejścia jest <code>n</code>, liczba elementów tablicy. Najgorszy koszt liczony w porównaniach wynosi <code>T(n) = n</code>. W wielu problemach rozmiar to jednak liczba bitów, wierzchołków i krawędzi grafu albo liczba cyfr w obliczanej wartości. Nie wolno przyjmować, że rozmiar danych zawsze oznacza liczbę rekordów.</p>"
+    },
+    "a6pzzmcadm9dmsowlkbd6zpk": {
+      "heading": "Jak opisywać wzrost kosztu bez liczenia sekund?",
+      "paragraph": "<p>Dla dużych <code>n</code> interesuje nas przede wszystkim tempo wzrostu funkcji kosztu, a nie czas zależny od konkretnego komputera. Trzy powszechne zapisy matematyczne rozróżniają górną, dolną i dwustronną granicę asymptotyczną. Tutaj wystarczy ich intuicja; ścisłe definicje i rachunki będą przedmiotem pakietu 05.</p>"
+    },
+    "cmi7gvfhq001m2a73czva4q5j": {
+      "accordion_entries": [
+        {
+          "title": "O(f(n)) — asymptotyczna granica górna",
+          "description": "<p><code>T(n) ∈ O(f(n))</code> oznacza, że od pewnego <code>n₀</code> koszt nie przekracza stałej dodatniej wielokrotności <code>f(n)</code>. To własność wybranej funkcji kosztu, a nie synonim „najgorszego przypadku”. Dla <code>T(n) = 3n + 2</code> mamy <code>T(n) ∈ O(n)</code>.</p>"
+        },
+        {
+          "title": "Ω(f(n)) — asymptotyczna granica dolna",
+          "description": "<p><code>T(n) ∈ Ω(f(n))</code> oznacza, że od pewnego rozmiaru koszt jest co najmniej stałą dodatnią wielokrotnością <code>f(n)</code>. Dla <code>T(n) = 3n + 2</code> zachodzi <code>T(n) ∈ Ω(n)</code>. Nie myl tej notacji z najlepszym przypadkiem wejścia.</p>"
+        },
+        {
+          "title": "Θ(f(n)) — dwustronna granica asymptotyczna",
+          "description": "<p><code>T(n) ∈ Θ(f(n))</code> oznacza jednocześnie ograniczenie z góry i z dołu przez dodatnie stałe wielokrotności tej samej funkcji. Dla <code>T(n) = 3n + 2</code> otrzymujemy <code>T(n) ∈ Θ(n)</code>. Zapis określa tempo wzrostu konkretnej funkcji kosztu.</p>"
+        }
+      ]
+    },
+    "panyfsdsim209nwhpchwple5": {
+      "paragraph": "<p>Widzimy już, dlaczego poprawne porównanie algorytmów wymaga wskazania zarówno miary rozmiaru danych, jak i rodzaju kosztu. Nie potrzebujemy jeszcze pełnej algebry notacji asymptotycznych: po poznaniu modelu obliczeń i metod liczenia operacji wrócimy do ich formalnych definicji w pakiecie 05.</p>"
+    }
+  },
+  "new_lesson_title": "Rozmiar danych i tempo wzrostu kosztu"
+}
