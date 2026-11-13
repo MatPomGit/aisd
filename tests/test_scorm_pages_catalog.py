@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_scorm_pages_catalog import file_sha256
+from scorm_pipeline import assessment_counts, get_data, get_tracking, open_zip, TRACKING, validate_pair
 
 
 class PagesCatalogTests(unittest.TestCase):
@@ -23,14 +24,14 @@ class PagesCatalogTests(unittest.TestCase):
 
     def test_all_real_packages_in_catalog_and_in_numeric_order(self):
         items = self.catalog["items"]
-        self.assertEqual(1, self.catalog["version"])
+        self.assertEqual(2, self.catalog["version"])
         self.assertEqual(list(range(1, 21)), [i["number"] for i in items])
         self.assertEqual(
             {f.name for f in self.raw.glob("*.zip")},
             {i["filename"] for i in items},
         )
 
-    def test_every_published_package_matches_original_bytes(self):
+    def test_every_published_package_is_assessment_free(self):
         for item in self.catalog["items"]:
             with self.subTest(item=item["number"]):
                 name = item["filename"]
@@ -38,10 +39,19 @@ class PagesCatalogTests(unittest.TestCase):
                 published = self.stage / "editor" / "packages" / name
                 self.assertTrue(original.is_file())
                 self.assertTrue(published.is_file())
-                self.assertEqual(original.stat().st_size, item["bytes"])
+                self.assertTrue(item["prepared"])
+                self.assertGreaterEqual(item["knowledge_checks_removed"], 0)
+                self.assertEqual(file_sha256(original), item["source_sha256"])
                 self.assertEqual(published.stat().st_size, item["bytes"])
-                self.assertEqual(file_sha256(original), item["sha256"])
                 self.assertEqual(file_sha256(published), item["sha256"])
+                self.assertEqual(validate_pair(original, published)["status"], "PASS")
+                with open_zip(published) as zf:
+                    _, _, _, data = get_data(zf)
+                    self.assertEqual(assessment_counts(data),
+                                     {"quizzes": 0, "knowledge_checks": 0,
+                                      "assessment_headings": 0})
+                    self.assertEqual(get_tracking(zf.read("scormcontent/index.html").decode()),
+                                     TRACKING)
 
     def test_catalog_urls_resolve_only_to_relative_packages(self):
         for item in self.catalog["items"]:
