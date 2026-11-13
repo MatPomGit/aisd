@@ -221,7 +221,7 @@ function updateRepoMeta() {
   ui.repoMeta.textContent = item ? item.lessons + " lekcji · " +
     (item.bytes / 1024 / 1024).toFixed(2) + " MB · bez quizu i " +
     item.knowledge_checks_removed + " usuniętych bloków sprawdzania wiedzy · źródło: raw/" +
-    item.filename : "";
+    item.source_filename : "";
 }
 async function loadCatalog() {
   try {
@@ -235,7 +235,8 @@ async function loadCatalog() {
     for (const item of catalog.items) {
       if (!Number.isInteger(item.number) || seen.has(item.number) ||
           typeof item.title !== "string" || !item.title ||
-          typeof item.filename !== "string" || !item.filename.toLowerCase().endsWith(".zip") ||
+          typeof item.filename !== "string" || !item.filename.endsWith("-bez-testow.zip") ||
+          typeof item.source_filename !== "string" || !item.source_filename.toLowerCase().endsWith(".zip") ||
           typeof item.url !== "string" || !item.url.startsWith("./packages/") ||
           !Number.isInteger(item.bytes) || item.bytes <= 0 || item.bytes > MAX_ZIP_SIZE ||
           !/^[a-f0-9]{64}$/.test(item.sha256) ||
