@@ -60,9 +60,15 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 
 **Szczegółowy wynik recenzji:** [Karta audytu SCORM 01](reviews/scorm01-editorial-review.md), obejmująca 11 części, błędy kodu RAM, testy i bramkę akceptacyjną Moodle.
 
+## Bramka publikacji na GitHub Pages
+
+Wersje redakcyjne SCORM 01 są **domyślnie niezatwierdzone**. Publiczny katalog Pages przygotowuje beztestową wersję źródłową kursu 01, bez zastosowania nakładek redakcyjnych. Jednocześnie walidacja PR i lokalne przebudowanie kursu 01 stosują wszystkie 11 nakładek, aby przetestować wersję kandydującą bez jej publikowania.
+
+Dopiero po udokumentowaniu **(1) kontroli wszystkich zmienionych bloków w docelowym interfejsie Rise na desktop i mobile**, **(2) akceptacji dydaktycznej przez prowadzącego** oraz **(3) testu importu, nawigacji, ukończenia, `suspend_data` i braku oceny w docelowym Moodle** należy w **odrębnym PR wydawniczym** dodać dokładny identyfikator `scorm01/lessons-01-11@2.0.0` do tablicy `approved_releases` w `editorial/approved-releases.json`. Kontrola CI weryfikuje zgodność identyfikatora, ale nie zastępuje akceptacji człowieka. Zrzuty ekranu SCORM Studio z CI są tylko kontrolą edytora; nie stanowią dowodu poprawnego renderowania kursu w Rise/Moodle.
+
 ## Wdrożenie i kontrola jakości
 
-Przejście od źródłowej wersji Rise do ZIP realizują wersjonowane nakładki `editorial/scorm01/lesson-01.json` do `lesson-05.json`. Dzięki temu zmiany są przeglądalne w PR, a archiwum źródłowe pozostaje niezmienne. Adapter sprawdza identyfikator kursu, indeks i identyfikator lekcji oraz pełną sekwencję identyfikatorów bloków po usunięciu quizów, zanim wymieni treść i usunie zbędne bloki.
+Przejście od źródłowej wersji Rise do ZIP realizują wersjonowane nakładki `editorial/scorm01/lesson-01.json` do `lesson-11.json`. Dzięki temu zmiany są przeglądalne w PR, a archiwum źródłowe pozostaje niezmienne. Adapter sprawdza identyfikator kursu, indeks i identyfikator lekcji oraz pełną sekwencję identyfikatorów bloków po usunięciu quizów, zanim wymieni treść i usunie zbędne bloki.
 
 **Kontrole automatyczne:** test jednostkowy danych, odmowa nieznanego schematu, regresja wszystkich 20 pakietów, pełny round-trip ZIP/SCORM 1.2, brak quizów i sprawdzań wiedzy, kontrakt raportowania `completed` bez `score.raw`.
 
