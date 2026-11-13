@@ -88,5 +88,47 @@
     "qsabhvbgq3mg81b0i7yj4t8y": {
       "paragraph": "<p>Poprawa wydajności nie może zmieniać znaczenia wyniku. Zanim zaakceptujesz nową instrukcję warunkową, zadaj sobie pytanie, jaki niezmiennik ją uzasadnia. Ta zasada przyda się zarówno przy programowaniu struktur danych, jak i przy analizie bardziej zaawansowanych algorytmów.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7gvrar00242a73jlv9bqz7": [
+      {
+        "id": "cmi7gvrar001z2a73kcjr84c2",
+        "title": "Wprowadzenie algorytmu"
+      },
+      {
+        "id": "cmi7gvrar00202a73stfaeimd",
+        "title": "Podsumowanie"
+      },
+      {
+        "id": "cmi7gvrar00212a73ynhde1s7",
+        "title": "Analiza poprawności"
+      },
+      {
+        "id": "cmi7gvrar00222a733vcbmtos",
+        "title": "Analiza złożoności czasowej"
+      },
+      {
+        "id": "cmi7gvrar00232a73htgqumpk",
+        "title": "Zastosowanie notacji O"
+      }
+    ],
+    "cmi7gvras00252a73su13bg9o": [
+      {
+        "id": "cmi7gvras00262a739ui7vczv",
+        "title": "Analiza algorytmu wyszukiwania liniowego"
+      },
+      {
+        "id": "cmi7gvras00272a7322iwmwpw",
+        "title": "Analiza algorytmu sortowania przez wybór"
+      },
+      {
+        "id": "cmi7gvras00282a73ep62kc3d",
+        "title": "Zadanie z asymptotycznymi granicami"
+      },
+      {
+        "id": "cmi7gvras00292a73m28qprba",
+        "title": "Błędy w analizie poprawności"
+      }
+    ]
   }
 }
