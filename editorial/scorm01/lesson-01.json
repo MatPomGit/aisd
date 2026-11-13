@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_id": "cmi7gplw400022a736fjtty6j",
+  "expected_lesson_title": "Wprowadzenie do algorytmów",
+  "revision": "1.0.0",
+  "editorial_status": "pilot pierwszej części; pozostałe części SCORM 01 wymagają osobnej redakcji",
+  "expected_block_ids": [
+    "cmieftubo006p20707m0vsy8i",
+    "ueflcxkk27t1ylc8wf8l1fd1",
+    "a4510uh7bxgw5qx0whxch0d0",
+    "fqqty113x5h5vxdcdcv8bhau",
+    "ya0g55b8cwwzavo1mvlvz1nn",
+    "xaljc8hbnqtgt5598bj5e01i",
+    "nm8ygbwtjbiwiprcc0voliz7",
+    "zm2n3pqwrit4qradjvqco7zm",
+    "cmi7gtkq4000c2a73iybrdt1o",
+    "cmi7gtkq6000h2a73itq74uz9",
+    "cmi7gtkq6000j2a73nmhcvv5w",
+    "kpxeip15anxql2hn5lmoxnjn"
+  ],
+  "keep_block_ids": [
+    "cmieftubo006p20707m0vsy8i",
+    "ueflcxkk27t1ylc8wf8l1fd1",
+    "a4510uh7bxgw5qx0whxch0d0",
+    "fqqty113x5h5vxdcdcv8bhau",
+    "ya0g55b8cwwzavo1mvlvz1nn",
+    "nm8ygbwtjbiwiprcc0voliz7",
+    "zm2n3pqwrit4qradjvqco7zm",
+    "cmi7gtkq4000c2a73iybrdt1o",
+    "cmi7gtkq6000j2a73nmhcvv5w",
+    "kpxeip15anxql2hn5lmoxnjn"
+  ],
+  "updates": {
+    "ueflcxkk27t1ylc8wf8l1fd1": {
+      "heading": "Milion rekordów. Od czego zacząć?",
+      "paragraph": "<p>Wyobraź sobie, że system przechowuje milion identyfikatorów. Chcesz znaleźć <strong>pierwsze wystąpienie</strong> wskazanego identyfikatora. Czy wystarczy napisać pętlę, która sprawdza kolejne elementy? Zanim wybierzesz instrukcje, musisz ustalić, co dokładnie oznacza „znaleźć” i jaki wynik zwrócić, jeśli wartości nie ma.</p><p>To jest punkt wyjścia projektowania algorytmów: najpierw precyzyjny problem, potem sposób jego rozwiązania. Kod będzie dopiero implementacją tego sposobu.</p>"
+    },
+    "a4510uh7bxgw5qx0whxch0d0": {
+      "paragraph": "<p>Rozważmy uporządkowaną <em>indeksami</em>, ale niekoniecznie posortowaną tablicę <code>A</code> zawierającą <code>n</code> identyfikatorów oraz szukaną wartość <code>x</code>. Indeksy zaczynają się od zera. Dla <code>A = [31, 7, 42, 7]</code> i <code>x = 7</code> poprawnym wynikiem jest <code>1</code>, a nie <code>3</code>. Ta różnica określa, jakie zachowanie algorytmu uznamy za poprawne.</p>"
+    },
+    "fqqty113x5h5vxdcdcv8bhau": {
+      "list_paragraphs": [
+        "<strong>Wejście:</strong> tablica <code>A</code> długości <code>n ≥ 0</code> oraz wartość <code>x</code> porównywalna z elementami tablicy.",
+        "<strong>Wyjście:</strong> najmniejszy indeks <code>i</code>, dla którego <code>A[i] = x</code>; jeżeli nie ma takiego indeksu, zwróć <code>-1</code>.",
+        "<strong>Warunki brzegowe:</strong> tablica może być pusta; wartości mogą się powtarzać; nie zakładamy, że dane są posortowane."
+      ]
+    },
+    "ya0g55b8cwwzavo1mvlvz1nn": {
+      "heading": "Od specyfikacji do ciągu kroków",
+      "paragraph": "<p><strong>Algorytm</strong> opisuje uporządkowany sposób wykonania obliczenia dla dopuszczalnych danych wejściowych. Jego kroki muszą być zdefiniowane na tyle jednoznacznie, aby można je było wykonać. Dla tego zadania nie potrzebujemy konkretnego języka programowania: wystarczy prosty pseudokod. <strong>Program</strong> powstaje dopiero po zapisaniu tego pomysłu w wykonywalnym języku i przyjęciu szczegółów reprezentacji danych.</p>"
+    },
+    "nm8ygbwtjbiwiprcc0voliz7": {
+      "paragraph": "<p><strong>Wyszukiwanie liniowe — pseudokod:</strong></p><p><code>DLA i OD 0 DO n - 1:</code><br><code>&nbsp;&nbsp;JEŻELI A[i] = x: ZWRÓĆ i</code><br><code>ZWRÓĆ -1</code></p><p>Algorytm przegląda elementy od lewej do prawej i zatrzymuje się przy pierwszym trafieniu. Dla <code>[31, 7, 42, 7]</code> sprawdza kolejno <code>31</code> i <code>7</code>, po czym zwraca indeks <code>1</code>. Drugiego wystąpienia nie musi już oglądać.</p>"
+    },
+    "zm2n3pqwrit4qradjvqco7zm": {
+      "heading": "Dlaczego możemy zaufać wynikowi?",
+      "paragraph": "<p>Przed sprawdzeniem elementu o indeksie <code>i</code> wszystkie wcześniejsze elementy zostały już porównane z <code>x</code> i żaden nie był równy <code>x</code>. To <strong>niezmiennik pętli</strong>. Jest prawdziwy na początku (nie ma wcześniejszych elementów), pozostaje prawdziwy po każdym nietrafionym porównaniu, a przy trafieniu dowodzi, że znaleziony indeks jest najmniejszy.</p><p>Jeśli nie znaleziono wartości, algorytm odwiedził wszystkie <code>n</code> pozycji i słusznie zwraca <code>-1</code>. Pętla wykona najwyżej <code>n</code> porównań, więc zakończy się również dla pustej tablicy.</p>"
+    },
+    "cmi7gtkq4000c2a73iybrdt1o": {
+      "accordion_entries": [
+        {
+          "title": "Trafienie na początku",
+          "description": "<p>Dla <code>A = [7, 31, 42]</code> oraz <code>x = 7</code> otrzymujemy indeks <code>0</code> po jednym porównaniu. To najlepszy przypadek dla niepustej tablicy.</p>"
+        },
+        {
+          "title": "Powtarzające się wartości",
+          "description": "<p>Dla <code>A = [31, 7, 42, 7]</code> i <code>x = 7</code> algorytm zwraca <code>1</code>. Zwrócenie <code>3</code> naruszałoby wymaganie „pierwsze wystąpienie”, mimo że <code>A[3]</code> również jest równe <code>x</code>.</p>"
+        },
+        {
+          "title": "Brak szukanej wartości",
+          "description": "<p>Dla <code>A = [31, 42, 19]</code> oraz <code>x = 7</code> sprawdzamy wszystkie trzy elementy i zwracamy <code>-1</code>. Nie wolno odczytywać indeksu poza zakresem tablicy.</p>"
+        },
+        {
+          "title": "Pusta tablica",
+          "description": "<p>Dla <code>A = []</code> mamy <code>n = 0</code>. Pętla nie wykona ani jednego kroku; algorytm od razu zwraca <code>-1</code>. Poprawne rozwiązanie musi obejmować także taki przypadek.</p>"
+        }
+      ]
+    },
+    "cmi7gtkq6000j2a73nmhcvv5w": {
+      "paragraph": "<p><strong>Koszt rozwiązania.</strong> Przy trafieniu na pierwszej pozycji wystarczy jedno porównanie. W najgorszym przypadku potrzeba <code>n</code> porównań; koszt rośnie liniowo z rozmiarem tablicy, czyli jest rzędu <code>O(n)</code>. Poza wejściem algorytm przechowuje jedynie indeks, dlatego zużywa <code>O(1)</code> dodatkowej pamięci. To jeszcze nie dowód optymalności: porównanie z innymi strategiami wymaga znajomości własności danych.</p>"
+    },
+    "kpxeip15anxql2hn5lmoxnjn": {
+      "paragraph": "<p>Wykonaliśmy pełen cykl projektowania: <strong>specyfikacja → pseudokod → przykład wykonania → uzasadnienie poprawności → koszt</strong>. W kolejnych częściach poznasz język precyzyjnego opisu algorytmów, modele obliczeń i formalne metody porównywania złożoności. Ich rolą będzie odpowiadać na pytania, które pojawiły się tutaj, a nie zastępować myślenie samą składnią.</p>"
+    }
+  }
+}
