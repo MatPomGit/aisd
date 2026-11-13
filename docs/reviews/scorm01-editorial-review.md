@@ -66,7 +66,7 @@ Wniosek z testów jest ograniczony do **zdefiniowanego wariantu modelu** i wymie
 - [x] Automatyczny render rzeczywistych lekcji Rise w Chromium: 11/11 × desktop/mobile, 0 px poziomego przepełnienia, zapis 22 ekranów ([raport](scorm01-browser-qa.md)).
 - [ ] Ręczny przegląd **każdego zmienionego bloku** w docelowym wyglądzie (różne rozmiary ekranu).
 - [ ] Niezależny przegląd językowo-naukowy i akceptacja prowadzącego.
-- [ ] Import do testowej aktywności Moodle, nawigacja po wszystkich 11 częściach.
+- [ ] Import do testowej aktywności Moodle, nawigacja po wszystkich 11 częściach ([formularz dowodowy](scorm01-moodle-acceptance.md)).
 - [ ] Wznowienie `suspend_data`, ukończenie `cmi.core.lesson_status`, brak `cmi.core.score.raw` i kontrola dziennika ocen.
 - [ ] Analiza bezpieczeństwa migracji 11 części do krótszej struktury, jeżeli taka konsolidacja zostanie zatwierdzona.
 
