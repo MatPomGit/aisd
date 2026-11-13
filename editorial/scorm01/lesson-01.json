@@ -52,7 +52,7 @@
       "paragraph": "<p><strong>Algorytm</strong> opisuje uporządkowany sposób wykonania obliczenia dla dopuszczalnych danych wejściowych. Jego kroki muszą być zdefiniowane na tyle jednoznacznie, aby można je było wykonać. Dla tego zadania nie potrzebujemy konkretnego języka programowania: wystarczy prosty pseudokod. <strong>Program</strong> powstaje dopiero po zapisaniu tego pomysłu w wykonywalnym języku i przyjęciu szczegółów reprezentacji danych.</p>"
     },
     "nm8ygbwtjbiwiprcc0voliz7": {
-      "paragraph": "<p><strong>Wyszukiwanie liniowe — pseudokod:</strong></p><p><code>DLA i OD 0 DO n - 1:</code><br><code>&nbsp;&nbsp;JEŻELI A[i] = x: ZWRÓĆ i</code><br><code>ZWRÓĆ -1</code></p><p>Algorytm przegląda elementy od lewej do prawej i zatrzymuje się przy pierwszym trafieniu. Dla <code>[31, 7, 42, 7]</code> sprawdza kolejno <code>31</code> i <code>7</code>, po czym zwraca indeks <code>1</code>. Drugiego wystąpienia nie musi już oglądać.</p>"
+      "paragraph": "<p><strong>Wyszukiwanie liniowe — pseudokod:</strong></p><p><code>i ← 0</code><br><code>DOPÓKI i &lt; n:</code><br><code>&nbsp;&nbsp;JEŻELI A[i] = x: ZWRÓĆ i</code><br><code>&nbsp;&nbsp;i ← i + 1</code><br><code>ZWRÓĆ -1</code></p><p>Algorytm przegląda elementy od lewej do prawej i zatrzymuje się przy pierwszym trafieniu. Dla <code>[31, 7, 42, 7]</code> sprawdza kolejno <code>31</code> i <code>7</code>, po czym zwraca indeks <code>1</code>. Drugiego wystąpienia nie musi już oglądać. Gdy <code>n = 0</code>, warunek <code>i &lt; n</code> jest fałszywy od początku.</p>"
     },
     "zm2n3pqwrit4qradjvqco7zm": {
       "heading": "Dlaczego możemy zaufać wynikowi?",
