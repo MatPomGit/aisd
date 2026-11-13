@@ -15,6 +15,7 @@ SCORM01_LESSON_FILES = tuple(
     SCORM01_DIR / f"lesson-{index:02d}.json" for index in range(1, 12)
 )
 SCORM01_RELEASE = "scorm01/lessons-01-11@2.0.0"
+SCORM01_LABELS_FILE = SCORM01_DIR / "labels-pl.json"
 
 
 class EditorialError(ValueError):
@@ -150,6 +151,40 @@ def _apply_lesson(course: dict, overlay: dict) -> dict:
     }
 
 
+def _apply_ui_labels(data: dict) -> dict:
+    """Apply a narrowly scoped, reviewed PL UI dictionary, fail-closed.
+
+    This is intentionally not a full translation of the vendor's 272 labels.
+    It edits the detached output JSON only, never the source ZIP.
+    """
+    try:
+        config = json.loads(SCORM01_LABELS_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise EditorialError("Cannot read SCORM 01 Polish label overlay") from exc
+    require(isinstance(config, dict) and config.get("schema_version") == 1
+            and config.get("course_id") == SCORM01_COURSE_ID
+            and config.get("scope") == "reviewed_visible_scorm01_labels_only",
+            "Unexpected Polish label overlay metadata")
+    label_set = data.get("labelSet")
+    require(isinstance(label_set, dict) and
+            label_set.get("id") == config.get("label_set_id"),
+            "Rise source label set changed")
+    labels = label_set.get("labels")
+    edits = config.get("replacements")
+    require(isinstance(labels, dict) and isinstance(edits, dict)
+            and len(edits) >= 3, "Missing Polish label entries")
+    for key, change in edits.items():
+        require(isinstance(change, dict) and
+                set(change) == {"expected", "replace"} and
+                isinstance(change["expected"], str) and
+                isinstance(change["replace"], str) and
+                bool(change["replace"].strip()) and
+                labels.get(key) == change["expected"],
+                "Source Rise label changed: " + str(key))
+        labels[key] = change["replace"]
+    return {"ui_labels_translated": len(edits), "label_set_id": label_set["id"]}
+
+
 def apply_editorial(data: dict) -> list[dict] | None:
     """Modify a known course in-place, or return None without changes.
 
@@ -168,4 +203,5 @@ def apply_editorial(data: dict) -> list[dict] | None:
         require(overlay.get("lesson_index", 0) == expected_index,
                 f"Overlay targets wrong lesson: {path.name}")
         results.append(_apply_lesson(course, overlay))
+    results.append(_apply_ui_labels(data))
     return results
