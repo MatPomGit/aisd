@@ -125,8 +125,29 @@ try {
                             visibleParagraphPx: Math.round(visibleHeight), ...metrics });
       const scenario = interactionChecks.get(i);
       if (scenario) {
-        const button = frameLocator.getByText(scenario.control, { exact: true }).first();
-        await button.click({ timeout: 20000 });
+        if (scenario.kind === "process") {
+          // Rise process blocks use Previous/Next carousel controls; the
+          // inactive step title is not itself a clickable target.
+          const candidates = await player.evaluate(() =>
+            [...document.querySelectorAll("button")].filter(el => {
+              const r = el.getBoundingClientRect();
+              return r.width > 0 && r.height > 0 && r.bottom > 0 &&
+                     r.top < window.innerHeight;
+            }).slice(-25).map(el => ({
+              label: el.getAttribute("aria-label"),
+              text: (el.innerText || "").slice(0, 50),
+              classes: el.className,
+            }))
+          );
+          console.log("Rise process visible buttons:", JSON.stringify(candidates));
+          await frameLocator.getByRole("button", {
+            name: /next|dalej|następny/i
+          }).last().click({ timeout: 12000 });
+        } else {
+          const button = frameLocator.getByText(scenario.control,
+                                                { exact: true }).first();
+          await button.click({ timeout: 20000 });
+        }
         const revealed = frameLocator.getByText(scenario.revealed,
                                                 { exact: false }).first();
         await revealed.waitFor({ state: "visible", timeout: 15000 });
