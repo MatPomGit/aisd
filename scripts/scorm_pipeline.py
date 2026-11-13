@@ -16,6 +16,8 @@ import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from scorm_editorial import EditorialError, apply_editorial
+
 HTML = "scormcontent/index.html"
 MODERN = "scormcontent/runtime-data.js"
 LEGACY_RE = re.compile(
@@ -320,6 +322,10 @@ def new_course(original, tracking):
             raise BuildError("Empty course")
         adapt_embedded_final_test(data)
     remove_knowledge_checks(data)
+    try:
+        apply_editorial(data)
+    except EditorialError as exc:
+        raise BuildError("Editorial overlay rejected: " + str(exc)) from exc
     settings.update({
         "quizId": None,
         "completeWith": "course",
@@ -383,6 +389,11 @@ def build_one(source, output):
     return {"source": source.name, "artifact": output.name,
             "removed_quiz": quiz.get("title", quiz["id"]) if quiz else None,
             "lesson_count": len(result["course"]["lessons"]),
+            "editorial_overlay": (
+                "scorm01/lesson-01@1.0.0"
+                if result["course"].get("id") == "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro"
+                else None
+            ),
             "knowledge_checks_removed": removed_checks,
             "assessment_sections_removed": removed_heading_count,
             "embedded_test_removed": adapted_review,
