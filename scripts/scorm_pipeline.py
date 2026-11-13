@@ -374,8 +374,12 @@ def build_one(source, output):
             for word in ("test końcowy", "egzamin końcowy", "final quiz")
         )
     ]
-    adapted_review = (not quiz and result["course"]["lessons"]
-                      != data["course"]["lessons"])
+    adapted_review = (
+        not quiz
+        and data["course"]["lessons"][-1].get("id") == "cmiej97dl000d207092aujenc"
+        and data["course"]["lessons"][-1].get("title") == "Test końcowy i omówienie rozwiązań"
+        and result["course"]["lessons"][-1].get("title") == "Najczęstsze błędy i wskazówki"
+    )
     return {"source": source.name, "artifact": output.name,
             "removed_quiz": quiz.get("title", quiz["id"]) if quiz else None,
             "lesson_count": len(result["course"]["lessons"]),
