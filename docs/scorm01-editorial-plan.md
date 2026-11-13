@@ -60,6 +60,8 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 
 **Szczegółowy wynik recenzji:** [Karta audytu SCORM 01](reviews/scorm01-editorial-review.md), obejmująca 11 części, błędy kodu RAM, testy i bramkę akceptacyjną Moodle.
 
+**Wynik po kontroli renderowania:** [audyt 22 ekranów Rise](reviews/scorm01-browser-qa.md). Automatyczne testy wykazały obecność treści w viewportach, ale nie sprawdziły ręcznie wszystkich rozwijanych bloków i ścieżki Moodle.
+
 ## Bramka publikacji na GitHub Pages
 
 Wersje redakcyjne SCORM 01 są **domyślnie niezatwierdzone**. Publiczny katalog Pages przygotowuje beztestową wersję źródłową kursu 01, bez zastosowania nakładek redakcyjnych. Jednocześnie walidacja PR i lokalne przebudowanie kursu 01 stosują wszystkie 11 nakładek, aby przetestować wersję kandydującą bez jej publikowania.
