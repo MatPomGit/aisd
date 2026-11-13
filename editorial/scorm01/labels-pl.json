@@ -7,7 +7,7 @@
   "replacements": {
     "courseExit": {
       "expected": "EXIT COURSE",
-      "replace": "WYJDŹ Z KURSU"
+      "replace": "WYJDŹ"
     },
     "courseStart": {
       "expected": "START COURSE",
@@ -43,7 +43,7 @@
     },
     "lessonComplete": {
       "expected": "COMPLETE",
-      "replace": "UKOŃCZ"
+      "replace": "UKOŃCZONO"
     },
     "exitMessage": {
       "expected": "You may now leave this page.",
@@ -208,6 +208,62 @@
     "a11yAuthorPrefix": {
       "expected": "By",
       "replace": "Autor"
+    },
+    "coverLesson": {
+      "expected": "Lesson",
+      "replace": "Lekcja"
+    },
+    "coverLessons": {
+      "expected": "Lessons",
+      "replace": "Lekcje"
+    },
+    "coverCompleteLessonsName": {
+      "expected": "Complete",
+      "replace": "Ukończ"
+    },
+    "coverCompleteLessonsPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "coverCompleteLessonsInCourse": {
+      "expected": "lessons in this course",
+      "replace": "lekcji w tym kursie"
+    },
+    "lessonPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "lessonRestricted": {
+      "expected": "Lessons must be completed in order",
+      "replace": "Lekcje należy ukończyć po kolei"
+    },
+    "blocksPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yRegionMainLesson": {
+      "expected": "Lesson content",
+      "replace": "Treść lekcji"
+    },
+    "a11yRegionNavLesson": {
+      "expected": "Navigation menu",
+      "replace": "Menu nawigacyjne"
+    },
+    "a11yBlockChartPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yBlockFlashcardStackSlidePreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yBlockImageCarouselSlidePreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yBlockQuoteCarouselSlidePreposition": {
+      "expected": "of",
+      "replace": "z"
     }
   }
 }
