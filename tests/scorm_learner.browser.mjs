@@ -81,6 +81,20 @@ try {
         throw new Error("Rise lesson did not render expected content: " +
                         (i + 1) + " " + JSON.stringify(diagnostic), { cause: err });
       }
+      // DOM presence alone is insufficient: the early screenshots showed
+      // the course cover or an empty viewport. Scroll the *actual Rise player*
+      // to a rendered lesson paragraph, then verify onscreen intersection.
+      const meaningfulParagraph = frameLocator.locator("p")
+        .filter({ hasText: uniqueText[i] }).first();
+      await meaningfulParagraph.scrollIntoViewIfNeeded({ timeout: 20000 });
+      const paraRect = await meaningfulParagraph.boundingBox();
+      assert.ok(paraRect, "Rendered Rise paragraph is not visible");
+      const visibleHeight = Math.min(paraRect.y + paraRect.height, viewport.height) -
+                            Math.max(paraRect.y, 0);
+      assert.ok(visibleHeight > 35,
+        "Lesson content is not onscreen after scrolling: " +
+        viewport.name + " " + (i + 1) + ": " + JSON.stringify(paraRect));
+      await page.waitForTimeout(150);
       const metrics = await page.evaluate(() => {
         const doc = document.querySelector("#content-frame").contentDocument;
         const app = doc.querySelector("#app");
@@ -97,7 +111,8 @@ try {
         "scorm01-rise-" + viewport.name + "-" + String(i + 1).padStart(2, "0") + ".png");
       await page.screenshot({ path: shot, fullPage: true });
       report.images.push(shot);
-      report.metrics.push({ viewport: viewport.name, lesson: i + 1, ...metrics });
+      report.metrics.push({ viewport: viewport.name, lesson: i + 1,
+                            visibleParagraphPx: Math.round(visibleHeight), ...metrics });
     }
     report.errors.push(...errors.map(message => ({ viewport: viewport.name, message })));
     const events = await page.evaluate(() => window.__scormAudit?.calls || []);
