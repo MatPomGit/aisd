@@ -61,6 +61,15 @@ def _apply_lesson(course: dict, overlay: dict) -> dict:
             "Unexpected keep-list order or unknown ID")
     require(set(changes).issubset(set(keep_ids)),
             "Updates refer to a removed block")
+    expected_rows = overlay.get("expected_interactive_rows")
+    require(isinstance(expected_rows, dict),
+            "Missing interactive source-row identities")
+    interactive_keys = {"accordion_entries", "tabs_entries", "process_entries"}
+    interactive_ids = {block_id for block_id, change in changes.items()
+                       if isinstance(change, dict) and
+                       bool(set(change) & interactive_keys)}
+    require(set(expected_rows) == interactive_ids,
+            "Missing or extra interactive row identity assertions")
     edited = [b for b in blocks if b["id"] in set(keep_ids)]
     by_id = {b["id"]: b for b in edited}
 
@@ -97,6 +106,15 @@ def _apply_lesson(course: dict, overlay: dict) -> dict:
             require(kind == "interactive" and variant == expected and
                     isinstance(values, list) and len(values) == len(rows),
                     "Unexpected interactive layout: " + expected)
+            source_rows = expected_rows[block_id]
+            require(isinstance(source_rows, list) and
+                    all(isinstance(r, dict) and
+                        set(r) == {"id", "title"} and
+                        isinstance(r["id"], str) and
+                        isinstance(r["title"], str) for r in source_rows) and
+                    [{"id": r.get("id"), "title": r.get("title")} for r in rows]
+                    == source_rows,
+                    "Interactive source row identity/order changed: " + block_id)
             for row, value in zip(rows, values):
                 require(isinstance(value, dict) and
                         set(value) == {"title", "description"} and
