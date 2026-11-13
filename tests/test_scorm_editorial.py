@@ -70,6 +70,9 @@ class EditorialPilotTests(unittest.TestCase):
         unapproved, _ = scorm.new_course(
             self.original, self.tracking, include_editorial=False)
         self.assertEqual(unapproved["labelSet"]["labels"], source)
+        self.assertEqual(self.prepared()["labelSet"]["iso639Code"], "pl")
+        self.assertEqual(self.prepared()["course"]["locale"], "pl")
+        self.assertEqual(self.prepared()["course"]["defaultLocaleId"], "pl")
 
     def test_changed_label_in_source_refuses_unreviewed_translation(self):
         source = copy.deepcopy(self.original)
@@ -344,8 +347,10 @@ class EditorialPilotTests(unittest.TestCase):
             with scorm.open_zip(output) as source:
                 _, _, _, edited = scorm.get_data(source)
                 self.assertEqual(len(edited["course"]["lessons"][10]["items"]), 3)
-                self.assertEqual(scorm.get_tracking(
-                    source.read(scorm.HTML).decode("utf-8-sig")), scorm.TRACKING)
+                html_content = source.read(scorm.HTML).decode("utf-8-sig")
+                self.assertIn('<html lang="pl"', html_content)
+                self.assertNotIn('<html lang="en"', html_content)
+                self.assertEqual(scorm.get_tracking(html_content), scorm.TRACKING)
         self.assertEqual(SOURCE.stat().st_size, before)
 
 
