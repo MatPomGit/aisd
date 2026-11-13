@@ -9,6 +9,7 @@ on:
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
       - 'tests/scorm_learner.browser.mjs'
+      - 'tests/scorm_lms_contract.browser.mjs'
       - 'tests/scorm_learner_harness.html'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
@@ -25,6 +26,7 @@ on:
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
       - 'tests/scorm_learner.browser.mjs'
+      - 'tests/scorm_lms_contract.browser.mjs'
       - 'tests/scorm_learner_harness.html'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
@@ -93,6 +95,7 @@ jobs:
           sleep 2
           node tests/scorm_editor.browser.mjs
           node tests/scorm_learner.browser.mjs
+          node tests/scorm_lms_contract.browser.mjs
       - name: Attach editor and real Rise desktop/mobile screenshots for visual QA
         if: ${{ always() && github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v4
@@ -101,6 +104,7 @@ jobs:
           path: |
             build/scorm-review-screenshots/
             build/scorm-learner-screenshots/
+            build/scorm-lms-simulation/
           retention-days: 7
           if-no-files-found: warn
       - name: Check repo unchanged
