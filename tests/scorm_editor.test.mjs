@@ -5,7 +5,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { createRequire } from "node:module";
 import {
   openRiseZip, makeUngraded, listEditableFields, buildRiseZip,
-  readTracking, TRACKING, validateCourse, planFiles
+  readTracking, TRACKING, validateCourse, planFiles, assessmentStats
 } from "../docs/editor/core.mjs";
 
 const require = createRequire(import.meta.url);
@@ -31,6 +31,10 @@ test("course 13: opens, removes final quiz and emits ungraded valid ZIP", async 
   assert.deepEqual(readTracking(html), TRACKING);
   assert.equal(doc.data.course.exportSettings.completeWith, "course");
   assert.equal(doc.data.course.lessons.some(lesson => lesson.type === "quiz"), false);
+  assert.ok(doc.removedChecks > 0);
+  assert.deepEqual(assessmentStats(doc.data), {
+    quizzes: 0, knowledgeChecks: 0, assessmentHeadings: 0
+  });
 });
 
 test("course 04: removes only the block quiz, preserves educational advice", async () => {
@@ -47,9 +51,13 @@ test("course 04: removes only the block quiz, preserves educational advice", asy
 
 test("course 05: no formal quiz; preserve all lessons and normalize tracking", async () => {
   const doc = await open(5);
-  const original = JSON.stringify(doc.data.course.lessons);
+  const ids = doc.data.course.lessons.map(lesson => lesson.id);
   assert.equal(makeUngraded(doc), "Ujednolicono śledzenie ukończenia");
-  assert.equal(JSON.stringify(doc.data.course.lessons), original);
+  assert.deepEqual(doc.data.course.lessons.map(lesson => lesson.id), ids);
+  assert.ok(doc.removedChecks > 0);
+  assert.deepEqual(assessmentStats(doc.data), {
+    quizzes: 0, knowledgeChecks: 0, assessmentHeadings: 0
+  });
   assert.ok((await buildRiseZip(doc, JSZip)).size > 1000);
 });
 
@@ -86,6 +94,9 @@ test("all 20 real Rise ZIPs can be edited and rebuilt with valid completion", as
     assert.ok(doc.entryCount > 1);
     assert.equal(doc.data.course.exportSettings.target, "scorm12");
     makeUngraded(doc);
+    assert.deepEqual(assessmentStats(doc.data), {
+      quizzes: 0, knowledgeChecks: 0, assessmentHeadings: 0
+    });
     const output = await buildRiseZip(doc, JSZip);
     assert.ok(output.size > 1000, "empty artifact for course " + n);
   }
