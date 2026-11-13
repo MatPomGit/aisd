@@ -161,6 +161,28 @@ class EditorialPilotTests(unittest.TestCase):
         self.assertTrue(all("description" in row and "title" in row
                             for row in process["items"]))
 
+    def test_rise_process_cards_follow_display_order_not_raw_row_order(self):
+        """Rise stores its summary at row 1 but displays it last."""
+        lessons = self.prepared()["course"]["lessons"]
+        for lesson_index, count in ((5, 5), (7, 7)):
+            with self.subTest(lesson=lesson_index + 1):
+                process = next(b for b in lessons[lesson_index]["items"]
+                               if b.get("variant") == "process")
+                rows = process["items"]
+                self.assertEqual([r.get("type") for r in rows],
+                                 ["intro", "summary"] + ["step"] * (count - 2))
+                display_order = [rows[0]] + rows[2:] + [rows[1]]
+                self.assertEqual(
+                    [int(r["title"].split(".", 1)[0]) for r in display_order],
+                    list(range(1, count + 1)))
+        # If the source schema changes, the editorial mapping must be reviewed.
+        original = copy.deepcopy(self.original)
+        process = next(b for b in original["course"]["lessons"][7]["items"]
+                       if b.get("variant") == "process")
+        process["items"][1]["type"] = "step"
+        with self.assertRaisesRegex(scorm.BuildError, "Rise process intro/summary"):
+            scorm.new_course(original, self.tracking)
+
     def test_no_redundant_boilerplate_and_shorter_full_course(self):
         edited = self.prepared()
         before = sum(count_words(l["items"]) for l in
