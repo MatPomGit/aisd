@@ -72,5 +72,37 @@
     "hr66sbl2r3w43rt20a8jthwy": {
       "paragraph": "<p>Instrukcje mają precyzyjne znaczenie: modyfikują określone składniki stanu. Jeśli pomylimy zawartość rejestru z zawartością sumatora, nawet prosty program może zwrócić błędny wynik. W następnej części zastosujemy tę obserwację do programu z pętlą.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7gwqtn003a2a73elha9f6l": [
+      {
+        "id": "cmi7gwqtn00332a73f31d9otr",
+        "title": "Wprowadzenie do programu RAM"
+      },
+      {
+        "id": "cmi7gwqtn00342a73wpm26dbg",
+        "title": "Podsumowanie wykonania programu RAM"
+      },
+      {
+        "id": "cmi7gwqtn00352a73qlwzcrhs",
+        "title": "Wczytanie danych"
+      },
+      {
+        "id": "cmi7gwqtn00362a73f6slw0mz",
+        "title": "Przetwarzanie danych"
+      },
+      {
+        "id": "cmi7gwqtn00372a73egrx8m29",
+        "title": "Warunki i skoki"
+      },
+      {
+        "id": "cmi7gwqtn00382a7337hv2gyz",
+        "title": "Zapis wyniku"
+      },
+      {
+        "id": "cmi7gwqtn00392a73jhwy1f1h",
+        "title": "Zakończenie programu"
+      }
+    ]
   }
 }
