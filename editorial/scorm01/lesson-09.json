@@ -60,5 +60,25 @@
     "btl07lm7pgvw95pgnt0ci3zv": {
       "paragraph": "<p>Ten przykład pokazuje różnicę między pomysłem a implementacją: kod RAM musi odwzorować zarówno obliczenia, jak i przepływ danych pomiędzy sumatorem a rejestrami. Błędne programy NWD i maksimum z wcześniejszej wersji kursu nie są powielane; ich pełne, zweryfikowane implementacje należą do rozwinięcia modelu RAM w kolejnych pakietach.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7gxai7003k2a73m7t1sj1g": [
+      {
+        "id": "cmi7gxai7003l2a73m58c9nuw",
+        "title": "Suma liczb do napotkania zera"
+      },
+      {
+        "id": "cmi7gxai7003m2a739c1a02qc",
+        "title": "Największy wspólny dzielnik (NWD)"
+      },
+      {
+        "id": "cmi7gxai7003n2a73p4weonvk",
+        "title": "Znajdowanie maksimum w tablicy"
+      },
+      {
+        "id": "cmi7gxai7003o2a73flz1f3pa",
+        "title": "Sortowanie przez selekcję"
+      }
+    ]
   }
 }
