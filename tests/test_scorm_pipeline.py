@@ -76,6 +76,37 @@ def noquiz_fixture(*, embedded=False):
     return files
 
 
+
+def with_check_section(*, missing_check=False):
+    """A complete check-only section with a sorting interaction and a lesson conclusion."""
+    import re
+    files = sample()
+    html = files["scormcontent/index.html"].decode()
+    match = re.search(r'deserialize\("([A-Za-z0-9+/=]+)"\)', html)
+    data = json.loads(base64.b64decode(match.group(1)))
+    block = data["course"]["lessons"][0]
+    block["items"] = [
+        {"id": "learning", "type": "text", "variant": "heading paragraph",
+         "items": [{"heading": "Materiał dydaktyczny"}]},
+        {"id": "boundary", "type": "divider", "variant": "continue"},
+        {"id": "heading", "type": "text", "variant": "heading paragraph",
+         "items": [{"heading": "Sprawdź swoją wiedzę"}]},
+        *([] if missing_check else [
+            {"id": "check-a", "type": "knowledgeCheck", "items": [{"title": "Test A"}]},
+            {"id": "subheading", "type": "text", "variant": "heading paragraph",
+             "items": [{"heading": "Ćwiczenie kontrolne"}]},
+            {"id": "sorting", "type": "interactive", "variant": "sorting",
+             "items": [{"title": "Element kontrolny"}]}
+        ]),
+        {"id": "end-check", "type": "divider", "variant": "continue"},
+        {"id": "summary", "type": "text", "variant": "paragraph",
+         "items": [{"paragraph": "Podsumowanie materiału dydaktycznego"}]},
+    ]
+    encoded = base64.b64encode(json.dumps(data).encode()).decode()
+    files["scormcontent/index.html"] = html.replace(match.group(1), encoded, 1).encode()
+    return files
+
+
 class PipelineTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -122,6 +153,28 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(["text", "interactive", "text"],
                              [x["type"] for x in last["items"]])
         self.assertEqual("PASS", scorm.validate_pair(self.original, self.output)["status"])
+
+    def test_removes_assessment_section_but_preserves_instructional_content(self):
+        self.write(with_check_section())
+        report = scorm.build_one(self.original, self.output)
+        self.assertEqual(1, report["knowledge_checks_removed"])
+        self.assertEqual(1, report["assessment_sections_removed"])
+        with zipfile.ZipFile(self.output) as zf:
+            _, _, _, data = scorm.get_data(zf)
+            lesson = data["course"]["lessons"][0]
+            self.assertEqual(
+                [block["id"] for block in lesson["items"]],
+                ["learning", "boundary", "summary"]
+            )
+            self.assertEqual(
+                scorm.assessment_counts(data),
+                {"quizzes": 0, "knowledge_checks": 0, "assessment_headings": 0}
+            )
+
+    def test_refuses_unknown_check_section_without_questions(self):
+        self.write(with_check_section(missing_check=True))
+        with self.assertRaises(scorm.BuildError):
+            scorm.build_one(self.original, self.output)
 
     def test_refuse_nonterminal_quiz(self):
         self.write(sample(nonterminal=True))

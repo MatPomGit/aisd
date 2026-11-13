@@ -84,23 +84,30 @@ jobs:
           with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
               f.write('# SCORM build validation\n\n')
               f.write(f'Validated packages: **{len(data)}**. Static ZIP/manifest/diff and JS runtime checks passed.\n\n')
-              f.write('| Package | Lessons | Operation | SHA-256 |\n|---|---:|---|---|\n')
+              f.write('| Pakiet | Lekcje | Quiz końcowy | Sprawdzania wiedzy | Sekcje | SHA-256 |\n|---|---:|---|---:|---:|---|\n')
               for row in data:
                   mode = ('formal quiz removed' if row['removed_quiz'] else
                           'embedded test removed' if row['embedded_test_removed'] else
                           'progress tracking updated')
-                  f.write(f'| {row["artifact"]} | {row["lesson_count"]} | {mode} | {row["sha256"][:12]}… |\n')
+                  f.write(f'| {row["artifact"]} | {row["lesson_count"]} | {mode} | '
+                          f'{row["knowledge_checks_removed"]} | {row["assessment_sections_removed"]} | '
+                          f'{row["sha256"][:12]}… |\n')
                   if row['manual_review']:
                       f.write('Manual content review: ' + ', '.join(row['manual_review']) + '\n')
+              total_checks=sum(row["knowledge_checks_removed"] for row in data)
+              total_sections=sum(row["assessment_sections_removed"] for row in data)
+              quiz_count=sum(bool(row["removed_quiz"]) for row in data)
+              f.write(f'\nRemoved {quiz_count} final quizzes, {total_checks} knowledge checks '
+                      f'and {total_sections} assessment sections.\n')
               f.write('\nMoodle end-to-end test remains required before publishing.\n')
           PY
       - name: Ensure source tree remains unchanged
         run: git diff --exit-code -- raw files scripts
-      - name: Upload validated SCORM ZIPs (manual execution only)
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+      - name: Upload validated SCORM ZIPs (manual or main branch)
+        if: ${{ github.event_name != 'pull_request' }}
         uses: actions/upload-artifact@v4
         with:
-          name: scorm-noquiz-${{ inputs.course }}-${{ github.run_number }}
+          name: scorm-bez-testow-${{ github.event_name == 'workflow_dispatch' && inputs.course || 'all' }}-${{ github.run_number }}
           path: build/scorm-packages/
           retention-days: 7
           if-no-files-found: error

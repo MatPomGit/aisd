@@ -28,7 +28,7 @@
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow"><span class="dot"></span> Narzędzie przeglądarkowe · SCORM 1.2</p>
         <h1 id="page-title">Edytuj kurs. Zachowaj zgodność.</h1>
-        <p class="lede">Wybierz kurs z biblioteki repozytorium lub wczytaj własny ZIP. Popraw lekcje, usuń test końcowy i pobierz plik do Moodle. Edycja oraz eksport odbywają się lokalnie w przeglądarce.</p>
+        <p class="lede">Wybierz jeden z 20 kursów przygotowanych bez quizów i sprawdzania wiedzy albo wczytaj własny ZIP. Edytuj materiał i pobierz plik do Moodle. Edycja oraz eksport odbywają się lokalnie w przeglądarce.</p>
         <div class="feature-row"><span>Bez konta Articulate</span><span>20 kursów w katalogu</span><span>Zachowanie struktury SCORM</span></div>
       </section>
 
@@ -37,7 +37,7 @@
           <div><p class="step-number">KROK 01</p><h2 id="upload-title">Wybierz kurs z repozytorium</h2></div>
           <span class="tag">SCORM 1.2 · ZIP</span>
         </div>
-        <p class="helper">Domyślnie pracujesz na oryginalnych paczkach <code>raw/</code> z repozytorium AIiSD. Wybierz kurs, a edytor pobierze jego ZIP z GitHub Pages i sprawdzi sumę SHA-256.</p>
+        <p class="helper">Domyślnie dostępne są <strong>gotowe paczki bez testów</strong>, zbudowane na podstawie oryginałów <code>raw/</code>. Wybierz kurs: edytor pobierze oczyszczony ZIP z GitHub Pages i sprawdzi sumę SHA-256.</p>
         <div class="repo-picker">
           <div class="repo-picker-field">
             <label for="repoCourseSelect">Kurs z biblioteki</label>
@@ -73,9 +73,9 @@
 
         <section class="panel action-panel" aria-labelledby="assessment-title">
           <div class="section-line"><div><p class="step-number">KROK 02</p><h2 id="assessment-title">Test i ukończenie kursu</h2></div><span class="tag tag-blue">Moodle</span></div>
-          <p class="helper">Usunięcie testu wyłącza przesyłanie jego oceny, a status kursu zostaje oparty na 100% postępu. Test z pytaniami do oceny należy dodać jako oddzielną aktywność Moodle.</p>
+          <p class="helper">Usunięcie końcowego quizu i bloków sprawdzania wiedzy wyłącza przesyłanie ich wyników, a status kursu zostaje oparty na 100% postępu. Test z pytaniami do oceny należy dodać jako oddzielną aktywność Moodle.</p>
           <div class="action-row">
-            <button id="removeQuiz" class="button button-primary" type="button">Usuń test końcowy i oceny</button>
+            <button id="removeQuiz" class="button button-primary" type="button">Usuń testy i sprawdzania wiedzy</button>
             <button id="resetButton" class="button button-secondary" type="button">Przywróć oryginał</button>
           </div>
           <p id="transformNote" class="hint" aria-live="polite">Najpierw wczytaj pakiet.</p>

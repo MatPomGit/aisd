@@ -1,8 +1,8 @@
 # Przebudowa pakietów SCORM (Articulate Rise 360)
 
-**Wersja procedury:** 1.0.0 · **Data:** 2026-11-12  
+**Wersja procedury:** 1.1.0 · **Data:** 2026-11-13  
 **Zakres:** repozytorium `MatPomGit/aisd`, pakiety SCORM 1.2 w `raw/`.  
-**Cel:** pozostawić materiał dydaktyczny Rise, usunąć końcowy quiz i jego ocenę, a ukończenie opierać na 100% postępu. Weryfikacja wiedzy odbywa się w oddzielnym teście Moodle.
+**Cel:** zachować materiał dydaktyczny Rise, usunąć końcowe quizy, wszystkie bloki `knowledgeCheck` i rozpoznane sekcje „Sprawdź swoją wiedzę”, a ukończenie opierać na 100% postępu. Weryfikacja wiedzy odbywa się w oddzielnym teście Moodle.
 
 ## 1. Zasady i źródła prawdy
 
@@ -40,19 +40,19 @@ Ograniczenie: przekonwertowany kurs ma przestać wysyłać **ocenę quizu**, ale
 Przykład dla `raw/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_d.zip`:
 
 - Przed: 11 lekcji materiału + końcowy `Quiz` (17 pytań); raportowanie `passed-incomplete` zależne od testu.
-- Po: 11 lekcji bez quizu, usunięty obiekt z `course.lessons`.
+- Po: 11 lekcji bez quizu, 12 bloków `knowledgeCheck` i 10 sekcji kontrolnych; zachowana pozostała treść.
 - W `course.exportSettings`: `quizId = null`, `completeWith = "course"`, `quizComplete = false`, `completionPercentage = 100`, `reporting = "completed-incomplete"`.
 - W HTML: odpowiadające zmienne runtime `quizId = null`, `storylineId = null`, `completionPercentage = 100`, `reporting = "completed-incomplete"`.
-- Manifest, SCORM driver, wszystkie pozostałe lekcje i zasoby pozostają bez zmian.
+- Manifest, SCORM driver, identyfikatory lekcji i multimedia pozostają bez zmian; z list bloków usunięto elementy sprawdzania wiedzy.
 
 ZIP jest przepakowywany przy zachowaniu nazw wpisów, kolejności, dat i metody kompresji. Sama edycja manifestu nie usunie quizu, ponieważ Rise przechowuje lekcje wewnątrz pojedynczego SCO.
 
 ### Rozpoznane wyjątki: kursy 4 i 5
 
 - **Kurs 4** nie ma formalnego quizu, ale ostatnia lekcja „Test końcowy i omówienie rozwiązań” zawiera siedem interaktywnych bloków `knowledgeCheck` oraz klucz odpowiedzi. Reguła jest **ściśle powiązana z oryginalnym ID lekcji i listą typów 17 bloków**. Usuwa wprowadzenie do testu, pytania i klucz odpowiedzi, zachowuje wyłącznie końcowe „Najczęstsze błędy i wskazówki” (3 bloki), nie zmienia ID lekcji. Każda zmiana schematu tych bloków zatrzymuje operację. Wymagany przegląd wizualny.
-- **Kurs 5** już nie zawiera quizu ani testu końcowego. Builder zachowuje wszystkie 12 lekcji i normalizuje śledzenie do ukończenia po 100% materiału.
+- **Kurs 5** nie ma formalnego quizu, lecz zawiera 23 bloki `knowledgeCheck` i 11 sekcji kontrolnych. Builder usuwa je, zachowuje 12 lekcji i ustawia ukończenie po 100% materiału.
 
-Pozostałe kursy z formalnym quizem zachowują swoje lekcje dydaktyczne bez zmian. Wynik i wariant transformacji znajdują się w `build-report.json` (`removed_quiz`, `embedded_test_removed`, `manual_review`).
+Pozostałe kursy zachowują lekcje i treści objaśniające, ale nie zawierają sekcji kontrolnych. Raport `build-report.json` zawiera `removed_quiz`, `knowledge_checks_removed`, `assessment_sections_removed`, `embedded_test_removed` i `manual_review`.
 
 ## 4. Lokalna przebudowa na Fedorze
 
@@ -91,7 +91,7 @@ Do pojedynczej walidacji porównawczej:
 ```bash
 python3 scripts/scorm_pipeline.py validate \
   raw/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_d.zip \
-  build/scorm/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_d-noquiz.zip
+  build/scorm/13-zasady-dzialania-i-implementacja-drzew-bst-scorm12-5s8301_d-bez-testow.zip
 ```
 
 W `build/scorm/` otrzymasz zmodyfikowane ZIP, `build-report.json` i listę SHA-256 w przypadku wykonania workflow.
@@ -104,25 +104,25 @@ Workflow: [SCORM | rebuild and validate](../.github/workflows/scorm.yml).
 
 1. Testy jednostkowe, w tym przypadki wymagające odrzucenia paczki.
 2. Przebudowa wszystkich 20 źródeł `raw/`, bez zapisu do repozytorium.
-3. Porównanie źródła i artefaktu: identyczne zasoby, 11 oryginalnych lekcji w przykładzie nr 13, zmienione jedynie dane kursu i pola trackingowe.
-4. Test JS: brak ukończenia przy postępie 99%, `SetReachedEnd()` przy 100%, brak `SetScore()` i `SetPassed()` dla usuniętego quizu.
+3. Porównanie źródła i artefaktu: identyczne zasoby i sterownik, zachowane identyfikatory lekcji; usunięte quizy, sprawdzania wiedzy i zbędne separatory.
+4. Test Python/JS: zero quizów, bloków `knowledgeCheck` i nagłówków testowych, brak ukończenia przy 99%, `SetReachedEnd()` przy 100% i brak `SetScore()`.
 5. Raport w podsumowaniu działania i sumy SHA-256.
 
 **Ręczna przebudowa i pobranie ZIP:**
 
 1. Otwórz repozytorium → **Actions** → **SCORM | rebuild and validate** → **Run workflow**.
 2. Wybierz `course = all` lub numer 1–20.
-3. Po zakończeniu pobierz artefakt `scorm-noquiz-…` z ekranu runu. Zawiera zmodyfikowane ZIP, `build-report.json` i `SHA256SUMS.txt`.
+3. Po zakończeniu pobierz artefakt `scorm-bez-testow-…` z ekranu runu. Zawiera zmodyfikowane ZIP, `build-report.json` i `SHA256SUMS.txt`.
 4. Zachowaj identyfikator runu, SHA commita i raport jako ślad audytowy.
 
-Workflow działa na izolowanym `ubuntu-latest` z `contents: read`, bez sekretów Moodle, bez samodzielnego wdrażania na platformę. Artefakty są przechowywane przez 7 dni; po tym czasie należy uruchomić build ponownie. Nie wykonywać niezaufanych PR na prywatnych runnerach uczelni.
+Workflow publikuje zbiorczy artefakt również po przebiegu na `main`. Działa na izolowanym `ubuntu-latest` z `contents: read`, bez sekretów Moodle, bez samodzielnego wdrażania na platformę. Artefakty są przechowywane przez 7 dni; po tym czasie należy uruchomić build ponownie. Nie wykonywać niezaufanych PR na prywatnych runnerach uczelni.
 
 ## 6. Weryfikacja i ograniczenia automatycznych testów
 
 | Warstwa | Sprawdzane | Nie sprawdza |
 |---|---|---|
 | ZIP/manifest | CRC, ścieżki, SCORM 1.2, zasoby launch | Poprawności HTML w przeglądarce |
-| Kurs Rise | Zachowanie treści wszystkich lekcji poza quizem, ustawienia ukończenia | Wyświetlania wszystkich bloków na różnych ekranach |
+| Kurs Rise | Usunięte 18 quizów, 504 bloki `knowledgeCheck` i 207 sekcji kontrolnych; ukończenie po 100% | Wyświetlania wszystkich bloków na różnych ekranach |
 | Dystans do oryginału | Identyczne pozostałe pliki i metadane archiwum | Semantycznej jakości materiału |
 | Izolowany runtime JavaScript | `finish(99)`, `finish(100)`, `finishQuiz(...)`, brak `SetScore` | Rzeczywistej sesji LMS, logowania, suspend/resume |
 | Test Moodle (ręczny, wymagany) | Import, nawigacja, wznowienie, status, brak ocen | Nie jest wykonywany przez CI |
@@ -185,21 +185,21 @@ Statyczna strona znajduje się w [`docs/editor/index.html`](editor/index.html); 
 
 ### Domyślna biblioteka kursów repozytorium
 
-Źródłem prawdy pozostaje **20 oryginalnych plików ZIP w `raw/`**. Edytor domyślnie pokazuje ich katalog: numer, nazwę kursu, liczbę lekcji i rozmiar. Wybierz kurs i kliknij **Otwórz do edycji**. Nie trzeba wcześniej pobierać pliku z GitHub ani rozpakowywać go ręcznie.
+Źródłem prawdy pozostaje **20 oryginalnych plików ZIP w `raw/`**. GitHub Pages publikuje **20 oczyszczonych pakietów** z sufiksem `-bez-testow.zip`. Edytor domyślnie pokazuje te gotowe wersje. Wybierz kurs i kliknij **Otwórz do edycji**. Nie trzeba wcześniej pobierać pliku z GitHub ani rozpakowywać go ręcznie.
 
-**Architektura:** wybrany ZIP jest lepszy niż rozpakowane pliki `files/scorm_XX/`, ponieważ jest dokładnie tym samym, samowystarczalnym artefaktem, który trafi później do Moodle. Pozwala zachować `imsmanifest.xml`, ścieżki, zasoby, sterownik SCORM i strukturę archiwum. Edytor rozpakowuje ZIP **wyłącznie w pamięci przeglądarki**, modyfikuje dozwolone pola Rise i zapisuje kopię jako nowy ZIP. Praca na `files/scorm_XX/` wymagałaby odtworzenia opakowania i mogłaby wprowadzić rozbieżności względem `raw/`.
+**Architektura:** ZIP jest lepszy niż rozpakowane pliki `files/scorm_XX/`, ponieważ zawiera kompletny pakiet z manifestem i sterownikiem. Publikowana paczka jest zweryfikowaną pochodną oryginału z `raw/`. Pozwala zachować `imsmanifest.xml`, ścieżki, zasoby, sterownik SCORM i strukturę archiwum. Edytor rozpakowuje ZIP **wyłącznie w pamięci przeglądarki**, modyfikuje dozwolone pola Rise i zapisuje kopię jako nowy ZIP. Praca na `files/scorm_XX/` wymagałaby odtworzenia opakowania i mogłaby wprowadzić rozbieżności względem `raw/`.
 
-Przy każdym wdrożeniu GitHub Actions uruchamia `scripts/build_scorm_pages_catalog.py`. Skrypt weryfikuje paczki źródłowe, generuje `catalog.json` z sumami SHA-256 i **tymczasowo** kopiuje ZIP do artefaktu Pages jako `editor/packages/`. W repozytorium nie powstaje druga kopia pakietów. Publikowane zasoby odpowiadają bitowo oryginałom, co sprawdzają testy. Przeglądarka pobiera wyłącznie wybrany plik, porównuje jego długość i sumę SHA-256 z katalogiem, a niezgodny plik odrzuca. Katalog nie wymaga tokenów ani uwierzytelniania, gdyż `raw/` i GitHub Pages są publiczne.
+Przy każdym wdrożeniu GitHub Actions uruchamia `scripts/build_scorm_pages_catalog.py`. Skrypt usuwa quizy i sprawdzania wiedzy, generuje `catalog.json` z SHA-256 oraz **tymczasowo** tworzy oczyszczone ZIP w artefakcie Pages jako `editor/packages/`. W historii repozytorium nie powstają kopie. Niezmienione zasoby w archiwach odpowiadają bitowo oryginałom. Przeglądarka pobiera wyłącznie wybrany plik, porównuje jego długość i sumę SHA-256 z katalogiem, a niezgodny plik odrzuca. Katalog nie wymaga tokenów ani uwierzytelniania, gdyż `raw/` i GitHub Pages są publiczne.
 
 **Zapis w edytorze oznacza pobranie nowego ZIP na komputer.** Strona statyczna nie nadpisuje `raw/` ani nie tworzy commitów. Jeżeli wynik ma być zapisany również w repozytorium, musi przejść przez normalną recenzję zmian i kontrolę CI. Oryginał należy zachować. Można też używać poprzedniego trybu „Lub otwórz własny plik ZIP”, rozwijając go pod katalogiem.
 
 ### Funkcje i sposób użycia
 
-1. Otwórz stronę. Domyślnie wybierz gotowy kurs z biblioteki `raw/`, kliknij **Otwórz do edycji**; alternatywnie rozwiń „Lub otwórz własny plik ZIP”. Limit jednego pliku: 120 MB.
+1. Otwórz stronę. Domyślnie wybierz gotowy kurs **bez testów**, przygotowany na podstawie `raw/`, kliknij **Otwórz do edycji**; alternatywnie rozwiń „Lub otwórz własny plik ZIP”. Limit jednego pliku: 120 MB.
 2. Odczytaj listę lekcji, tytuł kursu, obecność quizu i tryb raportowania.
 3. Wybierz lekcję. Możesz edytować jej tytuł, opis oraz pola tekstowe bloków Rise (w tym źródłowe fragmenty HTML).
 4. W razie potrzeby rozwiń sekcję **Zaawansowane**. Możesz edytować dane JSON kursu i zatwierdzić je przyciskiem „Zastosuj JSON”. Nie modyfikuj struktury ani identyfikatorów bez dokładnej znajomości schematu.
-5. Kliknij **Usuń test końcowy i oceny**. Przetwarzanie odpowiada sprawdzonemu algorytmowi z `scripts/scorm_pipeline.py`. Rozpoznaje formalny test na końcu kursu, specyficzny test blokowy kursu 04 oraz pakiet bez testu.
+5. W katalogu Pages testy są już usunięte. Przy wczytaniu własnego oryginalnego ZIP kliknij **Usuń testy i sprawdzania wiedzy**, aby usunąć także kontrole wewnątrz lekcji.
 6. Ustaw nazwę i kliknij **Sprawdź i pobierz ZIP**. Aplikacja ponownie odczytuje nowy ZIP, sprawdza manifest, zawartość danych, tracking i bajtową identyczność zasobów niewymagających zmian.
 7. Wgraj nowy ZIP do **testowej** aktywności Moodle. Sprawdź otwieranie, przejście, wznowienie, status `completed` po 100% oraz brak nowego `cmi.core.score.raw`.
 
@@ -215,8 +215,26 @@ Pobranie wybranego pakietu z repozytorium odbywa się przez GitHub Pages. Dalsza
 
 ### Wdrożenie GitHub Pages
 
-Automatyzacja znajduje się w `.github/workflows/scorm-editor-pages.yml`. PR uruchamia generator katalogu i testy JS na rzeczywistych paczkach z `raw/`, w tym przebudowę i walidację wszystkich 20 ZIP. Kontrole katalogu porównują SHA-256 każdej kopii publikacyjnej z jej źródłem. Dodatkowo Chromium automatycznie testuje interfejs: wczytanie pliku nr 13, zmianę tytułu, usunięcie testu, pobranie nowego ZIP oraz kontrolę jego zawartości. Po scaleniu do `main` i po **jednorazowej konfiguracji Pages** workflow publikuje wyłącznie katalog `docs/`.
+Automatyzacja znajduje się w `.github/workflows/scorm-editor-pages.yml`. PR uruchamia generator katalogu i testy JS na rzeczywistych paczkach z `raw/`, w tym przebudowę i walidację wszystkich 20 ZIP. Kontrole katalogu weryfikują SHA-256 każdej paczki wynikowej, identyczność pozostałych zasobów i brak obiektów oceniania. Dodatkowo Chromium automatycznie testuje interfejs: wczytanie pliku nr 13, zmianę tytułu, usunięcie testu, pobranie nowego ZIP oraz kontrolę jego zawartości. Po scaleniu do `main` workflow publikuje stronę z `docs/`, wraz z wygenerowanym katalogiem, raportem i 20 ZIP bez oceniania.
 
 Jeśli Pages jeszcze nie jest skonfigurowane, wykonaj **Settings → Pages → Build and deployment → Source: GitHub Actions**. Nie trzeba dodawać sekretów, tokenów ani repozytorium `gh-pages`. Ponów przebieg „SCORM Studio | test and publish Pages” po włączeniu usługi, jeśli wcześniejsze wdrożenie zakończyło się błędem. Dla kontroli testów i statusu wdrożenia przejdź do repozytorium → **Actions**.
 
 Strona używa statycznych ścieżek względnych, dzięki czemu działa również w gałęzi Pages z katalogu `docs/`.
+
+
+## 11. Pakiety bez quizów i sprawdzania wiedzy (13 listopada 2026)
+
+Z 20 oryginalnych paczek przeprowadzono spójną przebudowę:
+
+- Usunięto **18 formalnych quizów końcowych Rise** oraz osobny test blokowy w kursie 04 (zachowując końcowe wskazówki).
+- Usunięto **504 bloki `knowledgeCheck`** i **207 sekcji „Sprawdź swoją wiedzę” / „Check Your Understanding”** wraz z ćwiczeniami znajdującymi się w sekcjach kontrolnych i ich zbędnymi separatorami.
+- Zachowano objaśnienia, przykłady, multimedia i interakcje edukacyjne niezwiązane z testami.
+- Ustawiono `quizId = null`, `completionPercentage = 100` i `reporting = "completed-incomplete"`, bez punktowej oceny quizu.
+- Oryginały w `raw/` pozostały niezmienione. Każda przygotowana paczka opublikowana w Pages ma sufiks `-bez-testow.zip`.
+
+**Pobieranie pojedynczych kursów:** [SCORM Studio](https://matpomgit.github.io/aisd/editor/) pokazuje 20 gotowych pakietów bez sprawdzania wiedzy. Po wybraniu kursu można go edytować i pobrać jako nowy ZIP.
+
+**Pobranie kompletu:** artefakty najnowszego poprawnego przebiegu [SCORM | rebuild and validate](../.github/workflows/scorm.yml) na `main` zawierają 20 zmodyfikowanych plików ZIP, `build-report.json` i `SHA256SUMS.txt`.
+
+**Walidacja:** kontrolowane są manifest, CRC ZIP, komplet zasobów i niezmienność plików innych niż dane kursu; zero obiektów `quiz`, `knowledgeCheck` i nagłówków sekcji oceniania; kod raportowania ukończenia; przeglądarkowa edycja i ponowny eksport. Testy nie zastępują próby integracyjnej na instancji Moodle, zwłaszcza kontroli wznowienia postępu i dziennika ocen.
+

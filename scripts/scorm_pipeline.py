@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and validate ungraded SCORM 1.2 Rise packages. Python 3.11+, stdlib only.
+"""Build and validate assessment-free SCORM 1.2 Rise packages. Python 3.11+, stdlib only.
 
 Fail-closed: only tested embedded Base64 JSON in scormcontent/index.html
 (and compatible runtime-data.js wrappers) with explicit quiz-based tracking.
@@ -192,6 +192,104 @@ def adapt_embedded_final_test(data):
     return True
 
 
+ASSESSMENT_HEADINGS = {
+    "sprawdź swoją wiedzę",
+    "sprawdzanie wiedzy",
+    "sprawdzenie wiedzy",
+    "check your understanding",
+}
+
+
+def is_assessment_heading(block):
+    """Only recognize exact Rise assessment headings, not arbitrary topic headings."""
+    if not isinstance(block, dict) or block.get("type") != "text":
+        return False
+    if "heading" not in str(block.get("variant", "")):
+        return False
+    return any(
+        isinstance(part, dict)
+        and isinstance(part.get("heading"), str)
+        and part["heading"].strip().casefold() in ASSESSMENT_HEADINGS
+        for part in block.get("items", [])
+    )
+
+
+def assessment_counts(data):
+    """Count actual answerable blocks and section markers in retained lessons."""
+    lessons = data["course"]["lessons"]
+    return {
+        "quizzes": sum(l.get("type") == "quiz" for l in lessons),
+        "knowledge_checks": sum(
+            b.get("type") == "knowledgeCheck"
+            for l in lessons for b in l.get("items", [])
+        ),
+        "assessment_headings": sum(
+            is_assessment_heading(b)
+            for l in lessons for b in l.get("items", [])
+        ),
+    }
+
+
+def remove_knowledge_checks(data):
+    """Delete assessment sections (including check-only interactives) from all lessons.
+
+    A known heading starts a check section, which ends at a CONTINUE divider or
+    an explanatory paragraph / impact text after the last question. Only
+    assessment-scoped interactives are removed; didactic interactives outside
+    those sections are preserved. Remaining isolated knowledgeCheck blocks are
+    removed individually.
+    """
+    removed = {"checks": 0, "headings": 0, "section_blocks": 0}
+    for lesson in data["course"]["lessons"]:
+        if lesson.get("type") == "quiz":
+            raise BuildError("Cannot strip checks before removing quiz")
+        items = lesson.get("items", [])
+        if not isinstance(items, list):
+            raise BuildError("Non-list lesson items: " + str(lesson.get("id")))
+        output = []
+        i = 0
+        while i < len(items):
+            block = items[i]
+            if not isinstance(block, dict):
+                raise BuildError("Unexpected non-object block in " + str(lesson.get("id")))
+            if is_assessment_heading(block):
+                j, saw_check = i + 1, False
+                while j < len(items):
+                    candidate = items[j]
+                    if not isinstance(candidate, dict):
+                        raise BuildError("Invalid assessment block")
+                    if candidate.get("type") == "divider" and candidate.get("variant") == "continue":
+                        j += 1
+                        break
+                    if saw_check and candidate.get("type") == "text" and candidate.get("variant") in ("b", "paragraph"):
+                        # Keep learning conclusions after the removed questions.
+                        break
+                    if candidate.get("type") == "knowledgeCheck":
+                        saw_check = True
+                    j += 1
+                if not saw_check:
+                    raise BuildError("Cannot safely identify assessment section: " + str(lesson.get("title")))
+                removed["headings"] += 1
+                removed["checks"] += sum(x.get("type") == "knowledgeCheck" for x in items[i:j])
+                removed["section_blocks"] += j - i
+                i = j
+                continue
+            if block.get("type") == "knowledgeCheck":
+                removed["checks"] += 1
+                removed["section_blocks"] += 1
+                i += 1
+                continue
+            output.append(block)
+            i += 1
+        if items and not output:
+            raise BuildError("Assessment removal would empty lesson: " + str(lesson.get("id")))
+        lesson["items"] = output
+    remaining = assessment_counts(data)
+    if any(remaining.values()):
+        raise BuildError("Assessment objects remained after cleanup: " + repr(remaining))
+    return removed
+
+
 def new_course(original, tracking):
     data = copy.deepcopy(original)
     lessons = data["course"]["lessons"]
@@ -221,6 +319,7 @@ def new_course(original, tracking):
         if not lessons:
             raise BuildError("Empty course")
         adapt_embedded_final_test(data)
+    remove_knowledge_checks(data)
     settings.update({
         "quizId": None,
         "completeWith": "course",
@@ -260,6 +359,14 @@ def build_one(source, output):
         except Exception:
             output.unlink(missing_ok=True)
             raise
+    before_counts = assessment_counts(data)
+    after_counts = assessment_counts(result)
+    if any(after_counts.values()):
+        raise BuildError("Assessments remain in output")
+    removed_checks = before_counts["knowledge_checks"] - after_counts["knowledge_checks"]
+    if removed_checks < 0:
+        raise BuildError("Knowledge check count unexpectedly increased")
+    removed_heading_count = before_counts["assessment_headings"] - after_counts["assessment_headings"]
     manual_review = [
         l.get("title", "") for l in result["course"]["lessons"]
         if isinstance(l, dict) and any(
@@ -267,11 +374,17 @@ def build_one(source, output):
             for word in ("test końcowy", "egzamin końcowy", "final quiz")
         )
     ]
-    adapted_review = (not quiz and result["course"]["lessons"]
-                      != data["course"]["lessons"])
+    adapted_review = (
+        not quiz
+        and data["course"]["lessons"][-1].get("id") == "cmiej97dl000d207092aujenc"
+        and data["course"]["lessons"][-1].get("title") == "Test końcowy i omówienie rozwiązań"
+        and result["course"]["lessons"][-1].get("title") == "Najczęstsze błędy i wskazówki"
+    )
     return {"source": source.name, "artifact": output.name,
             "removed_quiz": quiz.get("title", quiz["id"]) if quiz else None,
             "lesson_count": len(result["course"]["lessons"]),
+            "knowledge_checks_removed": removed_checks,
+            "assessment_sections_removed": removed_heading_count,
             "embedded_test_removed": adapted_review,
             "manual_review": manual_review,
             "sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
@@ -301,6 +414,8 @@ def validate_pair(source, output):
         if any(isinstance(x, dict) and x.get("type") == "quiz"
                for x in new["course"]["lessons"]):
             raise BuildError("Quiz remains")
+        if any(assessment_counts(new).values()):
+            raise BuildError("Knowledge checks or assessment headings remain")
         changed = {old_path, HTML}
         for item in src.infolist():
             other = dst.getinfo(item.filename)
@@ -345,7 +460,7 @@ def main(argv=None):
         if args.command == "build":
             results = []
             for raw in enumerate_raw(args.raw_dir, args.course):
-                target = Path(args.output_dir) / (raw.stem + "-noquiz.zip")
+                target = Path(args.output_dir) / (raw.stem + "-bez-testow.zip")
                 result = build_one(raw, target)
                 results.append(result)
                 print(json.dumps(result, ensure_ascii=False), flush=True)
