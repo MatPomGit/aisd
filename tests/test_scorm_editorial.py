@@ -56,6 +56,27 @@ class EditorialPilotTests(unittest.TestCase):
                          {"quizzes": 0, "knowledge_checks": 0,
                           "assessment_headings": 0})
 
+    def test_selected_ui_labels_are_polish_and_not_in_source_or_public_variant(self):
+        candidate = self.prepared()["labelSet"]["labels"]
+        source = self.original["labelSet"]["labels"]
+        rules = json.loads((ROOT / "editorial" / "scorm01" /
+                            "labels-pl.json").read_text(encoding="utf-8"))
+        self.assertEqual(rules["scope"], "reviewed_visible_scorm01_labels_only")
+        self.assertGreaterEqual(len(rules["replacements"]), 40)
+        for key, rule in rules["replacements"].items():
+            with self.subTest(key=key):
+                self.assertEqual(source[key], rule["expected"])
+                self.assertEqual(candidate[key], rule["replace"])
+        unapproved, _ = scorm.new_course(
+            self.original, self.tracking, include_editorial=False)
+        self.assertEqual(unapproved["labelSet"]["labels"], source)
+
+    def test_changed_label_in_source_refuses_unreviewed_translation(self):
+        source = copy.deepcopy(self.original)
+        source["labelSet"]["labels"]["courseExit"] = "New vendor wording"
+        with self.assertRaisesRegex(scorm.BuildError, "Source Rise label changed"):
+            scorm.new_course(source, self.tracking)
+
     def test_intro_has_explicit_loop_bounds_and_invariant(self):
         intro = str(self.prepared()["course"]["lessons"][0]["items"])
         for term in ("Milion rekordów", "DOPÓKI i &lt; n",
