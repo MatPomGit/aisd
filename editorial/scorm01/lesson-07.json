@@ -65,5 +65,25 @@
     "zur0uo6w3hscz9456v55zrks": {
       "paragraph": "<p>W następnym kroku prześledzimy kilka instrukcji na konkretnym stanie rejestrów. Pełny język RAM, jego warianty i szczegółowe analizy są tematem osobnego pakietu 02; tutaj potrzebujemy tylko intuicji, jak z algorytmu powstają operacje policzalne w wybranym modelu.</p>"
     }
+  },
+  "expected_interactive_rows": {
+    "cmi7gwb1d002e2a73crzbukfd": [
+      {
+        "id": "cmi7gwb1d002f2a73udqzvikn",
+        "title": "Wykonywanie rozkazów"
+      },
+      {
+        "id": "cmi7gwb1d002g2a73smsanvwg",
+        "title": "Dostęp do pamięci"
+      },
+      {
+        "id": "cmi7gwb1d002h2a734v9i7tz6",
+        "title": "Przetwarzanie danych"
+      },
+      {
+        "id": "cmi7gwb1d002i2a737c1zpq71",
+        "title": "Wejście i wyjście"
+      }
+    ]
   }
 }
