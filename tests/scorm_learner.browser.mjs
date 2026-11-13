@@ -80,23 +80,11 @@ try {
       });
     console.log("Rise early locale diagnostic", viewport.name,
                 JSON.stringify(earlyDiag), "page errors", JSON.stringify(errors));
-    await frameLocator.getByText(/EXIT COURSE|WYJDŹ Z KURSU/)
-      .first().waitFor({ state: "visible", timeout: 30000 });
-    const runtimeLang = await page.frames().find(f =>
-      f.url().includes("/learner-preview/scormcontent/index.html"))
-      .evaluate(async () => {
-        const data = await window.__fetchCourse();
-        return { rendered: document.body.innerText.slice(0, 160),
-          lang: document.documentElement.lang,
-          labelSetId: data?.labelSet?.id,
-          labelSetIso: data?.labelSet?.iso639Code,
-          configuredExit: data?.labelSet?.labels?.courseExit };
-      });
-    console.log("SCORM01 locale diagnostic", viewport.name, JSON.stringify(runtimeLang));
-    assert.equal(runtimeLang.configuredExit, "WYJDŹ Z KURSU",
-                 "Candidate Rise JSON lost Polish localization");
-    await frameLocator.getByText("WYJDŹ Z KURSU", { exact: true })
-      .waitFor({ state: "visible", timeout: 3000 });
+    assert.equal(earlyDiag.playerLang, "pl", "Rise player document is not Polish");
+    assert.equal(earlyDiag.sourceLabelLang, "pl");
+    assert.equal(earlyDiag.sourceExitLabel, "WYJDŹ Z KURSU");
+    await frameLocator.getByText("ROZPOCZNIJ KURS", { exact: true })
+      .waitFor({ state: "visible", timeout: 10000 });
     for (let i = 0; i < lessons.length; i++) {
       const lesson = lessons[i];
       const player = page.frames().find(f =>
@@ -123,6 +111,10 @@ try {
                              lesson: lesson.title, diagnostic, pageerrors: errors });
         throw new Error("Rise lesson did not render expected content: " +
                         (i + 1) + " " + JSON.stringify(diagnostic), { cause: err });
+      }
+      if (i === 0) {
+        await frameLocator.getByText("WYJDŹ Z KURSU", { exact: true })
+          .waitFor({ state: "visible", timeout: 10000 });
       }
       // DOM presence alone is insufficient: the early screenshots showed
       // the course cover or an empty viewport. Scroll the *actual Rise player*
