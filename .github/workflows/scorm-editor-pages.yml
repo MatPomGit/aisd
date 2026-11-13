@@ -10,6 +10,8 @@ on:
       - 'tests/scorm_editor.browser.mjs'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
+      - 'scripts/scorm_editorial.py'
+      - 'editorial/**'
       - 'raw/**'
       - '.github/workflows/scorm-editor-pages.yml'
   push:
@@ -22,6 +24,8 @@ on:
       - 'tests/scorm_editor.browser.mjs'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
+      - 'scripts/scorm_editorial.py'
+      - 'editorial/**'
       - 'raw/**'
       - '.github/workflows/scorm-editor-pages.yml'
   workflow_dispatch:
