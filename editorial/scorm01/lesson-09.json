@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 8,
+  "lesson_id": "cmi7gplw4000a2a73lb0h2q91",
+  "expected_lesson_title": "Implementacja prostych algorytmów w pseudokodzie i języku RAM",
+  "new_lesson_title": "Od pseudokodu do poprawnego programu RAM",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja gotowa do testów automatycznych; wymaga QA wizualnego i Moodle",
+  "expected_block_ids": [
+    "eqs78fxfc5uldnjz05tsy09k",
+    "zudw27afwirrb5091r4ccy9q",
+    "q6bnizmpj90r8l15civh7b3u",
+    "c2zsoyxe0r42tcrc84x6edol",
+    "cmi7gxai4003f2a735dfuf4pk",
+    "plr2ubw8ndpekr3uugdik5n9",
+    "cmi7gxai7003k2a73m7t1sj1g",
+    "hm4ouvlhfujr0vehg4bec0jz",
+    "cmi7gxai7003v2a73ddjxkfxe",
+    "cmi7gxai7003w2a73m46d9ole",
+    "cmi7gxai7003y2a73a2sp377v",
+    "btl07lm7pgvw95pgnt0ci3zv"
+  ],
+  "keep_block_ids": [
+    "eqs78fxfc5uldnjz05tsy09k",
+    "plr2ubw8ndpekr3uugdik5n9",
+    "cmi7gxai7003k2a73m7t1sj1g",
+    "btl07lm7pgvw95pgnt0ci3zv"
+  ],
+  "updates": {
+    "eqs78fxfc5uldnjz05tsy09k": {
+      "heading": "Suma do napotkania zera: nie pomyl sumatora z rejestrem",
+      "paragraph": "<p>Potrafimy już zapisać algorytm i prześledzić kilka instrukcji. Teraz spróbujmy zaimplementować całą pętlę: z wejścia napływają liczby całkowite, a pierwsze <code>0</code> oznacza koniec danych. Program ma zwrócić sumę wszystkich liczb <strong>przed zerem</strong>. Oczekujemy na przykład <code>4 + (−2) = 2</code> dla wejścia <code>4, −2, 0</code>. Dla wejścia zaczynającego się od zera wynikiem jest <code>0</code>.</p><p>Warunek wstępny: wejście zawiera zero kończące po skończonej liczbie wartości. Rozkazy RAM mają określoną semantykę: <code>READ i</code> pobiera następną liczbę do rejestru <code>R[i]</code>, <code>LOAD i</code> kopiuje <code>R[i]</code> do sumatora, a <code>JZERO</code> sprawdza <em>sumator</em>, nie rejestr. <code>WRITE i</code> wysyła zawartość wskazanego rejestru na wyjście.</p>"
+    },
+    "plr2ubw8ndpekr3uugdik5n9": {
+      "heading": "Najpierw kontrakt, potem instrukcje",
+      "paragraph": "<p>Do przechowywania sumy używamy <code>R[1]</code>, bieżącą liczbę zapisujemy w <code>R[2]</code>. Poniżej pokazano kompletny pseudokod, odpowiadający mu program w przyjętym wariancie RAM, ślad wykonania i krótkie uzasadnienie poprawności. To jeden sprawdzalny przykład, a nie katalog niezweryfikowanych programów.</p>"
+    },
+    "cmi7gxai7003k2a73m7t1sj1g": {
+      "tabs_entries": [
+        {
+          "title": "Kontrakt i pseudokod",
+          "description": "<p><strong>Wejście:</strong> skończony ciąg liczb całkowitych zakończony pierwszym zerem. <strong>Wyjście:</strong> suma liczb przed tym zerem, także gdy suma jest ujemna.</p><p><code>suma ← 0</code><br><code>CZYTAJ x</code><br><code>DOPÓKI x ≠ 0:</code><br><code>&nbsp;&nbsp;suma ← suma + x</code><br><code>&nbsp;&nbsp;CZYTAJ x</code><br><code>ZWRÓĆ suma</code></p><p>Zero pełni rolę znacznika końca i nie jest wliczane do sumy.</p>"
+        },
+        {
+          "title": "Kompletny program RAM",
+          "description": "<p>Przyjmujemy: <code>R[1]</code> przechowuje sumę, <code>R[2]</code> ostatnią liczbę z wejścia, a <code>ACC</code> oznacza sumator. Adresowanie bez znaku <code>=</code> odczytuje wartość rejestru, <code>=0</code> oznacza stałą zero.</p><p><code>LOAD =0</code><br><code>STORE 1</code><br><code>loop: READ 2</code><br><code>LOAD 2</code><br><code>JZERO end</code><br><code>ADD 1</code><br><code>STORE 1</code><br><code>JUMP loop</code><br><code>end: WRITE 1</code><br><code>HALT</code></p><p>Ważna kolejność: po <code>READ 2</code> jest <code>LOAD 2</code>. Bez tego rozkazu <code>JZERO</code> badałby poprzednią wartość sumatora, a nie nową liczbę z wejścia.</p>"
+        },
+        {
+          "title": "Ślad wykonania",
+          "description": "<p>Dla wejścia <code>4, −2, 0</code> mamy kolejno:</p><p>Po inicjalizacji <code>R[1] = 0</code>. Pierwszy odczyt daje <code>R[2] = 4</code>; po <code>LOAD 2</code> sumator wynosi <code>4</code>, a po <code>ADD 1; STORE 1</code> suma wynosi <code>4</code>. Drugi odczyt daje <code>−2</code>; dodanie do dotychczasowej sumy daje <code>R[1] = 2</code>. Trzeci odczyt daje <code>0</code>; <code>JZERO end</code> kieruje do <code>WRITE 1</code>, które wypisuje <code>2</code>. Dla pojedynczego <code>0</code> program wypisze <code>0</code>.</p>"
+        },
+        {
+          "title": "Dlaczego program jest poprawny?",
+          "description": "<p><strong>Niezmiennik:</strong> przed każdą iteracją przy etykiecie <code>loop</code> rejestr <code>R[1]</code> zawiera sumę wszystkich dotychczas przetworzonych, niezerowych liczb. Początkowo zbiór jest pusty i suma wynosi zero. Każda niezerowa liczba zostaje dodana dokładnie raz; zero kończy pętlę, nie zmieniając sumy. Przy założeniu wystąpienia zera po skończonej liczbie odczytów pętla się zakończy, a <code>WRITE 1</code> zwróci oczekiwaną sumę.</p>"
+        }
+      ]
+    },
+    "btl07lm7pgvw95pgnt0ci3zv": {
+      "paragraph": "<p>Ten przykład pokazuje różnicę między pomysłem a implementacją: kod RAM musi odwzorować zarówno obliczenia, jak i przepływ danych pomiędzy sumatorem a rejestrami. Błędne programy NWD i maksimum z wcześniejszej wersji kursu nie są powielane; ich pełne, zweryfikowane implementacje należą do rozwinięcia modelu RAM w kolejnych pakietach.</p>"
+    }
+  }
+}
