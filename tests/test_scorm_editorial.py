@@ -1,4 +1,4 @@
-"""Scientific/editorial regression for five revised SCORM 01 lessons."""
+"""Scientific/editorial regression for six revised SCORM 01 lessons."""
 import copy
 import re
 import sys
@@ -37,13 +37,13 @@ class EditorialPilotTests(unittest.TestCase):
         self.assertIsNotNone(quiz)
         return result
 
-    def test_revisions_are_applied_to_five_specific_lessons(self):
+    def test_revisions_are_applied_to_six_specific_lessons(self):
         edited = self.prepared()
         lessons = edited["course"]["lessons"]
         self.assertEqual(edited["course"]["id"], SCORM01_COURSE_ID)
         self.assertEqual(len(lessons), 11)
-        self.assertEqual([len(l["items"]) for l in lessons[:5]],
-                         [10, 7, 7, 7, 5])
+        self.assertEqual([len(l["items"]) for l in lessons[:6]],
+                         [10, 7, 7, 7, 5, 6])
         self.assertEqual([l["id"] for l in lessons],
                          [l["id"] for l in self.original["course"]["lessons"][:-1]])
         self.assertEqual(lessons[4]["title"],
@@ -104,21 +104,37 @@ class EditorialPilotTests(unittest.TestCase):
         self.assertNotIn("jak szybko rośnie złożoność algorytmu w najgorszym przypadku",
                          bounds)
 
-    def test_no_redundant_boilerplate_and_shorter_five_lessons(self):
+
+    def test_case_study_rejects_premature_stop_and_off_by_one(self):
+        case = self.prepared()["course"]["lessons"][5]
+        self.assertEqual(case["title"],
+                         "Studium przypadku: poprawność przed optymalizacją")
+        text = str(case["items"])
+        for term in ("[8, 3, 7]", "A[i] &gt; x", "i &lt; n",
+                     "nieposortowanych", "najmniejszym", "pięć",
+                     "przypadku"):
+            with self.subTest(term=term):
+                self.assertIn(term.casefold(), text.casefold())
+        process = next(b for b in case["items"] if b["variant"] == "process")
+        self.assertEqual(len(process["items"]), 5)
+        self.assertTrue(all("description" in row and "title" in row
+                            for row in process["items"]))
+
+    def test_no_redundant_boilerplate_and_shorter_six_lessons(self):
         edited = self.prepared()
         before = sum(count_words(l["items"]) for l in
-                     self.original["course"]["lessons"][:5])
+                     self.original["course"]["lessons"][:6])
         after = sum(count_words(l["items"]) for l in
-                    edited["course"]["lessons"][:5])
+                    edited["course"]["lessons"][:6])
         self.assertLess(after, before * 0.85,
                         f"Redaction did not reduce redundancy: {before}, {after}")
-        for lesson in edited["course"]["lessons"][:5]:
+        for lesson in edited["course"]["lessons"][:6]:
             content = str(lesson["items"])
             self.assertNotIn("Cele lekcji pomagają określić", content)
             self.assertNotIn("Zanim przejdziesz dalej, sprawdź", content)
 
     def test_changes_to_known_block_ids_fail_closed(self):
-        for index in range(5):
+        for index in range(6):
             original = copy.deepcopy(self.original)
             original["course"]["lessons"][index]["items"][0]["id"] = "unknown-id"
             with self.subTest(lesson=index + 1):
@@ -147,7 +163,7 @@ class EditorialPilotTests(unittest.TestCase):
             self.assertEqual(scorm.validate_pair(SOURCE, output)["status"], "PASS")
             with scorm.open_zip(output) as source:
                 _, _, _, edited = scorm.get_data(source)
-                self.assertEqual(len(edited["course"]["lessons"][3]["items"]), 7)
+                self.assertEqual(len(edited["course"]["lessons"][5]["items"]), 6)
                 self.assertEqual(scorm.get_tracking(
                     source.read(scorm.HTML).decode("utf-8-sig")), scorm.TRACKING)
         self.assertEqual(SOURCE.stat().st_size, before)
