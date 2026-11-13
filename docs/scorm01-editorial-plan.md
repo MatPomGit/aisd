@@ -58,6 +58,8 @@ Wielkości w tabeli są orientacyjne, a suma obejmuje narrację i objaśnienia p
 - Obecnie zachowano wszystkie **11 identyfikatorów lekcji**, by nie ryzykować niepotwierdzonej migracji stanu wznowienia; celem końcowym jest bardziej zwarta, spójna struktura, co wymaga odrębnych testów nawigacji w Moodle.
 - Akceptacja dydaktyczna wymaga wizualnego przeglądu układu bloków Rise po przebudowie i testu na właściwej instancji Moodle. Test statyczny nie zastępuje tych kontroli.
 
+**Szczegółowy wynik recenzji:** [Karta audytu SCORM 01](reviews/scorm01-editorial-review.md), obejmująca 11 części, błędy kodu RAM, testy i bramkę akceptacyjną Moodle.
+
 ## Wdrożenie i kontrola jakości
 
 Przejście od źródłowej wersji Rise do ZIP realizują wersjonowane nakładki `editorial/scorm01/lesson-01.json` do `lesson-05.json`. Dzięki temu zmiany są przeglądalne w PR, a archiwum źródłowe pozostaje niezmienne. Adapter sprawdza identyfikator kursu, indeks i identyfikator lekcji oraz pełną sekwencję identyfikatorów bloków po usunięciu quizów, zanim wymieni treść i usunie zbędne bloki.
