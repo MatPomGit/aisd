@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 1,
+  "lesson_id": "cmi7gplw400032a73cvqv4o34",
+  "expected_lesson_title": "Definicja, cechy i klasyfikacje algorytmów",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja narracyjna; wymaga oceny wizualnej i Moodle",
+  "expected_block_ids": [
+    "cmiefzeai006p2070px0py5p3",
+    "mfyi888vgohl5lhuep8dvm12",
+    "tw0c3eh0y195648q12ovyaa8",
+    "zbro1nrdg8czusv3aqv6lqvh",
+    "jqqkg5r20g5yb8qb3w1b9vk4",
+    "nc1aannqxl2bj1q9y77e1o2c",
+    "b4l122t3vrux8mz8w3rxmm0r",
+    "znp4c5q5nyniq4950vx4bbg0",
+    "cmi7gtwgf000l2a73yrsrqjds",
+    "cmi7gtwgh000q2a73d8t32d98",
+    "cmi7gtwgh000s2a730egxqtao",
+    "tuyq9z8zi8t4j6kw9i3qr0jf"
+  ],
+  "keep_block_ids": [
+    "cmiefzeai006p2070px0py5p3",
+    "mfyi888vgohl5lhuep8dvm12",
+    "jqqkg5r20g5yb8qb3w1b9vk4",
+    "nc1aannqxl2bj1q9y77e1o2c",
+    "znp4c5q5nyniq4950vx4bbg0",
+    "cmi7gtwgf000l2a73yrsrqjds",
+    "tuyq9z8zi8t4j6kw9i3qr0jf"
+  ],
+  "updates": {
+    "mfyi888vgohl5lhuep8dvm12": {
+      "heading": "Kiedy opis rozwiązania jest algorytmem?",
+      "paragraph": "<p>W poprzedniej części zaprojektowaliśmy wyszukiwanie pierwszego wystąpienia identyfikatora. Teraz spróbujmy je zepsuć: co stanie się, jeśli przerwiemy przeglądanie tablicy po pierwszym elemencie większym od szukanej wartości? Dla <code>A = [8, 3, 7]</code> i <code>x = 7</code> otrzymamy błędnie <code>-1</code>, bo tablica nie jest posortowana. Ten kontrprzykład pokazuje, że poprawność zależy od <strong>specyfikacji</strong> i założeń, a nie od tego, czy program uruchamia się bez błędu.</p>"
+    },
+    "jqqkg5r20g5yb8qb3w1b9vk4": {
+      "paragraph": "<p>Algorytm jest jednoznacznym opisem sposobu obliczania wyniku dla określonej klasy wejść. Wyszukiwanie liniowe przetwarza dowolną skończoną tablicę, ponieważ sprawdza kolejne indeksy w granicach jej długości. Ważne są dwie osobne własności: <strong>zakończenie</strong> i <strong>poprawność wyniku</strong>. Krótki program może kończyć się dla każdego wejścia, a mimo to zwracać błędną odpowiedź. Z kolei procedura, która dawałaby poprawny wynik, gdyby się zakończyła, nie musi kończyć działania dla wszystkich wejść.</p>"
+    },
+    "nc1aannqxl2bj1q9y77e1o2c": {
+      "heading": "Trzy pytania do opisu algorytmu",
+      "paragraph": "<p>Przed implementacją zapytaj: jakie dane są dopuszczalne, jaki warunek musi spełniać wynik i dlaczego wykonanie nie może trwać w nieskończoność? W naszym przykładzie odpowiedzią jest indeks pierwszego trafienia albo <code>-1</code>; po co najwyżej <code>n</code> porównaniach kończą się wszystkie dopuszczalne wykonania.</p>"
+    },
+    "znp4c5q5nyniq4950vx4bbg0": {
+      "heading": "Klasyfikacje opisują różne cechy, nie rozłączne szufladki",
+      "paragraph": "<p>Ten sam algorytm można opisać jednocześnie pod względem sposobu sterowania, wykorzystania losowości i rodzaju wyniku. Te klasyfikacje nie konkurują ze sobą: wyszukiwanie liniowe jest zarazem iteracyjne, deterministyczne i dokładne. Poniższe rozróżnienia pozwalają nie pomylić cech algorytmu z jego zastosowaniem.</p>"
+    },
+    "cmi7gtwgf000l2a73yrsrqjds": {
+      "accordion_entries": [
+        {
+          "title": "Iteracyjny lub rekurencyjny",
+          "description": "<p><strong>Iteracyjny</strong> powtarza kroki w pętli; <strong>rekurencyjny</strong> rozwiązuje problem przez wywołanie tej samej procedury dla odpowiednio mniejszej instancji. Oba podejścia mogą realizować to samo zadanie. O poprawności rekurencji decydują między innymi przypadek bazowy i miara postępu.</p>"
+        },
+        {
+          "title": "Deterministyczny lub randomizowany",
+          "description": "<p>W algorytmie <strong>deterministycznym</strong> ten sam stan i te same dane wyznaczają następny krok. Algorytm <strong>randomizowany</strong> korzysta z losowania, więc jego przebieg może się zmieniać nawet przy tym samym wejściu. Nie należy utożsamiać randomizacji z <em>niedeterminizmem</em> modelu teoretycznego, który dopuszcza rozgałęzienia obliczeń bez interpretowania ich jako losowań.</p>"
+        },
+        {
+          "title": "Dokładny lub aproksymacyjny",
+          "description": "<p>Algorytm <strong>dokładny</strong> zwraca wynik spełniający pełną specyfikację. Algorytm <strong>aproksymacyjny</strong> dopuszcza rozwiązanie przybliżone, zwykle ze zdefiniowaną gwarancją jakości względem optimum. Nie oznacza to dowolnego błędu: zakres przybliżenia należy określić.</p>"
+        },
+        {
+          "title": "Poprawny nie znaczy najszybszy",
+          "description": "<p>Wyszukiwanie liniowe jest poprawne bez założeń o kolejności elementów, ale w najgorszym przypadku sprawdza wszystkie <code>n</code> pozycji. Lepszy koszt nie usprawiedliwia pominięcia przypadku brzegowego ani przyjęcia nieprawdziwego założenia o posortowaniu tablicy.</p>"
+        }
+      ]
+    },
+    "tuyq9z8zi8t4j6kw9i3qr0jf": {
+      "paragraph": "<p>Wniosek jest prosty: zanim ocenimy szybkość rozwiązania, trzeba ustalić, <strong>co ma obliczać</strong> i <strong>dla jakich danych jest poprawne</strong>. W kolejnym kroku zobaczymy, jak zapisać ten kontrakt i kroki algorytmu, aby inna osoba mogła prześledzić wykonanie bez domysłów.</p>"
+    }
+  }
+}
