@@ -1,6 +1,6 @@
 # Standard oceny i przebudowy lekcji AIiSD
 
-**Wersja:** 1.0.0 · **Data:** 2026-11-13  
+**Wersja:** 1.0.1 · **Data:** 2026-11-13  
 **Zakres:** wszystkie lekcje dydaktyczne we wszystkich 20 pakietach „Algorytmy i struktury danych”, studenci III roku informatyki.
 
 ## 1. Cel i zasada recenzji
@@ -41,6 +41,8 @@ Każdy istotny przykład algorytmu powinien zawierać:
 4. **Poprawność:** argument, niezmiennik pętli albo dowód indukcyjny odpowiedni do tematu.
 5. **Zakończenie:** dlaczego liczba kroków jest skończona na dopuszczalnych wejściach.
 6. **Kontrprzykład dla błędnego wariantu:** tam, gdzie jest użyteczny dydaktycznie.
+
+**Przypadki brzegowe** są obowiązkową częścią recenzji każdego algorytmu: puste lub minimalne wejście, brak wyniku, pierwszy/ostatni element, duplikaty, wartości skrajne i nieprawidłowe argumenty (o ile specyfikacja dopuszcza ich obsługę). Dla każdego wariantu podaj spodziewane zachowanie i sprawdź, czy kod go dotrzymuje.
 
 Nie zamieniaj testowania na „dowód poprawności”. Testy znajdują błędy i weryfikują przykłady; uogólnienie na wszystkie wejścia wymaga argumentu.
 
