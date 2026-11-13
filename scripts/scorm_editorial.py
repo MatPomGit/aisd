@@ -182,7 +182,19 @@ def _apply_ui_labels(data: dict) -> dict:
                 labels.get(key) == change["expected"],
                 "Source Rise label changed: " + str(key))
         labels[key] = change["replace"]
-    return {"ui_labels_translated": len(edits), "label_set_id": label_set["id"]}
+    # Without the language metadata Rise may replace customized labels
+    # with its English default label set and emit <html lang="en">.
+    # The SCORM 01 instructional text is in Polish.
+    course = data["course"]
+    require(label_set.get("iso639Code") == "en" and
+            course.get("locale") is None and
+            course.get("defaultLocaleId") is None,
+            "Unexpected Rise source locale configuration")
+    label_set["iso639Code"] = "pl"
+    course["locale"] = "pl"
+    course["defaultLocaleId"] = "pl"
+    return {"ui_labels_translated": len(edits), "label_set_id": label_set["id"],
+            "learner_language": "pl"}
 
 
 def apply_editorial(data: dict) -> list[dict] | None:
