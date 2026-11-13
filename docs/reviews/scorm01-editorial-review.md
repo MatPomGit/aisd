@@ -35,6 +35,7 @@ Tekst we wszystkich 11 częściach zmniejszył się szacunkowo z **9169 do 4515 
 | F06 | P1 | Uogólnienie O(n²) na sortowanie przez porównania | Rozróżniono wybór: Θ(n²), scalanie: O(n log n) | Poprawiono w SCORM 01 |
 | F07 | P1 | Randomizację utożsamiano z niedeterminizmem teoretycznym | Oddzielono definicje | Poprawiono w SCORM 01 |
 | F08 | P1 | Brak założenia o zerze kończącym strumień i o kosztach operandów | Zdefiniowano dziedzinę wejścia i model jednostkowego kosztu RAM | Poprawiono w SCORM 01 |
+| F09 | P1 | Semantyka kolejności slajdów Rise `process`: zapis `intro, summary, step…`, lecz prezentacja `intro, step…, summary` | Skorygowano mapowanie tekstów i numerację w lekcjach 06 i 08, dodano regresję oraz test interaktywny desktop/mobile | Poprawiono i sprawdzono [w Chromium](scorm01-browser-qa.md) |
 
 ## 3. Test wykonywalnego kodu RAM
 
