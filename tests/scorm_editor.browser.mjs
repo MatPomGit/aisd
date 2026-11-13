@@ -1,6 +1,6 @@
 /* Chromium end-to-end: choose a repository ZIP, edit, save, verify and preserve manual upload. */
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, mkdtempSync, rmSync } from "node:fs";
+import { readFileSync, readdirSync, mkdtempSync, rmSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { chromium } from "playwright-core";
@@ -77,6 +77,57 @@ try {
   await other.waitForFunction(() => document.querySelector("#message").textContent.includes("Rozmiar ZIP różni się"));
   assert.equal(await other.locator("#workspace").isVisible(), false);
   await other.close();
+
+  // PR #14 regression: inspect the actual edited SCORM 01 derivative, not course 13.
+  const pilotName = readdirSync("build/scorm-preview")
+    .find(name => name.startsWith("1-") && name.endsWith(".zip"));
+  assert.ok(pilotName, "Edited SCORM 01 build is required for browser QA");
+  const pilotBytes = readFileSync("build/scorm-preview/" + pilotName);
+  const pilot = await openRiseZip(pilotBytes, JSZip);
+  const pilotLessons = pilot.data.course.lessons;
+  assert.equal(pilotLessons.length, 11);
+  assert.equal(pilotLessons.some(lesson => lesson.type === "quiz"), false);
+
+  await page.reload();
+  await page.locator("#localUpload summary").click();
+  await page.locator("#fileInput").setInputFiles({
+    name: pilotName, mimeType: "application/zip", buffer: pilotBytes
+  });
+  await page.locator("#workspace").waitFor({ state: "visible", timeout: 30000 });
+  assert.equal(await page.locator("#lessonCount").innerText(), "11");
+  assert.equal(await page.locator("#quizState").innerText(), "Brak");
+  const shotDir = "build/scorm-review-screenshots";
+  mkdirSync(shotDir, { recursive: true });
+
+  for (const viewport of [
+    { name: "desktop", width: 1440, height: 900 },
+    { name: "mobile", width: 390, height: 844 }
+  ]) {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    for (let index = 0; index < pilotLessons.length; index++) {
+      const lessonButton = page.locator("#lessonList button.lesson-item").nth(index);
+      await lessonButton.click();
+      assert.equal(await page.locator("#lessonEditor input").first().inputValue(),
+                   pilotLessons[index].title, "Lesson title mismatch at " + (index + 1));
+      assert.ok((await page.locator("#lessonEditor .content-fields input, #lessonEditor .content-fields textarea").count()) > 0,
+                "No editable contents for lesson " + (index + 1));
+      const editorText = (await page.locator("#lessonEditor .content-fields input, #lessonEditor .content-fields textarea")
+        .evaluateAll(nodes => nodes.map(node => node.value).join(" ")));
+      if (index === 2) assert.match(editorText, /def pierwsze\(A, x\)/);
+      if (index === 7) assert.match(editorText, /LOAD 1/);
+      if (index === 8) assert.match(editorText, /JZERO end/);
+    }
+    // Keyboard activation and accessible selection state of the lesson navigator.
+    const first = page.locator("#lessonList button.lesson-item").first();
+    await first.focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await first.getAttribute("aria-selected"), "true");
+    await page.locator("#lessonList button.lesson-item").nth(8).click();
+    await page.screenshot({
+      path: join(shotDir, "scorm01-" + viewport.name + "-lesson09.png"),
+      fullPage: true
+    });
+  }
 
   assert.deepEqual(failures, []);
   console.log("Browser smoke PASS: catalog 20, repo ZIP edit/download, manual upload, corrupted hosted ZIP rejected");

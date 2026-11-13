@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "label_set_id": "6F7ttmLuKwCDyX5pOrX50gMF",
+  "scope": "reviewed_visible_scorm01_labels_only",
+  "notes": "Selected UI and accessibility strings only; no claim of complete translation of all Rise labels.",
+  "replacements": {
+    "courseExit": {
+      "expected": "EXIT COURSE",
+      "replace": "WYJDŹ"
+    },
+    "courseStart": {
+      "expected": "START COURSE",
+      "replace": "ROZPOCZNIJ KURS"
+    },
+    "courseResume": {
+      "expected": "RESUME COURSE",
+      "replace": "WZNÓW KURS"
+    },
+    "courseSkipToLesson": {
+      "expected": "SKIP TO LESSON",
+      "replace": "PRZEJDŹ DO LEKCJI"
+    },
+    "courseHome": {
+      "expected": "Home",
+      "replace": "Strona główna"
+    },
+    "courseFinish": {
+      "expected": "Finish",
+      "replace": "Zakończ"
+    },
+    "coverCompleted": {
+      "expected": "Completed",
+      "replace": "Ukończono"
+    },
+    "coverCompleteAllLessons": {
+      "expected": "Complete all lessons in this course",
+      "replace": "Ukończ wszystkie lekcje tego kursu"
+    },
+    "coverCourseRequirements": {
+      "expected": "Course Requirements",
+      "replace": "Wymagania ukończenia kursu"
+    },
+    "lessonComplete": {
+      "expected": "COMPLETE",
+      "replace": "UKOŃCZONO"
+    },
+    "exitMessage": {
+      "expected": "You may now leave this page.",
+      "replace": "Możesz teraz zamknąć tę stronę."
+    },
+    "processComplete": {
+      "expected": "Complete",
+      "replace": "Ukończ"
+    },
+    "processLandmark": {
+      "expected": "Process",
+      "replace": "Proces"
+    },
+    "processLessonName": {
+      "expected": "Lesson",
+      "replace": "Lekcja"
+    },
+    "processNextStep": {
+      "expected": "NEXT STEP",
+      "replace": "NASTĘPNY KROK"
+    },
+    "processStart": {
+      "expected": "START",
+      "replace": "ROZPOCZNIJ"
+    },
+    "processStartAgain": {
+      "expected": "START AGAIN",
+      "replace": "ROZPOCZNIJ PONOWNIE"
+    },
+    "processStepName": {
+      "expected": "Step",
+      "replace": "Krok"
+    },
+    "processStepPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "processSwipe": {
+      "expected": "Swipe to continue",
+      "replace": "Przesuń, aby kontynuować"
+    },
+    "progressPieClickToComplete": {
+      "expected": "Click to complete",
+      "replace": "Kliknij, aby oznaczyć jako ukończone"
+    },
+    "progressPieClickToReset": {
+      "expected": "Click to reset",
+      "replace": "Kliknij, aby zresetować"
+    },
+    "progressPieCompleted": {
+      "expected": "Completed",
+      "replace": "Ukończono"
+    },
+    "progressPieUnstarted": {
+      "expected": "Unstarted",
+      "replace": "Nierozpoczęte"
+    },
+    "progressSummary": {
+      "expected": "Progress Summary",
+      "replace": "Podsumowanie postępów"
+    },
+    "progressSummaryBackToLearning": {
+      "expected": "Back to my learning",
+      "replace": "Wróć do nauki"
+    },
+    "progressSummaryCompleted": {
+      "expected": "Completed:",
+      "replace": "Ukończono:"
+    },
+    "progressSummaryCompletionRequirement": {
+      "expected": "Completion Requirement",
+      "replace": "Warunek ukończenia"
+    },
+    "progressSummaryCongratulations": {
+      "expected": "Congratulations!",
+      "replace": "Gratulacje!"
+    },
+    "progressSummaryNextUp": {
+      "expected": "Next up",
+      "replace": "Następna lekcja"
+    },
+    "progressSummaryNoTitle": {
+      "expected": "(No Title)",
+      "replace": "(Bez tytułu)"
+    },
+    "progressSummaryPercentComplete": {
+      "expected": "% Complete",
+      "replace": "% ukończono"
+    },
+    "progressSummaryPercentCompletion": {
+      "expected": "% Completion",
+      "replace": "% ukończenia"
+    },
+    "progressSummaryRequirementsMet": {
+      "expected": "You've met all the requirements.",
+      "replace": "Spełniono wszystkie wymagania."
+    },
+    "progressSummaryStartOver": {
+      "expected": "Start Over",
+      "replace": "Rozpocznij od nowa"
+    },
+    "progressSummaryYouCompleted": {
+      "expected": "You completed:",
+      "replace": "Ukończono:"
+    },
+    "a11yNavigationMenuClose": {
+      "expected": "Close navigation menu",
+      "replace": "Zamknij menu nawigacyjne"
+    },
+    "a11yNavigationMenuOpen": {
+      "expected": "Open navigation menu",
+      "replace": "Otwórz menu nawigacyjne"
+    },
+    "a11yBlockProcessCarousel": {
+      "expected": "Carousel",
+      "replace": "Karuzela"
+    },
+    "a11yBlockProcessRoleDescription": {
+      "expected": "Carousel",
+      "replace": "Karuzela"
+    },
+    "a11yBlockProcessSlideControls": {
+      "expected": "Slide controls",
+      "replace": "Sterowanie slajdami"
+    },
+    "a11yBlockProcessSlideControlsGoToNext": {
+      "expected": "Go to next slide",
+      "replace": "Przejdź do następnego slajdu"
+    },
+    "a11yBlockProcessSlideControlsGoToPrevious": {
+      "expected": "Go to previous slide",
+      "replace": "Przejdź do poprzedniego slajdu"
+    },
+    "a11yBlockProcessSlideControlsGoToSlide": {
+      "expected": "Go to slide",
+      "replace": "Przejdź do slajdu"
+    },
+    "a11yBlockProcessSlideControlsIntroduction": {
+      "expected": "Introduction",
+      "replace": "Wprowadzenie"
+    },
+    "a11yBlockProcessSlideControlsSummary": {
+      "expected": "Summary",
+      "replace": "Podsumowanie"
+    },
+    "a11yBlockProcessSlidePreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yBlockProcessSlideRoleDescription": {
+      "expected": "Slide",
+      "replace": "Slajd"
+    },
+    "a11yCarouselNext": {
+      "expected": "Next",
+      "replace": "Następny"
+    },
+    "a11yCarouselPrevious": {
+      "expected": "Previous",
+      "replace": "Poprzedni"
+    },
+    "a11yAuthorPrefix": {
+      "expected": "By",
+      "replace": "Autor"
+    },
+    "coverLesson": {
+      "expected": "Lesson",
+      "replace": "Lekcja"
+    },
+    "coverLessons": {
+      "expected": "Lessons",
+      "replace": "Lekcje"
+    },
+    "coverCompleteLessonsName": {
+      "expected": "Complete",
+      "replace": "Ukończ"
+    },
+    "coverCompleteLessonsPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "coverCompleteLessonsInCourse": {
+      "expected": "lessons in this course",
+      "replace": "lekcji w tym kursie"
+    },
+    "lessonPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "lessonRestricted": {
+      "expected": "Lessons must be completed in order",
+      "replace": "Lekcje należy ukończyć po kolei"
+    },
+    "blocksPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yRegionMainLesson": {
+      "expected": "Lesson content",
+      "replace": "Treść lekcji"
+    },
+    "a11yRegionNavLesson": {
+      "expected": "Navigation menu",
+      "replace": "Menu nawigacyjne"
+    },
+    "a11yBlockChartPreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yBlockFlashcardStackSlidePreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yBlockImageCarouselSlidePreposition": {
+      "expected": "of",
+      "replace": "z"
+    },
+    "a11yBlockQuoteCarouselSlidePreposition": {
+      "expected": "of",
+      "replace": "z"
+    }
+  }
+}

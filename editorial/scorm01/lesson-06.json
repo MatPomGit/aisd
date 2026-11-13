@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 5,
+  "lesson_id": "cmi7gplw400072a73p1d6yhxi",
+  "expected_lesson_title": "Przykłady analizy złożoności i poprawności algorytmów",
+  "new_lesson_title": "Studium przypadku: poprawność przed optymalizacją",
+  "revision": "1.0.0",
+  "editorial_status": "zredagowana część studium przypadku; brak testu Moodle",
+  "expected_block_ids": [
+    "ilrqpv5tgzd0as2wh5vl532c",
+    "fzo0cer45m1zzl59mmbqx4wv",
+    "sf2cwh6453eyz0dxff7rdr1s",
+    "l2c1xo4fum2o6efdo5hex8tm",
+    "cmi7gvrar00242a73jlv9bqz7",
+    "sk4l1qhbxlbntjyglwg3og2j",
+    "cmi7gvras00252a73su13bg9o",
+    "cmi7gvrat002a2a73uxrampta",
+    "cmi7gvrau002c2a739oxx4r95",
+    "qsabhvbgq3mg81b0i7yj4t8y"
+  ],
+  "keep_block_ids": [
+    "ilrqpv5tgzd0as2wh5vl532c",
+    "l2c1xo4fum2o6efdo5hex8tm",
+    "cmi7gvrar00242a73jlv9bqz7",
+    "sk4l1qhbxlbntjyglwg3og2j",
+    "cmi7gvras00252a73su13bg9o",
+    "qsabhvbgq3mg81b0i7yj4t8y"
+  ],
+  "updates": {
+    "ilrqpv5tgzd0as2wh5vl532c": {
+      "heading": "Studium przypadku: pozornie szybszy algorytm",
+      "paragraph": "<p>Programista postanawia przyspieszyć wyszukiwanie identyfikatora: oprócz zatrzymania przy trafieniu proponuje zakończyć pętlę, gdy bieżący element będzie większy od szukanej wartości. Pomysł przypomina wyszukiwanie w uporządkowanych danych. Czy działa także w tablicy, której kolejność jest dowolna? Spróbujmy potraktować tę zmianę jak hipotezę wymagającą weryfikacji.</p>"
+    },
+    "l2c1xo4fum2o6efdo5hex8tm": {
+      "heading": "Od błędnego pomysłu do uzasadnionego rozwiązania",
+      "paragraph": "<p>Weźmy <code>A = [8, 3, 7]</code> i <code>x = 7</code>. Wymagamy indeksu pierwszego wystąpienia albo <code>-1</code>, jeśli wartości nie ma. Pięć poniższych kroków pokazuje, dlaczego niebezpieczne jest skrócenie pętli na podstawie nieudowodnionego założenia.</p>"
+    },
+    "cmi7gvrar00242a73jlv9bqz7": {
+      "process_entries": [
+        {
+          "title": "1. Określ kontrakt",
+          "description": "<p>Wejście to dowolna skończona tablica, niekoniecznie posortowana. Wynik musi być najmniejszym indeksem <code>i</code>, dla którego <code>A[i] = x</code>, albo <code>-1</code>. Nie można wprowadzać ukrytego wymagania uporządkowania danych.</p>"
+        },
+        {
+          "title": "5. Oceń koszt i ograniczenia",
+          "description": "<p>Przy trafieniu na początku wystarczy jedno porównanie, w najgorszym przypadku potrzeba <code>n</code>. Dodatkowa pamięć jest stała. Zatrzymanie po warunku <code>A[i] &gt; x</code> byłoby uzasadnione dopiero po zmianie specyfikacji wejścia na tablicę niemalejącą.</p>"
+        },
+        {
+          "title": "2. Prześledź proponowane przyspieszenie",
+          "description": "<p>Niepoprawna reguła: <code>JEŻELI A[i] &gt; x: ZWRÓĆ -1</code>. Już dla <code>i = 0</code> mamy <code>A[0] = 8 &gt; 7</code>, więc procedura zwraca <code>-1</code>, chociaż <code>A[2] = 7</code>. To konkretny kontrprzykład.</p>"
+        },
+        {
+          "title": "3. Przywróć poprawny warunek",
+          "description": "<p>Sprawdzaj wyłącznie <code>A[i] = x</code>. Przy braku trafienia zwiększ <code>i</code> o jeden, ale nie kończ wyszukiwania przed <code>i = n</code>. Dla rozważanej tablicy po trzech porównaniach zwrócisz <code>2</code>.</p>"
+        },
+        {
+          "title": "4. Uzasadnij poprawność",
+          "description": "<p>Przed porównaniem na pozycji <code>i</code> wszystkie wcześniejsze pozycje były różne od <code>x</code>. Jeśli znajdziesz trafienie, jest ono pierwsze. Jeśli pętla zakończy się bez trafienia, żaden element nie spełnia warunku. Indeks rośnie, więc pętla ma co najwyżej <code>n</code> iteracji.</p>"
+        }
+      ]
+    },
+    "sk4l1qhbxlbntjyglwg3og2j": {
+      "heading": "Co dokładnie sprawdzić przed optymalizacją?",
+      "paragraph": "<p>Najgroźniejsze błędy często powstają po dodaniu instrukcji, która ma „oszczędzić kilka operacji”. Rozwiń przykłady i zobacz, jak niewielka zmiana warunku wpływa na poprawność rozwiązania.</p>"
+    },
+    "cmi7gvras00252a73su13bg9o": {
+      "accordion_entries": [
+        {
+          "title": "Przedwczesne zakończenie",
+          "description": "<p>Reguła <code>JEŻELI A[i] &gt; x: ZWRÓĆ -1</code> jest błędna dla nieposortowanych danych. Kontrprzykład: <code>A = [8, 3, 7]</code>, <code>x = 7</code>. Nie należy wyciągać wniosku o niewidzianych elementach na podstawie jednego porównania.</p>"
+        },
+        {
+          "title": "Odczyt spoza tablicy",
+          "description": "<p>Pętla <code>DOPÓKI i ≤ n</code> próbowałaby odczytać <code>A[n]</code> przy braku trafienia, chociaż ostatni dopuszczalny indeks to <code>n - 1</code>. Poprawny warunek to <code>i &lt; n</code>.</p>"
+        },
+        {
+          "title": "Wynik nie jest pierwszym wystąpieniem",
+          "description": "<p>Przeglądanie od prawej strony z natychmiastowym zwrotem jest niezgodne z wymaganiem pierwszego indeksu. Dla <code>A = [7, 2, 7]</code> i <code>x = 7</code> prawidłowym wynikiem jest <code>0</code>, nie <code>2</code>.</p>"
+        },
+        {
+          "title": "Pomiar nie zastępuje dowodu",
+          "description": "<p>Pomiar czasu dla pojedynczej tablicy może wykazać szybsze wykonanie błędnego wariantu. Najpierw trzeba wykazać poprawność na całej dziedzinie wejść, potem porównywać koszt dla właściwie określonych scenariuszy.</p>"
+        }
+      ]
+    },
+    "qsabhvbgq3mg81b0i7yj4t8y": {
+      "paragraph": "<p>Poprawa wydajności nie może zmieniać znaczenia wyniku. Zanim zaakceptujesz nową instrukcję warunkową, zadaj sobie pytanie, jaki niezmiennik ją uzasadnia. Ta zasada przyda się zarówno przy programowaniu struktur danych, jak i przy analizie bardziej zaawansowanych algorytmów.</p>"
+    }
+  },
+  "expected_interactive_rows": {
+    "cmi7gvrar00242a73jlv9bqz7": [
+      {
+        "id": "cmi7gvrar001z2a73kcjr84c2",
+        "title": "Wprowadzenie algorytmu"
+      },
+      {
+        "id": "cmi7gvrar00202a73stfaeimd",
+        "title": "Podsumowanie"
+      },
+      {
+        "id": "cmi7gvrar00212a73ynhde1s7",
+        "title": "Analiza poprawności"
+      },
+      {
+        "id": "cmi7gvrar00222a733vcbmtos",
+        "title": "Analiza złożoności czasowej"
+      },
+      {
+        "id": "cmi7gvrar00232a73htgqumpk",
+        "title": "Zastosowanie notacji O"
+      }
+    ],
+    "cmi7gvras00252a73su13bg9o": [
+      {
+        "id": "cmi7gvras00262a739ui7vczv",
+        "title": "Analiza algorytmu wyszukiwania liniowego"
+      },
+      {
+        "id": "cmi7gvras00272a7322iwmwpw",
+        "title": "Analiza algorytmu sortowania przez wybór"
+      },
+      {
+        "id": "cmi7gvras00282a73ep62kc3d",
+        "title": "Zadanie z asymptotycznymi granicami"
+      },
+      {
+        "id": "cmi7gvras00292a73m28qprba",
+        "title": "Błędy w analizie poprawności"
+      }
+    ]
+  }
+}

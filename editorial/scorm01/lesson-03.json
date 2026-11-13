@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 2,
+  "lesson_id": "cmi7gplw400042a73ei02ei4s",
+  "expected_lesson_title": "Konwencje zapisu algorytmów i pseudokod",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja narracyjna; wymaga oceny wizualnej i Moodle",
+  "expected_block_ids": [
+    "irl8qxcnbj4d8ifu53587u93",
+    "gqls0w4e57j5ei8arszwzocx",
+    "qmer22a9ygzyx7nos0sy4tgg",
+    "a6o6oj5u50clleeu7zyx85kx",
+    "cmi7guc35000u2a73eec988zy",
+    "chdhlh0xrvmma8kuzvwov8i1",
+    "nm86kzdxq4q75ulaewlxw6n2",
+    "cc0fieq7ycs7xsqgb341sqwh",
+    "qkfptvbaty3pzal6bvfo6akz",
+    "cmi7guc35000z2a737n9m2s3a",
+    "cmi7guc3700142a73ji5alk90",
+    "cmi7guc3700162a73igclcbtg",
+    "pyj0ol19ot9le5x9is0mjud4"
+  ],
+  "keep_block_ids": [
+    "irl8qxcnbj4d8ifu53587u93",
+    "a6o6oj5u50clleeu7zyx85kx",
+    "cmi7guc35000u2a73eec988zy",
+    "cc0fieq7ycs7xsqgb341sqwh",
+    "qkfptvbaty3pzal6bvfo6akz",
+    "cmi7guc35000z2a737n9m2s3a",
+    "pyj0ol19ot9le5x9is0mjud4"
+  ],
+  "updates": {
+    "irl8qxcnbj4d8ifu53587u93": {
+      "heading": "Jedno rozwiązanie, dwa sposoby zapisu",
+      "paragraph": "<p>Opis „przeglądaj tablicę i zwróć pierwsze trafienie” jest zrozumiały, ale nie rozstrzyga wszystkich szczegółów. Czy indeksowanie zaczyna się od zera? Co zwrócić, gdy tablica jest pusta? Dlatego potrzebujemy zapisu, w którym każdy warunek i każda aktualizacja mają jedno znaczenie. Pseudokod pozwala to zrobić bez wiązania się ze składnią konkretnego języka programowania.</p>"
+    },
+    "a6o6oj5u50clleeu7zyx85kx": {
+      "heading": "Konwencje, które eliminują domysły",
+      "paragraph": "<p>Zapis powinien zawierać kontrakt wejścia i wyjścia, jednoznaczną konwencję indeksowania oraz rozróżnienie przypisania od porównania. Cztery poniższe decyzje zmniejszają ryzyko pomyłki także wtedy, gdy pseudokod przepisuje się później do Pythona, C++ lub innego języka.</p>"
+    },
+    "cmi7guc35000u2a73eec988zy": {
+      "accordion_entries": [
+        {
+          "title": "Nazwy i wejście",
+          "description": "<p>Niech <code>A</code> oznacza tablicę długości <code>n ≥ 0</code>, a <code>x</code> szukany identyfikator. Ustal, że indeksy należą do przedziału od <code>0</code> do <code>n - 1</code>. Nazwy służą wyjaśnieniu roli zmiennych, nie są częścią konkretnej składni języka.</p>"
+        },
+        {
+          "title": "Przypisanie a warunek",
+          "description": "<p><code>i ← i + 1</code> zmienia wartość indeksu. Warunek <code>A[i] = x</code> sprawdza równość i nie przypisuje wartości. W języku Python temu drugiemu odpowiada operator <code>==</code>, natomiast przypisaniu <code>=</code>.</p>"
+        },
+        {
+          "title": "Granice pętli",
+          "description": "<p>Przed odczytem <code>A[i]</code> musi zachodzić <code>0 ≤ i &lt; n</code>. Dlatego najpierw sprawdzamy warunek <code>i &lt; n</code>, a dopiero później porównujemy element. Dla pustej tablicy nie wolno wykonać ani jednego odczytu.</p>"
+        },
+        {
+          "title": "Sposób zakończenia",
+          "description": "<p>Po znalezieniu wartości natychmiast zwracamy bieżący indeks; jeśli pętla przejdzie wszystkie pozycje bez trafienia, zwracamy <code>-1</code>. Wcześniejszy warunek zatrzymania na podstawie wartości elementu wymagałby dodatkowego założenia o posortowaniu danych.</p>"
+        }
+      ]
+    },
+    "cc0fieq7ycs7xsqgb341sqwh": {
+      "paragraph": "<p><strong>Pseudokod wyszukiwania pierwszego wystąpienia:</strong></p><p><code>i ← 0</code><br><code>DOPÓKI i &lt; n:</code><br><code>&nbsp;&nbsp;JEŻELI A[i] = x: ZWRÓĆ i</code><br><code>&nbsp;&nbsp;i ← i + 1</code><br><code>ZWRÓĆ -1</code></p><p>Po każdej nieudanej próbie indeks zwiększa się o jeden. Zwrócenie wyniku wewnątrz pętli gwarantuje, że nie przeglądamy kolejnych wystąpień. Gdy pętla nie zostaje wykonana lub kończy się bez trafienia, otrzymujemy <code>-1</code>.</p>"
+    },
+    "qkfptvbaty3pzal6bvfo6akz": {
+      "heading": "Ten sam algorytm jako program",
+      "paragraph": "<p>Spójrzmy na prostą implementację w Pythonie. Ma taki sam kontrakt, ale używa rzeczywistej składni i wbudowanego sposobu przechodzenia po tablicy. Ważna jest zgodność działania, a nie dosłowne podobieństwo każdej linii.</p>"
+    },
+    "cmi7guc35000z2a737n9m2s3a": {
+      "tabs_entries": [
+        {
+          "title": "Pseudokod",
+          "description": "<p><code>DLA i OD 0 DO n - 1:</code><br><code>&nbsp;&nbsp;JEŻELI A[i] = x: ZWRÓĆ i</code><br><code>ZWRÓĆ -1</code></p><p>Przyjmujemy, że pętla dla <code>n = 0</code> ma zero iteracji. Warunki wykonania tej samej instrukcji można zapisać także za pomocą <code>DOPÓKI</code>.</p>"
+        },
+        {
+          "title": "Python",
+          "description": "<p><code>def pierwsze(A, x):</code><br><code>&nbsp;&nbsp;for i, element in enumerate(A):</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;if element == x:</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return i</code><br><code>&nbsp;&nbsp;return -1</code></p><p><code>enumerate</code> przekazuje indeks i element w ich naturalnej kolejności; <code>return</code> kończy wywołanie funkcji.</p>"
+        },
+        {
+          "title": "Ślad wykonania",
+          "description": "<p>Przy <code>A = [31, 7, 42, 7]</code> i <code>x = 7</code> pierwsza iteracja ma <code>i = 0</code> i porównanie jest fałszywe. W drugiej mamy <code>i = 1</code> oraz <code>A[1] = 7</code>, więc następuje zwrot <code>1</code>. Pozycje 2 i 3 nie są odwiedzane.</p>"
+        },
+        {
+          "title": "Granica poprawności",
+          "description": "<p>Zmiana wyniku na „dowolne wystąpienie” pozwoliłaby na inną kolejność przeglądania. Dla wymagania „pierwsze wystąpienie” nie możemy np. rozpocząć od prawej strony i zatrzymać się przy pierwszym trafieniu: dla duplikatów wynik byłby niewłaściwy.</p>"
+        }
+      ]
+    },
+    "pyj0ol19ot9le5x9is0mjud4": {
+      "paragraph": "<p>Pseudokod opisuje sposób rozwiązania, a program jest jego wykonywalną realizacją. O jakości obu decyduje jawny kontrakt i zgodność kroków, nie nazwy instrukcji. Dalsze możliwości zapisu (schematy blokowe i konwencje języków) zostaną rozwinięte w pakiecie 03.</p>"
+    }
+  },
+  "expected_interactive_rows": {
+    "cmi7guc35000u2a73eec988zy": [
+      {
+        "id": "cmi7guc35000v2a737c6mtn3z",
+        "title": "Nazewnictwo zmiennych i struktur danych"
+      },
+      {
+        "id": "cmi7guc35000w2a73py5p8b7w",
+        "title": "Opis kroków algorytmu"
+      },
+      {
+        "id": "cmi7guc35000x2a731vv4rllf",
+        "title": "Warunki i pętle"
+      },
+      {
+        "id": "cmi7guc35000y2a73qvporqvb",
+        "title": "Komentarze i czytelność"
+      }
+    ],
+    "cmi7guc35000z2a737n9m2s3a": [
+      {
+        "id": "cmi7guc3500102a73bzr2jp3x",
+        "title": "Cel i zastosowanie"
+      },
+      {
+        "id": "cmi7guc3600112a7393vwwslp",
+        "title": "Składnia"
+      },
+      {
+        "id": "cmi7guc3600122a736unqpl8r",
+        "title": "Czytelność"
+      },
+      {
+        "id": "cmi7guc3600132a73zryvxsyu",
+        "title": "Wykonywalność"
+      }
+    ]
+  }
+}

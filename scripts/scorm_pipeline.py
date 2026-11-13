@@ -16,6 +16,8 @@ import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from scorm_editorial import EditorialError, apply_editorial, SCORM01_COURSE_ID, SCORM01_RELEASE
+
 HTML = "scormcontent/index.html"
 MODERN = "scormcontent/runtime-data.js"
 LEGACY_RE = re.compile(
@@ -290,7 +292,7 @@ def remove_knowledge_checks(data):
     return removed
 
 
-def new_course(original, tracking):
+def new_course(original, tracking, *, include_editorial=True):
     data = copy.deepcopy(original)
     lessons = data["course"]["lessons"]
     quiz_count = sum(isinstance(l, dict) and l.get("type") == "quiz" for l in lessons)
@@ -320,6 +322,11 @@ def new_course(original, tracking):
             raise BuildError("Empty course")
         adapt_embedded_final_test(data)
     remove_knowledge_checks(data)
+    if include_editorial:
+        try:
+            apply_editorial(data)
+        except EditorialError as exc:
+            raise BuildError("Editorial overlay rejected: " + str(exc)) from exc
     settings.update({
         "quizId": None,
         "completeWith": "course",
@@ -332,7 +339,7 @@ def new_course(original, tracking):
     return data, quiz
 
 
-def build_one(source, output):
+def build_one(source, output, *, include_editorial=True):
     source, output = Path(source), Path(output)
     if source.resolve() == output.resolve() or output.exists():
         raise BuildError("Output exists or would overwrite original: " + str(output))
@@ -343,19 +350,29 @@ def build_one(source, output):
             raise BuildError("No HTML tracking runtime")
         original_html = src.read(HTML).decode("utf-8-sig")
         tracking = get_tracking(original_html)
-        result, quiz = new_course(data, tracking)
+        result, quiz = new_course(data, tracking, include_editorial=include_editorial)
         replacements = {path: encode(text, match, result)}
         if path == HTML:
             replacements[HTML] = set_tracking(replacements[HTML].decode("utf-8"), TRACKING).encode("utf-8")
         else:
             replacements[HTML] = set_tracking(original_html, TRACKING).encode("utf-8")
+        if include_editorial and result["course"].get("id") == SCORM01_COURSE_ID:
+            # The course is in Polish. Set the first paint language for
+            # assistive technologies; the Rise player also reads labelSet
+            # and course locale metadata from the edited JSON.
+            content_html = replacements[HTML].decode("utf-8")
+            if content_html.count('<html lang="en"') != 1:
+                raise BuildError("Unexpected Rise HTML document language")
+            replacements[HTML] = content_html.replace(
+                '<html lang="en"', '<html lang="pl"', 1
+            ).encode("utf-8")
         output.parent.mkdir(parents=True, exist_ok=True)
         try:
             with zipfile.ZipFile(output, "w") as dst:
                 dst.comment = src.comment
                 for item in src.infolist():
                     dst.writestr(item, replacements.get(item.filename, src.read(item.filename)))
-            validate_pair(source, output)
+            validate_pair(source, output, include_editorial=include_editorial)
         except Exception:
             output.unlink(missing_ok=True)
             raise
@@ -383,6 +400,11 @@ def build_one(source, output):
     return {"source": source.name, "artifact": output.name,
             "removed_quiz": quiz.get("title", quiz["id"]) if quiz else None,
             "lesson_count": len(result["course"]["lessons"]),
+            "editorial_overlay": (
+                SCORM01_RELEASE
+                if include_editorial and result["course"].get("id") == SCORM01_COURSE_ID
+                else None
+            ),
             "knowledge_checks_removed": removed_checks,
             "assessment_sections_removed": removed_heading_count,
             "embedded_test_removed": adapted_review,
@@ -390,7 +412,7 @@ def build_one(source, output):
             "sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
 
 
-def validate_pair(source, output):
+def validate_pair(source, output, *, include_editorial=True):
     with open_zip(source) as src, open_zip(output) as dst:
         check_manifest(src)
         check_manifest(dst)
@@ -404,7 +426,8 @@ def validate_pair(source, output):
         has_quiz = any(isinstance(x, dict) and x.get("type") == "quiz"
                        for x in old["course"]["lessons"])
         removed = get_quiz(old) if has_quiz else None
-        expected, _ = new_course(old, get_tracking(src.read(HTML).decode("utf-8-sig")))
+        expected, _ = new_course(old, get_tracking(src.read(HTML).decode("utf-8-sig")),
+                                 include_editorial=include_editorial)
         if new["course"]["lessons"] != expected["course"]["lessons"]:
             raise BuildError("Unexpected lesson changes")
         if new != expected:

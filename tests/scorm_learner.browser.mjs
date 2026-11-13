@@ -1,0 +1,294 @@
+/* Real Rise learner renderer in an isolated in-memory LMS proxy, NOT Moodle. */
+import assert from "node:assert/strict";
+import { readFileSync, readdirSync, mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { chromium } from "playwright-core";
+import { createRequire } from "node:module";
+import { openRiseZip } from "../docs/editor/core.mjs";
+
+const require = createRequire(import.meta.url);
+const JSZip = require("jszip");
+const name = readdirSync("build/scorm-preview")
+  .find(n => n.startsWith("1-") && n.endsWith(".zip"));
+assert.ok(name, "Cannot find candidate SCORM 01 ZIP");
+const raw = readFileSync(join("build/scorm-preview", name));
+const source = await openRiseZip(raw, JSZip);
+const lessons = source.data.course.lessons;
+assert.equal(lessons.length, 11, "SCORM 01 must retain 11 lessons");
+
+const uniqueText = [
+  "Wyobraź sobie, że system przechowuje milion identyfikatorów",
+  "Teraz spróbujmy je zepsuć",
+  "Opis „przeglądaj tablicę i zwróć pierwsze trafienie”",
+  "Kilka pozytywnych prób nie stanowi dowodu poprawności",
+  "Czas działania wyszukiwania liniowego zależy",
+  "Programista postanawia przyspieszyć wyszukiwanie identyfikatora",
+  "Model obliczeniowy określa, jakie operacje są dostępne",
+  "Model RAM rozbija tę operację na zmianę stanu",
+  "pierwsze 0 oznacza koniec danych",
+  "Program sumujący wartości do pierwszego zera",
+  "Te obserwacje łączą się w pięć praktycznych zasad",
+];
+assert.equal(uniqueText.length, lessons.length);
+
+// Representative user interactions, evaluated against the rendered Rise UI.
+const interactionChecks = new Map([
+  [1, { control: "Iteracyjny lub rekurencyjny",
+        revealed: "powtarza kroki w pętli", kind: "accordion" }],
+  [2, { control: "Python",
+        revealed: "def pierwsze(A, x):", kind: "tabs" }],
+  [7, { control: "2. LOAD 1",
+        revealed: "kopiuje zawartość", kind: "process" }],
+]);
+
+const screenshotDir = "build/scorm-learner-screenshots";
+mkdirSync(screenshotDir, { recursive: true });
+const report = { kind: "isolated-rise-learner-qa", disclaimer:
+  "Local static browser harness only; not Moodle SCORM compliance or suspend/resume",
+  lessons: lessons.map(l => ({ id: l.id, title: l.title })),
+  images: [], errors: [], metrics: [], interactiveInventory: [] };
+const browser = await chromium.launch({
+  headless: true,
+  executablePath: process.env.CHROME_BIN || "/usr/bin/google-chrome",
+  args: ["--no-sandbox", "--disable-dev-shm-usage"],
+});
+try {
+  for (const viewport of [
+    { name: "desktop", width: 1440, height: 900 },
+    { name: "mobile", width: 390, height: 844 },
+  ]) {
+    const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
+    const errors = [];
+    page.on("pageerror", error => errors.push(error.message));
+    await page.goto("http://127.0.0.1:8787/learner-harness.html",
+                    { waitUntil: "domcontentloaded", timeout: 30000 });
+    const frameLocator = page.frameLocator("#content-frame");
+    await frameLocator.locator("#app").waitFor({ state: "attached", timeout: 30000 });
+    await page.waitForTimeout(1500);
+    const earlyDiag = await page.frames().find(f =>
+      f.url().includes("/learner-preview/scormcontent/index.html"))
+      .evaluate(async () => {
+        const data = await window.__fetchCourse();
+        return {
+          playerLang: document.documentElement.lang,
+          sourceLabelLang: data?.labelSet?.iso639Code,
+          sourceExitLabel: data?.labelSet?.labels?.courseExit,
+          courseLocale: data?.course?.locale,
+          defaultLocaleId: data?.course?.defaultLocaleId,
+          pageContent: document.body.innerText.slice(0, 170),
+        };
+      });
+    console.log("Rise early locale diagnostic", viewport.name,
+                JSON.stringify(earlyDiag), "page errors", JSON.stringify(errors));
+    assert.equal(earlyDiag.playerLang, "pl", "Rise player document is not Polish");
+    assert.equal(earlyDiag.sourceLabelLang, "pl");
+    assert.equal(earlyDiag.sourceExitLabel, "WYJDŹ");
+    await frameLocator.getByText("ROZPOCZNIJ KURS", { exact: true })
+      .waitFor({ state: "visible", timeout: 10000 });
+    for (let i = 0; i < lessons.length; i++) {
+      const lesson = lessons[i];
+      const player = page.frames().find(f =>
+        f.url().includes("/learner-preview/scormcontent/index.html"));
+      assert.ok(player, "Rise player iframe missing");
+      await player.evaluate(id => { window.location.hash = "#/lessons/" + id; },
+                            lesson.id);
+      try {
+        await page.waitForFunction(text => {
+          const root = document.querySelector("#content-frame")
+            ?.contentDocument?.querySelector("#app");
+          return !!root && (root.innerText || "").includes(text);
+        }, uniqueText[i], { timeout: 30000, polling: 250 });
+      } catch (err) {
+        const diagnostic = await page.evaluate(() => {
+          const frame = document.querySelector("#content-frame");
+          return {
+            hash: frame?.contentWindow?.location.hash,
+            app: frame?.contentDocument?.querySelector("#app")?.innerText?.slice(0, 1600),
+            page: frame?.contentDocument?.body?.innerText?.slice(0, 1600)
+          };
+        });
+        report.errors.push({ viewport: viewport.name, index: i + 1,
+                             lesson: lesson.title, diagnostic, pageerrors: errors });
+        throw new Error("Rise lesson did not render expected content: " +
+                        (i + 1) + " " + JSON.stringify(diagnostic), { cause: err });
+      }
+      if (i === 0) {
+        await frameLocator.getByText("WYJDŹ", { exact: true })
+          .waitFor({ state: "visible", timeout: 10000 });
+      }
+      // DOM presence alone is insufficient: the early screenshots showed
+      // the course cover or an empty viewport. Scroll the *actual Rise player*
+      // to a rendered lesson paragraph, then verify onscreen intersection.
+      const meaningfulParagraph = frameLocator.locator("p")
+        .filter({ hasText: uniqueText[i] }).first();
+      await meaningfulParagraph.scrollIntoViewIfNeeded({ timeout: 20000 });
+      const paraRect = await meaningfulParagraph.boundingBox();
+      assert.ok(paraRect, "Rendered Rise paragraph is not visible");
+      const visibleHeight = Math.min(paraRect.y + paraRect.height, viewport.height) -
+                            Math.max(paraRect.y, 0);
+      assert.ok(visibleHeight > 35,
+        "Lesson content is not onscreen after scrolling: " +
+        viewport.name + " " + (i + 1) + ": " + JSON.stringify(paraRect));
+      await page.waitForTimeout(150);
+      const metrics = await page.evaluate(() => {
+        const doc = document.querySelector("#content-frame").contentDocument;
+        const app = doc.querySelector("#app");
+        return {
+          visibleChars: app?.innerText?.length ?? 0,
+          scrollWidth: doc.documentElement.scrollWidth,
+          clientWidth: doc.documentElement.clientWidth,
+          horizontalOverflowPx: Math.max(0, doc.documentElement.scrollWidth -
+                                            doc.documentElement.clientWidth),
+        };
+      });
+      assert.ok(metrics.visibleChars > 80, "Empty Rise lesson " + (i + 1));
+      const shot = join(screenshotDir,
+        "scorm01-rise-" + viewport.name + "-" + String(i + 1).padStart(2, "0") + ".png");
+      await page.screenshot({ path: shot, fullPage: true });
+      report.images.push(shot);
+      report.metrics.push({ viewport: viewport.name, lesson: i + 1,
+                            visibleParagraphPx: Math.round(visibleHeight), ...metrics });
+      // Verify ALL retained interactive Rise blocks are present on each screen.
+      // The click tests below additionally exercise representative behaviors.
+      const variants = ["accordion", "tabs", "process"];
+      const expectedBlocks = Object.fromEntries(variants.map(kind => [
+        kind, lesson.items.filter(block =>
+          block.type === "interactive" && block.variant === kind).length
+      ]));
+      const renderedBlocks = await player.evaluate(kinds =>
+        Object.fromEntries(kinds.map(kind => {
+          // Rise uses plural "blocks-" for accordions and tabs, but
+          // singular "block-" for its process carousel.
+          const selector = kind === "process" ? ".block-process" : ".blocks-" + kind;
+          return [kind, document.querySelectorAll(selector).length];
+        })), variants);
+      report.interactiveInventory.push({
+        viewport: viewport.name, lesson: i + 1,
+        expected: expectedBlocks, rendered: renderedBlocks,
+      });
+      console.log("Rise interactive inventory", viewport.name, i + 1,
+                  JSON.stringify({ expectedBlocks, renderedBlocks }));
+      assert.deepEqual(renderedBlocks, expectedBlocks,
+        "Missing or unexpected interactive blocks in rendered Rise lesson " +
+        (i + 1) + " on " + viewport.name);
+      const scenario = interactionChecks.get(i);
+      if (scenario) {
+        if (scenario.kind === "process") {
+          // Rise uses the carousel's next arrow on desktop. On narrow
+          // viewports the controls can be hidden and swipe is the intended UI.
+          const firstStep = frameLocator.getByText(
+            "1. Określamy stan początkowy", { exact: true }).first();
+          await firstStep.scrollIntoViewIfNeeded({ timeout: 15000 });
+          const startButton = frameLocator.getByRole("button", {
+            name: /^(start|rozpocznij)$/i
+          }).first();
+          const nextArrow = frameLocator.locator("button.carousel-controls-next");
+          if (await startButton.isVisible()) {
+            // Rise's narrow layout uses a visible START button on the intro,
+            // not the desktop carousel arrow.
+            await startButton.click({ timeout: 15000 });
+          } else if (await nextArrow.isVisible()) {
+            await nextArrow.click({ timeout: 15000 });
+          } else {
+            const bounds = await firstStep.boundingBox();
+            assert.ok(bounds, "Cannot locate mobile process slide for swiping");
+            const y = Math.min(viewport.height - 90,
+                               Math.max(90, bounds.y + bounds.height / 2));
+            await page.mouse.move(bounds.x + bounds.width * 0.85, y);
+            await page.mouse.down();
+            await page.mouse.move(bounds.x + bounds.width * 0.15, y, { steps: 20 });
+            await page.mouse.up();
+          }
+        } else {
+          const button = frameLocator.getByText(scenario.control,
+                                                { exact: true }).first();
+          await button.click({ timeout: 20000 });
+        }
+        const revealed = frameLocator.getByText(scenario.revealed,
+                                                { exact: false }).first();
+        await revealed.waitFor({ state: "visible", timeout: 15000 });
+        // Wait before choosing between active and pre-rendered hidden carousel slides.
+        await page.waitForTimeout(1000);
+        if (scenario.kind === "process") {
+          const diagShot = join(screenshotDir, "scorm01-rise-" + viewport.name +
+                                 "-08-after-click.png");
+          await page.screenshot({ path: diagShot, fullPage: true });
+          report.images.push(diagShot);
+        }
+        const matches = frameLocator.getByText(scenario.revealed, { exact: false });
+        const candidateCount = await matches.count();
+        const states = [];
+        for (let k = 0; k < Math.min(8, candidateCount); k++) {
+          const state = await matches.nth(k).evaluate(el => {
+            let opacity = 1;
+            const chain = [];
+            for (let p = el; p && chain.length < 12; p = p.parentElement) {
+              const o = getComputedStyle(p).opacity;
+              opacity *= Number.parseFloat(o) || 0;
+              chain.push({ tag: p.tagName, cls: String(p.className).slice(0, 80),
+                           opacity: o });
+            }
+            return { opacity, chain };
+          });
+          states.push(state);
+        }
+        if (scenario.kind === "process") {
+          console.log("Rise process text candidates", viewport.name,
+                      JSON.stringify(states));
+        }
+        const activeIndex = states.findIndex(st => st.opacity > 0.85);
+        const liveContent = activeIndex >= 0 ? matches.nth(activeIndex) : revealed;
+        await liveContent.scrollIntoViewIfNeeded({ timeout: 10000 });
+        // Rise animates opacity and slide positions. Playwright's visible state
+        // may be true while a panel is almost transparent. Wait for settling.
+        await page.waitForTimeout(1100);
+        await liveContent.scrollIntoViewIfNeeded({ timeout: 10000 });
+        await page.waitForTimeout(250);
+        const visibleState = await liveContent.evaluate(el => {
+          let opacity = 1;
+          for (let current = el; current; current = current.parentElement) {
+            const value = Number.parseFloat(getComputedStyle(current).opacity);
+            if (Number.isFinite(value)) opacity *= value;
+          }
+          return opacity;
+        });
+        const afterRect = await liveContent.boundingBox();
+        const onScreen = afterRect &&
+          Math.min(afterRect.y + afterRect.height, viewport.height) -
+            Math.max(afterRect.y, 0) > 20;
+        assert.ok(visibleState > 0.85 && onScreen,
+          "Interactive content not visually settled: " + scenario.kind +
+          " " + viewport.name + " opacity=" + visibleState +
+          " rect=" + JSON.stringify(afterRect));
+        if (scenario.kind === "process") {
+          await frameLocator.getByText("Krok 1", { exact: true })
+            .waitFor({ state: "visible", timeout: 15000 });
+          if (viewport.name === "mobile") {
+            await frameLocator.getByText("Przesuń, aby kontynuować",
+                                         { exact: true })
+              .waitFor({ state: "visible", timeout: 15000 });
+          }
+        }
+        const controlShot = join(screenshotDir,
+          "scorm01-rise-" + viewport.name + "-" +
+          String(i + 1).padStart(2, "0") + "-" + scenario.kind + ".png");
+        await page.screenshot({ path: controlShot, fullPage: true });
+        report.images.push(controlShot);
+        if (!report.interactions) report.interactions = [];
+        report.interactions.push({ viewport: viewport.name, lesson: i + 1,
+                                   kind: scenario.kind, result: "visible" });
+      }
+    }
+    report.errors.push(...errors.map(message => ({ viewport: viewport.name, message })));
+    const events = await page.evaluate(() => window.__scormAudit?.calls || []);
+    assert.equal(events.filter(e => e[0] === "SetScore").length, 0,
+                 "Ungraded learner must never send SetScore");
+    await page.close();
+  }
+  assert.deepEqual(report.errors, [], "Unexpected error in rendered Rise player");
+  console.log("Rise learner browser QA PASS: 11 lessons x 2 viewports, plus accordion/tabs/process interactions, zero SetScore");
+} finally {
+  writeFileSync(join(screenshotDir, "report.json"),
+                JSON.stringify(report, null, 2) + "\n");
+  await browser.close();
+}

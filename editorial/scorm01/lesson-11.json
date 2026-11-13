@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "course_id": "SZEbwB8BnpsJ5CIenO-FYt21dzH6nrro",
+  "course_title": "1. Podstawy algorytmów",
+  "lesson_index": 10,
+  "lesson_id": "l7vIc-jYQ3mGbHWg40K17pTpFe_uMOYT",
+  "expected_lesson_title": "Podsumowanie",
+  "new_lesson_title": "Podsumowanie: pięć zasad projektowania algorytmów",
+  "revision": "1.0.0",
+  "editorial_status": "redakcja gotowa do testów automatycznych; wymaga QA wizualnego i Moodle",
+  "expected_block_ids": [
+    "cmhyky1ey00ec2a77p72135e1",
+    "pu6wyjhvngskcv2m3j339qp7",
+    "cvnyq20c7i2abjxq9ymt2y48",
+    "gulgwbx8qe3m254go1udefok",
+    "cmhxo66h100792a77n09eozi7",
+    "fjlrqw6ikkr0c9dkof4xeo2u",
+    "vj33eouxg3c2vrflou4t1q6l",
+    "mgy9jwfl69wzzo19ldblqeil",
+    "cmhxo66h3007b2a773iukzt2i",
+    "rkhwsie4stefzsjxbgx7umfu",
+    "f4hipbzsft4vk1nvswz4rpi9",
+    "cmhxo66h3007g2a7733h613u4",
+    "rqheenewa2roovpaeu04mz9z",
+    "cmhxo66h4007k2a773ol2yiqo",
+    "wtxawa4aibgs634wnq3huusf",
+    "wpmfantz5kcrmrsrjzcyuhmv",
+    "s505k8n213wubxi9m9vl6mdz",
+    "lyptomtak26fcj9clnn2ofjq",
+    "cmhxo66h4007o2a771y80pt7d",
+    "cmhxo66h4007s2a77clgbw5rs",
+    "qp4p0j0pi50rxo370mb8ew9r"
+  ],
+  "keep_block_ids": [
+    "pu6wyjhvngskcv2m3j339qp7",
+    "gulgwbx8qe3m254go1udefok",
+    "qp4p0j0pi50rxo370mb8ew9r"
+  ],
+  "updates": {
+    "pu6wyjhvngskcv2m3j339qp7": {
+      "heading": "Co pozwala zaufać algorytmowi?",
+      "paragraph": "<p>Zaczęliśmy od wyszukania pierwszego wystąpienia identyfikatora, następnie prześledziliśmy pętlę, udowodniliśmy jej poprawność i policzyliśmy podstawowe operacje. Model RAM przypomniał nam, że szczegóły wykonania mają znaczenie: rozkaz badający sumator może zachować się inaczej, niż sądzimy, jeśli wcześniej zmieniliśmy tylko rejestr. Te obserwacje łączą się w pięć praktycznych zasad.</p>"
+    },
+    "gulgwbx8qe3m254go1udefok": {
+      "list_paragraphs": [
+        "<strong>Najpierw specyfikacja.</strong> Zapisz dopuszczalne dane, wymagany wynik i zachowanie w przypadku braku rozwiązania.",
+        "<strong>Potem dokładne kroki.</strong> Ustal indeksowanie, warunek pętli i kolejność aktualizacji zmiennych.",
+        "<strong>Uzasadnij poprawność.</strong> Posłuż się niezmiennikiem lub indukcją i osobno uzasadnij zakończenie.",
+        "<strong>Sprawdź kontrprzykłady.</strong> Pusta tablica, duplikaty, liczby ujemne i brak znacznika końca mogą ujawnić błędy.",
+        "<strong>Analizuj koszt w jawnym modelu.</strong> Określ miarę wejścia, liczone operacje, pamięć oraz założenia o wielkości operandów."
+      ]
+    },
+    "qp4p0j0pi50rxo370mb8ew9r": {
+      "heading": "Co dalej?",
+      "paragraph": "<p>Te pięć zasad zastosujemy ponownie przy bardziej złożonych strukturach danych. W następnych pakietach zdefiniujemy dokładniej język RAM, zapis algorytmów i formalne narzędzia analizy, a potem przejdziemy do tablic, list, drzew, grafów i sortowania. Najważniejsza umiejętność pozostanie ta sama: <strong>nie tylko napisać algorytm, lecz wyjaśnić, dlaczego działa i jaki ma koszt</strong>.</p>"
+    }
+  },
+  "expected_interactive_rows": {}
+}

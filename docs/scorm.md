@@ -98,6 +98,12 @@ python3 scripts/scorm_pipeline.py validate \
 
 W `build/scorm/` otrzymasz zmodyfikowane ZIP, `build-report.json` i listę SHA-256 w przypadku wykonania workflow.
 
+### Bramka zatwierdzenia redakcji SCORM 01 na Pages
+
+Katalog GitHub Pages publikuje domyślnie beztestową wersję źródłową SCORM 01, **bez niezaakceptowanych nakładek redakcyjnych**. Kandydat z `editorial/scorm01/lesson-01.json`–`lesson-11.json` jest budowany i testowany w CI, ale nie jest automatycznie udostępniany jako paczka w katalogu Pages. Mechanizm `scripts/build_scorm_pages_catalog.py` sprawdza plik `editorial/approved-releases.json`; zatwierdzenie wymaga rekordu z dokładną nazwą wydania `scorm01/lessons-01-11@2.0.0` **oraz SHA-256 identycznego ZIP**, który przeszedł test i akceptację. Przykładowy rekord ma pola `release` i `sha256`, a nie sam ciąg tekstowy. Katalog odrzuci publikację, jeśli suma nowego ZIP różni się od zatwierdzonego skrótu. Nie dopisywać zatwierdzenia przed udokumentowanym testem Moodle, ręcznym przeglądem bloków i akceptacją dydaktyczną. Nie wolno „naprawiać” błędu skrótu przez przepisanie go bez ponownej weryfikacji.
+
+Zrzuty ekranu generowane przez Chromium obejmują **SCORM Studio i rzeczywisty odtwarzacz Rise** (11 lekcji na komputerze i telefonie). Symulacja LMS sprawdza wybrane zachowania runtime, ale nie zastępuje testu na Moodle.
+
 ## 5. GitHub Actions
 
 Workflow: [SCORM | rebuild and validate](../.github/workflows/scorm.yml).
