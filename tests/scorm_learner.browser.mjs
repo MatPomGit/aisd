@@ -131,8 +131,15 @@ try {
           const firstStep = frameLocator.getByText(
             "1. Określamy stan początkowy", { exact: true }).first();
           await firstStep.scrollIntoViewIfNeeded({ timeout: 15000 });
+          const startButton = frameLocator.getByRole("button", {
+            name: /^(start|rozpocznij)$/i
+          }).first();
           const nextArrow = frameLocator.locator("button.carousel-controls-next");
-          if (await nextArrow.isVisible()) {
+          if (await startButton.isVisible()) {
+            // Rise's narrow layout uses a visible START button on the intro,
+            // not the desktop carousel arrow.
+            await startButton.click({ timeout: 15000 });
+          } else if (await nextArrow.isVisible()) {
             await nextArrow.click({ timeout: 15000 });
           } else {
             const bounds = await firstStep.boundingBox();
