@@ -5,6 +5,8 @@ on:
     paths:
       - 'raw/**'
       - 'scripts/scorm_pipeline.py'
+      - 'scripts/scorm_editorial.py'
+      - 'editorial/**'
       - 'tests/**'
       - 'docs/**'
       - '.github/workflows/scorm.yml'
@@ -13,6 +15,8 @@ on:
     paths:
       - 'raw/**'
       - 'scripts/scorm_pipeline.py'
+      - 'scripts/scorm_editorial.py'
+      - 'editorial/**'
       - 'tests/**'
       - '.github/workflows/scorm.yml'
   workflow_dispatch:
@@ -52,7 +56,9 @@ jobs:
         with:
           node-version: '22'
       - name: Unit and negative tests
-        run: python -m unittest discover -s tests -p 'test_scorm_pipeline.py' -v
+        run: |
+          python -m unittest discover -s tests -p 'test_scorm_pipeline.py' -v
+          python -m unittest discover -s tests -p 'test_scorm_editorial.py' -v
       - name: Rebuild and compare original ZIPs
         shell: bash
         env:
