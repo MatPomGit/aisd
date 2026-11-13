@@ -152,13 +152,42 @@ try {
         const revealed = frameLocator.getByText(scenario.revealed,
                                                 { exact: false }).first();
         await revealed.waitFor({ state: "visible", timeout: 15000 });
-        await revealed.scrollIntoViewIfNeeded({ timeout: 10000 });
+        if (scenario.kind === "process") {
+          const diagShot = join(screenshotDir, "scorm01-rise-" + viewport.name +
+                                 "-08-after-click.png");
+          await page.screenshot({ path: diagShot, fullPage: true });
+          report.images.push(diagShot);
+        }
+        const matches = frameLocator.getByText(scenario.revealed, { exact: false });
+        const candidateCount = await matches.count();
+        const states = [];
+        for (let k = 0; k < Math.min(8, candidateCount); k++) {
+          const state = await matches.nth(k).evaluate(el => {
+            let opacity = 1;
+            const chain = [];
+            for (let p = el; p && chain.length < 12; p = p.parentElement) {
+              const o = getComputedStyle(p).opacity;
+              opacity *= Number.parseFloat(o) || 0;
+              chain.push({ tag: p.tagName, cls: String(p.className).slice(0, 80),
+                           opacity: o });
+            }
+            return { opacity, chain };
+          });
+          states.push(state);
+        }
+        if (scenario.kind === "process") {
+          console.log("Rise process text candidates", viewport.name,
+                      JSON.stringify(states));
+        }
+        const activeIndex = states.findIndex(st => st.opacity > 0.85);
+        const liveContent = activeIndex >= 0 ? matches.nth(activeIndex) : revealed;
+        await liveContent.scrollIntoViewIfNeeded({ timeout: 10000 });
         // Rise animates opacity and slide positions. Playwright's visible state
         // may be true while a panel is almost transparent. Wait for settling.
         await page.waitForTimeout(1100);
-        await revealed.scrollIntoViewIfNeeded({ timeout: 10000 });
+        await liveContent.scrollIntoViewIfNeeded({ timeout: 10000 });
         await page.waitForTimeout(250);
-        const visibleState = await revealed.evaluate(el => {
+        const visibleState = await liveContent.evaluate(el => {
           let opacity = 1;
           for (let current = el; current; current = current.parentElement) {
             const value = Number.parseFloat(getComputedStyle(current).opacity);
@@ -166,7 +195,7 @@ try {
           }
           return opacity;
         });
-        const afterRect = await revealed.boundingBox();
+        const afterRect = await liveContent.boundingBox();
         const onScreen = afterRect &&
           Math.min(afterRect.y + afterRect.height, viewport.height) -
             Math.max(afterRect.y, 0) > 20;
