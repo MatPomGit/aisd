@@ -71,8 +71,8 @@ class EditorialPilotTests(unittest.TestCase):
             self.original, self.tracking, include_editorial=False)
         self.assertEqual(unapproved["labelSet"]["labels"], source)
         self.assertEqual(self.prepared()["labelSet"]["iso639Code"], "pl")
-        self.assertEqual(self.prepared()["course"]["locale"], "pl")
-        self.assertEqual(self.prepared()["course"]["defaultLocaleId"], "pl")
+        self.assertIsNone(self.prepared()["course"]["locale"])
+        self.assertIsNone(self.prepared()["course"]["defaultLocaleId"])
 
     def test_changed_label_in_source_refuses_unreviewed_translation(self):
         source = copy.deepcopy(self.original)
