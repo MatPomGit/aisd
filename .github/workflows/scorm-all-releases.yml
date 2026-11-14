@@ -118,18 +118,24 @@ jobs:
             zip="artifacts/scorm-all20-qa/${package}"
             test -f "$notes"
             test -f "$zip"
-            if [ "$number" = "1" ]; then
-              gh release view "$tag" >/dev/null
+            checksum="artifacts/scorm-release-metadata/${tag}-SHA256SUMS.txt"
+            grep -F "  ${package}" artifacts/scorm-release-metadata/SHA256SUMS.txt > "$checksum"
+            expected_digest="sha256:$(cut -d ' ' -f 1 "$checksum")"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              remote_digest="$(gh api "repos/${GH_REPO}/releases/tags/${tag}" \
+                --jq '.assets[] | select(.name | endswith(".zip")) | .digest')"
+              if [ "$remote_digest" != "$expected_digest" ]; then
+                echo "Niezgodna suma ZIP w już istniejącym wydaniu $tag"
+                exit 1
+              fi
               gh release edit "$tag" --notes-file "$notes" --title "$title"
-              echo "Poprawiono opis istniejącego wydania $tag"
+              echo "Poprawiono tytuł i opis wydania $tag, ZIP niezmieniony"
               continue
             fi
-            if gh release view "$tag" >/dev/null 2>&1; then
-              echo "Wydanie $tag już istnieje. Odmowa nadpisania pakietu."
+            if [ "$number" = "1" ]; then
+              echo "Brakuje zatwierdzonego wydania pakietu 01"
               exit 1
             fi
-            checksum="artifacts/scorm-release-metadata/${tag}-SHA256SUMS.txt"
-            grep "  ${package}$" artifacts/scorm-release-metadata/SHA256SUMS.txt > "$checksum"
             gh release create "$tag" "$zip" "$checksum" \
               --target "$SOURCE_SHA" --title "$title" --notes-file "$notes" \
               --latest=false
