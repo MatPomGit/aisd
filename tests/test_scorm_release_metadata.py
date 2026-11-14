@@ -25,6 +25,16 @@ class ReleaseMetadataTests(unittest.TestCase):
             else:
                 self.assertIn("nie potwierdzono", note)
 
+    def test_titles_are_fully_polish_and_have_no_filename_suffixes(self):
+        self.assertEqual(list(release.TITLES), list(range(1, 21)))
+        for number, title in release.TITLES.items():
+            self.assertIsNone(release.DISALLOWED.search(title))
+            self.assertNotIn("scorm12", title.lower())
+            self.assertNotIn(".zip", title.lower())
+            self.assertFalse(title.startswith(" "))
+            self.assertFalse(title.endswith(" "))
+        self.assertIn("algorytmów", release.TITLES[3])
+
     def test_reject_nonstandard_dash(self):
         self.assertIsNotNone(release.DISALLOWED.search("niepoprawny — opis"))
         self.assertIsNotNone(release.DISALLOWED.search("niepoprawny – opis"))

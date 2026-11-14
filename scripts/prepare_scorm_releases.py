@@ -11,6 +11,29 @@ from pathlib import Path
 
 DISALLOWED = re.compile(r"[\u2010-\u2015\u2212]")
 
+TITLES = {
+    1: "Podstawy algorytmów",
+    2: "Maszyna RAM",
+    3: "Zapis algorytmów: pseudokod i schematy blokowe",
+    4: "Analiza i złożoność algorytmów w modelu RAM",
+    5: "Notacje asymptotyczne i kryteria wagowe",
+    6: "Tablice jednowymiarowe",
+    7: "Tablice dwuwymiarowe: struktura, algorytmy i zastosowania",
+    8: "Dynamiczne struktury danych i rekurencja",
+    9: "Listy liniowe: budowa, operacje i zastosowania",
+    10: "Stosy",
+    11: "Kolejki: teoria, implementacja i zastosowania",
+    12: "Drzewa jako struktury danych: definicje, typy i zastosowania",
+    13: "Drzewa BST: zasady działania i implementacja",
+    14: "Kopce i kolejki priorytetowe",
+    15: "Grafy",
+    16: "Algorytmy przeszukiwania drzew i grafów",
+    17: "Algorytmy sortowania: stabilność i ograniczenia",
+    18: "Algorytmy sortowania porównawczego",
+    19: "Zaawansowane algorytmy sortowania i optymalizacji",
+    20: "Zaawansowane techniki projektowania algorytmów",
+}
+
 def notes(number, title, version, source, sha):
     heading = f"SCORM {number:02d}: {title}. Wersja {version}"
     paragraphs = [
@@ -68,7 +91,7 @@ def main():
         number = int(source.split("-", 1)[0])
         if not 1 <= number <= 20:
             raise ValueError("Niepoprawny numer kursu")
-        title = Path(source).stem.split("-", 1)[1].replace("-", " ").replace("_", " ")
+        title = TITLES[number]
         version = "2.0.0" if number == 1 else "1.0.0"
         tag = f"scorm{number:02d}-v{version}"
         filename = item["artifact"]
