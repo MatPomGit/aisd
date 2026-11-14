@@ -29,6 +29,14 @@ const store = {
   "cmi.comments": "",
   "cmi.comments_from_lms": ""
 };
+const preset = new URLSearchParams(location.search).get("bookmark");
+if (preset === "stale") {
+  store["cmi.core.lesson_location"] =
+    "index.html#/lessons/S5YWke1r4QFF3eJ3TaIE-PRxWi-lo7Ik";
+} else if (preset === "valid") {
+  store["cmi.core.lesson_location"] =
+    "index.html#/lessons/cmi7gplw400022a736fjtty6j";
+}
 window.__scorm12 = {calls: [], store, lastError: "0", initialized: false};
 window.API = {
   LMSInitialize(arg) {
