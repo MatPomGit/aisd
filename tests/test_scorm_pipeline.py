@@ -174,6 +174,29 @@ class PipelineTests(unittest.TestCase):
         with self.assertRaises(scorm.BuildError):
             scorm.validate_pair(self.original, self.output)
 
+    def test_dangling_optional_rise_script_removed_only_in_derived_archive(self):
+        files = sample()
+        tag = b'<script type="text/javascript" src="allowed-options.js"></script>'
+        files["scormcontent/index.html"] += tag
+        self.write(files)
+        scorm.build_one(self.original, self.output)
+        with zipfile.ZipFile(self.original) as source, zipfile.ZipFile(self.output) as rebuilt:
+            self.assertIn(tag, source.read("scormcontent/index.html"))
+            self.assertNotIn(tag, rebuilt.read("scormcontent/index.html"))
+        self.assertEqual("PASS", scorm.validate_pair(self.original, self.output)["status"])
+
+    def test_present_optional_rise_script_is_not_removed(self):
+        files = sample()
+        tag = b'<script type="text/javascript" src="allowed-options.js"></script>'
+        files["scormcontent/index.html"] += tag
+        files["scormcontent/allowed-options.js"] = b"window.allowedOptions = true;"
+        self.write(files)
+        scorm.build_one(self.original, self.output)
+        with zipfile.ZipFile(self.output) as rebuilt:
+            self.assertIn(tag, rebuilt.read("scormcontent/index.html"))
+            self.assertEqual(b"window.allowedOptions = true;",
+                             rebuilt.read("scormcontent/allowed-options.js"))
+
     def test_existing_quiz_free_course_keeps_all_lessons(self):
         self.write(noquiz_fixture())
         report = scorm.build_one(self.original, self.output)
