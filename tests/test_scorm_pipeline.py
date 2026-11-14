@@ -42,7 +42,11 @@ def sample(*, nonterminal=False, wrong_id=False, dangling=False, version="1.2"):
                 '<file href="scormcontent/index.html"/>'
                 '</resource></resources></manifest>')
     return {"imsmanifest.xml": manifest.encode(),
-            "scormdriver/indexAPI.html": b"launch",
+            "scormdriver/indexAPI.html": (b'<script>function LoadContent() {\\n'
+                b'      if (bookmark != "") {\\n'
+                b'        window.scormdriver_content.document.location.href = "../scormcontent/" + bookmark;\\n'
+                b'      } else { window.scormdriver_content.document.location.href = strContentLocation; }\\n'
+                b'}</script>'),
             "scormcontent/index.html": html.encode(),
             "scormcontent/assets/lesson.png": b"\x89PNGtest"}
 
