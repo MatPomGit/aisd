@@ -134,6 +134,46 @@ class PipelineTests(unittest.TestCase):
                 zf.read("scormcontent/index.html").decode()))
             self.assertEqual(b"\x89PNGtest", zf.read("scormcontent/assets/lesson.png"))
 
+    def test_generated_manifest_lists_all_archive_files(self):
+        self.write(sample())
+        scorm.build_one(self.original, self.output)
+        with zipfile.ZipFile(self.output) as zf:
+            self.assertEqual([], scorm.unlisted_manifest_files(zf))
+            manifest = zf.read("imsmanifest.xml").decode()
+            self.assertIn('href="scormcontent/assets/lesson.png"', manifest)
+            self.assertEqual(["scormdriver/indexAPI.html"], scorm.check_manifest(zf))
+
+    def test_generated_manifest_keeps_source_assets_unchanged(self):
+        files = sample()
+        files["scormcontent/assets/unlisted&image.png"] = b"extra-image"
+        files["metadata.xml"] = b"<metadata/>"
+        self.write(files)
+        scorm.build_one(self.original, self.output)
+        with zipfile.ZipFile(self.output) as zf:
+            self.assertEqual([], scorm.unlisted_manifest_files(zf))
+            self.assertEqual(b"extra-image",
+                             zf.read("scormcontent/assets/unlisted&image.png"))
+            self.assertEqual(b"<metadata/>", zf.read("metadata.xml"))
+            self.assertIn('unlisted&amp;image.png',
+                          zf.read("imsmanifest.xml").decode())
+        self.assertEqual("PASS", scorm.validate_pair(self.original, self.output)["status"])
+
+    def test_refuse_unlisted_manifest_file_in_output(self):
+        self.write(sample())
+        scorm.build_one(self.original, self.output)
+        with zipfile.ZipFile(self.output) as zf:
+            xml = zf.read("imsmanifest.xml").decode()
+            xml = xml.replace('<file href="scormcontent/assets/lesson.png"/>', "")
+        # Rebuild archive without a duplicate manifest member.
+        rewritten = self.output.with_suffix(".tmp")
+        with zipfile.ZipFile(self.output) as src, zipfile.ZipFile(rewritten, "w") as dst:
+            for item in src.infolist():
+                dst.writestr(item, xml.encode() if item.filename == "imsmanifest.xml"
+                             else src.read(item.filename))
+        rewritten.replace(self.output)
+        with self.assertRaises(scorm.BuildError):
+            scorm.validate_pair(self.original, self.output)
+
     def test_existing_quiz_free_course_keeps_all_lessons(self):
         self.write(noquiz_fixture())
         report = scorm.build_one(self.original, self.output)

@@ -98,6 +98,47 @@ def check_manifest(zf):
     return launches
 
 
+
+def complete_manifest(zf):
+    """List every regular ZIP member in the SCORM resource without changing assets.
+
+    Preserve original Rise XML (including namespaces, metadata and launch info).
+    Manifest itself is not a resource; directory entries are not files.
+    """
+    from xml.sax.saxutils import quoteattr
+    xml = zf.read("imsmanifest.xml").decode("utf-8-sig")
+    root = ET.fromstring(xml)
+    resources = [r for r in root.iter()
+                 if r.tag.rsplit("}", 1)[-1] == "resource"]
+    if len(resources) != 1:
+        raise BuildError("Expected exactly one Rise SCO resource")
+    resource = resources[0]
+    if root.get("{http://www.w3.org/XML/1998/namespace}base") or resource.get(
+            "{http://www.w3.org/XML/1998/namespace}base"):
+        raise BuildError("Cannot safely extend manifest with xml:base")
+    referenced = {e.get("href") for e in resource
+                  if e.tag.rsplit("}", 1)[-1] == "file"}
+    missing = sorted(set(zf.namelist()) - referenced - {"imsmanifest.xml"})
+    missing = [name for name in missing if not name.endswith("/")]
+    if not missing:
+        return zf.read("imsmanifest.xml")
+    closing = re.search(r"</(?:[A-Za-z_][\w.-]*:)?resource\s*>", xml)
+    if not closing or len(re.findall(r"</(?:[A-Za-z_][\w.-]*:)?resource\s*>", xml)) != 1:
+        raise BuildError("Cannot safely find single SCORM resource closing tag")
+    additions = "".join("      <file href=" + quoteattr(name) + "/>\n"
+                        for name in missing)
+    return (xml[:closing.start()] + additions + xml[closing.start():]).encode("utf-8")
+
+
+def unlisted_manifest_files(zf):
+    root = ET.fromstring(zf.read("imsmanifest.xml"))
+    referenced = {e.get("href") for e in root.iter()
+                  if e.tag.rsplit("}", 1)[-1] == "file"}
+    return sorted(name for name in zf.namelist()
+                  if name != "imsmanifest.xml" and not name.endswith("/")
+                  and name not in referenced)
+
+
 def get_data(zf):
     path = MODERN if MODERN in zf.namelist() else HTML
     if path not in zf.namelist():
@@ -351,7 +392,8 @@ def build_one(source, output, *, include_editorial=True):
         original_html = src.read(HTML).decode("utf-8-sig")
         tracking = get_tracking(original_html)
         result, quiz = new_course(data, tracking, include_editorial=include_editorial)
-        replacements = {path: encode(text, match, result)}
+        replacements = {path: encode(text, match, result),
+                        "imsmanifest.xml": complete_manifest(src)}
         if path == HTML:
             replacements[HTML] = set_tracking(replacements[HTML].decode("utf-8"), TRACKING).encode("utf-8")
         else:
@@ -416,6 +458,11 @@ def validate_pair(source, output, *, include_editorial=True):
     with open_zip(source) as src, open_zip(output) as dst:
         check_manifest(src)
         check_manifest(dst)
+        if unlisted_manifest_files(dst):
+            raise BuildError("Unlisted files in generated manifest: " +
+                             repr(unlisted_manifest_files(dst)))
+        if dst.read("imsmanifest.xml") != complete_manifest(src):
+            raise BuildError("Unexpected manifest modification")
         original_names = src.namelist()
         if original_names != dst.namelist():
             raise BuildError("Archive member list/order changed")
@@ -439,7 +486,7 @@ def validate_pair(source, output, *, include_editorial=True):
             raise BuildError("Quiz remains")
         if any(assessment_counts(new).values()):
             raise BuildError("Knowledge checks or assessment headings remain")
-        changed = {old_path, HTML}
+        changed = {old_path, HTML, "imsmanifest.xml"}
         for item in src.infolist():
             other = dst.getinfo(item.filename)
             if item.compress_type != other.compress_type or item.date_time != other.date_time:
