@@ -381,11 +381,11 @@ def new_course(original, tracking, *, include_editorial=True):
 
 
 
-def protect_stale_scorm01_bookmark(driver_html, lessons):
+def protect_stale_rise_bookmark(driver_html, lessons):
     """Prevent a deleted lesson bookmark from navigating to a nonexistent page."""
     marker = '      if (bookmark != "") {'
     if driver_html.count(marker) != 1:
-        raise BuildError("Unsupported SCORM01 driver bookmark layout")
+        raise BuildError("Unsupported Rise driver bookmark layout")
     ids = [lesson.get("id") for lesson in lessons]
     if len(ids) != len(set(ids)) or not all(isinstance(x, str) and x for x in ids):
         raise BuildError("Invalid lesson IDs for bookmark guard")
@@ -439,14 +439,14 @@ def build_one(source, output, *, include_editorial=True):
             replacements[HTML] = set_tracking(original_html, TRACKING).encode("utf-8")
         replacements[HTML] = strip_missing_optional_options_script(
             replacements[HTML].decode("utf-8"), src).encode("utf-8")
+        driver_path = "scormdriver/indexAPI.html"
+        if driver_path not in src.namelist():
+            raise BuildError("Missing Rise launch driver")
+        replacements[driver_path] = protect_stale_rise_bookmark(
+            src.read(driver_path).decode("utf-8-sig"),
+            result["course"]["lessons"]
+        ).encode("utf-8")
         if include_editorial and result["course"].get("id") == SCORM01_COURSE_ID:
-            driver_path = "scormdriver/indexAPI.html"
-            if driver_path not in src.namelist():
-                raise BuildError("Missing Rise launch driver")
-            replacements[driver_path] = protect_stale_scorm01_bookmark(
-                src.read(driver_path).decode("utf-8-sig"),
-                result["course"]["lessons"]
-            ).encode("utf-8")
 
             # The course is in Polish. Set the first paint language for
             # assistive technologies; the Rise player also reads labelSet
@@ -541,14 +541,11 @@ def validate_pair(source, output, *, include_editorial=True):
         if any(assessment_counts(new).values()):
             raise BuildError("Knowledge checks or assessment headings remain")
         driver_path = "scormdriver/indexAPI.html"
-        if include_editorial and expected["course"].get("id") == SCORM01_COURSE_ID:
-            expected_driver = protect_stale_scorm01_bookmark(
-                src.read(driver_path).decode("utf-8-sig"), new["course"]["lessons"])
-            if dst.read(driver_path).decode("utf-8-sig") != expected_driver:
-                raise BuildError("Unexpected SCORM01 launch driver change")
-        changed = {old_path, HTML, "imsmanifest.xml"}
-        if include_editorial and expected["course"].get("id") == SCORM01_COURSE_ID:
-            changed.add(driver_path)
+        expected_driver = protect_stale_rise_bookmark(
+            src.read(driver_path).decode("utf-8-sig"), new["course"]["lessons"])
+        if dst.read(driver_path).decode("utf-8-sig") != expected_driver:
+            raise BuildError("Unexpected Rise launch driver change")
+        changed = {old_path, HTML, "imsmanifest.xml", driver_path}
         for item in src.infolist():
             other = dst.getinfo(item.filename)
             if item.compress_type != other.compress_type or item.date_time != other.date_time:
