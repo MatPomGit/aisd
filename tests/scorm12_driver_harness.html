@@ -64,6 +64,11 @@ window.API = {
 </script>
 </head>
 <body>
-<iframe id="sco" title="Real Rise SCORM 1.2 driver launch" src="./learner-preview/scormdriver/indexAPI.html"></iframe>
+<iframe id="sco" title="Real Rise SCORM 1.2 driver launch"></iframe>
+<script>
+const source = new URLSearchParams(location.search).get("source");
+if (!["original", "candidate"].includes(source)) throw new Error("Unknown source");
+document.querySelector("#sco").src = "./learner-preview-" + source + "/scormdriver/indexAPI.html";
+</script>
 </body>
 </html>
