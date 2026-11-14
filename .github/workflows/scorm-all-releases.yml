@@ -1,0 +1,137 @@
+name: SCORM | wydanie 20 pakietow
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/scorm-all-releases.yml'
+      - 'scripts/prepare_scorm_releases.py'
+      - 'tests/test_scorm_release_metadata.py'
+      - 'scripts/scorm_pipeline.py'
+      - 'tests/scorm_all20_bookmarks.test.mjs'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/scorm-all-releases.yml'
+      - 'scripts/prepare_scorm_releases.py'
+      - 'tests/test_scorm_release_metadata.py'
+      - 'scripts/scorm_pipeline.py'
+      - 'tests/scorm_all20_bookmarks.test.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorm-all-releases-v1
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testy jednostkowe i poprawność opisów
+        run: |
+          python -m unittest discover -s tests -p 'test_scorm_pipeline.py' -v
+          python -m unittest discover -s tests -p 'test_scorm_editorial.py' -v
+          python -m unittest discover -s tests -p 'test_scorm_release_metadata.py' -v
+      - name: Biblioteka do weryfikacji wynikowych archiwów
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund jszip@3.10.1
+      - name: Budowanie wszystkich dwudziestu pakietów
+        run: python scripts/scorm_pipeline.py build --course all --raw-dir raw --output-dir build/scorm-all20-qa
+      - name: Kontrola rzeczywistego kodu uruchamiania i wznowienia
+        run: node tests/scorm_all20_bookmarks.test.mjs
+      - name: Przygotowanie opisów i sum kontrolnych
+        run: python scripts/prepare_scorm_releases.py --build build/scorm-all20-qa --output build/scorm-release-metadata
+      - name: Sprawdzenie archiwów i wyników
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd build/scorm-all20-qa && sha256sum -c ../scorm-release-metadata/SHA256SUMS.txt)
+          python - <<'PY'
+          from pathlib import Path
+          import json, sys
+          sys.path.insert(0, 'scripts')
+          from scorm_pipeline import open_zip, check_manifest, unlisted_manifest_files, assessment_counts, get_data
+          data = json.loads(Path('build/scorm-release-metadata/releases.json').read_text())
+          assert len(data) == 20
+          for release in data:
+              with open_zip(Path('build/scorm-all20-qa') / release['artifact']) as zf:
+                  check_manifest(zf)
+                  assert not unlisted_manifest_files(zf)
+                  _, _, _, course = get_data(zf)
+                  assert not any(assessment_counts(course).values())
+                  assert course['course']['exportSettings']['reporting'] == 'completed-incomplete'
+          print('Sprawdzono 20 pakietów')
+          PY
+      - name: Zapis artefaktów walidacji
+        uses: actions/upload-artifact@v4
+        with:
+          name: scorm-all20-validated
+          path: |
+            build/scorm-all20-qa/*.zip
+            build/scorm-all20-qa/build-report.json
+            build/scorm-release-metadata/
+            build/scorm-all20-report/bookmarks.json
+          retention-days: 30
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: scorm-all20-validated
+          path: artifacts
+      - name: Utworzenie wydań i korekta opisu pakietu 01
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test -f artifacts/scorm-release-metadata/releases.json
+          (cd artifacts/scorm-all20-qa && sha256sum -c ../scorm-release-metadata/SHA256SUMS.txt)
+          python - <<'PY' > /tmp/scorm-release-rows.tsv
+          from pathlib import Path
+          import json
+          rows = json.loads(Path('artifacts/scorm-release-metadata/releases.json').read_text())
+          for row in rows:
+              print('\t'.join((str(row['number']), row['tag'], row['title'], row['artifact'])))
+          PY
+          while IFS="$(printf '\t')" read -r number tag title package; do
+            notes="artifacts/scorm-release-metadata/${tag}.md"
+            zip="artifacts/scorm-all20-qa/${package}"
+            test -f "$notes"
+            test -f "$zip"
+            if [ "$number" = "1" ]; then
+              gh release view "$tag" >/dev/null
+              gh release edit "$tag" --notes-file "$notes" --title "$title"
+              echo "Poprawiono opis istniejącego wydania $tag"
+              continue
+            fi
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "Wydanie $tag już istnieje. Odmowa nadpisania pakietu."
+              exit 1
+            fi
+            checksum="artifacts/scorm-release-metadata/${tag}-SHA256SUMS.txt"
+            grep "  ${package}$" artifacts/scorm-release-metadata/SHA256SUMS.txt > "$checksum"
+            gh release create "$tag" "$zip" "$checksum" \
+              --target "$SOURCE_SHA" --title "$title" --notes-file "$notes" \
+              --latest=false
+            echo "Opublikowano $tag"
+          done < /tmp/scorm-release-rows.tsv
