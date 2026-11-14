@@ -119,6 +119,14 @@ def audit(path):
                         if field == "paragraph" and isinstance(row.get("heading"), str) \
                                 and row["heading"].strip():
                             continue
+                        # Rise image/hero rows contain a blank auxiliary
+                        # paragraph with the actual image in media.image.
+                        if (field == "paragraph" and block.get("type") == "image"
+                                and block.get("variant") == "hero"
+                                and isinstance(row.get("media"), dict)
+                                and isinstance(row["media"].get("image"), dict)
+                                and bool(row["media"]["image"].get("key"))):
+                            continue
                         findings.append({"severity": "P1", "location":
                                          f"{location}/row-{row_index}/{field}",
                                          "message": "Empty content field",
