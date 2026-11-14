@@ -9,8 +9,11 @@ on:
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
       - 'tests/scorm_learner.browser.mjs'
+      - 'tests/scorm_all20_bookmarks.test.mjs'
       - 'tests/scorm_lms_contract.browser.mjs'
       - 'tests/scorm_learner_harness.html'
+      - 'tests/scorm12_driver.browser.mjs'
+      - 'tests/scorm12_driver_harness.html'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
       - 'scripts/scorm_editorial.py'
@@ -26,8 +29,11 @@ on:
       - 'tests/scorm_editor.test.mjs'
       - 'tests/scorm_editor.browser.mjs'
       - 'tests/scorm_learner.browser.mjs'
+      - 'tests/scorm_all20_bookmarks.test.mjs'
       - 'tests/scorm_lms_contract.browser.mjs'
       - 'tests/scorm_learner_harness.html'
+      - 'tests/scorm12_driver.browser.mjs'
+      - 'tests/scorm12_driver_harness.html'
       - 'scripts/build_scorm_pages_catalog.py'
       - 'scripts/scorm_pipeline.py'
       - 'scripts/scorm_editorial.py'
@@ -72,6 +78,10 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_scorm_pages_catalog.py' -v
       - name: Real ZIP integration tests
         run: node --test tests/scorm_editor.test.mjs
+      - name: Rebuild all 20 ZIPs with validated stale-bookmark protection
+        run: python scripts/scorm_pipeline.py build --course all --raw-dir raw --output-dir build/scorm-all20-qa
+      - name: Execute all 20 actual driver bookmark guards (fresh, valid, stale)
+        run: node tests/scorm_all20_bookmarks.test.mjs
       - name: Build revised SCORM 01 exclusively for PR browser QA
         run: python scripts/scorm_pipeline.py build --course 1 --raw-dir raw --output-dir build/scorm-preview
       - name: Audit all 11 lessons and Rise content rows
@@ -121,6 +131,7 @@ jobs:
             build/scorm-lms-simulation/
             build/scorm-content-audit/
             build/scorm12-driver-qa/
+            build/scorm-all20-report/
             build/scorm-preview/*.zip
           retention-days: 7
           if-no-files-found: warn
