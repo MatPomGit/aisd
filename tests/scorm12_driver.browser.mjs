@@ -72,8 +72,13 @@ try {
         "Launch had unexpected failed HTTP requests");
       assert.deepEqual(unexpectedErrors, [],
         "Browser errors during driver launch");
-      assert.ok(diagnostic.knownOptionalMissing.length >= 1,
-        "Expected the known unbundled optional Rise allowed-options.js");
+      if (variant === "original") {
+        assert.ok(diagnostic.knownOptionalMissing.length >= 1,
+          "Expected source Rise optional script 404");
+      } else {
+        assert.equal(diagnostic.knownOptionalMissing.length, 0,
+          "Rebuilt package must not reference missing optional script");
+      }
     } catch (error) {
       failures++;
       diagnostic.error = String(error);
