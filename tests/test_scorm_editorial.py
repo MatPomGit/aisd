@@ -271,6 +271,12 @@ class EditorialPilotTests(unittest.TestCase):
             scorm.new_course(original, self.tracking)
 
 
+    def test_ram_sentinel_input_contract_does_not_call_zero_only_input_empty(self):
+        """The zero sentinel itself is a valid nonempty input sequence."""
+        lesson = str(self.prepared()["course"]["lessons"][9]["items"])
+        self.assertIn("gdy ciąg zaczyna się od zera", lesson)
+        self.assertNotIn("przy pustym ciągu danych", lesson)
+
     def test_unverified_ram_algorithms_are_removed(self):
         lessons = self.prepared()["course"]["lessons"]
         text = str(lessons[6:])
