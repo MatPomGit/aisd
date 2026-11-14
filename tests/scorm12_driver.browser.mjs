@@ -45,8 +45,8 @@ try {
         const outer = paths.find(frame => frame.id === "sco");
         const child = outer?.contentWindow?.document
           ?.querySelector('iframe[name="scormdriver_content"]');
-        return Boolean(child?.contentWindow?.document?.body
-          ?.innerText?.includes("ROZPOCZNIJ KURS"));
+        const displayed = child?.contentWindow?.document?.querySelector("#app")?.innerText || "";
+        return displayed.length > 100 && displayed.includes("Podstawy algorytmów");
       }, null, {timeout:30000});
       diagnostic.rendered = true;
       diagnostic.lessonStatus = await page.evaluate(
