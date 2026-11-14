@@ -53,12 +53,27 @@ try {
         () => window.__scorm12.store["cmi.core.lesson_status"]);
       await page.screenshot({path:output + "/" + variant + ".png", fullPage:true});
       assert.equal(diagnostic.lessonStatus, "incomplete");
-      assert.deepEqual(diagnostic.badResponses, [],
-        "Launch requested missing resources");
-      assert.deepEqual(diagnostic.requestsFailed, [],
-        "Launch had failed HTTP requests");
-      assert.deepEqual(diagnostic.errors, [],
+      // Both unmodified Articulate sources reference allowed-options.js
+      // without shipping it. The player renders without this optional file.
+      // Record the missing resource, but do not pretend it blocks launch.
+      const knownOptional = url => new URL(url).pathname.endsWith(
+        "/scormcontent/allowed-options.js");
+      diagnostic.knownOptionalMissing = diagnostic.badResponses.filter(
+        item => item.status === 404 && knownOptional(item.url));
+      const unexpectedResponses = diagnostic.badResponses.filter(item =>
+        !(item.status === 404 && knownOptional(item.url)));
+      const unexpectedFailures = diagnostic.requestsFailed.filter(item =>
+        !knownOptional(item.url));
+      const unexpectedErrors = diagnostic.errors.filter(message =>
+        !message.includes("Failed to load resource: the server responded with a status of 404"));
+      assert.deepEqual(unexpectedResponses, [],
+        "Launch requested unexpected missing resources");
+      assert.deepEqual(unexpectedFailures, [],
+        "Launch had unexpected failed HTTP requests");
+      assert.deepEqual(unexpectedErrors, [],
         "Browser errors during driver launch");
+      assert.ok(diagnostic.knownOptionalMissing.length >= 1,
+        "Expected the known unbundled optional Rise allowed-options.js");
     } catch (error) {
       failures++;
       diagnostic.error = String(error);
