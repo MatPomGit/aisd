@@ -380,6 +380,22 @@ def new_course(original, tracking, *, include_editorial=True):
     return data, quiz
 
 
+
+def strip_missing_optional_options_script(html, zf):
+    """Remove a Rise reference to an absent optional script.
+
+    The canonical export is unchanged. Only the exact known script tag is
+    removable and only if the referred file is absent from the source ZIP.
+    Any unexpected placement or changed tag is deliberately left untouched.
+    """
+    filename = "scormcontent/allowed-options.js"
+    tag = '<script type="text/javascript" src="allowed-options.js"></script>'
+    if filename not in zf.namelist() and html.count(tag) == 1:
+        return html.replace(tag, "", 1)
+    return html
+
+
+
 def build_one(source, output, *, include_editorial=True):
     source, output = Path(source), Path(output)
     if source.resolve() == output.resolve() or output.exists():
@@ -398,6 +414,8 @@ def build_one(source, output, *, include_editorial=True):
             replacements[HTML] = set_tracking(replacements[HTML].decode("utf-8"), TRACKING).encode("utf-8")
         else:
             replacements[HTML] = set_tracking(original_html, TRACKING).encode("utf-8")
+        replacements[HTML] = strip_missing_optional_options_script(
+            replacements[HTML].decode("utf-8"), src).encode("utf-8")
         if include_editorial and result["course"].get("id") == SCORM01_COURSE_ID:
             # The course is in Polish. Set the first paint language for
             # assistive technologies; the Rise player also reads labelSet
@@ -479,6 +497,11 @@ def validate_pair(source, output, *, include_editorial=True):
             raise BuildError("Unexpected lesson changes")
         if new != expected:
             raise BuildError("Unexpected JSON changes")
+        if "scormcontent/allowed-options.js" not in src.namelist():
+            source_html = src.read(HTML).decode("utf-8-sig")
+            if source_html.count('<script type="text/javascript" src="allowed-options.js"></script>') == 1:
+                if 'src="allowed-options.js"' in dst.read(HTML).decode("utf-8-sig"):
+                    raise BuildError("Dangling optional Rise script reference retained")
         if get_tracking(dst.read(HTML).decode("utf-8-sig")) != TRACKING:
             raise BuildError("Incorrect completion tracking; potential grade reporting")
         if any(isinstance(x, dict) and x.get("type") == "quiz"
