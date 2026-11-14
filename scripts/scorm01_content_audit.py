@@ -121,7 +121,11 @@ def audit(path):
                             continue
                         findings.append({"severity": "P1", "location":
                                          f"{location}/row-{row_index}/{field}",
-                                         "message": "Empty content field"})
+                                         "message": "Empty content field",
+                                         "block_type": block.get("type"),
+                                         "block_variant": block.get("variant"),
+                                         "row_fields": {k: str(v)[:80] for k, v
+                                                        in row.items()}})
                         continue
                     if "<" in value or "&" in value:
                         parser = FragmentParser()
