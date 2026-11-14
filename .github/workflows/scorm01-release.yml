@@ -1,4 +1,4 @@
-name: SCORM 01 | publish validated release candidate
+name: SCORM 01 | publish stable 2.0.0
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: scorm01-rc1-release
+  group: scorm01-stable-v2-release
   cancel-in-progress: false
 
 jobs:
@@ -33,6 +33,15 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_scorm_pipeline.py' -v
           python -m unittest discover -s tests -p 'test_scorm_editorial.py' -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test-only JSZip dependency
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund jszip@3.10.1
+      - name: Verify all 20 SCORM resume guards
+        run: |
+          python scripts/scorm_pipeline.py build --course all --raw-dir raw --output-dir build/scorm-all20-qa
+          node tests/scorm_all20_bookmarks.test.mjs
       - name: Build exact editorial candidate and validate all listed resources
         shell: bash
         run: |
@@ -65,15 +74,16 @@ jobs:
           PY
           python scripts/scorm01_content_audit.py "build/scorm01-release/$(cat build/scorm01-release/candidate-filename.txt)" --report build/scorm01-release/content-audit.json
           (cd build/scorm01-release && sha256sum -- *.zip > SHA256SUMS.txt)
-      - name: Upload release candidate for PR and audit
+      - name: Upload stable release artifacts for PR and audit
         uses: actions/upload-artifact@v4
         with:
-          name: scorm01-v2.0.0-rc.4
+          name: scorm01-v2.0.0
           path: |
             build/scorm01-release/*.zip
             build/scorm01-release/SHA256SUMS.txt
             build/scorm01-release/build-report.json
             build/scorm01-release/content-audit.json
+            build/scorm-all20-report/bookmarks.json
           retention-days: 30
           if-no-files-found: error
 
@@ -87,9 +97,9 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: scorm01-v2.0.0-rc.4
+          name: scorm01-v2.0.0
           path: candidate
-      - name: Verify checksums and publish immutable GitHub prerelease
+      - name: Verify checksums and publish immutable stable GitHub release
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -100,22 +110,26 @@ jobs:
           cd candidate
           sha256sum -c SHA256SUMS.txt
           test "$(find . -maxdepth 1 -type f -name '*.zip' | wc -l)" -eq 1
-          if gh release view scorm01-v2.0.0-rc.4 >/dev/null 2>&1; then
+          if gh release view scorm01-v2.0.0 >/dev/null 2>&1; then
             echo 'Release tag already exists: refusing replacement'
             exit 1
           fi
           cat > RELEASE_NOTES.md <<'EOF'
-          ## SCORM 01 — Podstawy algorytmów (2.0.0-rc.4)
+          ## SCORM 01 — Podstawy algorytmów (2.0.0)
 
           Przebudowany pakiet SCORM 1.2, 11 części dydaktycznych, wersja bez testu końcowego i sprawdzania wiedzy. Zawartość: specyfikacja problemu, wyszukiwanie liniowe, pseudokod i Python, niezmienniki pętli i analiza kosztu, model RAM, instrukcje i kompletny przykład sumowania wartości do pierwszego zera.
 
           **Kontrole automatyczne:** przebudowa ze źródłowego ZIP, testy redakcyjne i wyczerpujące testy małych wejść Python/RAM, poprawność manifestu, pełny audyt 11 lekcji i 64 bloków (HTML i interakcje), brak quizów i kontrola sumy SHA-256. W lekcji 10 skorygowano przypadek wejścia rozpoczynającego się od zera. Dodano zabezpieczenie na wypadek nieaktualnej zakładki Moodle prowadzącej do usuniętej lekcji lub quizu, bez usuwania zapisanych postępów; usunięto niepoprawne odwołanie do nieistniejącego opcjonalnego pliku allowed-options.js i sprawdzono start przez rzeczywisty scormdriver/indexAPI.html w izolowanym środowisku SCORM 1.2. Wersja jest przeznaczona do odbioru technicznego i dydaktycznego.
 
-          **Ograniczenie:** nie udokumentowano jeszcze testu importu, wznowienia postępu i raportowania ukończenia na docelowej instancji Moodle ani pełnego ręcznego audytu wszystkich interakcji. Nie traktować tego kandydata jako zatwierdzonej publikacji produkcyjnej dla studentów. Wpis w `editorial/approved-releases.json` pozostaje pusty.
+          **Akceptacja Moodle PRz:** po wdrożeniu RC4 użytkownik potwierdził poprawne uruchamianie pakietu. To potwierdzenie funkcjonalne dotyczy konkretnej instancji i nie stanowi certyfikacji SCORM.
+          
+          **Regresja:** 20 pakietów przebudowanych i 60 scenariuszy zakładek zweryfikowanych w CI. Dodatkowo test izolowanego środowiska Rise potwierdził przejście do statusu `completed` dla 100% i brak ocen punktowych (oraz brak ukończenia przy 99%). 
+          
+          **Ograniczenia:** nie potwierdzono odrębnie zapisu statusu `completed` na produkcyjnym Moodle ani pełnego audytu dostępności na czytnikach ekranu. Wydanie stabilne na GitHub nie oznacza automatycznego włączenia dla studentów w katalogu Pages. Nie usuwaj starych prób SCORM.
 
           Kontrolę integralności przeprowadzić z dołączonym `SHA256SUMS.txt`.
           EOF
-          gh release create scorm01-v2.0.0-rc.4 \
-            ./*.zip SHA256SUMS.txt build-report.json content-audit.json \
-            --target "$SOURCE_SHA" --prerelease --title "SCORM 01: Podstawy algorytmów 2.0.0-rc.4" \
+          gh release create scorm01-v2.0.0 \
+            ./*.zip SHA256SUMS.txt build-report.json content-audit.json \/
+            --target "$SOURCE_SHA" --title "SCORM 01: Podstawy algorytmów 2.0.0" \
             --notes-file RELEASE_NOTES.md
