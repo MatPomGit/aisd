@@ -3,6 +3,7 @@ import ast
 import copy
 import html
 import json
+import itertools
 import subprocess
 import re
 import sys
@@ -149,6 +150,22 @@ class EditorialPilotTests(unittest.TestCase):
         ]
         expected = [-1, 0, 2, 1, -1, 0]
         self.assertEqual(self.execute_published_python(code, cases), expected)
+        # Exhaustive small-state verification against an independent oracle.
+        alphabet = (-1, 0, 1)
+        exhaustive = [
+            (list(values), sought)
+            for length in range(7)
+            for values in itertools.product(alphabet, repeat=length)
+            for sought in alphabet
+        ]
+        expected_exhaustive = [
+            next((i for i, value in enumerate(values) if value == sought), -1)
+            for values, sought in exhaustive
+        ]
+        self.assertEqual(
+            self.execute_published_python(code, exhaustive), expected_exhaustive,
+            "Published Python implementation differs from exhaustive first-match oracle"
+        )
         # A deliberately broken return must not receive a false-positive PASS.
         mutated = code.replace("return i", "return -1")
         self.assertNotEqual(self.execute_published_python(mutated, cases),
@@ -254,6 +271,12 @@ class EditorialPilotTests(unittest.TestCase):
             scorm.new_course(original, self.tracking)
 
 
+    def test_ram_sentinel_input_contract_does_not_call_zero_only_input_empty(self):
+        """The zero sentinel itself is a valid nonempty input sequence."""
+        lesson = str(self.prepared()["course"]["lessons"][9]["items"])
+        self.assertIn("gdy ciąg zaczyna się od zera", lesson)
+        self.assertNotIn("przy pustym ciągu danych", lesson)
+
     def test_unverified_ram_algorithms_are_removed(self):
         lessons = self.prepared()["course"]["lessons"]
         text = str(lessons[6:])
@@ -328,6 +351,15 @@ class EditorialPilotTests(unittest.TestCase):
         ]:
             with self.subTest(inp=inp):
                 self.assertEqual(execute(inp), [result])
+        # Exhaustively cover negative values, internal zero sums, sentinel
+        # termination and values trailing the first sentinel. This checks the
+        # actual extracted instructional listing, not a reconstructed algorithm.
+        for length in range(5):
+            for prefix in itertools.product((-2, -1, 1, 2), repeat=length):
+                for suffix in ((), (7, -9)):
+                    case = [*prefix, 0, *suffix]
+                    with self.subTest(case=case):
+                        self.assertEqual(execute(case), [sum(prefix)])
         with self.assertRaises(ValueError):
             execute([5])
 
