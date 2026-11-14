@@ -32,7 +32,7 @@
   "updates": {
     "y1qhgdlw2a42erevnfosp2ka": {
       "heading": "Jak ocenić program, który właśnie zbudowaliśmy?",
-      "paragraph": "<p>Program sumujący wartości do pierwszego zera wygląda poprawnie dla wejścia <code>4, −2, 0</code>, ale jeden przykład nie wystarcza. Musimy ustalić, co się stanie przy pustym ciągu danych, jak reaguje na wartości ujemne i ile instrukcji wykona dla dłuższego wejścia. Ta analiza zamyka drogę od specyfikacji do programu, którego zachowanie potrafimy uzasadnić.</p>"
+      "paragraph": "<p>Program sumujący wartości do pierwszego zera wygląda poprawnie dla wejścia <code>4, −2, 0</code>, ale jeden przykład nie wystarcza. Musimy ustalić, co się stanie gdy ciąg zaczyna się od zera, jak reaguje na wartości ujemne i ile instrukcji wykona dla dłuższego wejścia. Ta analiza zamyka drogę od specyfikacji do programu, którego zachowanie potrafimy uzasadnić.</p>"
     },
     "so28rbz4p5tovjy9bd0ibt4u": {
       "heading": "Cztery sprawdzenia przed zaakceptowaniem programu",
