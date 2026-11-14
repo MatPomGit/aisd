@@ -1,0 +1,113 @@
+name: SCORM 01 | publish validated release candidate
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/scorm01-release.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/scorm01-release.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorm01-rc1-release
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Editorial and SCORM regression tests
+        run: |
+          python -m unittest discover -s tests -p 'test_scorm_pipeline.py' -v
+          python -m unittest discover -s tests -p 'test_scorm_editorial.py' -v
+      - name: Build exact editorial candidate and validate all listed resources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/scorm_pipeline.py build --course 1 --raw-dir raw --output-dir build/scorm01-release
+          python - <<'PY'
+          import json, sys
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          from scorm_pipeline import open_zip, check_manifest, unlisted_manifest_files, assessment_counts, get_data
+          from scorm_editorial import SCORM01_RELEASE
+          files = list(Path('build/scorm01-release').glob('*.zip'))
+          assert len(files) == 1, files
+          report = json.loads(Path('build/scorm01-release/build-report.json').read_text())
+          assert len(report) == 1 and report[0]['editorial_overlay'] == SCORM01_RELEASE, report
+          with open_zip(files[0]) as zf:
+              check_manifest(zf)
+              assert not unlisted_manifest_files(zf), unlisted_manifest_files(zf)
+              _, _, _, data = get_data(zf)
+              assert len(data['course']['lessons']) == 11
+              assert not any(assessment_counts(data).values())
+              assert data['course']['exportSettings']['reporting'] == 'completed-incomplete'
+          print('Validated candidate:', files[0], report[0]['sha256'])
+          PY
+          (cd build/scorm01-release && sha256sum -- *.zip > SHA256SUMS.txt)
+      - name: Upload release candidate for PR and audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: scorm01-v2.0.0-rc.1
+          path: |
+            build/scorm01-release/*.zip
+            build/scorm01-release/SHA256SUMS.txt
+            build/scorm01-release/build-report.json
+          retention-days: 30
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: scorm01-v2.0.0-rc.1
+          path: candidate
+      - name: Verify checksums and publish immutable GitHub prerelease
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          cd candidate
+          sha256sum -c SHA256SUMS.txt
+          test "$(find . -maxdepth 1 -type f -name '*.zip' | wc -l)" -eq 1
+          if gh release view scorm01-v2.0.0-rc.1 >/dev/null 2>&1; then
+            echo 'Release tag already exists: refusing replacement'
+            exit 1
+          fi
+          cat > RELEASE_NOTES.md <<'EOF'
+          ## SCORM 01 — Podstawy algorytmów (2.0.0-rc.1)
+
+          Przebudowany pakiet SCORM 1.2, 11 części dydaktycznych, wersja bez testu końcowego i sprawdzania wiedzy. Zawartość: specyfikacja problemu, wyszukiwanie liniowe, pseudokod i Python, niezmienniki pętli i analiza kosztu, model RAM, instrukcje i kompletny przykład sumowania wartości do pierwszego zera.
+
+          **Kontrole automatyczne:** przebudowa ze źródłowego ZIP, testy redakcyjne, poprawność manifestu, brak nieujętych plików, brak quizów i kontrola sumy SHA-256. Wersja jest przeznaczona do odbioru technicznego i dydaktycznego.
+
+          **Ograniczenie:** nie udokumentowano jeszcze testu importu, wznowienia postępu i raportowania ukończenia na docelowej instancji Moodle ani pełnego ręcznego audytu wszystkich interakcji. Nie traktować tego kandydata jako zatwierdzonej publikacji produkcyjnej dla studentów. Wpis w `editorial/approved-releases.json` pozostaje pusty.
+
+          Kontrolę integralności przeprowadzić z dołączonym `SHA256SUMS.txt`.
+          EOF
+          gh release create scorm01-v2.0.0-rc.1 \
+            ./*.zip SHA256SUMS.txt build-report.json \
+            --target "$SOURCE_SHA" --prerelease --title "SCORM 01: Podstawy algorytmów 2.0.0-rc.1" \
+            --notes-file RELEASE_NOTES.md
