@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SCORM 1.2 API launch fixture (not Moodle)</title>
+<style>
+html,body{margin:0;width:100%;height:100%}
+iframe{display:block;border:0;width:100%;height:100%}
+</style>
+<script>
+// Exercise the real scormdriver/indexAPI.html path and API discovery.
+// Only the API methods are emulated. This is not a Moodle integration test.
+const store = {
+  "cmi.core.student_id": "scorm-test-learner",
+  "cmi.core.student_name": "SCORM, Learner",
+  "cmi.core.lesson_status": "incomplete",
+  "cmi.core.entry": "ab-initio",
+  "cmi.core.lesson_location": "",
+  "cmi.suspend_data": "",
+  "cmi.launch_data": "",
+  "cmi.core.credit": "credit",
+  "cmi.core.lesson_mode": "normal",
+  "cmi.core.score.raw": "",
+  "cmi.core.score.min": "",
+  "cmi.core.score.max": "",
+  "cmi.student_data.mastery_score": "",
+  "cmi.core.total_time": "0000:00:00.00",
+  "cmi.core.session_time": "0000:00:00.00",
+  "cmi.comments": "",
+  "cmi.comments_from_lms": ""
+};
+window.__scorm12 = {calls: [], store, lastError: "0", initialized: false};
+window.API = {
+  LMSInitialize(arg) {
+    window.__scorm12.calls.push(["LMSInitialize", arg]);
+    window.__scorm12.initialized = true;
+    window.__scorm12.lastError = "0";
+    return "true";
+  },
+  LMSFinish(arg) {
+    window.__scorm12.calls.push(["LMSFinish", arg]);
+    window.__scorm12.initialized = false;
+    return "true";
+  },
+  LMSGetValue(key) {
+    window.__scorm12.calls.push(["LMSGetValue", key]);
+    window.__scorm12.lastError = "0";
+    return Object.prototype.hasOwnProperty.call(store,key) ? store[key] : "";
+  },
+  LMSSetValue(key,value) {
+    window.__scorm12.calls.push(["LMSSetValue", key, String(value)]);
+    window.__scorm12.lastError = "0";
+    store[key] = String(value);
+    return "true";
+  },
+  LMSCommit(arg) {
+    window.__scorm12.calls.push(["LMSCommit", arg]);
+    return "true";
+  },
+  LMSGetLastError() { return window.__scorm12.lastError; },
+  LMSGetErrorString(code) { return "SCORM test error " + code; },
+  LMSGetDiagnostic(code) { return "Test diagnostic " + code; }
+};
+</script>
+</head>
+<body>
+<iframe id="sco" title="Real Rise SCORM 1.2 driver launch"></iframe>
+<script>
+const source = new URLSearchParams(location.search).get("source");
+if (!["original", "candidate"].includes(source)) throw new Error("Unknown source");
+document.querySelector("#sco").src = "./learner-preview-" + source + "/scormdriver/indexAPI.html";
+</script>
+</body>
+</html>

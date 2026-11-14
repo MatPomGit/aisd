@@ -92,6 +92,11 @@ jobs:
           mkdir -p build/scorm-pages/learner-preview
           unzip -qq "${packages[0]}" -d build/scorm-pages/learner-preview
           cp tests/scorm_learner_harness.html build/scorm-pages/learner-harness.html
+          mkdir -p build/scorm-pages/learner-preview-candidate
+          unzip -qq "${packages[0]}" -d build/scorm-pages/learner-preview-candidate
+          mkdir -p build/scorm-pages/learner-preview-original
+          unzip -qq raw/1-podstawy-algorytmów.zip -d build/scorm-pages/learner-preview-original
+          cp tests/scorm12_driver_harness.html build/scorm-pages/scorm12-driver-harness.html
       - name: Headless browser upload-edit-download smoke
         shell: bash
         run: |
@@ -104,6 +109,7 @@ jobs:
           node tests/scorm_editor.browser.mjs
           node tests/scorm_learner.browser.mjs
           node tests/scorm_lms_contract.browser.mjs
+          node tests/scorm12_driver.browser.mjs
       - name: Attach reviewed SCORM 01 ZIP and real Rise desktop/mobile evidence (PR only)
         if: ${{ always() && github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v4
@@ -114,6 +120,7 @@ jobs:
             build/scorm-learner-screenshots/
             build/scorm-lms-simulation/
             build/scorm-content-audit/
+            build/scorm12-driver-qa/
             build/scorm-preview/*.zip
           retention-days: 7
           if-no-files-found: warn
