@@ -113,6 +113,12 @@ def audit(path):
                         continue
                     stats["characters"] += len(value)
                     if not value.strip():
+                        # Rise heading rows may carry a deliberately blank
+                        # optional paragraph; the visible heading supplies
+                        # actual content. Do not report that as a missing block.
+                        if field == "paragraph" and isinstance(row.get("heading"), str) \
+                                and row["heading"].strip():
+                            continue
                         findings.append({"severity": "P1", "location":
                                          f"{location}/row-{row_index}/{field}",
                                          "message": "Empty content field"})
