@@ -73,6 +73,7 @@ jobs:
           Path('build/scorm01-release/candidate-filename.txt').write_text(files[0].name, encoding='utf-8')
           PY
           python scripts/scorm01_content_audit.py "build/scorm01-release/$(cat build/scorm01-release/candidate-filename.txt)" --report build/scorm01-release/content-audit.json
+          cp build/scorm-all20-report/bookmarks.json build/scorm01-release/bookmarks-all20.json
           (cd build/scorm01-release && sha256sum -- *.zip > SHA256SUMS.txt)
       - name: Upload stable release artifacts for PR and audit
         uses: actions/upload-artifact@v4
@@ -83,7 +84,7 @@ jobs:
             build/scorm01-release/SHA256SUMS.txt
             build/scorm01-release/build-report.json
             build/scorm01-release/content-audit.json
-            build/scorm-all20-report/bookmarks.json
+            build/scorm01-release/bookmarks-all20.json
           retention-days: 30
           if-no-files-found: error
 
@@ -130,6 +131,6 @@ jobs:
           Kontrolę integralności przeprowadzić z dołączonym `SHA256SUMS.txt`.
           EOF
           gh release create scorm01-v2.0.0 \
-            ./*.zip SHA256SUMS.txt build-report.json content-audit.json \/
+            ./*.zip SHA256SUMS.txt build-report.json content-audit.json bookmarks-all20.json \
             --target "$SOURCE_SHA" --title "SCORM 01: Podstawy algorytmów 2.0.0" \
             --notes-file RELEASE_NOTES.md
