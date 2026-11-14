@@ -16,7 +16,7 @@ const report = {kind:"real-scorm12-driver-in-api-fixture", limitations:
   scenarios:[]};
 let failures = 0;
 try {
-  for (const variant of ["original", "candidate"]) {
+  for (const variant of ["original", "candidate", "candidate-stale"]) {
     const page = await browser.newPage({viewport:{width:1280,height:900}});
     const diagnostic = {variant, errors:[], badResponses:[], requestsFailed:[],
                         init:[], rendered:false};
@@ -33,7 +33,10 @@ try {
       });
     });
     try {
-      await page.goto("http://127.0.0.1:8787/scorm12-driver-harness.html?source=" + variant,
+      const source = variant.startsWith("candidate") ? "candidate" : "original";
+      const bookmarkQuery = variant === "candidate-stale" ? "&bookmark=stale" : "";
+      await page.goto("http://127.0.0.1:8787/scorm12-driver-harness.html?source=" +
+                      source + bookmarkQuery,
                       {waitUntil:"domcontentloaded", timeout:30000});
       await page.waitForFunction(() => {
         const audit = window.__scorm12;
@@ -49,6 +52,17 @@ try {
         return displayed.length > 100 && displayed.includes("Podstawy algorytmów");
       }, null, {timeout:30000});
       diagnostic.rendered = true;
+      if (variant === "candidate-stale") {
+        const resume = await page.evaluate(() => ({
+          url: document.getElementById("sco").contentWindow
+            .document.querySelector('iframe[name="scormdriver_content"]')
+            .contentWindow.location.href,
+          stored: window.__scorm12.store["cmi.core.lesson_location"]
+        }));
+        assert.match(resume.url, /#\/preview$/, "Old quiz bookmark was not ignored");
+        assert.match(resume.stored, /S5YWke1r4/, "Test must not destroy stored LMS progress");
+        diagnostic.resume = resume;
+      }
       diagnostic.lessonStatus = await page.evaluate(
         () => window.__scorm12.store["cmi.core.lesson_status"]);
       await page.screenshot({path:output + "/" + variant + ".png", fullPage:true});
