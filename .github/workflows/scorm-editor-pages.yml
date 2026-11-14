@@ -96,7 +96,7 @@ jobs:
           node tests/scorm_editor.browser.mjs
           node tests/scorm_learner.browser.mjs
           node tests/scorm_lms_contract.browser.mjs
-      - name: Attach editor and real Rise desktop/mobile screenshots for visual QA
+      - name: Attach reviewed SCORM 01 ZIP and real Rise desktop/mobile evidence (PR only)
         if: ${{ always() && github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v4
         with:
@@ -105,6 +105,7 @@ jobs:
             build/scorm-review-screenshots/
             build/scorm-learner-screenshots/
             build/scorm-lms-simulation/
+            build/scorm-preview/*.zip
           retention-days: 7
           if-no-files-found: warn
       - name: Check repo unchanged
