@@ -1,0 +1,67 @@
+// AIiSD 10: Stosy
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-10-Q01::Pusty stos otrzymuje kolejno push(3), push(7), pop(), push(4). Jaką wartość zwróci następne pop()? {
+  ~3
+  ~7
+  =4
+  ~Brak elementu.
+  ####Po usunięciu 7 na szczycie znalazło się 3; push(4) umieszcza 4 ponad nim.
+}
+
+::AISD-10-Q02::Na stos trafiają kolejno liczby 2, 5, 8. Wykonujemy dwa razy pop(). W jakiej kolejności otrzymamy wyniki? {
+  ~2, 5
+  =8, 5
+  ~5, 8
+  ~8, 2
+  ####Stos działa zgodnie z zasadą LIFO, więc ostatnio dodany element jest usuwany jako pierwszy.
+}
+
+::AISD-10-Q03::W analizatorze nawiasów po napotkaniu zamykającego nawiasu niezgodnego z otwartym na szczycie stosu należy: {
+  =odrzucić ciąg jako niepoprawny.
+  ~usunąć wszystkie elementy stosu aż do znalezienia zgodnego typu.
+  ~wstawić ten nawias na stos i kontynuować bez błędu.
+  ~pominąć znak i kontynuować bez zmiany stanu.
+  ####Poprawna struktura nawiasów wymaga zgodności typów i kolejności domknięć.
+}
+
+::AISD-10-Q04::W notacji postfiksowej wyrażenie '4 2 - 3 *' ma jaką wartość? {
+  ~-6
+  ~18
+  ~-2
+  =6
+  ####Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
+}
+
+::AISD-10-Q05::Stos tablicowy ma pojemność c, a top oznacza indeks ostatniego elementu, przy pustym stosie top\=-1. Kiedy push spowodowałby przepełnienie? {
+  ~Gdy top\=c-2.
+  ~Gdy top\=0.
+  =Gdy top\=c-1.
+  ~Gdy top\=-1.
+  ####Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
+}
+
+::AISD-10-Q06::W tablicowej implementacji stosu peek() odczytuje szczyt. Który warunek musi zostać sprawdzony przed odczytem A[top]? {
+  ~Czy liczba elementów jest parzysta.
+  =Czy stos jest niepusty.
+  ~Czy tablica jest posortowana.
+  ~Czy element szczytowy ma unikalną wartość.
+  ####Przy pustym stosie top może być poza prawidłowym zakresem tablicy.
+}
+
+::AISD-10-Q07::Dlaczego iteracyjny DFS często wykorzystuje stos, a BFS kolejkę? {
+  =DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania.
+  ~DFS wymaga uporządkowanych kluczy, a BFS unikatowych.
+  ~DFS zawsze zapisuje mniej wierzchołków niż BFS.
+  ~BFS wymaga cofania się po wszystkich poprzednikach w odwrotnej kolejności.
+  ####LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
+}
+
+::AISD-10-Q08::Operacja pop() na pustym stosie bez zdefiniowanej obsługi błędów prowadzi do którego problemu? {
+  ~Zwraca ostatnio usunięty element, niezależnie od implementacji.
+  ~Ma zawsze koszt Θ(n), niezależnie od sposobu reprezentacji.
+  ~Powoduje automatyczne powiększenie pojemności stosu.
+  =Narusza kontrakt operacji, bo nie istnieje element do zwrócenia.
+  ####Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
+}

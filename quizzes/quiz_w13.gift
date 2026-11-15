@@ -1,0 +1,67 @@
+// AIiSD 13: Binarne drzewa wyszukiwań BST
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-13-Q01::W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
+  ~8 → 10 → 6
+  =8 → 3 → 6
+  ~8 → 3 → 1 → 6
+  ~8 → 6
+  ####6<8 kieruje w lewo, a 6>3 w prawo.
+}
+
+::AISD-13-Q02::W BST o unikatowych kluczach usuwamy węzeł z dwojgiem dzieci. Który zamiennik pozwala zachować porządek BST? {
+  =Następnik inorder, czyli minimum prawego poddrzewa.
+  ~Maksimum całego lewego i prawego poddrzewa jednocześnie.
+  ~Dowolny liść z prawego poddrzewa.
+  ~Bezpośrednio lewe dziecko bez żadnych dalszych operacji.
+  ####Następnik inorder nie ma mniejszego klucza po swojej prawej stronie i zachowuje granicę porządku.
+}
+
+::AISD-13-Q03::Jaką kolejność kluczy zwraca inorder dla BST bez duplikatów? {
+  ~Według czasu wstawienia.
+  ~Według malejących głębokości.
+  ~Według priorytetu równoważenia.
+  =Ściśle rosnącą.
+  ####Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
+}
+
+::AISD-13-Q04::Do pustego BST bez równoważenia wstawiono rosnące klucze 1,2,...,n. Jaką wysokość w krawędziach ma wynik dla n>0? {
+  ~⌊log₂ n⌋
+  ~n
+  =n-1
+  ~⌈log₂(n+1)⌉-1
+  ####Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
+}
+
+::AISD-13-Q05::Jaka jest asymptotyczna liczba porównań przy wyszukiwaniu klucza w BST o wysokości h? {
+  ~O(log h)
+  =O(h+1)
+  ~O(nh)
+  ~O(1) dla dowolnej wysokości
+  ####Wyszukiwanie porównuje klucz z węzłami jednej ścieżki od korzenia.
+}
+
+::AISD-13-Q06::W BST bez duplikatów węzeł 12 ma lewe poddrzewo o korzeniu 7 i prawe o korzeniu 18. Gdzie poprawnie może leżeć klucz 15? {
+  =W lewym poddrzewie węzła 18.
+  ~W lewym poddrzewie węzła 7.
+  ~W prawym poddrzewie węzła 7.
+  ~W dowolnym miejscu, gdy liście są na różnych wysokościach.
+  ####15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
+}
+
+::AISD-13-Q07::Który warunek jest niezbędny do zachowania poprawności BST, gdy w implementacji dopuszcza się duplikaty? {
+  ~Umieszczanie duplikatów raz po lewej, raz po prawej bez reguły.
+  ~Usuwanie dowolnych kluczy równych podczas wyszukiwania.
+  ~Wymaganie, aby wszystkie duplikaty były w korzeniu.
+  =Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji.
+  ####Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
+}
+
+::AISD-13-Q08::Jaki koszt ma wyszukiwanie w BST o n węzłach, którego wysokość wynosi Θ(log n)? {
+  ~O(n) dla każdego klucza.
+  ~O(log log n)
+  =O(log n)
+  ~O(n log n)
+  ####Przejście po jednej ścieżce ma długość ograniczoną wysokością drzewa.
+}

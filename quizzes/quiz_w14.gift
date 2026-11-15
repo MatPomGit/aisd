@@ -1,0 +1,67 @@
+// AIiSD 14: Kopce i kolejki priorytetowe
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-14-Q01::W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
+  ~2i
+  ~⌊i/2⌋
+  =2i+1
+  ~2i+2
+  ####W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
+}
+
+::AISD-14-Q02::Które twierdzenie wynika z własności kopca minimalnego? {
+  ~Wszystkie klucze tablicy są uporządkowane niemalejąco.
+  =Najmniejszy klucz znajduje się w korzeniu.
+  ~Prawe poddrzewo zawiera tylko klucze większe od wszystkich w lewym.
+  ~Wysokość kopca może być liniowa przy kompletnym kształcie.
+  ####Rodzic nie ma klucza większego od dziecka; nie oznacza to globalnego uporządkowania elementów.
+}
+
+::AISD-14-Q03::Do kopca maksymalnego wstawiono nowy klucz większy od swojego rodzica. Jaka operacja przywraca własność kopca? {
+  =Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.
+  ~Zamiana wszystkich liści między lewą i prawą połową drzewa.
+  ~Sortowanie całej tablicy rosnąco przed każdym wstawieniem.
+  ~Usuwanie dotychczasowego korzenia bez porównania.
+  ####Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
+}
+
+::AISD-14-Q04::Usuwamy minimum z kopca minimalnego o n>1 elementach. Który krok zwykle następuje bezpośrednio po zastąpieniu korzenia ostatnim elementem? {
+  ~Przesiewanie nowego korzenia wyłącznie w górę.
+  ~Zamiana wszystkich liści z ich rodzicami jednocześnie.
+  ~Sortowanie węzłów według czasu wstawienia.
+  =Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.
+  ####Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
+}
+
+::AISD-14-Q05::Jaka jest złożoność budowy kopca metodą bottom-up heapify dla n elementów? {
+  ~Θ(n log n)
+  ~Θ(log n)
+  =Θ(n)
+  ~Θ(n²)
+  ####Większość węzłów ma małą wysokość, co daje łączny koszt liniowy.
+}
+
+::AISD-14-Q06::Dla kopca binarnego zawierającego n elementów, jaki jest najgorszy koszt insert()? {
+  ~O(1) niezależnie od wartości klucza.
+  =O(log n)
+  ~O(n) dla dowolnego kopca.
+  ~O(n log n)
+  ####Przesuwanie nowego elementu w górę obejmuje co najwyżej wysokość kopca.
+}
+
+::AISD-14-Q07::Kopiec minimalny ma tablicę [2,5,3,9,7,8]. Jaka wartość pojawi się w korzeniu po jednokrotnym extract-min i prawidłowej naprawie kopca? {
+  =3
+  ~5
+  ~7
+  ~8
+  ####Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
+}
+
+::AISD-14-Q08::Jakie ograniczenie dotyczy standardowego heapsort z kopcem binarnym przechowywanym w tablicy? {
+  ~Wymaga dodatkowej tablicy Θ(n) do każdej zamiany.
+  ~Ma najgorszy koszt Θ(n²) dla wszystkich wejść.
+  ~Wymaga, aby klucze miały niewielki zakres wartości.
+  =Nie gwarantuje stabilności dla elementów o równych kluczach.
+  ####Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
+}

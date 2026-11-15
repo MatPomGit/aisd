@@ -1,0 +1,67 @@
+// AIiSD 08: Rekurencja i dynamiczne struktury danych
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-08-Q01::Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
+  =24
+  ~10
+  ~16
+  ~120
+  ####f(4)\=4·3·2·1·1\=24.
+}
+
+::AISD-08-Q02::Rekurencja ma przypadek bazowy n\=0 i wywołuje f(n-2) dla n>0. Dla jakich danych nie można bez dodatkowego warunku dowieść zakończenia? {
+  ~Dla parzystych dodatnich n.
+  ~Dla n\=0.
+  ~Dla n\=2.
+  =Dla nieparzystych dodatnich n.
+  ####Od nieparzystej liczby kolejne odejmowania 2 omijają zero i przechodzą w liczby ujemne.
+}
+
+::AISD-08-Q03::W standardowej implementacji rekurencyjnego obliczania silni powstaje łańcuch wywołań n,n-1,...,0. Jaki jest maksymalny rząd głębokości stosu? {
+  ~Θ(1)
+  ~Θ(log n)
+  =Θ(n)
+  ~Θ(n²)
+  ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
+}
+
+::AISD-08-Q04::Lista jednokierunkowa ma wskaźnik head. Wstawiamy nowy węzeł x na początek niepustej listy. Która kolejność aktualizacji zachowuje wszystkie elementy? {
+  ~head\=x, potem x.next\=head.
+  =x.next\=head, potem head\=x.
+  ~head\=head.next, potem x.next\=head.
+  ~x.next\=null, potem head\=head.next.
+  ####Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
+}
+
+::AISD-08-Q05::Rekurencyjne przeglądanie grafu z cyklem może nie zakończyć się, jeśli nie ograniczymy powtórnych odwiedzin. Które działanie temu przeciwdziała? {
+  =Oznaczanie wierzchołka jako odwiedzonego przed rekurencją w sąsiadów.
+  ~Zmiana kolejności sąsiadów przy każdym wywołaniu.
+  ~Zastosowanie większego stosu wywołań.
+  ~Rekurencyjne wywołanie dla każdego sąsiada bez zapamiętywania stanu.
+  ####Stan odwiedzenia pozwala ominąć wierzchołki już rozpoczęte lub przetworzone.
+}
+
+::AISD-08-Q06::Dla rekurencji T(n)\=2T(n/2)+Θ(n), przy n potędze dwójki, jaki jest rząd kosztu? {
+  ~Θ(n)
+  ~Θ(log n)
+  ~Θ(n²)
+  =Θ(n log n)
+  ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
+}
+
+::AISD-08-Q07::Z czym wiąże się istotna różnica między strukturą dynamiczną z węzłami a tablicą ciągłą? {
+  ~Węzły zawsze mają mniejszy narzut pamięci niż tablica.
+  ~Tablica nie pozwala odczytać elementu po jego indeksie.
+  =Węzły mogą leżeć w nieciągłych adresach i wymagają pól wiązań.
+  ~Każda struktura dynamiczna zapewnia odczyt losowy w O(1).
+  ####Wskaźniki łączą rozproszone alokacje, lecz zajmują pamięć i pogarszają lokalność.
+}
+
+::AISD-08-Q08::Czy kompilator zawsze zamienia rekurencję ogonową na iterację bez dodatkowego stosu? {
+  ~Tak, jeśli przypadek bazowy ma wartość zero.
+  =Nie, zależy to od języka, implementacji i optymalizacji.
+  ~Tak, jeśli wywołanie dotyczy tej samej funkcji.
+  ~Nie, ale wyłącznie w przypadku funkcji wzajemnie rekurencyjnych.
+  ####Eliminacja wywołania ogonowego jest optymalizacją, a nie uniwersalną gwarancją.
+}

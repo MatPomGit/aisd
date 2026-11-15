@@ -1,0 +1,67 @@
+// AIiSD 15: Grafy
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-15-Q01::Nieskierowany graf prosty ma 6 wierzchołków i 7 krawędzi. Jaka jest suma stopni wszystkich wierzchołków? {
+  ~7
+  ~12
+  ~21
+  =14
+  ####Każda krawędź jest liczona w stopniu obu końców, stąd suma stopni wynosi 2E.
+}
+
+::AISD-15-Q02::W skierowanym grafie istnieje łuk A→B, ale nie ma B→A. Jaki wpis w macierzy sąsiedztwa jest prawidłowy przy A jako pierwszym indeksie? {
+  ~M[A,B]\=0 oraz M[B,A]\=1.
+  ~M[A,B]\=1 oraz M[B,A]\=1.
+  =M[A,B]\=1 oraz M[B,A]\=0.
+  ~M[A,B]\=0 oraz M[B,A]\=0.
+  ####Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
+}
+
+::AISD-15-Q03::Graf nieskierowany o V wierzchołkach i E krawędziach przechowujemy listami sąsiedztwa. Jaki jest koszt pamięci reprezentacji? {
+  ~Θ(V²) niezależnie od E.
+  =Θ(V+E)
+  ~Θ(E²)
+  ~Θ(log V+E)
+  ####Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
+}
+
+::AISD-15-Q04::Jaka jest liczba maksymalnie możliwych krawędzi w prostym grafie nieskierowanym o V wierzchołkach? {
+  =V(V-1)/2
+  ~V²
+  ~V(V+1)/2
+  ~2V-1
+  ####Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
+}
+
+::AISD-15-Q05::Dla nieskierowanego grafu spójnego o 8 wierzchołkach, który warunek musi zachodzić? {
+  ~Ma dokładnie 8 krawędzi.
+  ~Każdy wierzchołek ma stopień co najmniej 2.
+  ~Jego macierz sąsiedztwa ma wyłącznie jedynki poza przekątną.
+  =Ma co najmniej 7 krawędzi.
+  ####Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
+}
+
+::AISD-15-Q06::W grafie skierowanym ścieżka A→B→C istnieje, a łuk C→A nie istnieje. Co z tego wynika? {
+  ~A i C muszą należeć do tego samego silnie spójnego składnika.
+  ~Graf musi być acykliczny.
+  =Z A do C jest osiągalność, ale nie wynika osiągalność z C do A.
+  ~Łuk A→C musi występować bezpośrednio w grafie.
+  ####Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
+}
+
+::AISD-15-Q07::W reprezentacji grafu macierzą sąsiedztwa jaki jest koszt sprawdzenia, czy krawędź (u,v) istnieje, przy poprawnych indeksach? {
+  ~Θ(deg(u))
+  =Θ(1)
+  ~Θ(V)
+  ~Θ(V+E)
+  ####Wystarcza bezpośredni odczyt jednego pola M[u,v].
+}
+
+::AISD-15-Q08::Podczas BFS w grafie z cyklami w którym momencie najbezpieczniej oznaczać nowo odkryty wierzchołek jako odwiedzony? {
+  =Przy dodawaniu go do kolejki.
+  ~Dopiero po jego usunięciu z kolejki.
+  ~Po zakończeniu przetwarzania całego grafu.
+  ~Tylko wtedy, gdy jest liściem drzewa BFS.
+  ####Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
+}

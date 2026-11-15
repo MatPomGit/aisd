@@ -1,0 +1,67 @@
+// AIiSD 03: Pseudokod i schematy blokowe
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-03-Q01::Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli poprawnie obejmuje wszystkie elementy przy inicjalizacji i\=0 i inkrementacji i o 1? {
+  ~i <\= n
+  ~i < n-1
+  ~i <\= n+1
+  =i < n
+  ####Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
+}
+
+::AISD-03-Q02::Który symbol schematu blokowego standardowo reprezentuje decyzję z rozgałęzieniem warunkowym? {
+  ~Równoległobok.
+  ~Prostokąt.
+  =Romb.
+  ~Owal.
+  ####Romb oznacza test warunku; pozostałe symbole mają zwykle inne role.
+}
+
+::AISD-03-Q03::Pseudokod: jeśli x>0, ustaw y\=x; następnie zwróć y. Jaki jest istotny błąd kontraktu? {
+  ~Dla x>0 nie można użyć instrukcji zwróć.
+  =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
+  ~Dla x\=1 gałąź warunkowa wykona się dwukrotnie.
+  ~Dla x<0 program zawsze zwróci 0.
+  ####Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
+}
+
+::AISD-03-Q04::W schemacie blokowym po zakończeniu obu gałęzi warunku wykonywana jest ta sama instrukcja. Jaka struktura przepływu jest właściwa? {
+  =Dwie gałęzie łączą się przed wspólną instrukcją.
+  ~Każda gałąź zawiera osobną kopię instrukcji START.
+  ~Jedna gałąź musi bezwarunkowo wracać do testu.
+  ~Obie gałęzie muszą prowadzić bezpośrednio do STOP.
+  ####Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
+}
+
+::AISD-03-Q05::Zadaniem jest wypisanie elementów tablicy w odwrotnej kolejności. Jaka wartość początkowa indeksu jest poprawna dla n>0, przy zmniejszaniu indeksu o 1? {
+  ~n
+  ~1
+  ~0
+  =n-1
+  ####Przy indeksowaniu od zera ostatni element ma indeks n-1.
+}
+
+::AISD-03-Q06::Dlaczego opis 'powtarzaj, aż wynik będzie dobry' jest niewystarczającym pseudokodem? {
+  ~Nie podaje nazwy języka programowania.
+  ~Nie wymienia jawnie użytej struktury danych.
+  =Nie definiuje sprawdzalnego predykatu zakończenia.
+  ~Nie ma osobnego bloku do zapisu danych.
+  ####Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
+}
+
+::AISD-03-Q07::W pseudokodzie funkcji suma(A,n) ustawiono s\=0 i następnie dodawano A[i] dla i\=1,...,n. Jakiej dodatkowej informacji potrzeba, by ocenić poprawność indeksów? {
+  ~Rodzaju symbolu schematu blokowego dla wejścia.
+  =Konwencji indeksowania tablicy i dopuszczalnego zakresu i.
+  ~Tego, czy liczby w tablicy są dodatnie.
+  ~Tego, czy suma jest zwracana przez funkcję.
+  ####Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
+}
+
+::AISD-03-Q08::Które stwierdzenie odróżnia schemat blokowy od programu źródłowego? {
+  =Schemat przedstawia przepływ sterowania, lecz nie narzuca semantyki konkretnego języka wykonawczego.
+  ~Schemat jest wykonywalny na każdej maszynie RAM bez translacji.
+  ~Schemat musi zawierać wszystkie instrukcje konkretnego procesora.
+  ~Schemat z definicji umożliwia pominięcie warunków brzegowych.
+  ####Schemat reprezentuje logikę algorytmu; jego wykonanie wymaga formalizacji operacji w wybranym środowisku.
+}

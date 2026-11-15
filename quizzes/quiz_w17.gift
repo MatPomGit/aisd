@@ -1,0 +1,67 @@
+// AIiSD 17: Teoria i klasyfikacja sortowania
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-17-Q01::Dane są rekordy (klucz,etykieta): (2,A),(1,B),(2,C). Jaki wynik jest stabilnym sortowaniem rosnącym według klucza? {
+  ~(1,B),(2,C),(2,A)
+  =(1,B),(2,A),(2,C)
+  ~(2,A),(2,C),(1,B)
+  ~(2,C),(1,B),(2,A)
+  ####Stabilność wymaga zachowania względnego porządku etykiet A i C przy równych kluczach 2.
+}
+
+::AISD-17-Q02::Skąd wynika dolne ograniczenie Ω(n log n) liczby porównań w najgorszym przypadku sortowania n różnych kluczy metodą porównań? {
+  =Drzewo decyzji musi rozróżnić co najmniej n! permutacji.
+  ~Każde porównanie musi wykonać co najmniej log n działań arytmetycznych.
+  ~Algorytm zawsze porównuje każdą parę elementów.
+  ~Sortowanie zawsze wymaga n dodatkowych komórek pamięci.
+  ####Binarne drzewo porównań o n! liściach ma wysokość co najmniej log₂(n!).
+}
+
+::AISD-17-Q03::Który rodzaj sortowania może ominąć ograniczenie Ω(n log n) w modelu porównań dzięki dodatkowemu założeniu o kluczach? {
+  ~Merge sort dla losowo rozmieszczonych kluczy.
+  ~Heap sort dla dowolnych porównywalnych obiektów.
+  ~Quick sort z losowo wybieranym pivotem.
+  =Counting sort przy niewielkiej całkowitoliczbowej dziedzinie kluczy.
+  ####Counting sort wykorzystuje bezpośrednio wartości kluczy, a nie wyłącznie wyniki porównań par.
+}
+
+::AISD-17-Q04::Stabilność jest pożądana przy sortowaniu rekordów najpierw po nazwisku, a potem po dziale. Jak powinien działać drugi etap? {
+  ~Niestabilnie według działu, aby rozdzielić powtarzające się nazwiska.
+  ~Stabilnie według nazwiska, bez uwzględnienia działu.
+  =Stabilnie według działu, aby zachować poprzedni porządek nazwisk wewnątrz działów.
+  ~Niestabilnie według nazwiska, aby usunąć remisy.
+  ####Drugie stabilne sortowanie według ważniejszego klucza utrzymuje kolejność z pierwszego etapu w obrębie równych działów.
+}
+
+::AISD-17-Q05::Dla jakiej cechy wejścia algorytm sortowania przez wstawianie może uzyskiwać czas bliski liniowemu? {
+  ~Dla bardzo dużego zakresu możliwych wartości kluczy.
+  =Dla małej liczby inwersji w tablicy.
+  ~Dla danych bez powtarzających się kluczy, niezależnie od ich kolejności.
+  ~Dla parzystej liczby elementów, niezależnie od kolejności.
+  ####Insertion sort wykonuje przesunięcia proporcjonalne do liczby inwersji.
+}
+
+::AISD-17-Q06::Ile różnych porządków wejściowych musi odróżniać porównawcze sortowanie n różnych kluczy? {
+  =n!
+  ~2^n
+  ~n²
+  ~2n
+  ####Dla n różnych kluczy istnieje n! możliwych permutacji wymagających prawidłowej decyzji.
+}
+
+::AISD-17-Q07::Które zdanie rozróżnia stabilność sortowania od jego poprawności? {
+  ~Niestabilny algorytm nie potrafi prawidłowo uporządkować liczb całkowitych.
+  ~Stabilność oznacza odporność na błąd pamięci podręcznej.
+  ~Poprawne sortowanie zawsze musi być stabilne.
+  =Algorytm może prawidłowo uporządkować klucze, ale zmienić kolejność rekordów o równych kluczach.
+  ####Warunek niemalejących kluczy nie narzuca relacji między rekordami o tym samym kluczu.
+}
+
+::AISD-17-Q08::Która obserwacja obala twierdzenie, że każdy algorytm porównawczy ma koszt Θ(n²) w najgorszym przypadku? {
+  ~Insertion sort ma Θ(n²) przesunięć w najgorszym przypadku.
+  ~Selection sort wykonuje Θ(n²) porównań niezależnie od wejścia.
+  =Merge sort wykonuje Θ(n log n) porównań w najgorszym przypadku.
+  ~Bubble sort może mieć Θ(n²) porównań dla odwróconych danych.
+  ####Istnieją algorytmy porównawcze o najgorszej złożoności Θ(n log n), więc uogólnienie jest fałszywe.
+}

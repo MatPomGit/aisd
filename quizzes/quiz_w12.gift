@@ -1,0 +1,67 @@
+// AIiSD 12: Podstawy drzew
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-12-Q01::Wysokość drzewa definiujemy jako liczbę krawędzi na najdłuższej ścieżce od korzenia do liścia. Jaką wysokość ma drzewo składające się z jednego węzła? {
+  =0
+  ~1
+  ~-1
+  ~2
+  ####Ścieżka od korzenia do niego samego zawiera zero krawędzi.
+}
+
+::AISD-12-Q02::Drzewo binarne ma korzeń R, lewe dziecko A i prawe dziecko B. Jaka jest kolejność przejścia inorder? {
+  ~R, A, B
+  ~A, B, R
+  ~B, R, A
+  =A, R, B
+  ####Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
+}
+
+::AISD-12-Q03::Który warunek odróżnia pełne drzewo binarne (full binary tree) od dowolnego binarnego? {
+  ~Wszystkie liście są na tej samej głębokości.
+  ~Wszystkie poziomy poza ostatnim są całkowicie zapełnione.
+  =Każdy węzeł wewnętrzny ma dokładnie dwoje dzieci.
+  ~Drzewo musi mieć tyle samo lewych i prawych liści.
+  ####Full binary tree wymaga stopnia węzła równego 0 albo 2, nie wymaga wyrównanych poziomów.
+}
+
+::AISD-12-Q04::Dla drzewa binarnego o wysokości h liczonej w krawędziach, jaka jest maksymalna liczba węzłów? {
+  ~2^h-1
+  =2^(h+1)-1
+  ~h(h+1)/2
+  ~2h+1
+  ####Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
+}
+
+::AISD-12-Q05::Węzeł w drzewie ukorzenionym nie ma dzieci. Jak jest klasyfikowany? {
+  =Liść.
+  ~Korzeń.
+  ~Przodek wszystkich węzłów.
+  ~Węzeł rozgałęziający.
+  ####Liść to węzeł bez potomków bezpośrednich, niezależnie od głębokości.
+}
+
+::AISD-12-Q06::Drzewo z n węzłami jest spójne i nie zawiera cykli. Ile ma krawędzi? {
+  ~n
+  ~n+1
+  ~2n-2
+  =n-1
+  ####Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
+}
+
+::AISD-12-Q07::W drzewie binarnym porządek preorder daje wyniki R, A, B, a inorder daje A, R, B. Jaki węzeł jest korzeniem? {
+  ~A
+  ~B
+  =R
+  ~Nie można go wyznaczyć przy tych dwóch porządkach.
+  ####Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
+}
+
+::AISD-12-Q08::Jaką złożoność ma pełne przejście po wszystkich węzłach drzewa z n węzłami, gdy obsługa węzła trwa O(1)? {
+  ~Θ(log n)
+  =Θ(n)
+  ~Θ(n log n)
+  ~Θ(n²)
+  ####Każdy węzeł zostaje odwiedzony stałą liczbę razy.
+}

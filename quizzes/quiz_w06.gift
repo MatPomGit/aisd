@@ -1,0 +1,67 @@
+// AIiSD 06: Tablice jednowymiarowe
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-06-Q01::Tablica ma n elementów indeksowanych od 0. Który indeks jest ostatni poprawny, gdy n>0? {
+  ~n
+  ~n+1
+  =n-1
+  ~1
+  ####Zakres indeksów tablicy obejmuje liczby od 0 do n-1.
+}
+
+::AISD-06-Q02::Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
+  ~n-k+1
+  =n-k
+  ~k
+  ~n-1
+  ####Przesuwane są istniejące elementy o indeksach od k do n-1.
+}
+
+::AISD-06-Q03::W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
+  =n
+  ~n-1
+  ~log₂ n zaokrąglone w górę
+  ~n(n-1)/2
+  ####Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
+}
+
+::AISD-06-Q04::Przyjmujemy tablicę o długości n i zaalokowanej pojemności c>n. Co może się zmienić po dopisaniu jednego elementu bez realokacji? {
+  ~Pojemność c rośnie o 1, a długość n pozostaje bez zmian.
+  ~Długość n i pojemność c muszą wzrosnąć o 1.
+  ~Długość pozostaje bez zmian do następnej realokacji.
+  =Długość n rośnie o 1, a pojemność c pozostaje bez zmian.
+  ####Długość to liczba logicznie zapisanych elementów; pojemność określa dostępne miejsce.
+}
+
+::AISD-06-Q05::Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
+  ~n-1
+  ~n
+  =⌊n/2⌋
+  ~⌈n/2⌉
+  ####Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
+}
+
+::AISD-06-Q06::Dostęp do A[k] w zwykłej tablicy o znanym poprawnym indeksie k ma jaki koszt w modelu RAM z losowym dostępem? {
+  ~Θ(log n)
+  =Θ(1)
+  ~Θ(k)
+  ~Θ(n)
+  ####Adres elementu oblicza się z adresu bazowego i przesunięcia indeksu w stałej liczbie operacji modelu.
+}
+
+::AISD-06-Q07::Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
+  =n-k-1
+  ~n-k
+  ~k
+  ~n-1
+  ####Elementy od k+1 do n-1 przesuwają się o jedną pozycję w lewo.
+}
+
+::AISD-06-Q08::Dynamiczna tablica podwaja pojemność przy pełnym buforze. Jaki jest amortyzowany koszt pojedynczego dopisania na końcu, przy standardowym modelu? {
+  ~O(log n)
+  ~O(n)
+  ~O(n log n)
+  =O(1)
+  ####Drogie kopiowania występują rzadko; ich sumaryczny koszt po n dopisaniach jest liniowy.
+}

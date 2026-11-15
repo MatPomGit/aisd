@@ -1,0 +1,67 @@
+// AIiSD 05: Notacje asymptotyczne i kryteria wagowe
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-05-Q01::Dla f(n)\=3n²+7n+5 i n>\=1 która relacja jest prawdziwa? {
+  ~f(n) należy do Θ(n).
+  =f(n) należy do Θ(n²).
+  ~f(n) należy do o(n²).
+  ~f(n) należy do Ω(n³).
+  ####Dla dużego n wyraz kwadratowy dominuje i daje jednocześnie stałe dolne oraz górne ograniczenie.
+}
+
+::AISD-05-Q02::Która relacja dla n dążącego do nieskończoności jest prawdziwa? {
+  =n log₂ n należy do o(n²).
+  ~n² należy do o(n log₂ n).
+  ~n log₂ n należy do Θ(n).
+  ~n² należy do O(n log₂ n).
+  ####Iloraz (n log₂ n)/n² \= (log₂ n)/n zmierza do zera.
+}
+
+::AISD-05-Q03::Które zdanie o zapisie f(n) należy do O(g(n)) jest poprawne? {
+  ~Oznacza to, że f opisuje wyłącznie koszt najgorszego przypadku.
+  ~Wymaga, aby f(n)\=g(n) dla wszystkich dostatecznie dużych n.
+  ~Oznacza, że f(n)/g(n) musi dążyć do zera.
+  =Istnieją dodatnie C i n₀, dla których f(n)<\=Cg(n) przy n>\=n₀, przy nieujemnych funkcjach kosztu.
+  ####Duże O określa asymptotyczne ograniczenie górne funkcji, nie konkretną kategorię wejścia.
+}
+
+::AISD-05-Q04::Dla f(n)\=5n+3 i g(n)\=n+1, przy n>\=1, jaka relacja zachodzi? {
+  ~f(n) należy do o(g(n)).
+  ~f(n) należy do ω(g(n)).
+  =f(n) należy do Θ(g(n)).
+  ~g(n) należy do o(f(n)).
+  ####Iloraz funkcji zmierza do 5, czyli dodatniej skończonej stałej.
+}
+
+::AISD-05-Q05::W modelu bitowym mnożenie liczb o rosnącej długości nie musi mieć stałego kosztu. Czego nie wolno bez uzasadnienia przenieść z analizy jednostkowej RAM? {
+  ~Liczby wykonań pętli zależnej wyłącznie od n.
+  =Wniosku o stałym koszcie pojedynczego mnożenia niezależnym od wielkości operandów.
+  ~Kolejności instrukcji programu.
+  ~Warunku poprawnego zakończenia algorytmu.
+  ####Koszt instrukcji i liczba jej wykonań to dwie różne składowe analizy.
+}
+
+::AISD-05-Q06::Która relacja jest prawdziwa dla f(n)\=n²+n i g(n)\=n²? {
+  =f(n) należy do O(g(n)) i do Ω(g(n)).
+  ~f(n) należy do o(g(n)).
+  ~f(n) należy do ω(g(n)).
+  ~f(n) należy do Θ(n³).
+  ####Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
+}
+
+::AISD-05-Q07::Jaką klasę Θ ma suma 1+2+...+n? {
+  ~Θ(n log n)
+  ~Θ(n)
+  ~Θ(log n)
+  =Θ(n²)
+  ####Dokładna suma to n(n+1)/2, jej dominujący składnik jest kwadratowy.
+}
+
+::AISD-05-Q08::Który warunek wystarcza do wykazania f(n) należy do Ω(g(n)), gdy obie funkcje są nieujemne? {
+  ~Istnieje c>0 i n₀ takie, że f(n)<\=c g(n) dla n>\=n₀.
+  ~Iloraz f(n)/g(n) musi dążyć do zera.
+  =Istnieje c>0 i n₀ takie, że f(n)>\=c g(n) dla n>\=n₀.
+  ~Funkcje mają identyczne wartości dla nieskończenie wielu n.
+  ####Ω jest asymptotycznym ograniczeniem dolnym.
+}

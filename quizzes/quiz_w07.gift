@@ -1,0 +1,67 @@
+// AIiSD 07: Tablice dwuwymiarowe
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-07-Q01::Macierz 3×4 jest przechowywana wierszowo w ciągłym buforze. Jaki jest indeks liniowy elementu A[2][1] przy indeksowaniu od 0? {
+  ~6
+  ~7
+  ~10
+  =9
+  ####Przy czterech kolumnach indeks to 2·4+1\=9.
+}
+
+::AISD-07-Q02::Jakie wymiary ma transpozycja macierzy 3×5? {
+  ~3×5
+  ~3×3
+  =5×3
+  ~5×5
+  ####Transpozycja zamienia rolę wierszy i kolumn.
+}
+
+::AISD-07-Q03::Wierszowo przechowywana macierz ma m wierszy i n kolumn. Która kolejność przejścia zwykle lepiej wykorzystuje lokalność pamięci? {
+  ~Zewnętrzna pętla po kolumnach, wewnętrzna po wierszach.
+  =Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach.
+  ~Zewnętrzna pętla po przekątnych, wewnętrzna po wierszach.
+  ~Naprzemienne przejście po niepowiązanych wierszach.
+  ####W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
+}
+
+::AISD-07-Q04::Dla kwadratowej macierzy n×n wyznaczamy transpozycję w miejscu. Które zamiany wystarczają? {
+  =Dla każdej pary i<j zamienić A[i][j] z A[j][i].
+  ~Zamienić każdy element A[i][j] z A[j][i], także dla i>j.
+  ~Zamienić wyłącznie elementy głównej przekątnej.
+  ~Zamienić A[i][j] z A[n-1-i][n-1-j].
+  ####Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
+}
+
+::AISD-07-Q05::Dla grafu o V wierzchołkach reprezentowanego przez macierz sąsiedztwa, jaki jest asymptotyczny koszt pamięci macierzy? {
+  ~Θ(V+E)
+  ~Θ(E log V)
+  ~Θ(V)
+  =Θ(V²)
+  ####Macierz zawiera V² pól niezależnie od liczby krawędzi.
+}
+
+::AISD-07-Q06::Obraz szary ma H wierszy i W kolumn. Filtr 3×3 z dopełnieniem brzegu oblicza jeden wynik na piksel. Ile wyników powstanie? {
+  ~(H-2)·(W-2)
+  ~3H·W
+  =H·W
+  ~H+W
+  ####Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
+}
+
+::AISD-07-Q07::Dla macierzy 2×3, wiersze [1,2,3] i [4,5,6], jak wygląda obrót o 90° zgodnie z ruchem wskazówek zegara? {
+  ~[[3,2,1],[6,5,4]]
+  =[[4,1],[5,2],[6,3]]
+  ~[[3,6],[2,5],[1,4]]
+  ~[[1,4],[2,5],[3,6]]
+  ####Po obrocie pierwszą kolumnę od góry tworzą elementy pierwotnej pierwszej kolumny od dołu.
+}
+
+::AISD-07-Q08::Macierz DP F[i][j] zależy wyłącznie od F[i-1][j] i F[i][j-1]. Które przejście od (0,0) zapewnia dostępność obu poprzedników? {
+  =Rosnące i, a wewnątrz każdego wiersza rosnące j.
+  ~Malejące i, a w każdym wierszu malejące j.
+  ~Rosnące i i malejące j bez szczególnych warunków brzegowych.
+  ~Dowolny porządek odwiedzania pól.
+  ####Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
+}

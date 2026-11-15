@@ -1,0 +1,67 @@
+// AIiSD 04: Analiza i złożoność algorytmów RAM
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-04-Q01::Pętla wykonuje dla i\=1,...,n dokładnie i porównań. Jaka jest liczba porównań? {
+  =n(n+1)/2
+  ~n(n-1)/2
+  ~n²
+  ~2n-1
+  ####Suma kolejnych liczb od 1 do n wynosi n(n+1)/2.
+}
+
+::AISD-04-Q02::Wyszukiwanie liniowe przerywa po znalezieniu pierwszego dopasowania. Jaką liczbę porównań wykonuje w najlepszym przypadku dla niepustej tablicy? {
+  ~0
+  ~n-1
+  ~n
+  =1
+  ####Jeżeli pierwszy element jest dopasowaniem, potrzeba jednego porównania kluczy.
+}
+
+::AISD-04-Q03::Który opis kosztu dodatkowej pamięci odpowiada iteracyjnemu sumowaniu tablicy bez tworzenia jej kopii? {
+  ~Θ(n), ponieważ tablica wejściowa ma n elementów.
+  ~Θ(log n), ponieważ rośnie liczba bitów indeksu w każdym modelu.
+  =Θ(1), nie licząc pamięci tablicy wejściowej.
+  ~Θ(n²), ponieważ każdy element jest przetwarzany oddzielnie.
+  ####Przy standardowym modelu słów i wyłączeniu wejścia kilka zmiennych roboczych zajmuje stałą liczbę komórek.
+}
+
+::AISD-04-Q04::Dwa algorytmy mają odpowiednio T1(n)\=5n²+7n i T2(n)\=30n log₂ n dla n>\=2. Co wynika z asymptotyki? {
+  ~T2(n) jest mniejsza niż T1(n) dla każdego n>\=2.
+  =Dla dostatecznie dużego n funkcja T2(n) jest mniejsza niż T1(n).
+  ~Obie funkcje należą do Θ(n²).
+  ~T1(n) należy do O(n log n).
+  ####n log n rośnie asymptotycznie wolniej niż n²; nie przesądza to o wszystkich małych n.
+}
+
+::AISD-04-Q05::Model jednostkowego kosztu RAM przypisuje każdej instrukcji koszt 1. Co jest w nim równe czasowi wykonania? {
+  =Liczba wykonanych instrukcji, włącznie z powtórzeniami w pętlach.
+  ~Liczba odmiennych instrukcji występujących w tekście programu.
+  ~Liczba wykorzystanych rejestrów.
+  ~Maksymalna wartość przechowywana w akumulatorze.
+  ####Koszt jednostkowy sumuje wykonania dynamiczne instrukcji, a nie rozmiar listingu.
+}
+
+::AISD-04-Q06::Algorytm sprawdza dla każdej pary indeksów 0<\=i<j<n pewien warunek. Ile razy uruchamia test? {
+  ~n(n+1)/2
+  ~n²/2+n
+  ~n(n-1)
+  =n(n-1)/2
+  ####Liczba nieuporządkowanych par różnych indeksów wynosi n(n-1)/2.
+}
+
+::AISD-04-Q07::Czy dowód poprawności pętli może wynikać tylko z wyznaczenia jej złożoności O(n)? {
+  ~Tak, jeżeli złożoność wyznaczono dla najgorszego wejścia.
+  ~Tak, jeśli pętla nie korzysta z rekurencji.
+  =Nie, ograniczenie kosztu nie dowodzi zgodności wyniku ze specyfikacją.
+  ~Nie, ale tylko wtedy, gdy wejście zawiera duplikaty.
+  ####Poprawność funkcjonalna i koszt wykonania to odrębne własności algorytmu.
+}
+
+::AISD-04-Q08::Która wielkość jest sensownym parametrem rozmiaru danych przy analizie przeszukiwania tablicy? {
+  ~Maksymalna wartość elementu niezależnie od modelu danych.
+  =Liczba przeszukiwanych elementów.
+  ~Liczba linii pseudokodu.
+  ~Liczba różnych instrukcji maszynowych w procesorze.
+  ####W klasycznym modelu porównań liczba elementów kontroluje potencjalną liczbę testów klucza.
+}

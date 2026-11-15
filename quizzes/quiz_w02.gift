@@ -1,0 +1,67 @@
+// AIiSD 02: Maszyna RAM
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-02-Q01::W maszynie RAM przyjmujemy: LOAD r ustawia akumulator na R[r], ADD r dodaje R[r] do akumulatora, STORE r zapisuje akumulator do R[r]. Dla R[2]\=7 i R[3]\=5 wykonano LOAD 2; ADD 3; STORE 4. Ile wynosi R[4]? {
+  ~7
+  ~5
+  =12
+  ~19
+  ####Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
+}
+
+::AISD-02-Q02::Jakie założenie najbardziej zmienia analizę operacji dodawania dwóch n-bitowych liczb w modelu RAM? {
+  ~Czy rejestry są numerowane od zera czy od jedynki.
+  =Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów.
+  ~Czy program kończy się osobną instrukcją HALT.
+  ~Czy wynik jest zapisywany w rejestrze czy na wyjściu.
+  ####Model jednostkowy może przypisywać dodawaniu stały koszt, natomiast model bitowy uwzględnia długość liczb.
+}
+
+::AISD-02-Q03::Instrukcja JZERO L skacze do etykiety L, gdy akumulator ma wartość 0. Akumulator ma wartość -2. Co się wydarzy? {
+  =Wykonanie przejdzie do następnej instrukcji bez skoku.
+  ~Wykonanie przejdzie do etykiety L.
+  ~Akumulator zostanie ustawiony na 0.
+  ~Program zakończy działanie wskutek wartości ujemnej.
+  ####Warunek dotyczy równości zeru, a nie znaku liczby.
+}
+
+::AISD-02-Q04::W danym wariancie RAM READ r pobiera liczbę z wejścia do R[r], nie zmieniając akumulatora. Akumulator wynosi 9; wykonano READ 0, a wejściem było 4. Jaki jest stan? {
+  ~Akumulator 4, R[0]\=4.
+  ~Akumulator 9, R[0]\=9.
+  ~Akumulator 4, R[0]\=9.
+  =Akumulator 9, R[0]\=4.
+  ####Semantyka READ została określona jawnie: zmienia wyłącznie wskazany rejestr.
+}
+
+::AISD-02-Q05::Co trzeba porównać przy ocenie pamięci dwóch programów RAM, które wczytują n liczb? {
+  ~Liczbę instrukcji LOAD, niezależnie od liczby zajętych rejestrów.
+  ~Wyłącznie maksymalny numer rejestru występujący w kodzie.
+  =Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu.
+  ~Wyłącznie liczbę instrukcji zapisu wyniku.
+  ####Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
+}
+
+::AISD-02-Q06::Program powtarza: jeśli R[1]\=0, zakończ; w przeciwnym razie zmniejsz R[1] o 1. Dla którego warunku wejściowego ten argument dowodzi zakończenia? {
+  ~R[1] jest początkowo dowolną liczbą całkowitą.
+  =R[1] jest początkowo nieujemną liczbą całkowitą.
+  ~R[1] jest początkowo dowolną liczbą rzeczywistą.
+  ~R[1] jest początkowo liczbą całkowitą różną od zera.
+  ####Dla liczby nieujemnej zmniejszanie o 1 dochodzi do zera; dla ujemnej bez dodatkowego warunku nie dochodzi.
+}
+
+::AISD-02-Q07::Który wynik eksperymentu z emulatorem najlepiej ujawnia błąd przesunięcia indeksów w programie sumującym n wejść? {
+  =Dla n\=1 suma jest zaniżona o jedyny element.
+  ~Dla n\=1000 czas jest większy niż dla n\=10.
+  ~Dla równych wejść wyniki obu programów są jednakowe.
+  ~Dla dużych wejść emulator zużywa więcej pamięci.
+  ####Pojedynczy element pozwala odróżnić brak wykonania od prawidłowego jednego wykonania pętli.
+}
+
+::AISD-02-Q08::Program RAM wykonuje n razy instrukcję ADD na rosnących liczbach mających do n bitów. Co jest uzasadnione bez dodatkowych ograniczeń? {
+  ~Koszt bitowy musi wynosić dokładnie Θ(n).
+  ~Koszt jednostkowy wynosi Θ(n log n), bo operandy rosną.
+  ~Obie miary kosztu są identyczne dla każdej długości liczb.
+  =Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów.
+  ####Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
+}

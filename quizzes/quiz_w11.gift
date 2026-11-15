@@ -1,0 +1,67 @@
+// AIiSD 11: Kolejki
+// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-11-Q01::Do pustej kolejki FIFO trafiają kolejno A, B, C. Następnie wykonujemy dequeue() oraz enqueue(D). Co zwróci następne dequeue()? {
+  ~A
+  ~C
+  ~D
+  =B
+  ####Pierwsze usunięcie zwróciło A, a nowy element D trafia na koniec.
+}
+
+::AISD-11-Q02::Kolejka cykliczna ma pojemność 5, a rear oznacza indeks ostatniego elementu. Jeżeli rear\=4, jaki będzie indeks nowego ostatniego elementu po poprawnym enqueue, gdy jest miejsce? {
+  ~3
+  ~4
+  =0
+  ~5
+  ####Nowy indeks wynosi (4+1) mod 5, czyli 0.
+}
+
+::AISD-11-Q03::W kolejce tablicowej rozmiar bufora wynosi c, a front i rear mogą przyjmować tę samą wartość dla stanu pustego i pełnego. Która informacja usuwa niejednoznaczność? {
+  ~Przechowywanie elementów w kolejności rosnących kluczy.
+  =Dodatkowy licznik elementów lub odrębny znacznik pełności.
+  ~Zmiana indeksowania tablicy z 0 na 1.
+  ~Zwiększenie c o jeden bez zmiany zasad wykrywania stanu.
+  ####Same pozycje indeksów nie rozróżniają obu stanów bez dodatkowego inwariantu.
+}
+
+::AISD-11-Q04::Dla implementacji kolejki na liście jednokierunkowej, którą parę wskaźników należy utrzymywać, aby enqueue i dequeue miały koszt O(1)? {
+  =head oraz tail.
+  ~head oraz wskaźnik do środka listy.
+  ~tail oraz wskaźnik na ostatnio usunięty węzeł.
+  ~head oraz wskaźnik na najmniejszy klucz.
+  ####Usuwanie następuje przy głowie, a dopisywanie przy ogonie.
+}
+
+::AISD-11-Q05::Jaką zasadą wyboru elementu kieruje się kolejka priorytetowa, w przeciwieństwie do standardowej kolejki FIFO? {
+  ~Usuwa element dodany najwcześniej, niezależnie od wartości priorytetu.
+  ~Usuwa element dodany najpóźniej niezależnie od wartości priorytetu.
+  ~Usuwa element o największej liczbie sąsiadów w strukturze.
+  =Usuwa element o najwyższym priorytecie według ustalonego porządku.
+  ####O kolejności decyduje klucz priorytetu; przy remisach polityka zależy od implementacji.
+}
+
+::AISD-11-Q06::W standardowym BFS grafu nieważonego używa się kolejki FIFO. Jaki wynik zapewnia dla pierwszego odkrycia wierzchołka z? {
+  ~Najmniejszą sumę dowolnych dodatnich wag krawędzi.
+  ~Najmniejszą liczbę wszystkich odwiedzonych wierzchołków.
+  =Najmniejszą liczbę krawędzi na ścieżce od źródła do z.
+  ~Najmniejszy koszt pamięci spośród wszystkich strategii przeszukiwania.
+  ####Kolejka przetwarza wierzchołki warstwami według odległości mierzonej liczbą krawędzi.
+}
+
+::AISD-11-Q07::Które operacje udostępnia deque, a nie wymaga ich standardowa kolejka FIFO? {
+  ~Dodawanie na końcu i usuwanie z początku.
+  =Dodawanie i usuwanie na obu końcach.
+  ~Odczyt elementu z początku bez usuwania.
+  ~Sprawdzenie, czy struktura jest pusta.
+  ####Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
+}
+
+::AISD-11-Q08::Kolejka zrealizowana jako dynamiczna lista z head i tail usuwa ostatni pozostały element. Jak zaktualizować wskaźniki? {
+  =Ustawić head\=null i tail\=null.
+  ~Ustawić head\=null i pozostawić tail bez zmian.
+  ~Ustawić tail\=head, zachowując wskaźnik do usuniętego węzła.
+  ~Ustawić head na wcześniej usunięty element.
+  ####Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
+}
