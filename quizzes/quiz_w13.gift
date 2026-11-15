@@ -1,5 +1,5 @@
 // AIiSD 13: Binarne drzewa wyszukiwań BST
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-13-Q01::W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
@@ -65,3 +65,100 @@
   ~O(n log n)
   ####Przejście po jednej ścieżce ma długość ograniczoną wysokością drzewa.
 }
+
+::AISD-13-Q09::Do pustego BST bez duplikatów wstawiono kolejno 5,2,8,1,3,7,9. Jaki klucz znajduje się w prawym dziecku węzła 2? {
+  ~1
+  =3
+  ~5
+  ~7
+  ####3>2, ale 3<5, więc zostaje prawym dzieckiem 2.
+}
+
+::AISD-13-Q10::BST ma klucze 10,5,15,3,7,12,18. Jaki jest następnik inorder klucza 10? {
+  =12
+  ~15
+  ~7
+  ~18
+  ####Następnik 10 jest najmniejszym elementem jego prawego poddrzewa, czyli 12.
+}
+
+::AISD-13-Q11::BST ma klucze 10,5,15,3,7,12,18. Jaki jest poprzednik inorder klucza 10? {
+  ~5
+  ~12
+  ~3
+  =7
+  ####Poprzednik 10 jest maksimum lewego poddrzewa, czyli 7.
+}
+
+::AISD-13-Q12::Do pustego BST bez równoważenia wstawiamy kolejno 4,2,6,1,3,5,7. Jaka będzie wysokość w krawędziach? {
+  ~3
+  ~4
+  =2
+  ~6
+  ####Korzeń ma dwa poziomy potomków; najdłuższa ścieżka od 4 do liścia ma dwie krawędzie.
+}
+
+::AISD-13-Q13::W BST korzeń 8 ma jedyne dziecko 12 po prawej, a 12 ma jedyne lewe dziecko 10. Po usunięciu 8 przez zastąpienie jego jedynym dzieckiem jaki jest nowy korzeń? {
+  ~10
+  =12
+  ~8
+  ~brak korzenia
+  ####Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
+}
+
+::AISD-13-Q14::W BST bez duplikatów zawierającym 8,4,12,2,6,10,14 jakie klucze zostaną odwiedzone przy nieudanym wyszukiwaniu 11? {
+  =8,12,10
+  ~8,4,6
+  ~8,12,14
+  ~8,10,12
+  ####11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
+}
+
+::AISD-13-Q15::Do pustego BST wstawiamy 9,5,12,3,7,6. Jaka jest głębokość węzła 6, licząc liczbę krawędzi od korzenia? {
+  ~2
+  ~4
+  ~1
+  =3
+  ####Ścieżka to 9→5→7→6, czyli trzy krawędzie.
+}
+
+::AISD-13-Q16::BST zawiera wartości 4,2,6,1,3,5,7. Usunięcie liścia 1 zmienia który wskaźnik? {
+  ~Prawe dziecko węzła 2 staje się puste.
+  ~Lewe dziecko węzła 4 staje się puste.
+  =Lewe dziecko węzła 2 staje się puste.
+  ~Prawe dziecko węzła 6 staje się puste.
+  ####1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
+}
+
+::AISD-13-Q17::Dla BST o n węzłach i wysokości h, jaki jest koszt wyznaczenia minimum, jeśli nie ma dodatkowego wskaźnika do minimum? {
+  ~O(1) niezależnie od kształtu.
+  =O(h+1)
+  ~O(log h)
+  ~O(nh)
+  ####Szukanie minimum polega na podążaniu lewymi dziećmi od korzenia.
+}
+
+::AISD-13-Q18::Do BST bez duplikatów wstawiono klucze 10,5,15,12,13. Jaką wartość ma rodzic węzła 13? {
+  =12
+  ~15
+  ~10
+  ~5
+  ####13<15 prowadzi do 12, a 13>12 kieruje do prawego dziecka 12.
+}
+
+::AISD-13-Q19::W BST przechowującym różne klucze równoważenie ogranicza wysokość do O(log n). Który skutek dotyczy wyszukiwania? {
+  ~Koszt wyszukiwania staje się Θ(1) dla każdego klucza.
+  ~Wyszukiwanie wymaga dodatkowo Θ(n) porównań.
+  ~Wyszukiwanie przestaje zależeć od relacji porządku.
+  =Najgorszy koszt wyszukiwania spada do O(log n).
+  ####Wyszukiwanie podąża jedną ścieżką o długości ograniczonej logarytmiczną wysokością.
+}
+
+::AISD-13-Q20::BST ma korzeń 20, lewe poddrzewo zawierające klucze 12 i 17 oraz prawe zawierające 24 i 30. Który klucz zastąpi 20, jeśli usuwamy korzeń przez podstawienie jego poprzednika inorder? {
+  ~12
+  ~24
+  =17
+  ~30
+  ####Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
+}
+

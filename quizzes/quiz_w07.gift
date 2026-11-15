@@ -1,5 +1,5 @@
 // AIiSD 07: Tablice dwuwymiarowe
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-07-Q01::Macierz 3×4 jest przechowywana wierszowo w ciągłym buforze. Jaki jest indeks liniowy elementu A[2][1] przy indeksowaniu od 0? {
@@ -65,3 +65,100 @@
   ~Dowolny porządek odwiedzania pól.
   ####Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
 }
+
+::AISD-07-Q09::Macierz A\=[[2,3,4],[5,6,7]] ma dwa wiersze i trzy kolumny. Jaka jest suma elementów w drugiej kolumnie (indeks 1)? {
+  ~11
+  ~6
+  ~12
+  =9
+  ####W drugiej kolumnie znajdują się wartości 3 i 6, których suma wynosi 9.
+}
+
+::AISD-07-Q10::Dla macierzy 4×6 w układzie row-major przy indeksowaniu od 0 jaki jest indeks liniowy A[3][4]? {
+  ~18
+  ~19
+  =22
+  ~24
+  ####Indeks liniowy oblicza się jako 3·6+4\=22.
+}
+
+::AISD-07-Q11::Macierz A ma rozmiar 2×3, B ma rozmiar 3×4. Jaki jest rozmiar iloczynu AB? {
+  ~3×3
+  =2×4
+  ~2×3
+  ~4×2
+  ####Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
+}
+
+::AISD-07-Q12::Dla kwadratowej macierzy A 3×3 o indeksach od 0 jak można policzyć sumę przekątnej pobocznej? {
+  =A[0][2]+A[1][1]+A[2][0]
+  ~A[0][0]+A[1][1]+A[2][2]
+  ~A[0][1]+A[1][1]+A[2][1]
+  ~A[0][2]+A[1][2]+A[2][2]
+  ####Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
+}
+
+::AISD-07-Q13::Macierz A\=[[1,2],[3,4]] obracamy o 90° zgodnie z ruchem wskazówek zegara. Jaki wynik otrzymujemy? {
+  ~[[2,4],[1,3]]
+  ~[[4,3],[2,1]]
+  ~[[2,1],[4,3]]
+  =[[3,1],[4,2]]
+  ####Po obrocie w prawo pierwsza kolumna [3,4] odpowiada ostatniemu wierszowi macierzy wejściowej.
+}
+
+::AISD-07-Q14::W klasycznym mnożeniu macierzy A o rozmiarze m×k i B o k×n ile mnożeń skalarnych jest wykonywanych? {
+  ~mn
+  ~mk+kn
+  =mkn
+  ~mkn²
+  ####Każdy z mn elementów wyniku powstaje jako suma k iloczynów.
+}
+
+::AISD-07-Q15::Do znalezienia maksimum w macierzy o rozmiarze 3×4, przy inicjalizacji pierwszym elementem, ile porównań trzeba wykonać? {
+  ~12
+  =11
+  ~7
+  ~10
+  ####Macierz ma 12 elementów; pierwszy ustala maksimum, a pozostałe 11 wymaga porównania.
+}
+
+::AISD-07-Q16::Obraz RGB o H×W pikselach zawiera trzy kanały bajtowe na piksel bez dodatkowych nagłówków. Ile bajtów zajmują same dane pikseli? {
+  =3HW
+  ~HW
+  ~4HW
+  ~24HW
+  ####Każdy piksel ma trzy wartości jednobajtowe, więc suma wynosi 3 razy liczba pikseli.
+}
+
+::AISD-07-Q17::W macierzy sąsiedztwa grafu nieskierowanego bez pętli o 4 wierzchołkach ilu elementów spoza przekątnej może odpowiadać jednej krawędzi? {
+  ~1
+  ~4
+  ~8
+  =2
+  ####Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
+}
+
+::AISD-07-Q18::Dla DP wyznaczającego liczbę ścieżek w siatce 3×3 od (0,0) do (2,2), z ruchami wyłącznie w prawo i w dół, ile jest ścieżek? {
+  ~4
+  ~8
+  =6
+  ~9
+  ####Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
+}
+
+::AISD-07-Q19::Macierz 3×5 transponujemy do osobnego bufora. Jaki indeks w wyniku zajmie element źródłowy A[1][4]? {
+  ~B[1][4]
+  =B[4][1]
+  ~B[3][1]
+  ~B[4][3]
+  ####Przy transpozycji zamienia się indeksy wiersza i kolumny.
+}
+
+::AISD-07-Q20::Kwadratowa macierz 4×4 jest przechowywana wierszowo. Ile elementów należy przemieścić, by zamienić jej wiersze 0 i 3 za pomocą zamian par? {
+  =4 zamiany
+  ~3 zamiany
+  ~8 zamian
+  ~6 zamian
+  ####Każdą z czterech kolumn przetwarza jedna zamiana odpowiadających sobie elementów dwóch wierszy.
+}
+

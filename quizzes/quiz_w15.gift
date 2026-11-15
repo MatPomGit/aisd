@@ -1,5 +1,5 @@
 // AIiSD 15: Grafy
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-15-Q01::Nieskierowany graf prosty ma 6 wierzchołków i 7 krawędzi. Jaka jest suma stopni wszystkich wierzchołków? {
@@ -65,3 +65,100 @@
   ~Tylko wtedy, gdy jest liściem drzewa BFS.
   ####Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
 }
+
+::AISD-15-Q09::Nieskierowany graf o wierzchołkach A,B,C ma krawędzie AB i BC. Jaka jest długość najkrótszej ścieżki A→C mierzona liczbą krawędzi? {
+  ~1
+  ~3
+  ~0
+  =2
+  ####Jedyna ścieżka prowadzi A-B-C i zawiera dwie krawędzie.
+}
+
+::AISD-15-Q10::Graf skierowany ma łuki A→B, B→C, C→A. Ile wynosi stopień wejściowy każdego wierzchołka? {
+  ~0
+  ~2
+  =1
+  ~3
+  ####Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
+}
+
+::AISD-15-Q11::Dla pełnego prostego grafu nieskierowanego K5 ile występuje krawędzi? {
+  ~5
+  =10
+  ~15
+  ~20
+  ####Liczba par różnych wierzchołków to 5·4/2\=10.
+}
+
+::AISD-15-Q12::Nieskierowany graf ma 6 wierzchołków w dwóch rozłącznych trójkątach. Ile ma spójnych składowych? {
+  =2
+  ~1
+  ~3
+  ~6
+  ####Każdy trójkąt stanowi osobną składową, bo nie ma krawędzi między trójkątami.
+}
+
+::AISD-15-Q13::Graf skierowany ma łuki 0→1,0→2,2→1. Jaki jest stopień wyjściowy wierzchołka 0? {
+  ~1
+  ~3
+  ~0
+  =2
+  ####Z wierzchołka 0 wychodzą dokładnie dwa łuki.
+}
+
+::AISD-15-Q14::Graf ma V\=5 wierzchołków i E\=4 krawędzie. Który z poniższych wariantów może być drzewem? {
+  ~Spójny graf zawierający dokładnie jeden cykl.
+  ~Graf niespójny z dodatkową krawędzią wielokrotną.
+  =Spójny graf bez cykli.
+  ~Graf z pętlą własną i bez izolowanych wierzchołków.
+  ####Drzewo musi być spójne i acykliczne, a wtedy E\=V-1.
+}
+
+::AISD-15-Q15::Dla grafu o 1000 wierzchołkach i 10 krawędziach, która reprezentacja jest zwykle oszczędniejsza pamięciowo? {
+  ~Macierz sąsiedztwa 1000×1000.
+  =Lista sąsiedztwa.
+  ~Pełna macierz wag zawierająca także brakujące krawędzie.
+  ~Macierz osiągalności 1000×1000.
+  ####Lista sąsiedztwa wymaga O(V+E), a macierze kwadratowej liczby pól.
+}
+
+::AISD-15-Q16::W grafie nieskierowanym suma stopni wynosi 24. Ile jest krawędzi? {
+  =12
+  ~24
+  ~48
+  ~6
+  ####Z lematu uścisków dłoni suma stopni to dwukrotna liczba krawędzi.
+}
+
+::AISD-15-Q17::W grafie nieskierowanym prostym, którego każdy wierzchołek ma stopień 2, a graf jest spójny, jaka jest struktura? {
+  ~Drzewo gwiaździste.
+  ~Graf pełny K4.
+  ~Zbiór rozłącznych ścieżek.
+  =Pojedynczy cykl.
+  ####Skończony spójny graf 2-regularny jest cyklem.
+}
+
+::AISD-15-Q18::W grafie skierowanym ścieżki A→B i B→C istnieją. Która relacja wynika z przechodniości osiągalności? {
+  ~A jest osiągalne z C.
+  ~Łuk A→C musi należeć do zbioru krawędzi.
+  =C jest osiągalne z A.
+  ~B i C muszą należeć do tego samego silnie spójnego składnika.
+  ####Sklejenie ścieżek A→B i B→C tworzy drogę od A do C.
+}
+
+::AISD-15-Q19::Macierz sąsiedztwa prostego grafu nieskierowanego bez pętli ma jaką własność? {
+  ~Jest antysymetryczna i ma jedynki na przekątnej.
+  =Jest symetryczna i ma zera na przekątnej.
+  ~Jest trójkątna górna niezależnie od indeksowania.
+  ~Każdy jej wiersz ma dokładnie jedną jedynkę.
+  ####Krawędź \{u,v\} daje równe wpisy M[u,v] i M[v,u], a brak pętli zeruje M[u,u].
+}
+
+::AISD-15-Q20::Dla BFS od wierzchołka A w grafie z krawędziami AB,AC,BD,CE i kolejnością sąsiadów alfabetyczną, jaka jest kolejność odkrywania? {
+  =A,B,C,D,E
+  ~A,B,D,C,E
+  ~A,C,E,B,D
+  ~A,B,C,E,D
+  ####BFS najpierw odkrywa sąsiadów A: B,C, a następnie sąsiadów B i C: D,E.
+}
+

@@ -1,5 +1,5 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-16-Q01::W nieważonym grafie BFS znajduje wierzchołek docelowy pierwszy raz na poziomie 4. Co oznacza ten poziom, jeśli źródło ma poziom 0? {
@@ -65,3 +65,100 @@
   ~Gdy oba algorytmy gwarantują ten sam maksymalny rozmiar granicy niezależnie od kolejności.
   ####BFS buforuje bieżący front warstwy; rekurencyjny DFS może przechowywać przede wszystkim głębokość ścieżki.
 }
+
+::AISD-16-Q09::W nieważonym grafie krawędzie to AB,AC,BD,CD. BFS startuje od A, a sąsiedzi są przetwarzani alfabetycznie. Który wierzchołek zostanie rodzicem D w drzewie BFS? {
+  =B
+  ~C
+  ~A
+  ~D
+  ####B zostaje zdjęty z kolejki przed C i pierwszy odkrywa D.
+}
+
+::AISD-16-Q10::W grafie o krawędziach A-B, A-C, B-D, C-E standardowy DFS z alfabetem sąsiadów zaczyna od A. Jaka kolejność pierwszych odwiedzin? {
+  ~A,B,C,D,E
+  ~A,C,E,B,D
+  ~A,C,B,D,E
+  =A,B,D,C,E
+  ####DFS podąża z A do B, następnie do D i po powrocie eksploruje C oraz E.
+}
+
+::AISD-16-Q11::W grafie z wagami dodatnimi A→B\=2, A→C\=6, B→C\=1, jaki jest najkrótszy koszt dojścia z A do C? {
+  ~6
+  ~2
+  =3
+  ~7
+  ####Ścieżka A→B→C kosztuje 2+1\=3 i jest tańsza od bezpośredniej krawędzi 6.
+}
+
+::AISD-16-Q12::BFS w grafie nieważonym z A do F odkrywa F po 3 krawędziach. Jaki koszt w liczbie krawędzi ma najkrótsza ścieżka? {
+  ~2
+  =3
+  ~4
+  ~6
+  ####BFS przetwarza wierzchołki według liczby krawędzi od źródła.
+}
+
+::AISD-16-Q13::W standardowym A* w grafie o nieujemnych kosztach, jak obliczana jest wartość f(v)? {
+  =g(v)+h(v)
+  ~h(v)-g(v)
+  ~g(v)·h(v)
+  ~min(g(v),h(v))
+  ####A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
+}
+
+::AISD-16-Q14::Który warunek na heurystykę h zapewnia dopuszczalność dla A* w problemie najkrótszej ścieżki? {
+  ~h(v) zawsze jest większe od rzeczywistego kosztu do celu.
+  ~h(v) równa się odległości w liczbie wierzchołków dla dowolnych wag.
+  ~h(v) jest funkcją ściśle malejącą przy każdym kroku niezależnie od grafu.
+  =h(v) nigdy nie przekracza rzeczywistego minimalnego kosztu do celu.
+  ####Heurystyka dopuszczalna nie przeszacowuje optymalnego kosztu pozostałej drogi.
+}
+
+::AISD-16-Q15::W grafie reprezentowanym listą sąsiedztwa liczba wierzchołków V\=100 i krawędzi E\=200. Jaką klasę ma pełny BFS? {
+  ~O(VE)
+  ~O(V²E)
+  =O(V+E)
+  ~O(log V)
+  ####BFS przetwarza każdy wierzchołek i wpis sąsiedztwa stałą liczbę razy.
+}
+
+::AISD-16-Q16::W przeszukiwaniu drzewa o współczynniku rozgałęzień b\=3 i głębokości 2 ile jest węzłów na dokładnie drugim poziomie, licząc korzeń jako poziom 0? {
+  ~6
+  =9
+  ~3
+  ~13
+  ####Każdy z trzech węzłów poziomu 1 ma po trzech potomków, razem 3²\=9.
+}
+
+::AISD-16-Q17::W grafie ważonym z krawędziami A→B\=10, A→C\=1, C→B\=1, jakie ryzyko daje użycie zwykłego BFS zamiast Dijkstry do minimalizacji sumy wag? {
+  =BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2.
+  ~BFS może poprawnie optymalizować każdą sumę dodatnich wag.
+  ~BFS nie potrafi przejść ścieżki z dwiema krawędziami.
+  ~BFS nigdy nie odwiedza wierzchołków końcowych krawędzi bezpośrednich.
+  ####BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
+}
+
+::AISD-16-Q18::Algorytm DFS rekurencyjnie przechodzi graf będący prostą ścieżką o n wierzchołkach. Jak rośnie maksymalna głębokość stosu? {
+  ~Θ(1)
+  ~Θ(log n)
+  ~Θ(n²)
+  =Θ(n)
+  ####Głębokość wywołań odpowiada długości odwiedzanej ścieżki.
+}
+
+::AISD-16-Q19::Przy przeszukiwaniu pełnym wszystkich kombinacji n decyzji binarnych ile istnieje liści drzewa wyborów? {
+  ~n²
+  ~2n
+  =2^n
+  ~n!
+  ####Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
+}
+
+::AISD-16-Q20::W grafie z cyklem przy implementacji BFS kiedy oznaczyć nowo odkryty wierzchołek jako odwiedzony, by nie zakolejkować go kilka razy? {
+  ~Dopiero podczas końcowego wypisywania ścieżek.
+  =Przy odkryciu, przed dodaniem do kolejki lub jednocześnie z dodaniem.
+  ~Wyłącznie przy drugiej próbie dodania do kolejki.
+  ~Po usunięciu wierzchołka z kolejki i wykonaniu wszystkich krawędzi.
+  ####Oznaczenie przy odkryciu zapobiega ponownemu wstawieniu tego samego wierzchołka.
+}
+

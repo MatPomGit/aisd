@@ -1,5 +1,5 @@
 // AIiSD 14: Kopce i kolejki priorytetowe
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-14-Q01::W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
@@ -65,3 +65,100 @@
   =Nie gwarantuje stabilności dla elementów o równych kluczach.
   ####Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
 }
+
+::AISD-14-Q09::Kopiec maksymalny reprezentuje tablica [9,7,8,2,4,6]. Jaka jest wartość korzenia? {
+  ~8
+  ~7
+  =9
+  ~6
+  ####W kopcu maksymalnym korzeń zawiera największy klucz.
+}
+
+::AISD-14-Q10::Dla kopca minimalnego [1,3,2,7,6,5] usuwamy minimum i wstawiamy ostatni element do korzenia. Jaka będzie tablica po naprawie sift-down? {
+  ~[3,5,2,7,6]
+  =[2,3,5,7,6]
+  ~[5,3,2,7,6]
+  ~[2,5,3,7,6]
+  ####Po zastąpieniu 1 przez 5 porównuje się dzieci 3 i 2 i zamienia 5 z 2; dalsza pozycja jest liściem.
+}
+
+::AISD-14-Q11::W tablicowym kopcu indeksowanym od zera, jaki jest indeks rodzica węzła o indeksie i\=10? {
+  =4
+  ~5
+  ~3
+  ~9
+  ####Indeks rodzica wynosi floor((i-1)/2)\=floor(9/2)\=4.
+}
+
+::AISD-14-Q12::Do kopca minimalnego [2,4,3,9,7,6] dodano 1 na końcu i wykonano sift-up. Która tablica powstaje? {
+  ~[1,2,3,9,7,6,4]
+  ~[2,4,1,9,7,6,3]
+  ~[1,3,2,9,7,6,4]
+  =[1,4,2,9,7,6,3]
+  ####1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
+}
+
+::AISD-14-Q13::W kopcu binarnym o 15 elementach, reprezentowanym tablicą od 0, jaki indeks zajmuje ostatni węzeł? {
+  ~15
+  ~7
+  =14
+  ~13
+  ####Dla n elementów poprawne indeksy to 0,...,n-1.
+}
+
+::AISD-14-Q14::Który warunek musi spełniać tablica [5,7,6,9,8] aby reprezentowała kopiec minimalny? {
+  ~Każdy element na indeksie i jest mniejszy od elementu na indeksie i+1.
+  =Każdy rodzic ma klucz nie większy niż jego dzieci.
+  ~Każdy węzeł lewego poddrzewa ma klucz mniejszy od każdego prawego.
+  ~Kolejne poziomy muszą zawierać dokładnie takie same klucze.
+  ####Własność lokalna rodzic-dziecko jest istotą kopca; pełne uporządkowanie tablicy nie jest wymagane.
+}
+
+::AISD-14-Q15::Ile poziomów (licząc korzeń jako poziom 0) może mieć kopiec o 15 węzłach? {
+  =4
+  ~3
+  ~5
+  ~15
+  ####Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
+}
+
+::AISD-14-Q16::Dla kopca maksymalnego [10,7,9,4,6,8] po usunięciu maksimum i naprawie jaka będzie wartość nowego korzenia? {
+  ~8
+  ~7
+  ~10
+  =9
+  ####Po zastąpieniu 10 ostatnim 8 maksimum pozostałych kluczy wynosi 9, więc musi trafić do korzenia.
+}
+
+::AISD-14-Q17::W min-heap zmniejszamy klucz wewnętrznego węzła z 9 do 1, nie zmieniając dzieci. Jaki kierunek naprawy jest zwykle potrzebny? {
+  ~W dół do dzieci.
+  ~Wyłącznie zamiana lewego i prawego poddrzewa.
+  =W górę do rodziców.
+  ~Pełne sortowanie wszystkich węzłów.
+  ####Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
+}
+
+::AISD-14-Q18::Jaką złożoność ma odczyt minimum w min-heap bez usuwania, przy niepustym kopcu? {
+  ~Θ(log n)
+  =Θ(1)
+  ~Θ(n)
+  ~Θ(n log n)
+  ####Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
+}
+
+::AISD-14-Q19::Dla kolejki priorytetowej obsługującej insert i extract-min, która struktura zwykle zapewnia oba koszty O(log n) w najgorszym przypadku? {
+  =Kopiec binarny.
+  ~Nieposortowana tablica przy wymaganiu stałego kosztu extract-min.
+  ~Posortowana tablica przy wymaganiu stałego kosztu insert.
+  ~Lista jednokierunkowa bez dodatkowego indeksu.
+  ####W kopcu binarnym obie operacje naprawiają co najwyżej ścieżkę logarytmicznej wysokości.
+}
+
+::AISD-14-Q20::Jeśli w kopcu minimalnym klucze rodzica i dziecka są równe, co wynika z definicji kopca z relacją ≤? {
+  ~Własność jest naruszona, bo potrzebna jest nierówność ostra.
+  ~Równe klucze wymagają obrócenia całego poddrzewa.
+  ~Nie można usunąć żadnego z równych kluczy.
+  =Własność kopca nadal jest spełniona.
+  ####Relacja nieostra dopuszcza remisy kluczy między rodzicem a dziećmi.
+}
+

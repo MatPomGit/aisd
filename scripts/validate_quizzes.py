@@ -15,7 +15,7 @@ QUESTION = re.compile(r"^::AISD-(\d{2})-Q(\d{2})::(.+) \{$")
 CHOICE = re.compile(r"^  ([=~])(.+)$")
 FEEDBACK = re.compile(r"^  ####(.+)$")
 EXPECTED_LECTURES = 20
-EXPECTED_QUESTIONS = 8
+EXPECTED_QUESTIONS = 20
 
 
 def inspect_file(path: Path, lecture: int) -> list[str]:
@@ -25,6 +25,8 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
     if len(chunks) != EXPECTED_QUESTIONS:
         errors.append(f"{path}: expected {EXPECTED_QUESTIONS} questions, got {len(chunks)}")
     ids: set[str] = set()
+    stems: set[str] = set()
+    key_positions = [0, 0, 0, 0]
     for position, chunk in enumerate(chunks, start=1):
         lines = chunk.splitlines()
         match = QUESTION.fullmatch(lines[0]) if lines else None
@@ -37,6 +39,10 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
             errors.append(f"{path}: unexpected identifier {lno}-{qno}, expected {expected}")
         if not stem.strip():
             errors.append(f"{path}: empty question {position}")
+        norm_stem = stem.strip().casefold()
+        if norm_stem in stems:
+            errors.append(f"{path}: repeated question text {position}")
+        stems.add(norm_stem)
         key = f"{lno}-{qno}"
         if key in ids:
             errors.append(f"{path}: duplicate question identifier {key}")
@@ -49,11 +55,15 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         feedback = [x for x in lines if FEEDBACK.fullmatch(x)]
         if len(options) != 4 or len(correct) != 1 or len(wrong) != 3:
             errors.append(f"{path}: {key} needs 4 choices including exactly one correct")
+        else:
+            key_positions[options.index(correct[0])] += 1
         if len(feedback) != 1 or not FEEDBACK.fullmatch(feedback[0]):
             errors.append(f"{path}: {key} needs exactly one explanatory feedback")
         normalized = [re.sub(r"\\([~=#{}\\])", r"\1", x[3:]).strip() for x in options]
         if len(set(normalized)) != len(normalized):
             errors.append(f"{path}: {key} contains duplicate answers")
+    if key_positions != [EXPECTED_QUESTIONS // 4] * 4:
+        errors.append(f"{path}: unbalanced correct-answer positions {key_positions}")
     return errors
 
 

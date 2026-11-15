@@ -1,5 +1,5 @@
 // AIiSD 10: Stosy
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-10-Q01::Pusty stos otrzymuje kolejno push(3), push(7), pop(), push(4). Jaką wartość zwróci następne pop()? {
@@ -65,3 +65,100 @@
   =Narusza kontrakt operacji, bo nie istnieje element do zwrócenia.
   ####Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
 }
+
+::AISD-10-Q09::Na pusty stos wykonano push(1), push(2), pop(), push(3), push(4), pop(). Co zwróci kolejne pop()? {
+  ~1
+  ~2
+  =3
+  ~4
+  ####Po pierwszym pop usunięto 2, po drugim 4; na szczycie pozostaje 3.
+}
+
+::AISD-10-Q10::Jaki wynik da postfiksowe wyrażenie '7 2 3 * -'? {
+  ~15
+  =1
+  ~-15
+  ~-1
+  ####Najpierw 2·3\=6, a następnie 7-6\=1.
+}
+
+::AISD-10-Q11::W sprawdzaniu poprawności nawiasów dla ciągu '([\{\}])' jaki jest maksymalny rozmiar stosu podczas przetwarzania? {
+  =3
+  ~2
+  ~4
+  ~6
+  ####Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
+}
+
+::AISD-10-Q12::Dla ciągu '([)]' jaką parę nawiasów wykryje jako pierwszą niezgodną stosowy analizator? {
+  ~( oraz )
+  ~[ oraz ]
+  ~( oraz ]
+  =[ oraz )
+  ####Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
+}
+
+::AISD-10-Q13::Stos o pojemności 4 posiada top\=2, gdzie top to indeks ostatniego elementu. Ile kolejnych wywołań push może wykonać bez przepełnienia? {
+  ~2
+  ~3
+  =1
+  ~0
+  ####Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
+}
+
+::AISD-10-Q14::W tablicowym stosie top\=-1 oznacza pustkę. Jaką wartość będzie mieć top po trzech push i jednym pop? {
+  ~2
+  =1
+  ~0
+  ~3
+  ####Po kolejnych push indeks szczytu to 0,1,2; po pop zmniejsza się do 1.
+}
+
+::AISD-10-Q15::W odwracaniu ciągu 'KOT' przez stos znaków, jaka będzie kolejność trzech wywołań pop? {
+  =T,O,K
+  ~K,O,T
+  ~O,T,K
+  ~T,K,O
+  ####Ostatnio wstawiona litera T jest zdejmowana jako pierwsza.
+}
+
+::AISD-10-Q16::Jaką wartość zwróci wyrażenie postfiksowe '8 4 / 2 +' przy dzieleniu całkowitym bez reszty? {
+  ~3
+  ~6
+  ~5
+  =4
+  ####8/4\=2, następnie 2+2\=4.
+}
+
+::AISD-10-Q17::Przy konwersji wyrażenia z infiksowej na postfiksową postać, który operator zwykle powinien być zdjęty ze stosu przed wstawieniem operatora + przy standardowych priorytetach? {
+  ~Operator + znajdujący się zawsze poniżej nawiasu ( bez względu na nawias.
+  ~Dowolny operator występujący po nawiasie zamykającym w wejściu.
+  =Operator * znajdujący się na szczycie stosu.
+  ~Operator - zapisany dopiero w nieprzetworzonej części wejścia.
+  ####Operator o wyższym priorytecie na szczycie stosu należy wypisać przed operatorem o niższym priorytecie.
+}
+
+::AISD-10-Q18::W rekurencyjnej funkcji f(n)\=f(n-1)+1 dla n>0, f(0)\=0, ile aktywnych ramek istnieje jednocześnie tuż przed powrotem z f(0), jeśli wywołano f(4)? {
+  ~4
+  =5
+  ~6
+  ~1
+  ####Na stosie są wywołania f(4),f(3),f(2),f(1),f(0).
+}
+
+::AISD-10-Q19::Stos wykorzystuje tablicę i top oznaczający indeks ostatniego elementu. Które operacje w standardowej implementacji działają bez przesuwania pozostałych elementów? {
+  =push i pop.
+  ~push i usuwanie elementu z indeksu 0.
+  ~pop i wyszukiwanie pierwszej wartości od dołu.
+  ~usuwanie dolnego elementu i wstawienie na dół.
+  ####Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
+}
+
+::AISD-10-Q20::Do pustego stosu wpisujemy 5,7,9, następnie usuwamy dwa elementy i wpisujemy 6. Ile elementów zawiera stos? {
+  ~1
+  ~3
+  ~4
+  =2
+  ####Liczność zmienia się 0→3→1→2.
+}
+

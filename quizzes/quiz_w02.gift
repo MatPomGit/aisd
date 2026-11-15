@@ -1,5 +1,5 @@
 // AIiSD 02: Maszyna RAM
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-02-Q01::W maszynie RAM przyjmujemy: LOAD r ustawia akumulator na R[r], ADD r dodaje R[r] do akumulatora, STORE r zapisuje akumulator do R[r]. Dla R[2]\=7 i R[3]\=5 wykonano LOAD 2; ADD 3; STORE 4. Ile wynosi R[4]? {
@@ -65,3 +65,100 @@
   =Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów.
   ####Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
 }
+
+::AISD-02-Q09::W RAM z instrukcjami LOAD r, SUB r, STORE r: R[1]\=12, R[2]\=5. Po LOAD 1; SUB 2; STORE 3, jaka wartość jest w R[3]? {
+  ~17
+  ~5
+  =7
+  ~12
+  ####Akumulator otrzymuje 12, po odjęciu 5 ma 7 i ta wartość trafia do R[3].
+}
+
+::AISD-02-Q10::Dla programu LOAD 1; ADD 1; STORE 1 przy początkowym R[1]\=6 jaka jest końcowa wartość R[1]? {
+  ~6
+  =12
+  ~18
+  ~0
+  ####LOAD pobiera 6, ADD dodaje pierwotne R[1]\=6, a STORE zapisuje 12.
+}
+
+::AISD-02-Q11::W RAM JZERO L sprawdza akumulator bez jego zmiany. Po LOAD 2; JZERO L; ADD 3, przy R[2]\=0, która instrukcja zostanie wykonana bezpośrednio po JZERO? {
+  =Instrukcja oznaczona etykietą L.
+  ~ADD 3 bez względu na etykietę.
+  ~LOAD 2 ponownie.
+  ~STORE 2 jako domyślne zapisanie zera.
+  ####Warunek skoku jest spełniony, bo zawartość akumulatora wynosi zero.
+}
+
+::AISD-02-Q12::W jednostkowym RAM wykonanie pętli o n iteracjach kosztuje 4 instrukcje na iterację i 3 poza pętlą. Ile instrukcji wykona dla n\=5? {
+  ~20
+  ~19
+  ~27
+  =23
+  ####Dokładny koszt wynosi 4·5+3\=23.
+}
+
+::AISD-02-Q13::W modelu bitowym liczba 2^100 wymaga w reprezentacji binarnej bez znaku ilu bitów? {
+  ~100
+  ~102
+  =101
+  ~200
+  ####Zapis potęgi dwójki ma 1 i sto zer, czyli 101 bitów.
+}
+
+::AISD-02-Q14::R[0]\=3, R[1]\=8; wykonano LOAD 0; STORE 1; LOAD 1. Jaką wartość ma ostatecznie akumulator? {
+  ~8
+  =3
+  ~11
+  ~0
+  ####STORE 1 nadpisuje poprzednie 8 wartością 3; ponowny LOAD 1 daje 3.
+}
+
+::AISD-02-Q15::W danym RAM LOAD \=k ustawia akumulator na stałą k, a LOAD r odczytuje R[r]. Czym różnią się te dwie instrukcje dla LOAD \=4 i LOAD 4? {
+  =Pierwsza ładuje 4, druga zawartość R[4].
+  ~Pierwsza odczytuje R[4], druga ładuje 4.
+  ~Obie odczytują R[4], niezależnie od znaku równości.
+  ~Obie zapisują wartość 4 do R[4].
+  ####Adresowanie natychmiastowe wykorzystuje wartość operandu, a bezpośrednie zawartość rejestru.
+}
+
+::AISD-02-Q16::Dla ustalonej semantyki READ 1 zapisuje kolejną liczbę wejściową wyłącznie do R[1]. Przy A\=7, R[1]\=2 i wejściu 9 jaki stan otrzymamy po READ 1? {
+  ~A\=9 i R[1]\=9.
+  ~A\=2 i R[1]\=9.
+  ~A\=7 i R[1]\=2.
+  =A\=7 i R[1]\=9.
+  ####READ modyfikuje wskazany rejestr bez zmiany akumulatora w przyjętym wariancie.
+}
+
+::AISD-02-Q17::Pętla RAM wykorzystuje licznik c\=n i zmniejsza go o 1 aż do zera. Dla jakiego warunku początkowego najprostszy dowód przez malejącą miarę jest poprawny? {
+  ~n jest dowolną liczbą całkowitą.
+  ~n jest dowolną liczbą wymierną.
+  =n jest nieujemną liczbą całkowitą.
+  ~n jest liczbą ujemną o wartości bezwzględnej większej od 1.
+  ####Licznik ze zbioru liczb naturalnych maleje ściśle i osiąga zero.
+}
+
+::AISD-02-Q18::Jeżeli w RAM numer rejestru jest obliczany z akumulatora (adresowanie pośrednie), jaki dodatkowy warunek trzeba kontrolować? {
+  ~Obliczony adres musi być większy od wartości wszystkich danych.
+  =Wyliczony adres musi wskazywać dopuszczalny rejestr.
+  ~Wartość w docelowym rejestrze musi być dodatnia.
+  ~Akumulator musi zostać wyzerowany po każdym odczycie.
+  ####Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
+}
+
+::AISD-02-Q19::Program ma 6 instrukcji na każde z n wejść oraz jedną instrukcję zakończenia. Dla n\=0 ile instrukcji wykona przy założeniu, że wejście pętli jest poprawnie ominięte? {
+  =1
+  ~0
+  ~6
+  ~7
+  ####Przy zerowej liczbie iteracji pozostaje pojedyncza instrukcja kończąca.
+}
+
+::AISD-02-Q20::Która sekwencja wyznacza R[3]\=R[1]-R[2] przy instrukcjach LOAD r, SUB r i STORE r oraz bez skutków ubocznych? {
+  ~LOAD 2; SUB 1; STORE 3.
+  ~LOAD 1; STORE 3; SUB 2.
+  ~SUB 2; LOAD 1; STORE 3.
+  =LOAD 1; SUB 2; STORE 3.
+  ####Najpierw należy wczytać pierwszy argument, odjąć drugi, a dopiero potem zapisać wynik.
+}
+

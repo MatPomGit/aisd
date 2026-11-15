@@ -1,5 +1,5 @@
 // AIiSD 19: Zaawansowane algorytmy sortowania i optymalizacji
-// Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-19-Q01::Quicksort zawsze wybiera pierwszy element jako pivot. Co grozi przy już posortowanym rosnąco wejściu bez dalszych zabezpieczeń? {
@@ -65,3 +65,100 @@
   ~Każdy lokalnie najtańszy wybór prowadzi do optimum globalnego.
   ####Memoizacja eliminuje powtarzanie obliczeń, gdy podproblemy nakładają się.
 }
+
+::AISD-19-Q09::Quicksort z pivotem jako ostatnim elementem partycjonuje [4,2,7,1,5]. Ile elementów jest mniejszych od pivota 5? {
+  ~2
+  ~4
+  ~1
+  =3
+  ####Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
+}
+
+::AISD-19-Q10::Dla counting sort kluczy [2,0,2,1,0,2] z dziedziny \{0,1,2\}, jaka jest tablica liczników? {
+  ~[2,2,2]
+  ~[3,1,2]
+  =[2,1,3]
+  ~[1,2,3]
+  ####Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
+}
+
+::AISD-19-Q11::W stabilnym LSD radix sort dla liczb 21,13,12,24 jaki jest wynik po pierwszym sortowaniu według cyfry jedności? {
+  ~12,21,13,24
+  =21,12,13,24
+  ~13,12,24,21
+  ~24,13,12,21
+  ####Cyfry jedności wynoszą 1,3,2,4, więc kolejność po pierwszym etapie to 21,12,13,24.
+}
+
+::AISD-19-Q12::W counting sort kluczy 0..4 występuje 6 elementów. Która pamięć zależy od zakresu kluczy, a nie liczby elementów? {
+  =Tablica pięciu liczników.
+  ~Tablica sześciu wyników.
+  ~Oryginalna tablica sześciu kluczy.
+  ~Lista sześciu rekordów wejściowych.
+  ####Licznik jest potrzebny dla każdej z pięciu dopuszczalnych wartości klucza.
+}
+
+::AISD-19-Q13::Zachłanne wydawanie reszty przy nominałach 1,3,4 i kwocie 6 wybiera ile monet? {
+  ~2
+  ~4
+  ~1
+  =3
+  ####Najpierw wybiera 4, a następnie 1 i 1, razem trzy monety.
+}
+
+::AISD-19-Q14::Dla DP minimalnej liczby monet z nominałami \{1,3,4\} i kwotą 6 jaka jest wartość optimum? {
+  ~3
+  ~4
+  =2
+  ~6
+  ####Dwie monety o nominale 3 wystarczają, więc wynik to 2.
+}
+
+::AISD-19-Q15::Podczas sortowania quicksort z przypadkowo wybieranym pivotem jaki jest oczekiwany koszt dla n różnych kluczy? {
+  ~Θ(n²)
+  =Θ(n log n)
+  ~Θ(n)
+  ~Θ(log n)
+  ####Losowy pivot zapewnia oczekiwany logarytmiczny balans rekurencji, choć najgorszy przypadek pozostaje kwadratowy.
+}
+
+::AISD-19-Q16::Dlaczego LSD radix sort musi utrzymywać stabilność kolejnych przebiegów po cyfrze? {
+  =Aby nie zniszczyć porządku ustanowionego dla mniej znaczących cyfr.
+  ~Aby usunąć wszystkie klucze z powtarzającymi się cyframi.
+  ~Aby umożliwić sortowanie porównawcze w O(n²).
+  ~Aby w każdym przebiegu zawsze zmieniać pozycję każdego elementu.
+  ####Stabilny przebieg po ważniejszej cyfrze zachowuje rozstrzygnięcia wcześniejszych remisów.
+}
+
+::AISD-19-Q17::Dane są wartości [0.15,0.35,0.85], a bucket sort używa 5 koszyków o szerokości 0.2 z indeksami floor(5x). Do jakich koszyków trafią kolejno liczby? {
+  ~0,2,4
+  ~1,2,4
+  ~0,1,3
+  =0,1,4
+  ####Indeksy wynoszą floor(0.75)\=0, floor(1.75)\=1, floor(4.25)\=4.
+}
+
+::AISD-19-Q18::Dla quicksort z podziałem trójdzielnym na klucze <,\=,> pivota, co dzieje się z grupą kluczy równych pivotowi? {
+  ~Jest dzielona zawsze dokładnie na dwie połowy.
+  ~Trafia zawsze do lewego podproblemu.
+  =Nie wymaga ponownego sortowania rekurencyjnego.
+  ~Trafia zawsze do prawego podproblemu.
+  ####Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
+}
+
+::AISD-19-Q19::DP oblicza F[i]\=min(F[i-1]+1, F[i-3]+1) dla i>\=3, z F[0]\=0, F[1]\=1, F[2]\=2. Ile wynosi F[5]? {
+  ~2
+  =3
+  ~4
+  ~5
+  ####F[3]\=1, F[4]\=2, F[5]\=min(F[4]+1,F[2]+1)\=3.
+}
+
+::AISD-19-Q20::Dla funkcji T(n)\=T(n-1)+n i T(0)\=0 jaka jest klasa złożoności całkowitego kosztu? {
+  =Θ(n²)
+  ~Θ(n)
+  ~Θ(n log n)
+  ~Θ(2^n)
+  ####Suma kolejnych liczb od 1 do n ma wzrost kwadratowy.
+}
+

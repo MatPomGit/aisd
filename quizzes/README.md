@@ -1,12 +1,12 @@
 # Quizy do wykładów AIiSD (W01–W20)
 
-**Wersja:** 1.0.0  
+**Wersja:** 1.1.0  
 **Data:** 2026-11-15  
-**Zakres:** 20 oddzielnych banków, po 8 pytań jednokrotnego wyboru (łącznie 160 pytań).
+**Zakres:** 20 oddzielnych banków, po 20 pytań jednokrotnego wyboru (łącznie 400 pytań).
 
 ## Organizacja
 
-Każdy plik `quiz_wXX.gift` zawiera jeden bank pytań odpowiadający wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, dokładnie jedną prawidłową odpowiedź oraz informację zwrotną z uzasadnieniem.
+Każdy plik `quiz_wXX.gift` zawiera 20 pytań, w tym zachowane pytania 01–08 z pierwszej wersji oraz 12 nowych pytań. Każdy bank odpowiada wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, dokładnie jedną prawidłową odpowiedź oraz informację zwrotną z uzasadnieniem.
 
 - `quiz_w01.gift`–`quiz_w05.gift`: podstawy algorytmiki, RAM, pseudokod, analiza kosztu, notacje asymptotyczne;
 - `quiz_w06.gift`–`quiz_w10.gift`: tablice, macierze, rekurencja, listy liniowe, stosy;
@@ -33,7 +33,7 @@ Banki zostały opracowane na podstawie mapy `docs/curriculum-map.md`, tytułów 
 python3 scripts/validate_quizzes.py
 ```
 
-Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, pojedynczy klucz i uzasadnienie. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle.
+Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, pojedynczy klucz, uzasadnienie oraz rozkład pozycji odpowiedzi prawidłowych. W każdym banku pozycje poprawnych odpowiedzi rozłożono po 5 na każdą z czterech możliwości. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle. Te dwa etapy pozostają do wykonania przed ocenianiem.
 
 **Bezpieczeństwo oceniania:** repozytorium jest publiczne, a format GIFT zawiera jawne klucze odpowiedzi. Nie używaj tych plików bezpośrednio do egzaminu o wysokiej stawce. Do takiego zastosowania przenieś bank do prywatnego miejsca, zachowaj kontrolę dostępu i przygotuj alternatywne, nieopublikowane wersje zadań.
 
