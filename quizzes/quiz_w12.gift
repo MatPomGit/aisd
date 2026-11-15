@@ -34,12 +34,12 @@
   ####Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
 }
 
-::AISD-12-Q05::Węzeł w drzewie ukorzenionym nie ma dzieci. Jak jest klasyfikowany? {
-  =Liść.
-  ~Korzeń.
-  ~Przodek wszystkich węzłów.
-  ~Węzeł rozgałęziający.
-  ####Liść to węzeł bez potomków bezpośrednich, niezależnie od głębokości.
+::AISD-12-Q05::Pełne drzewo binarne, w którym każdy węzeł wewnętrzny ma dwoje dzieci, zawiera 7 węzłów wewnętrznych. Ile ma liści? {
+  =8
+  ~7
+  ~14
+  ~15
+  ####W pełnym drzewie binarnym z I węzłami wewnętrznymi liczba liści wynosi I+1.
 }
 
 ::AISD-12-Q06::Drzewo z n węzłami jest spójne i nie zawiera cykli. Ile ma krawędzi? {

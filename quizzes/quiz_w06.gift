@@ -2,12 +2,12 @@
 // Wersja 1.0.0 | 2026-11-15 | 8 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
-::AISD-06-Q01::Tablica ma n elementów indeksowanych od 0. Który indeks jest ostatni poprawny, gdy n>0? {
-  ~n
-  ~n+1
-  =n-1
-  ~1
-  ####Zakres indeksów tablicy obejmuje liczby od 0 do n-1.
+::AISD-06-Q01::Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
+  ~[3,5,2,2]
+  ~[2,3,5,2]
+  =[3,2,5,2]
+  ~[2,3,2,5]
+  ####Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
 }
 
 ::AISD-06-Q02::Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
