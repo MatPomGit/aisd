@@ -1,5 +1,5 @@
 // AIiSD 03: Pseudokod i schematy blokowe
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-03-Q01::[plain]Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli obejmuje wszystkie elementy, gdy i\=0 na początku i zwiększa się o 1 po każdej iteracji? {
