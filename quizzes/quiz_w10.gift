@@ -1,5 +1,5 @@
 // AIiSD 10: Stosy
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-10-Q01::Pusty stos otrzymuje kolejno push(3), push(7), pop(), push(4). Jaką wartość zwróci następne pop()? {
@@ -20,9 +20,9 @@
 
 ::AISD-10-Q03::W analizatorze nawiasów po napotkaniu zamykającego nawiasu niezgodnego z otwartym na szczycie stosu należy: {
   =odrzucić ciąg jako niepoprawny.
-  ~usunąć wszystkie elementy stosu aż do znalezienia zgodnego typu.
-  ~wstawić ten nawias na stos i kontynuować bez błędu.
-  ~pominąć znak i kontynuować bez zmiany stanu.
+  ~Zdejmować kolejne otwierające nawiasy, aż trafi się zgodny, i kontynuować.
+  ~Przełożyć niezgodny nawias zamykający na stos, aby dopasować go później.
+  ~Odrzucić znak zamykający tylko wtedy, gdy stos jest pusty.
   ####Poprawna struktura nawiasów wymaga zgodności typów i kolejności domknięć.
 }
 
@@ -35,33 +35,33 @@
 }
 
 ::AISD-10-Q05::Stos tablicowy ma pojemność c, a top oznacza indeks ostatniego elementu, przy pustym stosie top\=-1. Kiedy push spowodowałby przepełnienie? {
-  ~Gdy top\=c-2.
-  ~Gdy top\=0.
+  ~Gdy top\=c, ponieważ c jest indeksem ostatniej komórki.
+  ~Gdy top\=c-2, ponieważ przed zapisem potrzebna jest jedna zapasowa komórka.
   =Gdy top\=c-1.
-  ~Gdy top\=-1.
+  ~Gdy top\=0, bo oznacza pierwszą pozycję, którą należy ponownie wykorzystać.
   ####Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
 }
 
 ::AISD-10-Q06::W tablicowej implementacji stosu peek() odczytuje szczyt. Który warunek musi zostać sprawdzony przed odczytem A[top]? {
-  ~Czy liczba elementów jest parzysta.
+  ~Czy top jest mniejsze od c, bez sprawdzenia dolnej granicy.
   =Czy stos jest niepusty.
-  ~Czy tablica jest posortowana.
-  ~Czy element szczytowy ma unikalną wartość.
+  ~Czy stos ma wolną komórkę na kolejny element, nawet jeśli jest pusty.
+  ~Czy top wskazuje co najmniej drugą pozycję tablicy.
   ####Przy pustym stosie top może być poza prawidłowym zakresem tablicy.
 }
 
 ::AISD-10-Q07::Dlaczego iteracyjny DFS często wykorzystuje stos, a BFS kolejkę? {
   =DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania.
-  ~DFS wymaga uporządkowanych kluczy, a BFS unikatowych.
-  ~DFS zawsze zapisuje mniej wierzchołków niż BFS.
-  ~BFS wymaga cofania się po wszystkich poprzednikach w odwrotnej kolejności.
+  ~DFS i BFS różnią się wyłącznie porządkiem sąsiadów, ale oba używają LIFO.
+  ~BFS pobiera najnowszy element, a DFS najstarszy element granicy.
+  ~DFS wymaga kolejki tylko przy braku cykli; BFS stosu przy obecności cykli.
   ####LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
 }
 
 ::AISD-10-Q08::Operacja pop() na pustym stosie bez zdefiniowanej obsługi błędów prowadzi do którego problemu? {
-  ~Zwraca ostatnio usunięty element, niezależnie od implementacji.
-  ~Ma zawsze koszt Θ(n), niezależnie od sposobu reprezentacji.
-  ~Powoduje automatyczne powiększenie pojemności stosu.
+  ~Powoduje zmniejszenie top poniżej zera, lecz nadal poprawnie zwraca element z indeksu 0.
+  ~Zwraca wartość zero jako neutralną dla pustego stosu.
+  ~Kończy się poprawnie, jeśli pod spodem jest tablica o dodatniej pojemności.
   =Narusza kontrakt operacji, bo nie istnieje element do zwrócenia.
   ####Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
 }
@@ -84,16 +84,16 @@
 
 ::AISD-10-Q11::W sprawdzaniu poprawności nawiasów dla ciągu '([\{\}])' jaki jest maksymalny rozmiar stosu podczas przetwarzania? {
   =3
-  ~2
-  ~4
-  ~6
+  ~2, ponieważ na stos trafiają tylko nawiasy kwadratowe i klamrowe.
+  ~4, ponieważ zamknięcie pary wymaga dodatkowego elementu na stosie.
+  ~6, ponieważ każdy z sześciu nawiasów wymaga osobnego miejsca.
   ####Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
 }
 
 ::AISD-10-Q12::Dla ciągu '([)]' jaką parę nawiasów wykryje jako pierwszą niezgodną stosowy analizator? {
-  ~( oraz )
-  ~[ oraz ]
-  ~( oraz ]
+  ~( oraz ), gdyż zamknięcie pierwszej pary kończy się jako pierwsze.
+  ~[ oraz ], gdyż parser musi najpierw opróżnić stos do pierwszej pary.
+  ~( oraz ], ponieważ to jedyna para obejmująca zewnętrzny nawias.
   =[ oraz )
   ####Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
 }
@@ -131,10 +131,10 @@
 }
 
 ::AISD-10-Q17::Przy konwersji wyrażenia z infiksowej na postfiksową postać, który operator zwykle powinien być zdjęty ze stosu przed wstawieniem operatora + przy standardowych priorytetach? {
-  ~Operator + znajdujący się zawsze poniżej nawiasu ( bez względu na nawias.
-  ~Dowolny operator występujący po nawiasie zamykającym w wejściu.
+  ~Operator +, jeśli jest na stosie poniżej niedomkniętego nawiasu (.
+  ~Operator -, nawet gdy nie został jeszcze odczytany w strumieniu.
   =Operator * znajdujący się na szczycie stosu.
-  ~Operator - zapisany dopiero w nieprzetworzonej części wejścia.
+  ~Operator *, ale dopiero po odczytaniu następnego operandu.
   ####Operator o wyższym priorytecie na szczycie stosu należy wypisać przed operatorem o niższym priorytecie.
 }
 
@@ -148,9 +148,9 @@
 
 ::AISD-10-Q19::Stos wykorzystuje tablicę i top oznaczający indeks ostatniego elementu. Które operacje w standardowej implementacji działają bez przesuwania pozostałych elementów? {
   =push i pop.
-  ~push i usuwanie elementu z indeksu 0.
-  ~pop i wyszukiwanie pierwszej wartości od dołu.
-  ~usuwanie dolnego elementu i wstawienie na dół.
+  ~push oraz usunięcie elementu z dna, ponieważ top wskazuje oba końce.
+  ~pop oraz wstawienie elementu na dno, ponieważ rozmiar bufora jest stały.
+  ~push oraz wyszukiwanie dowolnego elementu po indeksie, gdy pozycja top jest znana.
   ####Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
 }
 
