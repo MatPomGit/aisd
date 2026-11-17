@@ -82,7 +82,7 @@
   ####Najpierw 2·3\=6, a następnie 7-6\=1.
 }
 
-::AISD-10-Q11::[plain]W sprawdzaniu poprawności nawiasów dla ciągu '([\{\}])' jaki jest maksymalny rozmiar stosu podczas przetwarzania? {
+::AISD-10-Q11::[plain]Jaki jest maksymalny rozmiar stosu podczas sprawdzania poprawności ciągu nawiasów '([\{\}])'? {
   =3
   ~2
   ~4
