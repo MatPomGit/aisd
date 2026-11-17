@@ -11,10 +11,10 @@
 }
 
 ::AISD-06-Q02::Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
-  ~n-k+1
+  ~n-k+1, ponieważ nowy element także trzeba przesunąć.
   =n-k
-  ~k
-  ~n-1
+  ~k, ponieważ przesuwa się elementy przed pozycją wstawienia.
+  ~n-1, ponieważ ostatni element zawsze wymaga n-1 przesunięć.
   ####Przesuwane są istniejące elementy o indeksach od k do n-1.
 }
 
@@ -75,18 +75,18 @@
 }
 
 ::AISD-06-Q10::Tablica A\=[5,8,2,6], usuwamy element o indeksie 1 przez przesunięcie pozostałych w lewo. Jaka jest wynikowa tablica logicznej długości 3? {
-  ~[8,2,6]
+  ~[8,2,6], ponieważ trzeba usunąć także prefiks przed indeksem 1.
   =[5,2,6]
-  ~[5,8,6]
-  ~[5,6,2]
+  ~[5,8,6], ponieważ usuwanie przesuwa element z indeksu 2 za indeks 1.
+  ~[5,6,2], ponieważ przesuwanie zaczyna się od końca tablicy.
   ####Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
 }
 
 ::AISD-06-Q11::Tablica A\=[2,4,6,8] jest indeksowana od zera. Wstawiamy liczbę 5 na indeks 2, zachowując kolejność. Co powstaje? {
   =[2,4,5,6,8]
-  ~[2,5,4,6,8]
-  ~[2,4,6,5,8]
-  ~[2,4,6,8,5]
+  ~[2,5,4,6,8], ponieważ nowy element trafia po indeksie 0.
+  ~[2,4,6,5,8], ponieważ jest wstawiany za A[2].
+  ~[2,4,6,8,5], ponieważ wstawienie na indeks 2 oznacza dopisanie.
   ####Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
 }
 
@@ -107,10 +107,10 @@
 }
 
 ::AISD-06-Q14::Zwarte usunięcie elementu o indeksie k\=2 z tablicy długości n\=9 wymaga ilu przypisań przesuwających elementy? {
-  ~7
+  ~7, ponieważ trzeba przesunąć także usuwany element.
   =6
-  ~5
-  ~8
+  ~5, ponieważ ostatniego elementu nie przenosi się po usunięciu.
+  ~8, ponieważ pozostałe elementy zajmują pozycje od 0 do 7.
   ####Przesuwane są indeksy źródłowe 3 do 8, czyli 6 elementów.
 }
 
@@ -131,10 +131,10 @@
 }
 
 ::AISD-06-Q17::Dla A\=[1,4,2,4,3] ile wyniesie wynik pętli s\=0; dla i od 0 do 4: jeśli A[i]>2, s\=s+1? {
-  ~2
-  ~4
+  ~2, ponieważ warunek spełniają tylko dwa różne klucze.
+  ~4, ponieważ ostatnia wartość 3 jest większa od poprzedniej.
   =3
-  ~5
+  ~5, ponieważ pętla wykonuje pięć iteracji i każda zwiększa licznik.
   ####Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
 }
 
