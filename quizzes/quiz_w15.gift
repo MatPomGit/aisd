@@ -1,5 +1,5 @@
 // AIiSD 15: Grafy
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-15-Q01::[plain]Nieskierowany graf prosty ma 6 wierzchołków i 7 krawędzi. Jaka jest suma stopni wszystkich wierzchołków? {
