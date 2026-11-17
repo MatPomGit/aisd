@@ -10,12 +10,12 @@
   ####Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
 }
 
-::AISD-06-Q02::[plain]Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
-  ~n-k+1
-  =n-k
-  ~k
-  ~n-1
-  ####Przesuwane są istniejące elementy o indeksach od k do n-1.
+::AISD-06-Q02::[plain]Tablica A\=[2,4,6,8] ma wolną komórkę na końcu. Chcemy wstawić 5 na indeks 2, zachowując kolejność. W którą stronę trzeba przesuwać istniejące elementy? {
+  ~Od indeksu 2 w prawo, zaczynając od przepisania A[2] do A[3].
+  =Od ostatniego zajętego indeksu 3 do indeksu 2, przenosząc elementy o jedną pozycję w prawo.
+  ~Zaczynając od indeksu 0, aby uniknąć nadpisania A[2].
+  ~Nie trzeba przesuwać elementów, bo na końcu istnieje wolna komórka.
+  ####Przesuwanie od końca chroni przed nadpisaniem jeszcze nieprzeniesionych wartości. Wynik po wstawieniu to [2,4,5,6,8].
 }
 
 ::AISD-06-Q03::[plain]W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
@@ -50,12 +50,12 @@
   ####Przy dostępie swobodnym indeks tablicy umożliwia bezpośrednie wyznaczenie adresu. Lista bez dodatkowego indeksu wymaga przejścia od głowy.
 }
 
-::AISD-06-Q07::[plain]Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
-  =n-k-1
-  ~n-k
-  ~k+1
-  ~n-k-2
-  ####Elementy od k+1 do n-1 przesuwają się o jedną pozycję w lewo.
+::AISD-06-Q07::[plain]Tablica nieuporządkowana przechowuje n elementów, a kolejność nie ma znaczenia. Jak usunąć element A[k] w Θ(1), gdy znamy k i n>0? {
+  =Zastąpić A[k] wartością ostatniego elementu i zmniejszyć długość.
+  ~Przesunąć wszystkie elementy po k o jedną pozycję w lewo.
+  ~Przesortować tablicę, a następnie wykonać wyszukiwanie binarne.
+  ~Utworzyć kopię tablicy bez A[k], zachowując kolejność.
+  ####Gdy kolejność nie jest wymagana, można zastąpić usuwany element ostatnim i zmniejszyć długość, unikając przesuwania całego sufiksu.
 }
 
 ::AISD-06-Q08::[plain]Tablica dynamiczna podwaja pojemność po zapełnieniu. Dlaczego dopisanie na końcu ma amortyzowany koszt O(1), mimo że pojedyncze dopisanie może kosztować Θ(n)? {
