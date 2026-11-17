@@ -27,10 +27,10 @@
 }
 
 ::AISD-09-Q04::Lista cykliczna jednokierunkowa z jednym węzłem x ma jaki warunek strukturalny, jeśli nie używa węzła strażnika? {
-  ~x.next\=null.
-  ~head\=null, a x.next\=head.
+  ~x.next\=null, ponieważ lista zawiera tylko jeden element.
+  ~head\=null, a x.next\=x, ponieważ jedyny element nie wymaga wskaźnika head.
   =x.next\=x.
-  ~x.next wskazuje nowy niezaalokowany węzeł.
+  ~x.next\=head.next, ponieważ pierwszy węzeł musi wskazywać następcę głowy.
   ####W jednowęzłowym cyklu następnik wraca do tego samego węzła.
 }
 
@@ -83,9 +83,9 @@
 }
 
 ::AISD-09-Q11::Lista dwukierunkowa A↔B↔C; usuwamy pierwszy węzeł A. Która aktualizacja jest konieczna? {
-  ~head\=C i C.prev\=B.
-  ~head\=B i B.prev\=A.
-  ~head\=null i B.next\=C.
+  ~head\=B, ale B.prev\=A, ponieważ pozostaje połączenie wsteczne.
+  ~head\=C, a C.prev\=B, ponieważ usunięto pierwszy element.
+  ~head\=B, ale B.prev\=C, ponieważ nową głowę wiąże się z ogonem.
   =head\=B i B.prev\=null.
   ####Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
 }
@@ -108,16 +108,16 @@
 
 ::AISD-09-Q14::W liście dwukierunkowej A↔B↔C wstawiamy X między A i B. Jakie powinny być wskaźniki X? {
   =X.prev\=A i X.next\=B.
-  ~X.prev\=B i X.next\=A.
-  ~X.prev\=A i X.next\=C.
-  ~X.prev\=null i X.next\=B.
+  ~X.prev\=B i X.next\=A, ponieważ kierunki wskaźników są odwrócone.
+  ~X.prev\=A i X.next\=C, ponieważ następnik B jest nowym następnikiem X.
+  ~X.prev\=null i X.next\=B, ponieważ każdy wstawiany węzeł staje się głową.
   ####Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
 }
 
 ::AISD-09-Q15::Jaką dodatkową pamięć wymaga przechowywanie n wskaźników next w jednokierunkowej liście n-węzłowej w standardowym modelu stałej wielkości wskaźnika? {
-  ~Θ(1)
-  ~Θ(log n)
-  ~Θ(n²)
+  ~Θ(1), ponieważ wskaźniki są przechowywane w węzłach, a nie osobno.
+  ~Θ(log n), ponieważ wskaźnik jest adresem kodowanym binarnie.
+  ~Θ(n²), ponieważ każdy węzeł zawiera wskaźniki do wszystkich pozostałych.
   =Θ(n)
   ####Każdy z n węzłów zawiera jedno pole next o stałym rozmiarze.
 }
@@ -131,10 +131,10 @@
 }
 
 ::AISD-09-Q17::Węzeł X ma next\=null. W której sytuacji może to być prawidłowe w liście jednokierunkowej bez strażnika? {
-  ~Gdy X jest dowolnym węzłem wewnętrznym.
+  ~Gdy X jest węzłem wewnętrznym, a następca jest pomijany.
   =Gdy X jest ogonem listy niecyklicznej.
-  ~Gdy lista jest niepustym cyklem bez końca.
-  ~Gdy X jest głową niepustej listy co najmniej dwuelementowej.
+  ~Gdy lista ma co najmniej dwa węzły i X jest jej głową.
+  ~Gdy lista jest cykliczna, a X wskazuje bezpośrednio na head.
   ####W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
 }
 
