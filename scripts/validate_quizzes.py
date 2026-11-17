@@ -78,7 +78,7 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         ids.add(key)
         if not stem.strip():
             errors.append(f"{path}: pytanie {key} jest puste")
-        normalized_stem = stem.strip().casefold()
+        normalized_stem = stem.strip()
         if normalized_stem in stems:
             errors.append(f"{path}: powtórzona treść pytania {key}")
         stems.add(normalized_stem)
@@ -99,11 +99,13 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         if len(feedback) != 1:
             errors.append(f"{path}: {key} wymaga jednego uzasadnienia")
 
+        # Notacja asymptotyczna O(n) i o(n) jest rozróżniana wielkością liter.
+        # Nie używamy casefold(), bo zmieniłoby znaczenie odpowiedzi.
         choices: list[str] = []
         for option in options:
             value = option[3:]
             errors.extend(check_gift_text(value, f"{path}: {key}: wariant"))
-            choices.append(re.sub(r"\\([~=#{}\\])", r"\1", value).strip().casefold())
+            choices.append(re.sub(r"\\([~=#{}\\])", r"\1", value).strip())
         if len(set(choices)) != len(choices):
             errors.append(f"{path}: {key} zawiera powtórzone warianty")
 
