@@ -67,9 +67,9 @@
 }
 
 ::AISD-11-Q09::Pusta kolejka cykliczna pojemności 5 używa front\=0 i size\=0. Dodano A,B,C, usunięto A i B, dodano D,E,F. Jaki jest aktualny front? {
-  ~0
-  ~1
-  ~4
+  ~0, ponieważ przesunięto front tylko o jedno miejsce po dwóch usunięciach.
+  ~1, ponieważ enqueue przesuwa również front przy każdej operacji.
+  ~4, ponieważ front wskazuje ostatnie dopisanie zamiast najstarszy element.
   =2
   ####Dwie operacje dequeue przesuwają początek na indeks 2, niezależnie od późniejszych dopisań.
 }
@@ -92,9 +92,9 @@
 
 ::AISD-11-Q12::W grafie nieważonym BFS wykorzystuje kolejkę. Jeśli po zdjęciu A odkryjemy kolejno B i C, a w kolejce przed nimi był D, jaki jest porządek następnych dequeue? {
   =D,B,C
-  ~B,C,D
-  ~C,B,D
-  ~D,C,B
+  ~B,C,D, ponieważ nowe elementy mają pierwszeństwo przed wcześniej odłożonymi.
+  ~C,B,D, ponieważ kolejka pobiera nowo dodanych sąsiadów w odwrotnym porządku.
+  ~D,C,B, ponieważ przejście front pozostaje bez zmian, ale sąsiedzi odwracają kolejność.
   ####Nowo odkryte wierzchołki trafiają na koniec, za wcześniejszy D.
 }
 
@@ -131,9 +131,9 @@
 }
 
 ::AISD-11-Q17::Kolejka cykliczna ma pojemność 7, front\=5 i size\=3. Na jaki indeks trafi nowy element enqueue, jeśli pozycja wstawienia to (front+size) mod 7? {
-  ~0
-  ~2
-  ~5
+  ~0, ponieważ nowe elementy trafiają na początek bufora przy zawinięciu.
+  ~2, ponieważ trzeba dodać rozmiar do front bez operacji modulo.
+  ~5, ponieważ nowy element trafia dokładnie na indeks front.
   =1
   ####(5+3) mod 7 \= 1.
 }
@@ -156,9 +156,9 @@
 
 ::AISD-11-Q20::Kolejka FIFO zleceń A,B,C ma stałe czasy obsługi odpowiednio 5,2,3. Jaki jest czas zakończenia zlecenia B, jeśli serwer zaczyna od t\=0, nie ma przerw ani narzutu? {
   =7
-  ~5
-  ~2
-  ~10
+  ~5, ponieważ B zaczyna działanie w chwili zakończenia A i kończy się natychmiast.
+  ~2, ponieważ czas zakończenia B liczy się od momentu rozpoczęcia samego B.
+  ~10, ponieważ przy czasie B uwzględnia się również obsługę C.
   ####B zaczyna się po zakończeniu A w t\=5 i kończy po dalszych 2 jednostkach w t\=7.
 }
 
