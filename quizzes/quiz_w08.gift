@@ -22,7 +22,7 @@
   ~Θ(log n)
   ~Θ(n²)
   =Θ(n)
-  ~Θ(1), jeżeli każde wywołanie przechowuje stałą liczbę zmiennych.
+  ~Θ(1)
   ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
 }
 
