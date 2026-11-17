@@ -115,10 +115,10 @@
 }
 
 ::AISD-11-Q15::Kolejka zaimplementowana za pomocą dwóch stosów in i out przenosi elementy tylko wtedy, gdy out jest pusty. Jaki jest zamortyzowany koszt enqueue i dequeue na operację? {
-  ~O(1) w każdym pojedynczym dequeue, również gdy out trzeba zasilić n elementami.
-  =O(1)
-  ~O(log n) amortyzacyjnie
-  ~O(n) amortyzacyjnie
+  ~O(1) w najgorszym przypadku
+  =O(1) zamortyzowany
+  ~O(log n) zamortyzowany
+  ~O(n) zamortyzowany
   ####Każdy element jest wkładany i zdejmowany ze stosów stałą liczbę razy.
 }
 
@@ -139,10 +139,10 @@
 }
 
 ::AISD-11-Q18::Przy realizacji kolejki FIFO zwykłą tablicą i przesuwaniu wszystkich elementów w lewo przy dequeue, jaki jest najgorszy koszt usunięcia pierwszego elementu? {
-  ~Θ(1) w najgorszym przypadku
+  ~Θ(1)
   ~Θ(log n)
   =Θ(n)
-  ~Θ(n²)
+  ~Θ(n log n)
   ####Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
 }
 
