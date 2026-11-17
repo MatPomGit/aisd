@@ -68,25 +68,25 @@
 
 ::AISD-12-Q09::Drzewo binarne ma korzeń R, lewe dziecko A, prawe dziecko B, a A ma prawe dziecko C. Jaka jest kolejność preorder? {
   =R,A,C,B
-  ~A,C,R,B
-  ~C,A,B,R
-  ~R,B,A,C
+  ~A,C,R,B, ponieważ najpierw odwiedza się lewe poddrzewo.
+  ~C,A,B,R, ponieważ preorder odracza korzeń do końca.
+  ~R,B,A,C, ponieważ prawą gałąź przegląda się przed lewą.
   ####Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
 }
 
 ::AISD-12-Q10::Dla tego samego drzewa R z lewym A, prawym B i prawym dzieckiem C w A, jaka jest kolejność postorder? {
-  ~A,C,B,R
-  ~B,C,A,R
-  ~R,A,C,B
+  ~A,C,B,R, ponieważ postorder zachowuje kolejność lewej gałęzi przed dziećmi.
+  ~B,C,A,R, ponieważ prawą gałąź przetwarza się przed lewą.
+  ~R,A,C,B, ponieważ postorder odwiedza korzeń jako pierwszy.
   =C,A,B,R
   ####Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
 }
 
 ::AISD-12-Q11::Pełne drzewo binarne (każdy węzeł ma zero lub dwoje dzieci) ma 5 węzłów wewnętrznych. Ile liści zawiera? {
-  ~5
-  ~10
+  ~5, ponieważ liczba węzłów wewnętrznych i liści jest identyczna.
+  ~10, ponieważ każdy węzeł wewnętrzny ma dwoje dzieci, więc wszystkie dzieci są liśćmi.
   =6
-  ~11
+  ~11, ponieważ liczba liści jest równa liczbie wszystkich węzłów.
   ####W drzewie pełnym liczba liści wynosi I+1.
 }
 
@@ -115,10 +115,10 @@
 }
 
 ::AISD-12-Q15::W drzewie ukorzenionym każdy węzeł oprócz korzenia ma dokładnie jednego rodzica. Dla 12 węzłów ile jest relacji rodzic-dziecko? {
-  ~12
-  ~10
+  ~12, ponieważ każdy węzeł, również korzeń, ma rodzica.
+  ~10, ponieważ dwa skrajne węzły nie mają relacji rodzic-dziecko.
   =11
-  ~22
+  ~22, ponieważ każdą relację liczy się dwukrotnie, w obie strony.
   ####Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
 }
 
@@ -132,9 +132,9 @@
 
 ::AISD-12-Q17::W drzewie R ma dwoje dzieci A i B; A ma dzieci C i D. Jaka jest liczba liści? {
   =3
-  ~2
-  ~4
-  ~5
+  ~2, ponieważ tylko C i D są liśćmi lewego poddrzewa.
+  ~4, ponieważ korzeń R liczy się jako liść przy dwojgu dzieci.
+  ~5, ponieważ wszystkie węzły poza korzeniem są liśćmi.
   ####Liśćmi są C,D,B; R i A mają dzieci.
 }
 
