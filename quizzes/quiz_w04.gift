@@ -4,33 +4,33 @@
 
 ::AISD-04-Q01::Pętla wykonuje dla i\=1,...,n dokładnie i porównań. Jaka jest liczba porównań? {
   =n(n+1)/2
-  ~n(n-1)/2, bo pierwszy przebieg nie wnosi porównań.
-  ~n², bo każda z n iteracji wykonuje n porównań.
-  ~n(n+1), bo sumę liczymy dwukrotnie dla każdej wartości i.
+  ~n(n-1)/2
+  ~n²
+  ~n(n+1)
   ####Suma kolejnych liczb od 1 do n wynosi n(n+1)/2.
 }
 
 ::AISD-04-Q02::Wyszukiwanie liniowe przerywa po znalezieniu pierwszego dopasowania. Jaką liczbę porównań wykonuje w najlepszym przypadku dla niepustej tablicy? {
-  ~0 porównań, jeśli element odnajduje się na indeksie zero.
-  ~2 porównania, jeśli po wykryciu dopasowania sprawdza się warunek pętli.
-  ~n porównań, ponieważ algorytm musi potwierdzić brak wcześniejszych dopasowań.
+  ~0 porównań
+  ~2 porównania
+  ~n porównań
   =1
   ####Jeżeli pierwszy element jest dopasowaniem, potrzeba jednego porównania kluczy.
 }
 
 ::AISD-04-Q03::Który opis kosztu dodatkowej pamięci odpowiada iteracyjnemu sumowaniu tablicy bez tworzenia jej kopii? {
-  ~Θ(n), jeśli liczymy również pamięć wejścia używaną do odczytu.
-  ~Θ(log n) słów, jeśli indeks ma logarytmiczną długość bitową.
+  ~Θ(n)
+  ~Θ(log n) słów
   =Θ(1), nie licząc pamięci tablicy wejściowej.
-  ~Θ(n) dodatkowych komórek, gdy każdy element dodawany jest po kolei.
+  ~Θ(n) dodatkowych komórek
   ####Przy standardowym modelu słów i wyłączeniu wejścia kilka zmiennych roboczych zajmuje stałą liczbę komórek.
 }
 
 ::AISD-04-Q04::Dwa algorytmy mają odpowiednio T1(n)\=5n²+7n i T2(n)\=30n log₂ n dla n>\=2. Co wynika z asymptotyki? {
   ~T2 jest mniejsza od T1 już dla każdego n co najmniej 2.
   =Dla dostatecznie dużego n funkcja T2(n) jest mniejsza niż T1(n).
-  ~T1 asymptotycznie wygrywa, ponieważ 5 jest mniejsze niż 30.
-  ~T1 i T2 są tego samego rzędu, bo każda wykorzystuje wielomianowy czynnik n.
+  ~T1 asymptotycznie wygrywa
+  ~T1 i T2 są tego samego rzędu
   ####n log n rośnie asymptotycznie wolniej niż n²; nie przesądza to o wszystkich małych n.
 }
 
@@ -38,14 +38,14 @@
   =Liczba wykonanych instrukcji, włącznie z powtórzeniami w pętlach.
   ~Liczba statycznych instrukcji w programie pomnożona przez liczbę wejść.
   ~Liczba wszystkich odczytów rejestrów i zapisów, ale bez instrukcji warunkowych.
-  ~Liczba wykonanych instrukcji różna od zera, ponieważ instrukcje zerujące mają zerowy koszt.
+  ~Liczba wykonanych instrukcji różna od zera
   ####Koszt jednostkowy sumuje wykonania dynamiczne instrukcji, a nie rozmiar listingu.
 }
 
 ::AISD-04-Q06::Algorytm sprawdza dla każdej pary indeksów 0<\=i<j<n pewien warunek. Ile razy uruchamia test? {
-  ~n(n+1)/2, bo uwzględnione są także pary i\=j.
-  ~n(n-1), ponieważ para (i,j) i (j,i) są różnymi iteracjami.
-  ~n²/2+n, ponieważ trzeba doliczyć dodatkowe pary przekątnej.
+  ~n(n+1)/2
+  ~n(n-1)
+  ~n²/2+n
   =n(n-1)/2
   ####Liczba nieuporządkowanych par różnych indeksów wynosi n(n-1)/2.
 }
@@ -59,7 +59,7 @@
 }
 
 ::AISD-04-Q08::Która wielkość jest sensownym parametrem rozmiaru danych przy analizie przeszukiwania tablicy? {
-  ~Liczba różnych wartości w tablicy, gdy dostępne są powtórzenia.
+  ~Liczba różnych wartości w tablicy
   =Liczba przeszukiwanych elementów.
   ~Liczba wykonanych porównań dla jednego konkretnego wejścia, użyta jako stały parametr n.
   ~Rozmiar reprezentacji pojedynczego elementu zamiast liczby elementów, niezależnie od modelu kosztu.
@@ -68,9 +68,9 @@
 
 ::AISD-04-Q09::Pętla zewnętrzna wykonuje się n razy, a wewnętrzna dokładnie 2i razy dla i\=0,...,n-1. Ile łącznie razy działa ciało wewnętrzne? {
   =n(n-1)
-  ~n(n+1), ponieważ największy indeks i wynosi n.
-  ~n², ponieważ dla każdego i wewnętrzna pętla wykonuje n kroków.
-  ~2n(n-1), ponieważ współczynnik 2 liczy się dodatkowo po sumowaniu.
+  ~n(n+1)
+  ~n²
+  ~2n(n-1)
   ####Suma 2i od 0 do n-1 wynosi 2·n(n-1)/2\=n(n-1).
 }
 
@@ -83,18 +83,18 @@
 }
 
 ::AISD-04-Q11::W modelu liczby porównań pętla ma kod: for i\=0..n-1: for j\=0..i-1: compare(). Ile porównań wykona dla n\=5? {
-  ~15, bo liczba porównań odpowiada sumie od 1 do n.
-  ~20, bo w pierwszej iteracji porównuje się wszystkie cztery pozostałe elementy.
+  ~15
+  ~20
   =10
-  ~25, ponieważ pętle przechodzą pełen kwadrat 5 na 5.
+  ~25
   ####Liczby porównań w kolejnych iteracjach to 0+1+2+3+4\=10.
 }
 
 ::AISD-04-Q12::Algorytm dzieli zakres przeszukiwania o połowę, dopóki jego długość przekracza 1. Od długości 64 ile redukcji potrzeba do długości 1? {
-  ~5, ponieważ pięć redukcji wystarczy do zera poziomów.
+  ~5
   =6
-  ~7, ponieważ sprawdzenie początkowej długości również jest redukcją.
-  ~8, ponieważ trzeba liczyć początek i koniec jako odrębne podziały.
+  ~7
+  ~8
   ####64 → 32 → 16 → 8 → 4 → 2 → 1, czyli sześć redukcji.
 }
 
@@ -107,26 +107,26 @@
 }
 
 ::AISD-04-Q14::Pętla przegląda wszystkie n elementów, a operacja wewnętrzna kosztuje Θ(log n) dla każdego elementu. Jaki jest łączny koszt przy n>\=2? {
-  ~Θ(n+log n), ponieważ koszty pętli i operacji dodaje się.
-  ~Θ(n), jeśli koszt pojedynczej operacji to Θ(log n), ale wszystkie operacje są takie same.
-  ~Θ(log n), ponieważ czynnik logarytmiczny dominuje koszt całej pętli.
+  ~Θ(n+log n)
+  ~Θ(n)
+  ~Θ(log n)
   =Θ(n log n)
   ####Liczba iteracji jest liniowa, a każda ma koszt logarytmiczny.
 }
 
 ::AISD-04-Q15::Jakie jest wykorzystanie dodatkowej pamięci w rekurencyjnym DFS jednego łańcucha o n węzłach, pomijając pamięć danych wejściowych? {
-  ~Θ(log n) ramek, bo drzewo DFS ma n węzłów i musi być zrównoważone.
-  ~Θ(n²) ramek, bo DFS odwiedza każdą możliwą parę węzłów.
+  ~Θ(log n) ramek
+  ~Θ(n²) ramek
   =Θ(n) ramek stosu.
-  ~Θ(1) ramek, gdy każdy węzeł ma najwyżej jednego potomka.
+  ~Θ(1) ramek
   ####Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
 }
 
 ::AISD-04-Q16::Algorytm A wykonuje 4n+10 operacji, a B 2n²+1. Jakie stwierdzenie jest prawdziwe asymptotycznie? {
-  ~Oba mają Θ(n²), bo dominuje najwyższa potęga występująca w parze wzorów.
+  ~Oba mają Θ(n²)
   =A ma Θ(n), a B ma Θ(n²).
   ~A ma Θ(n²), a B ma Θ(n), po odrzuceniu współczynników.
-  ~Oba mają Θ(n), gdyż B wykonuje dwie operacje na element.
+  ~Oba mają Θ(n)
   ####Dominującymi składnikami są odpowiednio 4n i 2n².
 }
 
@@ -139,9 +139,9 @@
 }
 
 ::AISD-04-Q18::Ile porównań wykonuje pełne znalezienie maksimum tablicy n>\=1 wartości przez liniowe porównywanie kolejnych elementów z bieżącym maksimum? {
-  ~n porównań, ponieważ pierwszy element również musi zostać porównany sam ze sobą.
-  ~n-2 porównania, ponieważ pierwsze dwa elementy służą wyłącznie inicjalizacji.
-  ~⌈log₂ n⌉ porównań, ponieważ maksimum można znaleźć przez podział tablicy.
+  ~n porównań
+  ~n-2 porównania
+  ~⌈log₂ n⌉ porównań
   =n-1
   ####Pierwszy element inicjuje maksimum, pozostałe n-1 podlegają porównaniu.
 }
