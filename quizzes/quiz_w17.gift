@@ -4,33 +4,33 @@
 
 ::AISD-17-Q01::[plain]Sortujemy stabilnie rekordy (2,A),(1,B),(2,C) według klucza rosnąco. Który wynik zachowuje porządek rekordów o równych kluczach? {
   ~(1,B),(2,C),(2,A).
-  =(1,B),(2,A),(2,C).
   ~(2,A),(2,C),(1,B).
+  =(1,B),(2,A),(2,C).
   ~(2,C),(1,B),(2,A).
   ####Stabilność wymaga zachowania kolejności A przed C w grupie klucza 2, niezależnie od przełożenia grupy klucza 1 na początek.
 }
 
 ::AISD-17-Q02::[plain]Skąd wynika dolne ograniczenie Ω(n log n) liczby porównań w najgorszym przypadku sortowania n różnych kluczy metodą porównań? {
-  =Drzewo decyzji musi rozróżnić co najmniej n! permutacji.
   ~Każda para elementów musi być porównana co najmniej raz w najgorszym przypadku.
+  =Drzewo decyzji musi rozróżnić co najmniej n! permutacji.
   ~Drzewo porównań musi mieć co najmniej n różnych liści dla n kluczy.
   ~Porównania wymagają co najmniej log n operacji bitowych na każdą parę kluczy.
   ####Binarne drzewo porównań o n! liściach ma wysokość co najmniej log₂(n!).
 }
 
 ::AISD-17-Q03::[plain]Który algorytm może uzyskać czas O(n+k) przy sortowaniu n kluczy całkowitoliczbowych z zakresu k wartości, nie podlegając dolnemu ograniczeniu sortowania porównawczego? {
-  =Counting sort przy niewielkiej całkowitoliczbowej dziedzinie kluczy.
   ~Quicksort z losowym pivotem, gdy klucze są równomiernie rozmieszczone.
   ~Merge sort, jeśli wszystkie klucze są różne.
   ~Heapsort, jeśli zakres wartości kluczy jest mały.
+  =Counting sort przy niewielkiej całkowitoliczbowej dziedzinie kluczy.
   ####Counting sort wykorzystuje bezpośrednio wartości kluczy, a nie wyłącznie wyniki porównań par.
 }
 
 ::AISD-17-Q04::[plain]Rekordy sortujemy najpierw według nazwiska, a następnie według działu. Jak przeprowadzić drugi etap, aby zachować poprzedni porządek nazwisk w obrębie działów? {
   ~Niestabilnie według działu
+  =Stabilnie według działu, aby zachować poprzedni porządek nazwisk wewnątrz działów.
   ~Stabilnie według nazwiska
   ~Stabilnie według działu, lecz w obrębie równych działów odwrócić poprzedni porządek.
-  =Stabilnie według działu, aby zachować poprzedni porządek nazwisk wewnątrz działów.
   ####Drugie stabilne sortowanie według ważniejszego klucza utrzymuje kolejność z pierwszego etapu w obrębie równych działów.
 }
 
@@ -44,9 +44,9 @@
 
 ::AISD-17-Q06::[plain]Ile różnych porządków wejściowych musi odróżniać porównawcze sortowanie n różnych kluczy? {
   ~2^n
-  =n!
   ~n²
   ~n(n-1)/2
+  =n!
   ####Dla n różnych kluczy istnieje n! możliwych permutacji wymagających prawidłowej decyzji.
 }
 
@@ -59,17 +59,17 @@
 }
 
 ::AISD-17-Q08::[plain]Która obserwacja obala twierdzenie, że każdy algorytm porównawczy ma koszt Θ(n²) w najgorszym przypadku? {
+  =Merge sort wykonuje Θ(n log n) porównań w najgorszym przypadku.
   ~Heapsort wymaga Θ(n²) porównań w każdym najgorszym przypadku.
   ~Quicksort z pivotem pierwszym ma Θ(n²) w najgorszym przypadku.
-  =Merge sort wykonuje Θ(n log n) porównań w najgorszym przypadku.
   ~Selection sort ma Θ(n²) porównań, niezależnie od kolejności kluczy.
   ####Istnieją algorytmy porównawcze o najgorszej złożoności Θ(n log n), więc uogólnienie jest fałszywe.
 }
 
 ::AISD-17-Q09::[plain]Rekordy wejściowe to (2,A),(1,B),(2,C),(1,D). Program zwrócił (1,D),(1,B),(2,A),(2,C). Która obserwacja najlepiej charakteryzuje jego wynik? {
+  =Klucze są posortowane, ale program naruszył stabilność dla klucza 1.
   ~Program zachował stabilność, bo każdy rekord występuje dokładnie raz.
   ~Program nie posortował poprawnie kluczy, bo 2 jest większe od 1.
-  =Klucze są posortowane, ale program naruszył stabilność dla klucza 1.
   ~Program naruszył stabilność tylko dla klucza 2.
   ####Pośród rekordów o kluczu 1 pierwotnie B poprzedzało D. Wynik D przed B świadczy o niestabilności.
 }
@@ -85,22 +85,22 @@
 ::AISD-17-Q11::[plain]Model porównawczy sortowania czterech różnych kluczy wymaga rozróżnienia 4!\=24 permutacji. Jakie jest najsilniejsze całkowitoliczbowe dolne ograniczenie liczby porównań wynikające z binarnego drzewa decyzji? {
   ~4, bo drzewo o głębokości 4 ma 16 liści.
   ~6, bo cztery klucze wymagają 6 porównań wszystkich par.
-  ~3, bo potrzebujemy odróżnić tylko trzy zmiany kolejności.
   =5, bo ceil(log₂ 24)\=5.
+  ~3, bo potrzebujemy odróżnić tylko trzy zmiany kolejności.
   ####W drzewie binarnym o wysokości h jest najwyżej 2^h liści. Aby rozróżnić 24 permutacje, trzeba h>\=5.
 }
 
 ::AISD-17-Q12::[plain]Do uporządkowanej tablicy [1,3,5,7] wstawiono na koniec wartość 4. Ile przesunięć elementów wykona standardowy insertion sort, aby przywrócić porządek? {
-  ~1
   =2
+  ~1
   ~3
   ~4
   ####Element 4 musi minąć 7 oraz 5, co daje dwa przesunięcia.
 }
 
 ::AISD-17-Q13::[plain]Która cecha świadczy o adaptacyjności algorytmu sortowania? {
-  ~Koszt jest zawsze proporcjonalny do liczby kluczy, a nie do ich ustawienia.
   =Jego koszt może maleć dla danych już częściowo uporządkowanych.
+  ~Koszt jest zawsze proporcjonalny do liczby kluczy, a nie do ich ustawienia.
   ~Algorytm zachowuje kolejność rekordów o równych kluczach.
   ~Algorytm wykonuje mniej operacji tylko wtedy, gdy klucze są unikatowe.
   ####Adaptacyjność opisuje wykorzystanie istniejącego uporządkowania wejścia; nie jest to stabilność.
@@ -108,17 +108,17 @@
 
 ::AISD-17-Q14::[plain]Sortowanie stabilne rekordów najpierw według klucza drugorzędnego, a potem głównego zachowuje jaką własność? {
   ~Klucz drugorzędny zaczyna dominować nad głównym
+  =W obrębie równego klucza głównego rekordy pozostają uporządkowane według drugorzędnego.
   ~Klucze stają się unikatowe
   ~Przy równym kluczu głównym rekordy są ponownie sortowane losowo.
-  =W obrębie równego klucza głównego rekordy pozostają uporządkowane według drugorzędnego.
   ####Stabilność drugiego sortowania utrzymuje kolejność z pierwszego etapu między rekordami z tym samym kluczem głównym.
 }
 
 ::AISD-17-Q15::[plain]Który zbiór danych nadaje się do sortowania przez zliczanie bez konieczności tworzenia bardzo dużej tablicy liczników? {
   ~Klucze o bardzo szerokiej dziedzinie liczb 64-bitowych bez gęstego zakresu.
   ~Ciągi znaków o różnej długości bez ograniczonego odwzorowania na indeksy.
-  =Milion liczb całkowitych z zakresu 0..15.
   ~Liczby całkowite z zakresu 0..2^64-1 przy tablicy zliczeń dla każdej wartości.
+  =Milion liczb całkowitych z zakresu 0..15.
   ####Koszt tablicy zliczeń jest proporcjonalny do rozmiaru dopuszczalnej dziedziny kluczy.
 }
 
@@ -139,26 +139,26 @@
 }
 
 ::AISD-17-Q18::[plain]Selection sort wykonuje standardowo n(n-1)/2 porównań. Jak wpływa na tę liczbę całkowicie posortowane wejście przy n\=8? {
-  =Nie zmienia liczby porównań: nadal 28.
   ~Redukuje ją z 28 do 7, bo każdy element już jest na miejscu.
   ~Zwiększa ją do 56 z powodu potwierdzania uporządkowania.
+  =Nie zmienia liczby porównań: nadal 28.
   ~Zwiększa ją do 64, bo powstaje pełna macierz porównań.
   ####Klasyczny selection sort niezależnie od początkowej kolejności szuka minimum w każdym nieuporządkowanym prefiksie/sufiksie.
 }
 
 ::AISD-17-Q19::[plain]Dlaczego nie można wnioskować ze stabilności, że sortowanie jest adaptacyjne? {
-  =Stabilność opisuje kolejność równych kluczy, a adaptacyjność zależność kosztu od uporządkowania wejścia.
   ~Adaptacyjność jest cechą każdej stabilnej implementacji, niezależnie od algorytmu.
   ~Stabilność wynika z małej liczby inwersji w wejściu.
   ~Sortowanie nie może być stabilne i adaptacyjne jednocześnie.
+  =Stabilność opisuje kolejność równych kluczy, a adaptacyjność zależność kosztu od uporządkowania wejścia.
   ####Są to niezależne własności: jedna dotyczy wyniku, druga kosztu wykonania.
 }
 
 ::AISD-17-Q20::[plain]Student twierdzi, że liczba porównań przy sortowaniu n różnych kluczy musi być większa niż 2^n dla dużych n, bo istnieje n! permutacji. Które wyjaśnienie naprawia wnioskowanie? {
   ~Liczba permutacji n! nie wpływa na liczbę porównań w żadnym modelu.
+  =Drzewo decyzji potrzebuje około log₂(n!) porównań, a nie n!; daje to dolne ograniczenie Ω(n log n).
   ~Każda permutacja wymaga pojedynczego porównania, więc wystarczy O(1).
   ~Liczba porównań to zawsze dokładnie n!, bo każdy wynik odpowiada jednej ścieżce.
-  =Drzewo decyzji potrzebuje około log₂(n!) porównań, a nie n!; daje to dolne ograniczenie Ω(n log n).
   ####Drzewo decyzji musi mieć n! liści, ale wysokość rośnie jak log₂(n!), nie jak liczba liści.
 }
 
