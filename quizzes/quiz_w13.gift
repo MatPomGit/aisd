@@ -1,5 +1,5 @@
 // AIiSD 13: Binarne drzewa wyszukiwań BST
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-13-Q01::W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
@@ -12,57 +12,57 @@
 
 ::AISD-13-Q02::W BST o unikatowych kluczach usuwamy węzeł z dwojgiem dzieci. Który zamiennik pozwala zachować porządek BST? {
   =Następnik inorder, czyli minimum prawego poddrzewa.
-  ~Maksimum całego lewego i prawego poddrzewa jednocześnie.
-  ~Dowolny liść z prawego poddrzewa.
-  ~Bezpośrednio lewe dziecko bez żadnych dalszych operacji.
+  ~Poprzednik inorder, czyli maksimum prawego poddrzewa.
+  ~Bezpośrednie prawe dziecko, bez względu na jego lewe poddrzewo.
+  ~Najmniejszy liść dowolnego poddrzewa bez sprawdzenia relacji kluczy.
   ####Następnik inorder nie ma mniejszego klucza po swojej prawej stronie i zachowuje granicę porządku.
 }
 
 ::AISD-13-Q03::Jaką kolejność kluczy zwraca inorder dla BST bez duplikatów? {
-  ~Według czasu wstawienia.
-  ~Według malejących głębokości.
-  ~Według priorytetu równoważenia.
+  ~Kolejność nie malejącą, również wtedy gdy dopuszcza się powtórzenia.
+  ~Kolejność zgodną z poziomami drzewa, od najmniejszej głębokości.
+  ~Kolejność zależną od chronologii wstawiania, nawet bez rotacji.
   =Ściśle rosnącą.
   ####Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
 }
 
 ::AISD-13-Q04::Do pustego BST bez równoważenia wstawiono rosnące klucze 1,2,...,n. Jaką wysokość w krawędziach ma wynik dla n>0? {
-  ~⌊log₂ n⌋
-  ~n
+  ~⌈log₂ n⌉, ponieważ BST z definicji jest zrównoważone.
+  ~n, ponieważ wysokość liczy się wraz z dodatkową krawędzią nad korzeniem.
   =n-1
-  ~⌈log₂(n+1)⌉-1
+  ~⌈log₂(n+1)⌉-1, ponieważ rosnące dane zapewniają pełne drzewo.
   ####Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
 }
 
 ::AISD-13-Q05::Jaka jest asymptotyczna liczba porównań przy wyszukiwaniu klucza w BST o wysokości h? {
-  ~O(log h)
+  ~O(log h), ponieważ porównania zawsze dzielą pozostałą wysokość na pół.
   =O(h+1)
-  ~O(nh)
-  ~O(1) dla dowolnej wysokości
+  ~O(h), nawet dla drzewa składającego się tylko z korzenia h\=0.
+  ~O(n), które jest zawsze najściślejszym ograniczeniem niezależnie od h.
   ####Wyszukiwanie porównuje klucz z węzłami jednej ścieżki od korzenia.
 }
 
 ::AISD-13-Q06::W BST bez duplikatów węzeł 12 ma lewe poddrzewo o korzeniu 7 i prawe o korzeniu 18. Gdzie poprawnie może leżeć klucz 15? {
   =W lewym poddrzewie węzła 18.
-  ~W lewym poddrzewie węzła 7.
-  ~W prawym poddrzewie węzła 7.
-  ~W dowolnym miejscu, gdy liście są na różnych wysokościach.
+  ~W prawym poddrzewie węzła 7, bo 15 jest większe od 7.
+  ~W prawym poddrzewie korzenia 18, gdyż 15 jest większe od 12.
+  ~W lewym poddrzewie 7, bo jest mniejsze od 18.
   ####15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
 }
 
 ::AISD-13-Q07::Który warunek jest niezbędny do zachowania poprawności BST, gdy w implementacji dopuszcza się duplikaty? {
-  ~Umieszczanie duplikatów raz po lewej, raz po prawej bez reguły.
-  ~Usuwanie dowolnych kluczy równych podczas wyszukiwania.
-  ~Wymaganie, aby wszystkie duplikaty były w korzeniu.
+  ~Duplikaty należy rozmieszczać naprzemiennie w lewym i prawym poddrzewie, aby zachować równowagę.
+  ~Duplikaty muszą być usuwane po wstawieniu, aby BST mógł wykonać inorder.
+  ~Każdy duplikat należy umieścić jako nowe prawe dziecko bez uwzględniania pozostałych węzłów.
   =Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji.
   ####Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
 }
 
 ::AISD-13-Q08::Jaki koszt ma wyszukiwanie w BST o n węzłach, którego wysokość wynosi Θ(log n)? {
-  ~O(n) dla każdego klucza.
-  ~O(log log n)
+  ~O(n) w najgorszym przypadku również wtedy, gdy wysokość jest Θ(log n).
+  ~O(log log n), bo równoważenie dzieli logarytmiczną wysokość przez dwa.
   =O(log n)
-  ~O(n log n)
+  ~O(1), bo balansowanie zapewnia bezpośredni dostęp do każdego klucza.
   ####Przejście po jednej ścieżce ma długość ograniczoną wysokością drzewa.
 }
 
@@ -99,10 +99,10 @@
 }
 
 ::AISD-13-Q13::W BST korzeń 8 ma jedyne dziecko 12 po prawej, a 12 ma jedyne lewe dziecko 10. Po usunięciu 8 przez zastąpienie jego jedynym dzieckiem jaki jest nowy korzeń? {
-  ~10
+  ~10, ponieważ najbliższy mniejszy od 12 klucz jest jego lewym dzieckiem.
   =12
-  ~8
-  ~brak korzenia
+  ~8, ponieważ usuwany korzeń zachowuje dotychczasowy indeks.
+  ~Brak korzenia, ponieważ usunięty węzeł miał tylko jedno dziecko.
   ####Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
 }
 
@@ -131,10 +131,10 @@
 }
 
 ::AISD-13-Q17::Dla BST o n węzłach i wysokości h, jaki jest koszt wyznaczenia minimum, jeśli nie ma dodatkowego wskaźnika do minimum? {
-  ~O(1) niezależnie od kształtu.
+  ~O(1), ponieważ minimum jest zawsze bezpośrednim dzieckiem korzenia.
   =O(h+1)
-  ~O(log h)
-  ~O(nh)
+  ~O(log h), ponieważ lewe przejścia pomijają połowę pozostałej wysokości.
+  ~O(nh), ponieważ minimum wymaga odwiedzenia wszystkich węzłów na każdym poziomie.
   ####Szukanie minimum polega na podążaniu lewymi dziećmi od korzenia.
 }
 
@@ -147,9 +147,9 @@
 }
 
 ::AISD-13-Q19::W BST przechowującym różne klucze równoważenie ogranicza wysokość do O(log n). Który skutek dotyczy wyszukiwania? {
-  ~Koszt wyszukiwania staje się Θ(1) dla każdego klucza.
-  ~Wyszukiwanie wymaga dodatkowo Θ(n) porównań.
-  ~Wyszukiwanie przestaje zależeć od relacji porządku.
+  ~Najgorszy koszt pozostaje Θ(n), ponieważ BST nie używa tablicy indeksowanej.
+  ~Najgorszy koszt staje się Θ(1), bo wysokość jest ograniczona logarytmicznie.
+  ~Wyszukiwanie wymaga Θ(log² n), bo dla każdego poziomu trzeba sprawdzić dwa poddrzewa.
   =Najgorszy koszt wyszukiwania spada do O(log n).
   ####Wyszukiwanie podąża jedną ścieżką o długości ograniczonej logarytmiczną wysokością.
 }
