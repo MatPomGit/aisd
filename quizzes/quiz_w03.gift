@@ -1,5 +1,5 @@
 // AIiSD 03: Pseudokod i schematy blokowe
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-03-Q01::Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli poprawnie obejmuje wszystkie elementy przy inicjalizacji i\=0 i inkrementacji i o 1? {
@@ -11,26 +11,26 @@
 }
 
 ::AISD-03-Q02::Który symbol schematu blokowego standardowo reprezentuje decyzję z rozgałęzieniem warunkowym? {
-  ~Równoległobok.
-  ~Prostokąt.
+  ~Prostokąt z dwiema krawędziami wyjściowymi oznaczonymi prawda i fałsz.
+  ~Równoległobok, ponieważ warunek pobiera wartość logiczną.
   =Romb.
-  ~Owal.
+  ~Owal, jeśli rozgałęzienie może kończyć działanie programu.
   ####Romb oznacza test warunku; pozostałe symbole mają zwykle inne role.
 }
 
 ::AISD-03-Q03::Pseudokod: jeśli x>0, ustaw y\=x; następnie zwróć y. Jaki jest istotny błąd kontraktu? {
-  ~Dla x>0 nie można użyć instrukcji zwróć.
+  ~Dla x równego zero y ma wartość domyślną, ponieważ warunek pominięto.
   =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
-  ~Dla x\=1 gałąź warunkowa wykona się dwukrotnie.
-  ~Dla x<0 program zawsze zwróci 0.
+  ~Dla x mniejszego od zera instrukcja return zwróci ostatnią wartość x.
+  ~Dla x dodatniego y nie jest zainicjalizowane, jeśli funkcja ma wynik.
   ####Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
 }
 
 ::AISD-03-Q04::W schemacie blokowym po zakończeniu obu gałęzi warunku wykonywana jest ta sama instrukcja. Jaka struktura przepływu jest właściwa? {
   =Dwie gałęzie łączą się przed wspólną instrukcją.
-  ~Każda gałąź zawiera osobną kopię instrukcji START.
-  ~Jedna gałąź musi bezwarunkowo wracać do testu.
-  ~Obie gałęzie muszą prowadzić bezpośrednio do STOP.
+  ~Połączenie następuje dopiero za wspólną instrukcją, do której dochodzą osobne strzałki.
+  ~Obie gałęzie wracają do warunku i dopiero potem dochodzą do wspólnego kroku.
+  ~Wspólną instrukcję trzeba umieścić w jednej gałęzi, aby druga ją ominęła.
   ####Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
 }
 
@@ -43,26 +43,26 @@
 }
 
 ::AISD-03-Q06::Dlaczego opis 'powtarzaj, aż wynik będzie dobry' jest niewystarczającym pseudokodem? {
-  ~Nie podaje nazwy języka programowania.
-  ~Nie wymienia jawnie użytej struktury danych.
+  ~Brakuje jawnego limitu iteracji, nawet gdy predykat zakończenia byłby ścisły.
+  ~Opis nie rozstrzyga, czy kryterium ocenia się przed ciałem, czy po nim, choć jest formalne.
   =Nie definiuje sprawdzalnego predykatu zakończenia.
-  ~Nie ma osobnego bloku do zapisu danych.
+  ~Opis nie podaje wartości liczbowej wyniku, mimo że predykat jest poprawnie zdefiniowany.
   ####Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
 }
 
 ::AISD-03-Q07::W pseudokodzie funkcji suma(A,n) ustawiono s\=0 i następnie dodawano A[i] dla i\=1,...,n. Jakiej dodatkowej informacji potrzeba, by ocenić poprawność indeksów? {
-  ~Rodzaju symbolu schematu blokowego dla wejścia.
+  ~Czy wartość n oznacza rozmiar tablicy, czy największy jej element.
   =Konwencji indeksowania tablicy i dopuszczalnego zakresu i.
-  ~Tego, czy liczby w tablicy są dodatnie.
-  ~Tego, czy suma jest zwracana przez funkcję.
+  ~Czy pętla for ma granice domknięte, nie określając indeksu pierwszego elementu.
+  ~Czy wynik sumowania jest liczbą całkowitą, niezależnie od sposobu indeksowania.
   ####Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
 }
 
 ::AISD-03-Q08::Które stwierdzenie odróżnia schemat blokowy od programu źródłowego? {
   =Schemat przedstawia przepływ sterowania, lecz nie narzuca semantyki konkretnego języka wykonawczego.
-  ~Schemat jest wykonywalny na każdej maszynie RAM bez translacji.
-  ~Schemat musi zawierać wszystkie instrukcje konkretnego procesora.
-  ~Schemat z definicji umożliwia pominięcie warunków brzegowych.
+  ~Schemat zawsze jednoznacznie określa reprezentację zmiennych i ich zakresy.
+  ~Schemat jest niezależny od języka, więc gwarantuje jednakowe zachowanie przy przepełnieniu.
+  ~Schemat można uruchomić bez zdefiniowania znaczenia operacji w jego blokach.
   ####Schemat reprezentuje logikę algorytmu; jego wykonanie wymaga formalizacji operacji w wybranym środowisku.
 }
 
@@ -83,25 +83,25 @@
 }
 
 ::AISD-03-Q11::Funkcja ma zwracać minimum dwóch liczb a i b, również równych. Które rozgałęzienie zapewnia poprawność przy remisie? {
-  ~Jeśli a<b zwróć b, w przeciwnym razie a.
+  ~Jeśli a<b zwróć a, w przeciwnym razie nie zwracaj wyniku dla równości.
   =Jeśli a<\=b zwróć a, w przeciwnym razie b.
-  ~Jeśli a>b zwróć a, w przeciwnym razie b.
-  ~Jeśli a\=b zakończ bez wyniku, w przeciwnym razie zwróć mniejszą.
+  ~Jeśli a>b zwróć b, w przeciwnym razie nie zwracaj wyniku dla równości.
+  ~Jeśli a<\=b zwróć b, w przeciwnym razie a.
   ####Przypadek a\=b też wymaga wyniku, który jest wspólną wartością argumentów.
 }
 
 ::AISD-03-Q12::Pseudokod pętli for i\=0..n-1 zawiera instrukcję return po sprawdzeniu A[i]. Co określa zakres tego return? {
   =Zakończenie całej funkcji, a nie tylko bieżącej iteracji.
-  ~Przejście automatycznie do kolejnej iteracji pętli.
-  ~Wyjście tylko z gałęzi if i wykonanie następnej instrukcji pętli.
-  ~Powrót do nagłówka pętli z pominięciem zwiększenia i.
+  ~Zakończenie pętli, lecz wykonanie dalszych instrukcji funkcji.
+  ~Wyjście z gałęzi if i sprawdzenie następnego elementu.
+  ~Przerwanie tylko bieżącego wywołania pętli bez zwracania wartości.
   ####Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
 }
 
 ::AISD-03-Q13::Kiedy rozgałęzienie złożone z dwóch testów if jest równoważne if-else? {
-  ~Gdy oba warunki są jednocześnie prawdziwe.
-  ~Gdy oba warunki zależą od dowolnych różnych zmiennych.
-  ~Gdy w obu gałęziach występuje ta sama liczba instrukcji.
+  ~Gdy drugi warunek jest równy pierwszemu i działa na tym samym stanie.
+  ~Gdy drugi warunek jest negacją pierwszego, lecz pierwszy zmienia stan przed drugim testem.
+  ~Gdy warunki nie mogą być jednocześnie prawdziwe, ale mogą być oba fałszywe.
   =Gdy drugi warunek jest dokładną negacją pierwszego i oba testują ten sam niezmieniony stan.
   ####Tylko rozłączne i wyczerpujące warunki nad tym samym stanem zastępują alternatywę if-else.
 }
