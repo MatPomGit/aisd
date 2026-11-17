@@ -3,8 +3,8 @@
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-07-Q01::[plain]Macierz 3×4 jest przechowywana wierszowo w ciągłym buforze. Jaki jest indeks liniowy elementu A[2][1] przy indeksowaniu od 0? {
-  ~7
   =9
+  ~7
   ~10
   ~8
   ####Przy czterech kolumnach indeks to 2·4+1\=9.
@@ -12,23 +12,23 @@
 
 ::AISD-07-Q02::[plain]Macierz A ma rozmiar 3×5 i A[1][4]\=7. Po transpozycji do B, gdzie B[j][i]\=A[i][j], który odczyt daje wartość 7? {
   ~B[1][4].
-  =B[4][1].
   ~B[3][5].
   ~B[4][3].
+  =B[4][1].
   ####Transpozycja zmienia indeksy miejscami, dlatego A[1][4] odpowiada B[4][1].
 }
 
 ::AISD-07-Q03::[plain]Wierszowo przechowywana macierz ma m wierszy i n kolumn. Która kolejność przejścia zwykle lepiej wykorzystuje lokalność pamięci? {
   ~Przejście kolumnami
   ~Przejście wierszami, ale od ostatniej kolumny do pierwszej, niezależnie od ułożenia danych.
-  ~Przejście po przekątnych
   =Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach.
+  ~Przejście po przekątnych
   ####W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
 }
 
 ::AISD-07-Q04::[plain]Dla kwadratowej macierzy n×n wyznaczamy transpozycję w miejscu. Które zamiany wystarczają? {
-  ~Dla wszystkich i różnego od j wykonać zamianę A[i][j] z A[j][i] dokładnie raz dla obu kierunków.
   =Dla każdej pary i<j zamienić A[i][j] z A[j][i].
+  ~Dla wszystkich i różnego od j wykonać zamianę A[i][j] z A[j][i] dokładnie raz dla obu kierunków.
   ~Zamienić tylko elementy sąsiadujące z główną przekątną.
   ~Dla każdej pary i<j zamienić A[i][j] z A[n-1-j][n-1-i].
   ####Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
@@ -36,8 +36,8 @@
 
 ::AISD-07-Q05::[plain]Reprezentujemy bardzo rzadki graf o 1000 wierzchołkach i 10 krawędziach. Przy zwykłym kodowaniu listowym i macierzowym, która reprezentacja zazwyczaj zużywa mniej pamięci i dlaczego? {
   ~Macierz sąsiedztwa, bo jej rozmiar zależy od E, a nie od V.
-  ~Obie mają Θ(E²), jeśli graf nie jest spójny.
   =Lista sąsiedztwa, ponieważ zajmuje O(V+E), podczas gdy macierz wymaga Θ(V²).
+  ~Obie mają Θ(E²), jeśli graf nie jest spójny.
   ~Macierz sąsiedztwa, bo zapamiętuje tylko istniejące krawędzie.
   ####Dla rzadkiego grafu przechowywanie całej macierzy V×V jest kosztowne, podczas gdy listy przechowują wierzchołki i istniejące relacje.
 }
@@ -51,18 +51,18 @@
 }
 
 ::AISD-07-Q07::[plain]Macierz A\=[[1,2,3],[4,5,6]] obrócono o 90 stopni zgodnie z ruchem wskazówek zegara. Która tablica wynikowa zachowuje wszystkie elementy i właściwy kierunek obrotu? {
-  =[[4,1],[5,2],[6,3]].
   ~[[3,6],[2,5],[1,4]].
   ~[[6,5,4],[3,2,1]].
+  =[[4,1],[5,2],[6,3]].
   ~[[1,4],[2,5],[3,6]].
   ####Obrót zgodny z zegarem zamienia kolejne wiersze na kolumny od góry ku dołowi. Wynik ma trzy wiersze i dwie kolumny.
 }
 
 ::AISD-07-Q08::[plain]Macierz DP F[i][j] zależy wyłącznie od F[i-1][j] i F[i][j-1]. Które przejście od (0,0) zapewnia dostępność obu poprzedników? {
+  =Rosnące i, a wewnątrz każdego wiersza rosnące j.
   ~Malejące i, ale rosnące j
   ~Rosnące i i malejące j
   ~Rosnące j oraz malejące i
-  =Rosnące i, a wewnątrz każdego wiersza rosnące j.
   ####Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
 }
 
@@ -76,15 +76,15 @@
 
 ::AISD-07-Q10::[plain]Macierz 4×6 jest przechowywana wierszowo. Jaki jest indeks liniowy elementu A[3][4], gdy indeksowanie zaczyna się od zera? {
   ~18
+  =22
   ~19
   ~24
-  =22
   ####Indeks liniowy oblicza się jako 3·6+4\=22.
 }
 
 ::AISD-07-Q11::[plain]Macierz A ma rozmiar 2×3, B ma rozmiar 3×4. Jaki jest rozmiar iloczynu AB? {
-  =2×4
   ~3×2
+  =2×4
   ~2×3
   ~3×4
   ####Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
@@ -99,8 +99,8 @@
 }
 
 ::AISD-07-Q13::[plain]Program próbuje transponować macierz 2×3 w miejscu, wykonując zamiany A[i][j] z A[j][i] bez zmiany wymiarów bufora. Dlaczego ogólny algorytm transpozycji macierzy kwadratowej nie działa tutaj bez zmian? {
-  =Ponieważ indeks A[j][i] może wykraczać poza liczbę wierszy, a wynik ma wymiary 3×2.
   ~Ponieważ macierze prostokątne nie mają transpozycji.
+  =Ponieważ indeks A[j][i] może wykraczać poza liczbę wierszy, a wynik ma wymiary 3×2.
   ~Ponieważ każda transpozycja wymaga obrotu o 180 stopni.
   ~Ponieważ transpozycja zachowuje zawsze liczby wierszy i kolumn.
   ####Transpozycja macierzy prostokątnej wymaga zmiany wymiarów; bez zmiany reprezentacji nie wolno stosować wszystkich indeksów przeznaczonych dla kwadratowej macierzy.
@@ -109,14 +109,14 @@
 ::AISD-07-Q14::[plain]Mnożymy klasycznie A o wymiarach 2×3 przez B o wymiarach 3×4. Algorytm wykonuje k mnożeń na każdą komórkę wyniku. Ile mnożeń skalarnych wykona? {
   ~12.
   ~16.
-  =24.
   ~36.
+  =24.
   ####Wynik ma 2×4\=8 komórek, a każda wymaga 3 mnożeń, razem 24.
 }
 
 ::AISD-07-Q15::[plain]Do znalezienia maksimum w macierzy o rozmiarze 3×4, przy inicjalizacji pierwszym elementem, ile porównań trzeba wykonać? {
-  =11
   ~12
+  =11
   ~7
   ~10
   ####Macierz ma 12 elementów; pierwszy ustala maksimum, a pozostałe 11 wymaga porównania.
@@ -124,8 +124,8 @@
 
 ::AISD-07-Q16::[plain]Dwa obrazy RGB mają te same wymiary H×W. Pierwszy przechowuje kanały po 8 bitów, drugi po 16 bitów. Jak zmieni się pamięć samych pikseli, bez nagłówków i wyrównania? {
   ~Pozostanie bez zmian, bo liczba pikseli jest taka sama.
-  =Wzrośnie dwukrotnie, bo każdy z trzech kanałów ma dwa razy więcej bitów.
   ~Wzrośnie trzykrotnie, bo RGB ma trzy kanały.
+  =Wzrośnie dwukrotnie, bo każdy z trzech kanałów ma dwa razy więcej bitów.
   ~Zmniejszy się dwukrotnie, bo kanały są bardziej precyzyjne.
   ####Rozmiary wynoszą odpowiednio 3HW bajtów i 6HW bajtów.
 }
@@ -133,8 +133,8 @@
 ::AISD-07-Q17::[plain]W macierzy sąsiedztwa grafu nieskierowanego bez pętli o 4 wierzchołkach ilu elementów spoza przekątnej może odpowiadać jednej krawędzi? {
   ~1
   ~4
-  =2
   ~8
+  =2
   ####Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
 }
 
@@ -155,8 +155,8 @@
 }
 
 ::AISD-07-Q20::[plain]Macierz 4×4 leży w pamięci wierszowo. Chcemy zamienić całe wiersze 0 i 3 w miejscu, nie zmieniając innych wierszy. Co zapewnia poprawność operacji? {
-  ~Wymiana wyłącznie A[0][0] z A[3][3].
   =Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[3][j].
+  ~Wymiana wyłącznie A[0][0] z A[3][3].
   ~Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[j][3].
   ~Transpozycja całej macierzy bez kolejnych operacji.
   ####Wymiana całych wierszy wymaga czterech niezależnych zamian odpowiadających sobie kolumn.
