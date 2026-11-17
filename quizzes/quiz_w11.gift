@@ -3,8 +3,8 @@
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-11-Q01::[plain]Pusta kolejka FIFO otrzymuje A,B,C; wykonano dequeue(), enqueue(D), dequeue(). Który element zostanie usunięty w następnym dequeue()? {
-  =C.
   ~A.
+  =C.
   ~B.
   ~D.
   ####Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
@@ -27,41 +27,41 @@
 }
 
 ::AISD-11-Q04::[plain]Niecykliczna lista jednokierunkowa ma reprezentować kolejkę FIFO z operacjami enqueue i dequeue w czasie O(1), także przy przejściu do stanu pustego. Jakie wskaźniki wystarczą? {
+  =head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować.
   ~Tylko head, bo wstawienie na koniec nie wymaga przejścia listy.
   ~Tylko tail, który wskazuje null, gdy kolejka jest pełna.
-  =head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować.
   ~Wskaźniki do dwóch pierwszych elementów, bez dostępu do ostatniego.
   ####W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania. Przy pustce oba wskaźniki muszą być spójne.
 }
 
 ::AISD-11-Q05::[plain]Kolejka FIFO zawiera zadania A, B, C w kolejności przybycia, lecz zadanie C ma najwyższy priorytet. Który element usunie standardowa FIFO, a który kolejka priorytetowa skonfigurowana na najwyższy priorytet? {
   ~Obie usuną A, bo priorytet nie zmienia porządku.
-  ~FIFO usunie C, a kolejka priorytetowa usunie A.
   =FIFO usunie A, a kolejka priorytetowa usunie C.
+  ~FIFO usunie C, a kolejka priorytetowa usunie A.
   ~Obie usuną C, bo zadanie o najwyższym priorytecie zawsze trafia na początek.
   ####FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
 }
 
 ::AISD-11-Q06::[plain]Graf nieważony ma krawędzie A-B, A-C, B-D, C-D. BFS startuje w A i przetwarza sąsiadów alfabetycznie. Która informacja o D jest poprawna? {
+  =D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B.
   ~D ma odległość 1, ponieważ można go odkryć przez B.
   ~D ma odległość 3, bo istnieją dwie różne ścieżki.
   ~D ma odległość 2, ale BFS zawsze wybierze C jako rodzica.
-  =D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B.
   ####BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2. Odległości w nieważonym grafie są minimalne.
 }
 
 ::AISD-11-Q07::[plain]Które operacje udostępnia deque, a nie wymaga ich standardowa kolejka FIFO? {
-  =Dodawanie i usuwanie na obu końcach.
   ~Dodawanie na obu końcach, ale usuwanie wyłącznie z początku.
   ~Dodawanie na końcu i usuwanie z dowolnego środka w stałym czasie.
   ~Usuwanie na obu końcach, lecz dodawanie wyłącznie na końcu.
+  =Dodawanie i usuwanie na obu końcach.
   ####Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
 }
 
 ::AISD-11-Q08::[plain]Kolejka zrealizowana jako dynamiczna lista z head i tail usuwa ostatni pozostały element. Jak zaktualizować wskaźniki? {
   ~Ustawić head\=null, pozostawiając tail wskazujące dawny jedyny element.
-  =Ustawić head\=null i tail\=null.
   ~Ustawić tail\=null, pozostawiając head wskazujące dawny jedyny element.
+  =Ustawić head\=null i tail\=null.
   ~Ustawić head\=tail.next, ale nie zmieniać tail nawet przy pustej liście.
   ####Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
 }
@@ -69,24 +69,24 @@
 ::AISD-11-Q09::[plain]Kolejka cykliczna o pojemności 5 zaczyna z front\=0, size\=0. Dodano A,B,C, usunięto A,B, a potem dodano D,E,F. W jakich komórkach leżą C,D,E,F w kolejności FIFO? {
   ~0,1,2,3.
   ~2,3,4,5.
-  ~3,4,0,1.
   =2,3,4,0.
+  ~3,4,0,1.
   ####Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
 }
 
 ::AISD-11-Q10::[plain]Kolejka FIFO otrzymuje 2,4,6. Wykonujemy dequeue(), enqueue(8), dequeue(). Co zwrócą kolejne dwa dequeue()? {
   ~4,6
-  =6,8
   ~8,6
   ~2,8
+  =6,8
   ####Po usunięciu 2 i 4 pozostają 6 i 8 w tej kolejności.
 }
 
 ::AISD-11-Q11::[plain]W kolejce cyklicznej o pojemności 6, gdzie rear oznacza indeks następnej wolnej komórki, rear\=5. Po enqueue jaki będzie rear? {
-  =0
   ~1
   ~5
   ~4
+  =0
   ####Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
 }
 
@@ -108,24 +108,24 @@
 
 ::AISD-11-Q14::[plain]Dla bufora cyklicznego pojemności 8, front\=6 i size\=4, jakie indeksy zajmują elementy w kolejności FIFO? {
   ~6,7,1,2
-  ~6,5,4,3
   =6,7,0,1
+  ~6,5,4,3
   ~6,7,0,2
   ####Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
 }
 
 ::AISD-11-Q15::[plain]Kolejka jest zaimplementowana za pomocą dwóch stosów. Elementy są przenoszone ze stosu wejściowego do wyjściowego tylko wtedy, gdy wyjściowy jest pusty. Dlaczego dequeue ma amortyzowany koszt O(1)? {
+  =Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz.
   ~Bo pojedyncze dequeue nigdy nie przenosi więcej niż jednego elementu.
   ~Bo transfer trwa Θ(log n) dla każdej liczby elementów.
-  =Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz.
   ~Bo dwa stosy gwarantują usuwanie w porządku LIFO zamiast FIFO.
   ####Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
 }
 
 ::AISD-11-Q16::[plain]W pustej kolejce z head\=tail\=null dodano pojedynczy element X. Jakie powinny być wskaźniki po enqueue? {
   ~head\=X i tail\=null.
-  =head\=X i tail\=X.
   ~head\=null i tail\=X.
+  =head\=X i tail\=X.
   ~head\=null i tail\=null.
   ####W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
 }
@@ -149,8 +149,8 @@
 ::AISD-11-Q19::[plain]Dwustronna kolejka (deque) zawiera kolejno od początku [1,2,3]. Wykonano push_front(4) oraz pop_back(). Jaka jest kolejność pozostałych elementów? {
   ~[1,2,4]
   ~[4,2,3]
-  ~[2,3,4]
   =[4,1,2]
+  ~[2,3,4]
   ####Push_front dodaje 4 przed 1, a pop_back usuwa 3.
 }
 
