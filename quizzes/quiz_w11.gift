@@ -1,5 +1,5 @@
 // AIiSD 11: Kolejki
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-11-Q01::[plain]Do pustej kolejki FIFO trafiają kolejno A, B, C. Następnie wykonujemy dequeue() oraz enqueue(D). Co zwróci następne dequeue()? {
