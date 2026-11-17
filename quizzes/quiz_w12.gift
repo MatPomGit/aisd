@@ -1,5 +1,5 @@
 // AIiSD 12: Podstawy drzew
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-12-Q01::[plain]Wysokość drzewa definiujemy jako liczbę krawędzi na najdłuższej ścieżce od korzenia do liścia. Jaką wysokość ma drzewo składające się z jednego węzła? {
