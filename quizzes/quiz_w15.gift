@@ -75,10 +75,10 @@
 }
 
 ::AISD-15-Q10::Graf skierowany ma łuki A→B, B→C, C→A. Ile wynosi stopień wejściowy każdego wierzchołka? {
-  ~0
-  ~2
+  ~0, ponieważ w cyklu wejścia i wyjścia się równoważą.
+  ~2, ponieważ każdy wierzchołek ma jednego poprzednika i jednego następcę.
   =1
-  ~3
+  ~3, ponieważ trzy łuki wchodzą łącznie do całego grafu.
   ####Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
 }
 
@@ -92,16 +92,16 @@
 
 ::AISD-15-Q12::Nieskierowany graf ma 6 wierzchołków w dwóch rozłącznych trójkątach. Ile ma spójnych składowych? {
   =2
-  ~1
-  ~3
-  ~6
+  ~1 składowa, ponieważ każda z dwóch części zawiera cykl.
+  ~3 składowe, ponieważ każdy trójkąt tworzy więcej niż jeden komponent.
+  ~6 składowych, ponieważ wierzchołki dwóch trójkątów nie są połączone między sobą.
   ####Każdy trójkąt stanowi osobną składową, bo nie ma krawędzi między trójkątami.
 }
 
 ::AISD-15-Q13::Graf skierowany ma łuki 0→1,0→2,2→1. Jaki jest stopień wyjściowy wierzchołka 0? {
-  ~1
-  ~3
-  ~0
+  ~1, ponieważ tylko 0→1 jest krawędzią bezpośrednią do innego wierzchołka.
+  ~3, ponieważ liczy się również łuk 2→1.
+  ~0, ponieważ wierzchołek startowy nie ma stopnia wyjściowego.
   =2
   ####Z wierzchołka 0 wychodzą dokładnie dwa łuki.
 }
@@ -115,10 +115,10 @@
 }
 
 ::AISD-15-Q15::Dla grafu o 1000 wierzchołkach i 10 krawędziach, która reprezentacja jest zwykle oszczędniejsza pamięciowo? {
-  ~Macierz sąsiedztwa 1000×1000.
+  ~Macierz sąsiedztwa, ponieważ przy E\=10 zawiera wiele pól zerowych.
   =Lista sąsiedztwa.
-  ~Pełna macierz wag zawierająca także brakujące krawędzie.
-  ~Macierz osiągalności 1000×1000.
+  ~Pełna macierz wag, ponieważ nieistniejące krawędzie nie zajmują miejsca.
+  ~Macierz osiągalności, ponieważ koszt pamięci zależy wyłącznie od rzeczywistego E.
   ####Lista sąsiedztwa wymaga O(V+E), a macierze kwadratowej liczby pól.
 }
 
@@ -139,10 +139,10 @@
 }
 
 ::AISD-15-Q18::W grafie skierowanym ścieżki A→B i B→C istnieją. Która relacja wynika z przechodniości osiągalności? {
-  ~A jest osiągalne z C.
-  ~Łuk A→C musi należeć do zbioru krawędzi.
+  ~A jest osiągalne z C, ponieważ każda ścieżka daje przejście w obu kierunkach.
+  ~Łuk A→C musi istnieć bezpośrednio, skoro są dwa kolejne łuki.
   =C jest osiągalne z A.
-  ~B i C muszą należeć do tego samego silnie spójnego składnika.
+  ~B i C muszą należeć do jednego silnie spójnego składnika.
   ####Sklejenie ścieżek A→B i B→C tworzy drogę od A do C.
 }
 
