@@ -1,5 +1,5 @@
 // AIiSD 08: Rekurencja i dynamiczne struktury danych
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-08-Q01::[plain]Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
