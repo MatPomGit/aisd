@@ -1,5 +1,5 @@
 // AIiSD 17: Teoria i klasyfikacja sortowania
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-17-Q01::[plain]Dane są rekordy (klucz,etykieta): (2,A),(1,B),(2,C). Jaki wynik jest stabilnym sortowaniem rosnącym według klucza? {
