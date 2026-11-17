@@ -1,5 +1,5 @@
 // AIiSD 10: Stosy
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-10-Q01::[plain]Pusty stos otrzymuje kolejno push(3), push(7), pop(), push(4). Jaką wartość zwróci następne pop()? {
