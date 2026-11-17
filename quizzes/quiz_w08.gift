@@ -13,38 +13,38 @@
 ::AISD-08-Q02::[plain]Funkcja dla n\=0 zwraca 0, a dla n>0 wywołuje f(n-2). Co stanie się dla n\=5 przy dokładnej arytmetyce całkowitej? {
   ~Zakończy się na n\=1, bo zejście o dwa oznacza osiągnięcie zera.
   ~Zwróci 0 po trzech wywołaniach, bo n zostanie zaokrąglone.
-  =Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0.
   ~Zakończy się dla wszystkich dodatnich n, ponieważ argument maleje.
+  =Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0.
   ####Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
 }
 
 ::AISD-08-Q03::[plain]Rekurencyjne obliczanie silni tworzy łańcuch wywołań o argumentach n, n-1, ..., 0. Jaka jest asymptotyczna złożoność pamięciowa stosu wywołań? {
   ~Θ(log n)
   ~Θ(n²)
-  ~Θ(1)
   =Θ(n)
+  ~Θ(1)
   ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
 }
 
 ::AISD-08-Q04::[plain]Lista jednokierunkowa ma wskaźnik head. Wstawiamy nowy węzeł x na początek niepustej listy. Która kolejność aktualizacji zachowuje wszystkie elementy? {
   ~head\=x, następnie x.next\=head, co zachowuje poprzedni początek listy.
   ~x.next\=head.next, następnie head\=x, co zachowuje dotychczasową głowę.
-  =x.next\=head, potem head\=x.
   ~head.next\=x, następnie head\=x, bez przepinania pozostałych węzłów.
+  =x.next\=head, potem head\=x.
   ####Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
 }
 
 ::AISD-08-Q05::[plain]Rekurencyjny DFS ma przejść graf skierowany z cyklem A→B→C→A. Która zmiana gwarantuje, że nie rozpocznie drugi raz przetwarzania aktywnego wierzchołka? {
-  =Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów.
   ~Oznaczenie wierzchołka po powrocie ze wszystkich wywołań DFS jego sąsiadów.
+  =Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów.
   ~Usunięcie sprawdzenia stanu odwiedzenia i ograniczenie liczby argumentów funkcji.
   ~Rekurencyjne przetworzenie każdego sąsiada dwukrotnie dla wykrycia cyklu.
   ####Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
 }
 
 ::AISD-08-Q06::[plain]Dla rekurencji T(n)\=2T(n/2)+Θ(n), przy n potędze dwójki, jaki jest rząd kosztu? {
-  ~Θ(n)
   =Θ(n log n)
+  ~Θ(n)
   ~Θ(n²)
   ~Θ(log n)
   ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
@@ -52,9 +52,9 @@
 
 ::AISD-08-Q07::[plain]Program wykonuje bardzo wiele wstawień na początku sekwencji liczb i rzadko odczytuje element o dowolnym indeksie. Która struktura lepiej wspiera najważniejszą operację bez kopiowania n elementów? {
   ~Zwykła tablica zwarta, bo wstawienie na początku zawsze kosztuje Θ(1).
-  =Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć.
   ~Posortowana tablica, bo gwarantuje brak przesunięć.
   ~Macierz sąsiedztwa, bo przechowuje każdą sekwencję w jednym wierszu.
+  =Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć.
   ####W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head. Tablica zwarta wymaga zwykle przesunięcia danych.
 }
 
@@ -67,8 +67,8 @@
 }
 
 ::AISD-08-Q09::[plain]Rekurencja f(n)\=f(n-1)+2 dla n>0, f(0)\=3 została zaimplementowana bez sprawdzenia n>0, czyli zawsze wywołuje f(n-1)+2. Co stanie się dla n\=0? {
-  =Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3.
   ~Zwróci 3, bo wartość bazowa jest zapisana w dokumentacji.
+  =Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3.
   ~Zwróci 2, bo ostatnie wywołanie niczego nie dodaje.
   ~Zwróci 0, bo liczby ujemne są ignorowane w rekurencji.
   ####Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
@@ -84,8 +84,8 @@
 
 ::AISD-08-Q11::[plain]W rekurencyjnym przejściu drzewa binarnego rozmiaru n, jeśli każda funkcja odwiedza węzeł raz i wykonuje stałą pracę, jaki jest czas? {
   ~Θ(log n)
-  =Θ(n)
   ~Θ(n log n)
+  =Θ(n)
   ~Θ(n²)
   ####Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
 }
@@ -93,22 +93,22 @@
 ::AISD-08-Q12::[plain]Funkcja wywołuje rekurencyjnie f(n//2), gdzie // oznacza dzielenie całkowite, dopóki n>1. Ile wywołań z dodatnim argumentem powstanie dla n\=32, licząc pierwsze? {
   ~5
   ~7
-  ~32
   =6
+  ~32
   ####Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
 }
 
 ::AISD-08-Q13::[plain]Dwie funkcje wywołują się wzajemnie: f(n) wywołuje g(n), a g(n) wywołuje f(n-1). Każda kończy się dla n\=0. Dlaczego taka wzajemna rekurencja może kończyć się dla n>\=0? {
+  =Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym.
   ~Ponieważ każde pojedyncze wywołanie zmniejsza n.
   ~Ponieważ wzajemna rekurencja zawsze kończy się, niezależnie od argumentów.
-  =Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym.
   ~Ponieważ dwa przypadki bazowe dowodzą zakończenia nawet bez postępu.
   ####Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
 }
 
 ::AISD-08-Q14::[plain]W liście jednokierunkowej head→A→B→C i nowy węzeł X ma zostać wstawiony po B. Jakie wskaźniki należy ustawić? {
-  ~B.next\=X, a X.next\=B, co tworzy połączenie z nowym węzłem.
   =X.next\=C, B.next\=X.
+  ~B.next\=X, a X.next\=B, co tworzy połączenie z nowym węzłem.
   ~X.next\=B, a B.next\=C, co dopina X przed B.
   ~B.next\=X, a X.next\=null
   ####Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
@@ -116,25 +116,25 @@
 
 ::AISD-08-Q15::[plain]W rekurencji f(n) dla n\=0 wykonuje się tylko return 1, dla n>0 return 2*f(n-1). Ile wynosi f(5)? {
   ~16
+  =32
   ~64
   ~10
-  =32
   ####Pięć kolejnych przemnożeń przez 2 daje 2^5\=32.
 }
 
 ::AISD-08-Q16::[plain]W tablicowej implementacji stosu wywołań każdy poziom rekurencji przechowuje dwie zmienne i adres powrotu. Jak rośnie dodatkowa pamięć dla głębokości d? {
-  =Θ(d)
   ~Θ(log d)
+  =Θ(d)
   ~Θ(d²)
   ~Θ(1)
   ####Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
 }
 
 ::AISD-08-Q17::[plain]Rekurencja T(n)\=T(n/2)+Θ(1) dla n\=2^k. Jaka jest klasa wzrostu? {
-  =Θ(log n)
   ~Θ(n)
   ~Θ(n log n)
   ~Θ(log² n)
+  =Θ(log n)
   ####Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
 }
 
@@ -155,10 +155,10 @@
 }
 
 ::AISD-08-Q20::[plain]W liście dwukierunkowej węzeł X znajduje się bezpośrednio przed Y. Wstawiamy między nimi węzeł N. Który zestaw aktualizacji wskaźników jest kompletny? {
+  =X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N.
   ~X.next\=N, N.prev\=Y, N.next\=X, Y.prev\=N.
   ~X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=X.
   ~X.next\=Y, N.prev\=X, N.next\=Y, Y.prev\=N.
-  =X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N.
   ####Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
 }
 
