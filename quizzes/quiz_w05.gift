@@ -78,23 +78,23 @@
   =4
   ~0
   ~1
-  ~Nieskończoność
+  ~+∞
   ####Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
 }
 
 ::AISD-05-Q11::Jaka jest najściślejsza klasa spośród podanych dla funkcji f(n)\=n²/log₂ n, n>\=2? {
-  ~f(n) należy do Θ(n²)
-  ~f(n) należy do Θ(n log₂ n)
-  ~f(n) należy do O(n)
+  ~Θ(n²)
+  ~Θ(n log₂ n)
+  ~O(n)
   =o(n²)
   ####Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
 }
 
 ::AISD-05-Q12::Które stwierdzenie jest prawdziwe dla f(n)\=n i g(n)\=n log₂ n, n>\=2? {
-  ~f jest Θ(g)
-  ~f jest Ω(g)
+  ~f(n) należy do Θ(g(n)).
+  ~f(n) należy do Ω(g(n)).
   =f(n) należy do O(g(n)), ale nie do Θ(g(n)).
-  ~f jest o(g), ale nie O(g)
+  ~f(n) należy do o(g(n)), ale nie do O(g(n)).
   ####Stosunek f/g\=1/log₂ n zmierza do zera.
 }
 
@@ -139,10 +139,10 @@
 }
 
 ::AISD-05-Q18::Czy f(n)\=n²+(-1)^n n należy do Θ(n²) dla naturalnych n? {
-  =Tak, bo składnik liniowy nie zmienia rzędu wzrostu.
-  ~Nie, ponieważ dla części n wartość f jest mniejsza od n².
-  ~Nie, ponieważ iloraz f(n)/n² nie jest równy 1 dla każdego n.
-  ~Tak, ale wyłącznie dla n parzystych, gdy dodatkowy składnik jest dodatni.
+  =Tak; składnik liniowy nie zmienia rzędu Θ(n²).
+  ~Nie; dla nieparzystych n funkcja ma rząd Θ(n).
+  ~Nie; naprzemienność uniemożliwia dolne ograniczenie Θ(n²).
+  ~Tak, ale wyłącznie dla parzystych n.
   ####Dla dużego n funkcja mieści się pomiędzy stałymi dodatnimi wielokrotnościami n².
 }
 
