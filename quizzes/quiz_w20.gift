@@ -4,9 +4,9 @@
 
 ::AISD-20-Q01::W problemie wydawania reszty z monetami 1,3,4 jaka jest minimalna liczba monet dla kwoty 6? {
   =2
-  ~3
-  ~4
-  ~6
+  ~3, ponieważ algorytm zachłanny wybiera monety 4+1+1.
+  ~4, ponieważ każdą z trzech dostępnych wartości nominałów wolno użyć tylko raz.
+  ~6, ponieważ wszystkie monety muszą mieć nominał 1.
   ####Dwie monety po 3 dają 6; zachłanne 4+1+1 wymaga trzech monet.
 }
 
@@ -68,16 +68,16 @@
 
 ::AISD-20-Q09::W plecaku 0/1 pojemność wynosi 5, a przedmioty mają (masa,wartość) A\=(2,3), B\=(3,4), C\=(4,5). Jaka jest maksymalna wartość? {
   =7
-  ~5
-  ~8
-  ~9
+  ~5, ponieważ najwyższą wartość daje pojedynczy przedmiot C.
+  ~8, ponieważ przedmioty A i C mieszczą się razem w pojemności 5.
+  ~9, ponieważ przedmioty B i C mieszczą się razem w pojemności 5.
   ####A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
 }
 
 ::AISD-20-Q10::Dla przedziałów [1,3), [2,5), [3,4), [4,6) wybieranych zachłannie według najwcześniejszego końca, ile maksymalnie można wybrać niepokrywających się przedziałów? {
-  ~2
-  ~4
-  ~1
+  ~2, ponieważ odcinki [1,3) i [3,4) nie nakładają się, ale [4,6) jest zbyt długi.
+  ~4, ponieważ każda para kolejnych przedziałów z listy jest zgodna.
+  ~1, ponieważ pierwszy wybrany przedział blokuje wszystkie pozostałe.
   =3
   ####Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
 }
@@ -107,9 +107,9 @@
 }
 
 ::AISD-20-Q14::Dla DP F[i]\=F[i-1]+F[i-2], przy F[0]\=1 i F[1]\=2, ile wynosi F[5]? {
-  ~8
-  ~21
-  ~11
+  ~8, ponieważ F[5] oblicza się po czterech dodaniach od stanu F[1].
+  ~21, ponieważ zastosowano bazowe wartości F[0]\=0 i F[1]\=1.
+  ~11, ponieważ w ostatnim kroku dodano tylko jeden wcześniejszy stan.
   =13
   ####Kolejne wartości to 1,2,3,5,8,13.
 }
@@ -132,9 +132,9 @@
 
 ::AISD-20-Q17::Dla minimizacji kosztu pokrycia dystansu n, skoki mogą mieć długość 1 lub 2, a koszt skoku wynosi 1. Jakie jest optimum dla n\=7? {
   =4
-  ~3
-  ~5
-  ~7
+  ~3, ponieważ trzy skoki długości 2 wystarczają do pokrycia siedmiu jednostek.
+  ~5, ponieważ ostatnia pozycja wymaga dwóch skoków jednostkowych.
+  ~7, ponieważ aby zachować optimum, należy wybierać zawsze skok długości 1.
   ####Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
 }
 
