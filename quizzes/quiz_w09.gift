@@ -1,27 +1,27 @@
 // AIiSD 09: Listy liniowe
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-09-Q01::Lista jednokierunkowa o n elementach nie ma dodatkowego indeksu. Jaki jest najgorszy koszt znalezienia elementu na pozycji k od głowy? {
-  ~Θ(1)
+  ~Θ(1), jeśli znany jest wskaźnik head oraz indeks k.
   =Θ(k+1)
-  ~Θ(log n)
-  ~Θ(n-k)
+  ~Θ(log(k+1)), ponieważ można pomijać połowę następnych węzłów.
+  ~Θ(n-k), ponieważ lista jest przeszukiwana od końca do początku.
   ####Dojście do pozycji k wymaga przejścia od głowy przez k wiązań.
 }
 
 ::AISD-09-Q02::W liście jednokierunkowej znamy wskaźnik na poprzednik p elementu x. Jak poprawnie usunąć x z wnętrza listy? {
   =Ustawić p.next na x.next, a następnie zwolnić x.
-  ~Ustawić x.next na p i zwolnić p.
-  ~Ustawić p.next na null, niezależnie od dalszych węzłów.
-  ~Zamienić wartości p oraz x i pozostawić oba węzły.
+  ~Ustawić x.next na p.next, a następnie zwolnić p.
+  ~Ustawić p.next na x, a dopiero potem zwolnić x.
+  ~Ustawić p.next na x.next.next, pomijając również następcę x.
   ####Przepięcie p.next pomija x, nie tracąc dalszej części listy.
 }
 
 ::AISD-09-Q03::Dwukierunkowa lista ma węzeł x między p i q. Jakie wiązania są konieczne po usunięciu x? {
-  ~p.prev\=q oraz q.next\=p.
-  ~p.next\=x oraz q.prev\=x.
-  ~x.next\=p oraz x.prev\=q.
+  ~p.next\=q i q.next\=p, co odtwarza oba kierunki listy.
+  ~p.prev\=q i q.prev\=p, co odtwarza połączenie poprzednika z następcą.
+  ~p.next\=q i q.prev\=x, ponieważ usunięty węzeł nadal utrzymuje połączenie wstecz.
   =p.next\=q oraz q.prev\=p.
   ####Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
 }
@@ -35,34 +35,34 @@
 }
 
 ::AISD-09-Q05::Lista jednokierunkowa przechowuje wskaźniki head i tail. Jaki koszt ma dopisanie elementu na koniec przy poprawnej obsłudze pustej listy? {
-  ~Θ(log n)
+  ~Θ(1) tylko wtedy, gdy lista ma co najmniej dwa elementy.
   =Θ(1)
-  ~Θ(n)
-  ~Θ(n log n)
+  ~Θ(n), bo aby dodać element, trzeba znaleźć aktualny ogon.
+  ~Θ(log n), ponieważ tail umożliwia skrócenie wyszukiwania o połowę.
   ####Posiadanie tail pozwala bez przeglądania listy połączyć stary ogon z nowym.
 }
 
 ::AISD-09-Q06::Dla listy jednokierunkowej bez wskaźnika poprzednika chcemy usunąć ostatni węzeł. Jaki jest koszt w najgorszym przypadku? {
   =Θ(n)
-  ~Θ(1)
-  ~Θ(log n)
-  ~Θ(n²)
+  ~Θ(1), ponieważ head umożliwia przejście do końca w jednym kroku.
+  ~Θ(log n), bo wystarczy wyszukiwać co drugi węzeł.
+  ~Θ(n²), ponieważ wszystkie wiązania trzeba odwrócić przed usunięciem.
   ####Aby zmienić next przedostatniego węzła, trzeba go znaleźć, przechodząc od głowy.
 }
 
 ::AISD-09-Q07::Jaki jest skutek pominięcia aktualizacji tail przy usunięciu jedynego węzła listy? {
-  ~Z listy zostanie usunięty także węzeł strażnika, jeśli występuje.
-  ~Lista automatycznie zmieni się w listę cykliczną.
-  ~Operacja zmieni jedynie złożoność czasową kolejnego wyszukiwania.
+  ~head i tail będą automatycznie równe null po zwolnieniu ostatniego węzła.
+  ~tail będzie wskazywał nową pustą komórkę, co nie wpływa na poprawność.
+  ~Błędne tail wpłynie jedynie na koszt pamięci, a nie na kolejną operację enqueue.
   =tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty.
   ####Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
 }
 
 ::AISD-09-Q08::Dla listy jednokierunkowej w porównaniu z tablicą jaki jest koszt dotarcia do elementu o podanym indeksie k, bez dodatkowych indeksów? {
-  ~W liście stały, w tablicy liniowy względem k.
-  ~W obu logarytmiczny względem k.
+  ~W obu Θ(1), ponieważ każda struktura ma dostęp do początku.
+  ~W obu Θ(k), gdyż indeks k wymaga pominięcia k pozycji.
   =W liście liniowy względem k, w tablicy stały w modelu RAM.
-  ~W obu stały, jeśli lista przechowuje head.
+  ~W liście Θ(1), jeśli jest tail; w tablicy Θ(k).
   ####Powiązania umożliwiają przejście tylko do następnego węzła, natomiast tablica ma adresowanie indeksowe.
 }
 
@@ -91,10 +91,10 @@
 }
 
 ::AISD-09-Q12::Na liście jednokierunkowej bez tail dopisujemy element na koniec. Przy długości n>0 ile węzłów w najgorszym przypadku trzeba odwiedzić od head, aby znaleźć ogon? {
-  ~n-1
-  ~⌈log₂ n⌉
+  ~n-1 węzłów, bo indeksowanie zaczyna się od zera.
+  ~⌈n/2⌉ węzłów, jeśli tail nie jest utrzymywany.
   =n
-  ~1
+  ~n+1 węzłów, bo po ostatnim trzeba odwiedzić znacznik null.
   ####Trzeba przejść kolejno przez wszystkie n węzłów, aby dotrzeć do ostatniego.
 }
 
@@ -123,10 +123,10 @@
 }
 
 ::AISD-09-Q16::Jaka operacja na liście jednokierunkowej z head i tail w najgorszym przypadku zwykle nadal wymaga Θ(n)? {
-  ~Dodanie elementu na początek.
-  ~Dodanie elementu na koniec.
+  ~Usunięcie ogona w Θ(1), ponieważ ogon jest bezpośrednio wskazywany.
+  ~Usunięcie głowy w Θ(n), ponieważ trzeba odszukać jej poprzednik.
   =Usunięcie ogona bez wskaźników prev.
-  ~Usunięcie głowy niepustej listy.
+  ~Dodanie na koniec w Θ(n), ponieważ trzeba sprawdzić wszystkie wskaźniki next.
   ####Aby wyznaczyć nowy ogon, trzeba znaleźć poprzednika starego ogona.
 }
 
@@ -155,10 +155,10 @@
 }
 
 ::AISD-09-Q20::Przy założeniu, że znany jest wskaźnik do węzła w liście dwukierunkowej, a nie jest to węzeł strażnika, jaki koszt ma jego usunięcie przy spójnych wskaźnikach i stałoczasowym zwalnianiu pamięci? {
-  ~O(log n)
-  ~O(n)
+  ~O(log n), jeśli lista ma wskaźniki prev i next.
+  ~O(n), ponieważ wszystkie węzły po usuniętym należy przesunąć.
   =O(1)
-  ~O(n log n)
+  ~O(1) tylko dla usuwania głowy, a nie dowolnego znanego węzła.
   ####Modyfikuje się stałą liczbę pól next i prev sąsiadów.
 }
 
