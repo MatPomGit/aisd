@@ -3,10 +3,10 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-17-Q01::Dane są rekordy (klucz,etykieta): (2,A),(1,B),(2,C). Jaki wynik jest stabilnym sortowaniem rosnącym według klucza? {
-  ~(1,B),(2,C),(2,A)
+  ~(1,B),(2,C),(2,A), ponieważ stabilność pozwala zamieniać równe klucze.
   =(1,B),(2,A),(2,C)
-  ~(2,A),(2,C),(1,B)
-  ~(2,C),(1,B),(2,A)
+  ~(2,A),(2,C),(1,B), ponieważ stabilność ważniejsza jest od sortowania rosnącego.
+  ~(2,C),(1,B),(2,A), ponieważ zachowano kolejność pierwszych wystąpień wartości.
   ####Stabilność wymaga zachowania względnego porządku etykiet A i C przy równych kluczach 2.
 }
 
@@ -67,10 +67,10 @@
 }
 
 ::AISD-17-Q09::Rekordy wejściowe to (2,A),(1,B),(2,C),(1,D). Jaki wynik zachowuje stabilność sortowania po kluczu rosnąco? {
-  ~(1,D),(1,B),(2,A),(2,C)
+  ~(1,D),(1,B),(2,A),(2,C), ponieważ równe klucze można odwracać.
   =(1,B),(1,D),(2,A),(2,C)
-  ~(1,B),(1,D),(2,C),(2,A)
-  ~(2,A),(2,C),(1,B),(1,D)
+  ~(1,B),(1,D),(2,C),(2,A), ponieważ stabilność dotyczy tylko mniejszych kluczy.
+  ~(2,A),(2,C),(1,B),(1,D), ponieważ porządek wejściowy ma pierwszeństwo nad wartością klucza.
   ####W ramach klucza 1 B poprzedza D, a w ramach klucza 2 A poprzedza C.
 }
 
@@ -108,16 +108,16 @@
 
 ::AISD-17-Q14::Sortowanie stabilne rekordów najpierw według klucza drugorzędnego, a potem głównego zachowuje jaką własność? {
   =W obrębie równego klucza głównego rekordy pozostają uporządkowane według drugorzędnego.
-  ~Porządek według klucza drugorzędnego staje się ważniejszy od głównego.
-  ~Wszystkie klucze stają się unikatowe.
-  ~Drugi etap wymusza odwrócenie każdego remisu z etapu pierwszego.
+  ~Klucz drugorzędny zaczyna dominować nad głównym, ponieważ sortowano go wcześniej.
+  ~Klucze stają się unikatowe, ponieważ dwa stabilne przebiegi rozstrzygają wszystkie remisy.
+  ~Przy równym kluczu głównym rekordy są ponownie sortowane losowo.
   ####Stabilność drugiego sortowania utrzymuje kolejność z pierwszego etapu między rekordami z tym samym kluczem głównym.
 }
 
 ::AISD-17-Q15::Który przykład spełnia warunki zastosowania sortowania przez zliczanie bez kosztu O(U), gdzie U jest ekstremalnie wielkim zakresem kluczy? {
-  ~Milion różnych 1024-bitowych liczb całkowitych bez ograniczenia rozkładu.
-  ~Milion ciągów znakowych uporządkowanych leksykograficznie bez mapowania na niewielką dziedzinę.
-  ~Milion liczb całkowitych rozrzuconych równomiernie po całym przedziale 0..2^64-1.
+  ~Klucze o bardzo szerokiej dziedzinie liczb 64-bitowych bez gęstego zakresu.
+  ~Ciągi znaków o różnej długości bez ograniczonego odwzorowania na indeksy.
+  ~Liczby całkowite z zakresu 0..2^64-1 przy tablicy zliczeń dla każdej wartości.
   =Milion liczb całkowitych z zakresu 0..15.
   ####Koszt tablicy zliczeń jest proporcjonalny do rozmiaru dopuszczalnej dziedziny kluczy.
 }
@@ -140,9 +140,9 @@
 
 ::AISD-17-Q18::Dla n\=8 różnych kluczy jaka jest liczba porównań standardowego selection sort, niezależnie od kolejności wejścia? {
   =28
-  ~24
-  ~32
-  ~16
+  ~24, ponieważ selection sort porównuje po trzy elementy w ośmiu przebiegach.
+  ~32, ponieważ każda iteracja przegląda cztery elementy.
+  ~16, ponieważ połowa wszystkich par wystarcza do znalezienia minimum.
   ####Selection sort wykonuje 7+6+5+4+3+2+1\=28 porównań.
 }
 
