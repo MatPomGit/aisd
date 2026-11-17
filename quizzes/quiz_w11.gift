@@ -74,12 +74,12 @@
   ####Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
 }
 
-::AISD-11-Q10::[plain]Kolejka FIFO otrzymuje 2,4,6. Wykonujemy dequeue(), enqueue(8), dequeue(). Co zwrócą kolejne dwa dequeue()? {
-  ~4,6
-  ~8,6
-  ~2,8
-  =6,8
-  ####Po usunięciu 2 i 4 pozostają 6 i 8 w tej kolejności.
+::AISD-11-Q10::[plain]Kolejka cykliczna o pojemności 4 ma front\=3 i size\=2, a elementy zajmują indeksy 3 oraz 0. Wykonujemy dequeue, a potem enqueue(X). Gdzie zostanie zapisany X, jeżeli pozycja wstawienia to (front+size) mod 4? {
+  ~Indeks 0, bo front po dequeue wynosi 0.
+  ~Indeks 2, bo rear nie zmienia się przy dequeue.
+  ~Indeks 3, bo nowy element musi zastąpić właśnie usunięty.
+  =Indeks 1, bo po dequeue front\=0 i size\=1.
+  ####Dequeue przesuwa front z 3 do 0 i zmniejsza size do 1. Wstawienie trafia do (0+1) mod 4 \= 1.
 }
 
 ::AISD-11-Q11::[plain]W kolejce cyklicznej o pojemności 6, gdzie rear oznacza indeks następnej wolnej komórki, rear\=5. Po enqueue jaki będzie rear? {
