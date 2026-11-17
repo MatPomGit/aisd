@@ -18,12 +18,12 @@
   ####Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
 }
 
-::AISD-08-Q03::[plain]Rekurencyjne obliczanie silni tworzy łańcuch wywołań o argumentach n, n-1, ..., 0. Jaka jest asymptotyczna złożoność pamięciowa stosu wywołań? {
-  ~Θ(log n)
-  ~Θ(n²)
-  =Θ(n)
-  ~Θ(1)
-  ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
+::AISD-08-Q03::[plain]Funkcja f(n) dla n>0 zwraca 2*f(n-1), a f(0)\=1. Kompilator nie eliminuje rekurencji. Dlaczego wykonanie f(6) wymaga pamięci stosu Θ(n) dla ogólnego n? {
+  ~Ponieważ każdy wynik wymaga osobnej tablicy n elementów.
+  ~Ponieważ funkcja wykonuje dokładnie n² wywołań dla n>0.
+  =Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0).
+  ~Ponieważ wartości zwracane są zawsze większe od słowa maszynowego.
+  ####Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
 }
 
 ::AISD-08-Q04::[plain]Lista jednokierunkowa ma wskaźnik head. Wstawiamy nowy węzeł x na początek niepustej listy. Która kolejność aktualizacji zachowuje wszystkie elementy? {
@@ -114,12 +114,12 @@
   ####Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
 }
 
-::AISD-08-Q15::[plain]W rekurencji f(n) dla n\=0 wykonuje się tylko return 1, dla n>0 return 2*f(n-1). Ile wynosi f(5)? {
-  ~16
-  =32
-  ~64
-  ~10
-  ####Pięć kolejnych przemnożeń przez 2 daje 2^5\=32.
+::AISD-08-Q15::[plain]Naiwny rekurencyjny Fibonacci wywołuje F(n-1) i F(n-2) bez pamiętania wyników. Który problem ujawnia drzewo wywołań F(5)? {
+  ~F(5) nie ma przypadku bazowego, nawet gdy F(0) i F(1) są zdefiniowane.
+  =F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów.
+  ~Każdy stan F(k) występuje dokładnie raz, więc memoizacja niczego nie zmienia.
+  ~Wartości F(3) i F(2) muszą być równe, bo są obliczane w tym samym wywołaniu.
+  ####W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
 }
 
 ::AISD-08-Q16::[plain]W tablicowej implementacji stosu wywołań każdy poziom rekurencji przechowuje dwie zmienne i adres powrotu. Jak rośnie dodatkowa pamięć dla głębokości d? {
