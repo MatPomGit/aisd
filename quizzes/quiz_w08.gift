@@ -1,5 +1,5 @@
 // AIiSD 08: Rekurencja i dynamiczne struktury danych
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-08-Q01::Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
@@ -11,58 +11,58 @@
 }
 
 ::AISD-08-Q02::Rekurencja ma przypadek bazowy n\=0 i wywołuje f(n-2) dla n>0. Dla jakich danych nie można bez dodatkowego warunku dowieść zakończenia? {
-  ~Dla parzystych dodatnich n.
-  ~Dla n\=0.
-  ~Dla n\=2.
+  ~Dla każdego dodatniego n, ponieważ argument maleje zawsze o 2.
+  ~Dla parzystych dodatnich n, ponieważ wywołanie ominie przypadek n\=0.
+  ~Wyłącznie dla n\=1, bo każde inne n dotrze do zera.
   =Dla nieparzystych dodatnich n.
   ####Od nieparzystej liczby kolejne odejmowania 2 omijają zero i przechodzą w liczby ujemne.
 }
 
 ::AISD-08-Q03::W standardowej implementacji rekurencyjnego obliczania silni powstaje łańcuch wywołań n,n-1,...,0. Jaki jest maksymalny rząd głębokości stosu? {
-  ~Θ(1)
-  ~Θ(log n)
+  ~Θ(log n), gdyż argument wywołania zmniejsza się w każdym kroku.
+  ~Θ(n²), ponieważ każde wywołanie musi przechowywać wszystkie poprzednie.
   =Θ(n)
-  ~Θ(n²)
+  ~Θ(1), jeżeli każde wywołanie przechowuje stałą liczbę zmiennych.
   ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
 }
 
 ::AISD-08-Q04::Lista jednokierunkowa ma wskaźnik head. Wstawiamy nowy węzeł x na początek niepustej listy. Która kolejność aktualizacji zachowuje wszystkie elementy? {
-  ~head\=x, potem x.next\=head.
+  ~head\=x, następnie x.next\=head, co zachowuje poprzedni początek listy.
   =x.next\=head, potem head\=x.
-  ~head\=head.next, potem x.next\=head.
-  ~x.next\=null, potem head\=head.next.
+  ~x.next\=head.next, następnie head\=x, co zachowuje dotychczasową głowę.
+  ~head.next\=x, następnie head\=x, bez przepinania pozostałych węzłów.
   ####Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
 }
 
 ::AISD-08-Q05::Rekurencyjne przeglądanie grafu z cyklem może nie zakończyć się, jeśli nie ograniczymy powtórnych odwiedzin. Które działanie temu przeciwdziała? {
   =Oznaczanie wierzchołka jako odwiedzonego przed rekurencją w sąsiadów.
-  ~Zmiana kolejności sąsiadów przy każdym wywołaniu.
-  ~Zastosowanie większego stosu wywołań.
-  ~Rekurencyjne wywołanie dla każdego sąsiada bez zapamiętywania stanu.
+  ~Oznaczenie jako odwiedzone dopiero po zakończeniu rekurencji danego wierzchołka.
+  ~Zapisywanie wyłącznie bezpośredniego rodzica każdego wierzchołka, bez dodatkowego stanu.
+  ~Oznaczenie jako odwiedzone dopiero przy powtórnym wejściu w już aktywny wierzchołek.
   ####Stan odwiedzenia pozwala ominąć wierzchołki już rozpoczęte lub przetworzone.
 }
 
 ::AISD-08-Q06::Dla rekurencji T(n)\=2T(n/2)+Θ(n), przy n potędze dwójki, jaki jest rząd kosztu? {
-  ~Θ(n)
-  ~Θ(log n)
-  ~Θ(n²)
+  ~Θ(n), ponieważ praca na jednym poziomie podziału jest liniowa.
+  ~Θ(n²), ponieważ na każdym poziomie występują dwa wywołania.
+  ~Θ(log n), ponieważ drzewo podziałów ma logarytmiczną wysokość.
   =Θ(n log n)
   ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
 }
 
 ::AISD-08-Q07::Z czym wiąże się istotna różnica między strukturą dynamiczną z węzłami a tablicą ciągłą? {
-  ~Węzły zawsze mają mniejszy narzut pamięci niż tablica.
-  ~Tablica nie pozwala odczytać elementu po jego indeksie.
+  ~Węzły listy wymagają zawsze mniej pamięci niż elementy tablicy.
+  ~Dostęp do elementu o indeksie k w liście węzłowej ma zwykle ten sam koszt O(1) co w tablicy.
   =Węzły mogą leżeć w nieciągłych adresach i wymagają pól wiązań.
-  ~Każda struktura dynamiczna zapewnia odczyt losowy w O(1).
+  ~Wskaźniki w liście zastępują potrzebę pamiętania kolejności elementów.
   ####Wskaźniki łączą rozproszone alokacje, lecz zajmują pamięć i pogarszają lokalność.
 }
 
 ::AISD-08-Q08::Czy kompilator zawsze zamienia rekurencję ogonową na iterację bez dodatkowego stosu? {
-  ~Tak, jeśli przypadek bazowy ma wartość zero.
+  ~Tak, ponieważ składniowo końcowe wywołanie jest wystarczającą gwarancją.
   =Nie, zależy to od języka, implementacji i optymalizacji.
-  ~Tak, jeśli wywołanie dotyczy tej samej funkcji.
-  ~Nie, ale wyłącznie w przypadku funkcji wzajemnie rekurencyjnych.
+  ~Nie, ponieważ eliminacja rekurencji ogonowej jest niemożliwa dla funkcji zwracających wartość.
+  ~Tak, o ile rekurencja nie ma żadnych argumentów przekazywanych przez wartość.
   ####Eliminacja wywołania ogonowego jest optymalizacją, a nie uniwersalną gwarancją.
 }
 
@@ -100,9 +100,9 @@
 
 ::AISD-08-Q13::Jakie jest ryzyko w rekurencji wzajemnej f→g→f, gdy przypadki bazowe dotyczą tylko funkcji f, ale g nigdy nie przekazuje do niej malejącej miary? {
   =Nie można wyprowadzić zakończenia samej obecności przypadku bazowego.
-  ~Można dowieść zakończenia, bo f zawiera instrukcję return.
-  ~Wzajemna rekurencja zawsze działa w pamięci stałej.
-  ~Wzajemna rekurencja wymusza dokładnie dwa poziomy stosu.
+  ~Funkcja f gwarantuje zakończenie, ponieważ zawiera dowolny przypadek bazowy.
+  ~Funkcja g może zakończyć się tylko wtedy, gdy jej wywołania są ogonowe.
+  ~Wzajemna rekurencja kończy się po liczbie kroków równej liczbie funkcji w cyklu.
   ####Potrzebna jest globalna miara malejąca na całym cyklu wywołań.
 }
 
@@ -139,9 +139,9 @@
 }
 
 ::AISD-08-Q18::Rekurencyjny algorytm DFS grafu oznacza wierzchołek jako odwiedzony dopiero po powrocie z rekurencji. Co może się zdarzyć w grafie z cyklem? {
-  ~Zawsze powstanie najkrótsze drzewo ścieżek.
-  ~Wszystkie krawędzie zostaną przetworzone raz bez znaczników.
-  ~Kolejność odwiedzin zawsze odpowie BFS.
+  ~DFS zakończy się prawidłowo, ponieważ oznaczenie przy powrocie wystarcza dla cykli.
+  ~DFS odwiedzi każdy wierzchołek najwyżej dwa razy, niezależnie od długości cyklu.
+  ~DFS znajdzie ścieżkę o minimalnej liczbie krawędzi, mimo opóźnionego oznaczenia.
   =Nastąpi ponowne wejście do już aktywnego wierzchołka.
   ####Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
 }
