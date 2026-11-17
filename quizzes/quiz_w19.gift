@@ -58,14 +58,6 @@
   ####Ostatni rekord ma klucz 0; licznik C[0] zmniejsza się z 2 do 1, więc rekord trafia na indeks 1.
 }
 
-
-  ~2
-  =3
-  ~4
-  ~6
-  ####Zachłannie powstaje 4+1+1, podczas gdy optymalnie można użyć 3+3.
-}
-
 ::AISD-19-Q08::Która własność uzasadnia pamiętanie wyników podproblemów w programowaniu dynamicznym? {
   =Te same podproblemy powtarzają się, a rozwiązanie większego zależy od ich rozwiązań.
   ~Podproblemy muszą być rozłączne, a ich wyniki nie mogą być ponownie używane.
@@ -112,14 +104,6 @@
   ~[1,3,4]
   =[1,2,4]
   ####Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
-}
-
-
-  ~2
-  ~4
-  ~1
-  =3
-  ####Najpierw wybiera 4, a następnie 1 i 1, razem trzy monety.
 }
 
 ::AISD-19-Q14::Dla DP minimalnej liczby monet z nominałami \{1,3,4\} i kwotą 6 jaka jest wartość optimum? {
