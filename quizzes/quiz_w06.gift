@@ -21,7 +21,7 @@
 ::AISD-06-Q03::[plain]W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
   =n porównań
   ~n-1 porównań
-  ~⌈log₂ n⌉ porównań
+  ~ceil(log₂ n) porównań
   ~n(n-1)/2 porównań
   ####Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
 }
@@ -35,10 +35,10 @@
 }
 
 ::AISD-06-Q05::[plain]Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
-  ~⌈n/2⌉
+  ~ceil(n/2)
   ~n-1
-  =⌊n/2⌋
-  ~⌊(n-1)/2⌋
+  =floor(n/2)
+  ~floor((n-1)/2)
   ####Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
 }
 
