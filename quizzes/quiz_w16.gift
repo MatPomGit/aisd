@@ -162,11 +162,3 @@
   ####BFS odkrywa B przed C; D zostaje po raz pierwszy odkryty z B na odległości dwóch krawędzi od A.
 }
 
-
-  ~Dopiero podczas końcowego wypisywania ścieżek.
-  =Przy odkryciu, przed dodaniem do kolejki lub jednocześnie z dodaniem.
-  ~Wyłącznie przy drugiej próbie dodania do kolejki.
-  ~Po usunięciu wierzchołka z kolejki i wykonaniu wszystkich krawędzi.
-  ####Oznaczenie przy odkryciu zapobiega ponownemu wstawieniu tego samego wierzchołka.
-}
-
