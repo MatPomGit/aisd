@@ -1,12 +1,12 @@
 // AIiSD 06: Tablice jednowymiarowe
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-06-Q01::Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
-  ~[3,5,2,2]
+  ~[3,2,5,2,2]
   ~[2,3,5,2]
   =[3,2,5,2]
-  ~[2,3,2,5]
+  ~[3,2,2,5]
   ####Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
 }
 
@@ -27,41 +27,41 @@
 }
 
 ::AISD-06-Q04::Przyjmujemy tablicę o długości n i zaalokowanej pojemności c>n. Co może się zmienić po dopisaniu jednego elementu bez realokacji? {
-  ~Pojemność c rośnie o 1, a długość n pozostaje bez zmian.
-  ~Długość n i pojemność c muszą wzrosnąć o 1.
-  ~Długość pozostaje bez zmian do następnej realokacji.
+  ~Długość wzrośnie do n+1, a pojemność spadnie do c-1.
+  ~Długość pozostanie n, ale pojemność wzrośnie do c+1.
+  ~Długość i pojemność wzrosną do n+1, mimo istnienia wolnych komórek.
   =Długość n rośnie o 1, a pojemność c pozostaje bez zmian.
   ####Długość to liczba logicznie zapisanych elementów; pojemność określa dostępne miejsce.
 }
 
 ::AISD-06-Q05::Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
-  ~n-1
-  ~n
+  ~⌈n/2⌉, ponieważ środkowy element należy wymienić z samym sobą.
+  ~n-1, ponieważ pierwszy i ostatni element muszą zamienić się ze sobą.
   =⌊n/2⌋
-  ~⌈n/2⌉
+  ~⌊(n-1)/2⌋, ponieważ w każdym przypadku pomija się jedną parę skrajną.
   ####Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
 }
 
 ::AISD-06-Q06::Dostęp do A[k] w zwykłej tablicy o znanym poprawnym indeksie k ma jaki koszt w modelu RAM z losowym dostępem? {
-  ~Θ(log n)
+  ~Θ(log n), jeśli indeks k jest obliczany na podstawie n.
   =Θ(1)
-  ~Θ(k)
-  ~Θ(n)
+  ~Θ(k+1), ponieważ trzeba dojść do k-tego elementu.
+  ~Θ(n-k), ponieważ odczyt wymaga przejścia do końca bufora.
   ####Adres elementu oblicza się z adresu bazowego i przesunięcia indeksu w stałej liczbie operacji modelu.
 }
 
 ::AISD-06-Q07::Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
   =n-k-1
-  ~n-k
-  ~k
-  ~n-1
+  ~n-k, z uwzględnieniem przesunięcia usuwanego elementu.
+  ~k+1, ponieważ przesuwa się cały poprzedzający prefiks.
+  ~n-k-2, ponieważ pomija się zarówno usuwany element, jak i ostatni zachowany.
   ####Elementy od k+1 do n-1 przesuwają się o jedną pozycję w lewo.
 }
 
 ::AISD-06-Q08::Dynamiczna tablica podwaja pojemność przy pełnym buforze. Jaki jest amortyzowany koszt pojedynczego dopisania na końcu, przy standardowym modelu? {
-  ~O(log n)
-  ~O(n)
-  ~O(n log n)
+  ~O(1) również w najgorszym przypadku każdego pojedynczego dopisania.
+  ~O(log n), ponieważ pojemność rośnie geometrycznie.
+  ~O(n), ponieważ każda operacja dziedziczy koszt sporadycznej realokacji.
   =O(1)
   ####Drogie kopiowania występują rzadko; ich sumaryczny koszt po n dopisaniach jest liniowy.
 }
@@ -91,18 +91,18 @@
 }
 
 ::AISD-06-Q12::Wyszukiwanie binarne w posortowanej tablicy [1,3,5,7,9,11,13] z przedziałem domkniętym [0,6] szuka 11. Jakie indeksy środka są sprawdzane przy m\=floor((l+r)/2)? {
-  ~3,4,5
-  ~3,6
-  ~2,5
+  ~3,4,5, bo po odrzuceniu lewej części szuka się kolejno obok środka.
+  ~3,6,5, bo następny środek wylicza się z poprzedniej górnej granicy.
+  ~2,4,5, bo na początku bierze się dolny środek całego zakresu.
   =3,5
   ####Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
 }
 
 ::AISD-06-Q13::Pusta dynamiczna tablica ma pojemność 2 i przy przepełnieniu podwaja pojemność. Jaką pojemność ma po zapisaniu piątego elementu? {
-  ~4
-  ~5
+  ~5, ponieważ nowa pojemność odpowiada liczbie elementów.
+  ~4, ponieważ dopisanie piątego elementu nie wymaga nowej alokacji.
   =8
-  ~16
+  ~16, ponieważ bufor musi zapewnić miejsce na osiem dodatkowych elementów.
   ####Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
 }
 
@@ -123,9 +123,9 @@
 }
 
 ::AISD-06-Q16::Dla tablicy [2,2,2,3,3,4] jaki indeks zwróci lower_bound dla wartości 3 przy indeksowaniu od zera? {
-  ~2
-  ~4
-  ~5
+  ~4, ponieważ lower_bound wskazuje ostatnie wystąpienie szukanego klucza.
+  ~2, ponieważ lower_bound zwraca indeks elementu bezpośrednio przed pierwszą trójką.
+  ~5, ponieważ lower_bound wskazuje pierwszy element ściśle większy od trójki.
   =3
   ####Lower_bound zwraca pierwszy indeks z elementem nie mniejszym niż szukany klucz.
 }
@@ -139,10 +139,10 @@
 }
 
 ::AISD-06-Q18::W tablicy dynamicznej jest 7 elementów przy pojemności 8. Po dołożeniu dwóch kolejnych elementów z podwajaniem pojemności otrzymamy stan: {
-  ~długość 9, pojemność 8.
+  ~Długość 9 i pojemność 8, ponieważ pojemność zmienia się dopiero po kolejnym dopisaniu.
   =długość 9, pojemność 16.
-  ~długość 16, pojemność 16.
-  ~długość 8, pojemność 16.
+  ~Długość 9 i pojemność 9, ponieważ realokacja przydziela tylko niezbędny rozmiar.
+  ~Długość 8 i pojemność 16, ponieważ realokacja nie aktualizuje rozmiaru logicznego.
   ####Ósmy element mieści się w buforze, a dziewiąty wymusza rozszerzenie do 16.
 }
 
