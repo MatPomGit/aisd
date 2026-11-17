@@ -27,10 +27,10 @@
 }
 
 ::AISD-13-Q04::[plain]Do pustego BST bez równoważenia wstawiono rosnące klucze 1,2,...,n. Jaką wysokość w krawędziach ma wynik dla n>0? {
-  ~⌈log₂ n⌉
+  ~ceil(log₂ n)
   ~n
   =n-1
-  ~⌈log₂(n+1)⌉-1
+  ~ceil(log₂(n+1))-1
   ####Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
 }
 
