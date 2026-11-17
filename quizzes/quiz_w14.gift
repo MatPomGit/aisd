@@ -1,5 +1,5 @@
 // AIiSD 14: Kopce i kolejki priorytetowe
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-14-Q01::[plain]W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
