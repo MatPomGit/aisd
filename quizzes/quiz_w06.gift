@@ -19,10 +19,10 @@
 }
 
 ::AISD-06-Q03::W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
-  =n
-  ~n-1
-  ~log₂ n zaokrąglone w górę
-  ~n(n-1)/2
+  =n porównań
+  ~n-1 porównań
+  ~⌈log₂ n⌉ porównań
+  ~n(n-1)/2 porównań
   ####Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
 }
 
@@ -52,17 +52,17 @@
 
 ::AISD-06-Q07::Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
   =n-k-1
-  ~n-k, z uwzględnieniem przesunięcia usuwanego elementu.
+  ~n-k
   ~k+1
   ~n-k-2
   ####Elementy od k+1 do n-1 przesuwają się o jedną pozycję w lewo.
 }
 
 ::AISD-06-Q08::Dynamiczna tablica podwaja pojemność przy pełnym buforze. Jaki jest amortyzowany koszt pojedynczego dopisania na końcu, przy standardowym modelu? {
-  ~O(1) również w najgorszym przypadku każdego pojedynczego dopisania.
-  ~O(log n)
-  ~O(n)
-  =O(1)
+  ~O(1) w najgorszym przypadku
+  ~O(log n) zamortyzowany
+  ~O(n) zamortyzowany
+  =O(1) zamortyzowany
   ####Drogie kopiowania występują rzadko; ich sumaryczny koszt po n dopisaniach jest liniowy.
 }
 
