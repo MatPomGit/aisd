@@ -43,10 +43,10 @@
 }
 
 ::AISD-07-Q06::Obraz szary ma H wierszy i W kolumn. Filtr 3×3 z dopełnieniem brzegu oblicza jeden wynik na piksel. Ile wyników powstanie? {
-  ~(H-2)(W-2)
-  ~(H+2)(W+2)
-  =H·W
-  ~9HW
+  ~(H-2)(W-2) wyników
+  ~(H+2)(W+2) wyników
+  =H·W wyników
+  ~9HW wyników
   ####Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
 }
 
@@ -108,8 +108,8 @@
 
 ::AISD-07-Q14::W klasycznym mnożeniu macierzy A o rozmiarze m×k i B o k×n ile mnożeń skalarnych jest wykonywanych? {
   ~mn mnożeń
-  ~mk+kn mnożeń
-  =mkn
+  ~(mk+kn) mnożeń
+  =mkn mnożeń
   ~mkn² mnożeń
   ####Każdy z mn elementów wyniku powstaje jako suma k iloczynów.
 }
@@ -123,7 +123,7 @@
 }
 
 ::AISD-07-Q16::Obraz RGB o H×W pikselach zawiera trzy kanały bajtowe na piksel bez dodatkowych nagłówków. Ile bajtów zajmują same dane pikseli? {
-  =3HW
+  =3HW bajtów
   ~HW bajtów
   ~3HW bitów
   ~24HW bajtów
@@ -131,9 +131,9 @@
 }
 
 ::AISD-07-Q17::W macierzy sąsiedztwa grafu nieskierowanego bez pętli o 4 wierzchołkach ilu elementów spoza przekątnej może odpowiadać jednej krawędzi? {
-  ~1 wpis
-  ~4 wpisy
-  ~2 wpisy na przekątnej macierzy, niezależnie od końców krawędzi.
+  ~1
+  ~4
+  ~8
   =2
   ####Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
 }
@@ -141,7 +141,7 @@
 ::AISD-07-Q18::Dla DP wyznaczającego liczbę ścieżek w siatce 3×3 od (0,0) do (2,2), z ruchami wyłącznie w prawo i w dół, ile jest ścieżek? {
   ~4 ścieżki
   ~8 ścieżek
-  =6
+  =6 ścieżek
   ~9 ścieżek
   ####Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
 }
