@@ -3,8 +3,8 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-03-Q01::Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli poprawnie obejmuje wszystkie elementy przy inicjalizacji i\=0 i inkrementacji i o 1? {
-  ~i<\=n, ponieważ zakres i obejmuje n pozycji licząc od zera.
-  ~i<n-1, ponieważ ostatni indeks to n-1 i należy go wykluczyć.
+  ~i<\=n
+  ~i<n-1
   ~i<\=n-1 tylko przy n>0, bez obsługi pustego wejścia.
   =i < n
   ####Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
@@ -12,14 +12,14 @@
 
 ::AISD-03-Q02::Który symbol schematu blokowego standardowo reprezentuje decyzję z rozgałęzieniem warunkowym? {
   ~Prostokąt z dwiema krawędziami wyjściowymi oznaczonymi prawda i fałsz.
-  ~Równoległobok, ponieważ warunek pobiera wartość logiczną.
+  ~Równoległobok
   =Romb.
-  ~Owal, jeśli rozgałęzienie może kończyć działanie programu.
+  ~Owal
   ####Romb oznacza test warunku; pozostałe symbole mają zwykle inne role.
 }
 
 ::AISD-03-Q03::Pseudokod: jeśli x>0, ustaw y\=x; następnie zwróć y. Jaki jest istotny błąd kontraktu? {
-  ~Dla x równego zero y ma wartość domyślną, ponieważ warunek pominięto.
+  ~Dla x równego zero y ma wartość domyślną
   =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
   ~Dla x mniejszego od zera instrukcja return zwróci ostatnią wartość x.
   ~Dla x dodatniego y nie jest zainicjalizowane, jeśli funkcja ma wynik.
@@ -35,9 +35,9 @@
 }
 
 ::AISD-03-Q05::W tablicy indeksowanej od zera jest n>1 elementów. Który indeks należy odczytać jako pierwszy podczas wypisywania elementów od końca? {
-  ~n, ponieważ odliczanie wsteczne rozpoczyna się od liczby elementów.
-  ~n-2, ponieważ ostatni indeks jest pomijany przy pętli wstecznej.
-  ~n+1, ponieważ najpierw trzeba wykonać dekrementację.
+  ~n
+  ~n-2
+  ~n+1
   =n-1
   ####Ostatni poprawny indeks tablicy długości n to n-1.
 }
@@ -67,18 +67,18 @@
 }
 
 ::AISD-03-Q09::Pseudokod: i\=0; while i<5: i\=i+2. Jaka jest końcowa wartość i? {
-  ~4, ponieważ pętla zatrzymuje się przed przekroczeniem granicy 5.
-  ~5, ponieważ warunek zostaje spełniony dla tej wartości.
-  ~8, ponieważ inkrementacja wykonuje się również po zakończeniu pętli.
+  ~4
+  ~5
+  ~8
   =6
   ####Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
 }
 
 ::AISD-03-Q10::W schemacie blokowym obliczamy sumę liczb od 1 do n. Który warunek testu przy inicjalizacji i\=1 i zwiększaniu i po dodaniu zapewnia uwzględnienie n? {
-  ~i<n, ponieważ warunek w każdym kroku pomija pozycję końcową.
-  ~i<n+1, ponieważ sumowanie wymaga dodania pozycji po n.
+  ~i<n
+  ~i<n+1
   =i<\=n
-  ~i<\=n-1, ponieważ ostatni poprawny indeks zawsze wynosi n-1.
+  ~i<\=n-1
   ####Warunek i<\=n pozwala wykonać dodawanie także dla i równego n.
 }
 
@@ -115,10 +115,10 @@
 }
 
 ::AISD-03-Q15::Algorytm ma pętlę repeat ... until x>\=10; początkowo x\=12, a ciało zwiększa x o 1. Jaka wartość x jest po zakończeniu? {
-  ~12, ponieważ warunek jest już spełniony przed pierwszym wejściem do ciała.
+  ~12
   =13
-  ~11, ponieważ pętla ma zmniejszyć wartość do progu.
-  ~14, ponieważ repeat wykonuje ciało jeszcze raz po pierwszym spełnieniu warunku.
+  ~11
+  ~14
   ####Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
 }
 
@@ -131,9 +131,9 @@
 }
 
 ::AISD-03-Q17::Pseudokod binarnego wyszukiwania w przedziale domkniętym [l,r] przy A[m]<x powinien zmienić którą granicę? {
-  ~r\=m-1, ponieważ cel jest mniejszy od klucza w środku.
-  ~l\=m, ponieważ m musi pozostać w zakresie przeszukiwania.
-  ~r\=m, ponieważ kolejne porównanie obejmie lewe poddrzewo.
+  ~r\=m-1
+  ~l\=m
+  ~r\=m
   =l\=m+1
   ####Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
 }
