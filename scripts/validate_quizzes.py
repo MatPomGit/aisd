@@ -20,6 +20,10 @@ EXPECTED_LECTURES = 20
 EXPECTED_QUESTIONS = 20
 GIFT_CONTROL = frozenset("~=#{}")
 INVISIBLE_OR_INVALID = frozenset("\u00a0\u200b\u200c\u200d\ufeff\ufffd")
+UNFINISHED_ANSWER = re.compile(
+    r"(?:tylko wtedy|również wtedy|jedynie wtedy|wyłącznie|tylko gdy|jedynie gdy|pod warunkiem)\.?$",
+    flags=re.IGNORECASE,
+)
 
 
 def check_gift_text(value: str, location: str) -> list[str]:
@@ -61,6 +65,7 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
     ids: set[str] = set()
     stems: set[str] = set()
     key_positions = [0, 0, 0, 0]
+    key_sequence: list[int] = []
 
     for position, chunk in enumerate(chunks, start=1):
         lines = chunk.splitlines()
@@ -95,7 +100,9 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         if len(options) != 4 or len(correct) != 1 or len(wrong) != 3:
             errors.append(f"{path}: {key} musi mieć cztery warianty i dokładnie jeden klucz")
         else:
-            key_positions[options.index(correct[0])] += 1
+            correct_position = options.index(correct[0])
+            key_positions[correct_position] += 1
+            key_sequence.append(correct_position)
         if len(feedback) != 1:
             errors.append(f"{path}: {key} wymaga jednego uzasadnienia")
 
@@ -108,12 +115,30 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
             choices.append(re.sub(r"\\([~=#{}\\])", r"\1", value).strip())
         if len(set(choices)) != len(choices):
             errors.append(f"{path}: {key} zawiera powtórzone warianty")
+        if any(UNFINISHED_ANSWER.search(answer) for answer in choices):
+            errors.append(f"{path}: {key} zawiera urwany wariant odpowiedzi")
+        for short in ("Tak", "Nie"):
+            if short in {answer.rstrip(".").strip() for answer in choices}:
+                if any(answer.startswith(short + ",") for answer in choices):
+                    errors.append(f"{path}: {key} zawiera dwie odpowiedzi o tej samej wartości logicznej")
 
         for item in feedback:
             errors.extend(check_gift_text(item[6:], f"{path}: {key}: uzasadnienie"))
 
     if key_positions != [EXPECTED_QUESTIONS // 4] * 4:
         errors.append(f"{path}: nierówny rozkład pozycji klucza: {key_positions}")
+    if len(key_sequence) == EXPECTED_QUESTIONS:
+        if any(key_sequence[i] == key_sequence[i - 1] == key_sequence[i - 2]
+               for i in range(2, EXPECTED_QUESTIONS)):
+            errors.append(f"{path}: trzy identyczne pozycje klucza z rzędu")
+        if any(all(key_sequence[i] == key_sequence[i - period]
+                   for i in range(period, EXPECTED_QUESTIONS))
+               for period in range(1, EXPECTED_QUESTIONS // 2 + 1)):
+            errors.append(f"{path}: okresowy, przewidywalny klucz odpowiedzi")
+        if any(all(key_sequence[i + j] == key_sequence[i + j + 2]
+                   for j in range(4))
+               for i in range(EXPECTED_QUESTIONS - 5)):
+            errors.append(f"{path}: sześć kolejnych pozycji z naprzemiennym wzorcem klucza")
     return errors
 
 

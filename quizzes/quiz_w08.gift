@@ -1,5 +1,5 @@
 // AIiSD 08: Rekurencja i dynamiczne struktury danych
-// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-08-Q01::[plain]Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
@@ -10,68 +10,68 @@
   ####f(4)\=4·3·2·1·1\=24.
 }
 
-::AISD-08-Q02::[plain]Rekurencja ma przypadek bazowy n\=0 i wywołuje f(n-2) dla n>0. Dla jakich danych nie można bez dodatkowego warunku dowieść zakończenia? {
-  ~Dla każdego dodatniego n
-  ~Dla parzystych dodatnich n
-  ~Wyłącznie dla n\=1
-  =Dla nieparzystych dodatnich n.
-  ####Od nieparzystej liczby kolejne odejmowania 2 omijają zero i przechodzą w liczby ujemne.
+::AISD-08-Q02::[plain]Funkcja dla n\=0 zwraca 0, a dla n>0 wywołuje f(n-2). Co stanie się dla n\=5 przy dokładnej arytmetyce całkowitej? {
+  ~Zakończy się na n\=1, bo zejście o dwa oznacza osiągnięcie zera.
+  ~Zwróci 0 po trzech wywołaniach, bo n zostanie zaokrąglone.
+  ~Zakończy się dla wszystkich dodatnich n, ponieważ argument maleje.
+  =Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0.
+  ####Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
 }
 
-::AISD-08-Q03::[plain]Rekurencyjne obliczanie silni tworzy łańcuch wywołań o argumentach n, n-1, ..., 0. Jaka jest asymptotyczna złożoność pamięciowa stosu wywołań? {
-  ~Θ(log n)
-  ~Θ(n²)
-  =Θ(n)
-  ~Θ(1)
-  ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
+::AISD-08-Q03::[plain]Funkcja f(n) dla n>0 zwraca 2*f(n-1), a f(0)\=1. Kompilator nie eliminuje rekurencji. Dlaczego wykonanie f(6) wymaga pamięci stosu Θ(n) dla ogólnego n? {
+  ~Ponieważ każdy wynik wymaga osobnej tablicy n elementów.
+  ~Ponieważ funkcja wykonuje dokładnie n² wywołań dla n>0.
+  =Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0).
+  ~Ponieważ wartości zwracane są zawsze większe od słowa maszynowego.
+  ####Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
 }
 
 ::AISD-08-Q04::[plain]Lista jednokierunkowa ma wskaźnik head. Wstawiamy nowy węzeł x na początek niepustej listy. Która kolejność aktualizacji zachowuje wszystkie elementy? {
   ~head\=x, następnie x.next\=head, co zachowuje poprzedni początek listy.
-  =x.next\=head, potem head\=x.
   ~x.next\=head.next, następnie head\=x, co zachowuje dotychczasową głowę.
   ~head.next\=x, następnie head\=x, bez przepinania pozostałych węzłów.
+  =x.next\=head, potem head\=x.
   ####Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
 }
 
-::AISD-08-Q05::[plain]Rekurencyjne przeglądanie grafu z cyklem może nie zakończyć się, jeśli nie ograniczymy powtórnych odwiedzin. Które działanie temu przeciwdziała? {
-  =Oznaczenie wierzchołka jako odwiedzonego przed rekurencyjnym przetwarzaniem jego sąsiadów.
-  ~Oznaczenie jako odwiedzone dopiero po zakończeniu rekurencji danego wierzchołka.
-  ~Zapisywanie wyłącznie bezpośredniego rodzica każdego wierzchołka, bez dodatkowego stanu.
-  ~Oznaczenie jako odwiedzone dopiero przy powtórnym wejściu w już aktywny wierzchołek.
-  ####Stan odwiedzenia pozwala ominąć wierzchołki już rozpoczęte lub przetworzone.
+::AISD-08-Q05::[plain]Rekurencyjny DFS ma przejść graf skierowany z cyklem A→B→C→A. Która zmiana gwarantuje, że nie rozpocznie drugi raz przetwarzania aktywnego wierzchołka? {
+  ~Oznaczenie wierzchołka po powrocie ze wszystkich wywołań DFS jego sąsiadów.
+  =Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów.
+  ~Usunięcie sprawdzenia stanu odwiedzenia i ograniczenie liczby argumentów funkcji.
+  ~Rekurencyjne przetworzenie każdego sąsiada dwukrotnie dla wykrycia cyklu.
+  ####Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
 }
 
 ::AISD-08-Q06::[plain]Dla rekurencji T(n)\=2T(n/2)+Θ(n), przy n potędze dwójki, jaki jest rząd kosztu? {
+  =Θ(n log n)
   ~Θ(n)
   ~Θ(n²)
   ~Θ(log n)
-  =Θ(n log n)
   ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
 }
 
-::AISD-08-Q07::[plain]Z czym wiąże się istotna różnica między strukturą dynamiczną z węzłami a tablicą ciągłą? {
-  ~Węzły listy wymagają zawsze mniej pamięci niż elementy tablicy.
-  ~Dostęp do elementu o indeksie k w liście węzłowej ma zwykle ten sam koszt O(1) co w tablicy.
-  =Węzły mogą leżeć w nieciągłych adresach i wymagają pól wiązań.
-  ~Wskaźniki w liście zastępują potrzebę pamiętania kolejności elementów.
-  ####Wskaźniki łączą rozproszone alokacje, lecz zajmują pamięć i pogarszają lokalność.
+::AISD-08-Q07::[plain]Program wykonuje bardzo wiele wstawień na początku sekwencji liczb i rzadko odczytuje element o dowolnym indeksie. Która struktura lepiej wspiera najważniejszą operację bez kopiowania n elementów? {
+  ~Zwykła tablica zwarta, bo wstawienie na początku zawsze kosztuje Θ(1).
+  ~Posortowana tablica, bo gwarantuje brak przesunięć.
+  ~Macierz sąsiedztwa, bo przechowuje każdą sekwencję w jednym wierszu.
+  =Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć.
+  ####W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head. Tablica zwarta wymaga zwykle przesunięcia danych.
 }
 
-::AISD-08-Q08::[plain]Czy kompilator zawsze zamienia rekurencję ogonową na iterację bez dodatkowego stosu? {
-  ~Tak
-  =Nie, zależy to od języka, implementacji i optymalizacji.
-  ~Nie
-  ~Tak, o ile rekurencja nie ma żadnych argumentów przekazywanych przez wartość.
-  ####Eliminacja wywołania ogonowego jest optymalizacją, a nie uniwersalną gwarancją.
+::AISD-08-Q08::[plain]Program wywołuje rekurencyjnie f(n-1), a wywołanie jest ostatnią operacją funkcji. Dlaczego nie można z tego wywnioskować stałego zużycia stosu? {
+  ~Ponieważ rekurencja ogonowa zawsze zużywa więcej pamięci niż zwykła.
+  =Ponieważ optymalizacja wywołań ogonowych zależy od kompilatora lub środowiska wykonawczego i nie jest gwarantowana.
+  ~Ponieważ funkcja nie może kończyć się wywołaniem innej funkcji.
+  ~Ponieważ każda rekurencja ogonowa automatycznie zamienia się w iterację.
+  ####Wywołanie ogonowe umożliwia optymalizację, ale nie gwarantuje jej w każdym języku i środowisku.
 }
 
-::AISD-08-Q09::[plain]Rekurencja f(n)\=f(n-1)+2 dla n>0, f(0)\=3. Jaką wartość zwróci f(4)? {
-  =11
-  ~9
-  ~13
-  ~8
-  ####Każdy z czterech poziomów dodaje 2 do wartości bazowej 3.
+::AISD-08-Q09::[plain]Rekurencja f(n)\=f(n-1)+2 dla n>0, f(0)\=3 została zaimplementowana bez sprawdzenia n>0, czyli zawsze wywołuje f(n-1)+2. Co stanie się dla n\=0? {
+  ~Zwróci 3, bo wartość bazowa jest zapisana w dokumentacji.
+  =Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3.
+  ~Zwróci 2, bo ostatnie wywołanie niczego nie dodaje.
+  ~Zwróci 0, bo liczby ujemne są ignorowane w rekurencji.
+  ####Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
 }
 
 ::AISD-08-Q10::[plain]Dla rekurencji f(n)\=f(n-1)+f(n-2), f(0)\=0, f(1)\=1 jaka jest wartość f(6)? {
@@ -92,34 +92,34 @@
 
 ::AISD-08-Q12::[plain]Funkcja wywołuje rekurencyjnie f(n//2), gdzie // oznacza dzielenie całkowite, dopóki n>1. Ile wywołań z dodatnim argumentem powstanie dla n\=32, licząc pierwsze? {
   ~5
-  =6
   ~7
+  =6
   ~32
   ####Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
 }
 
-::AISD-08-Q13::[plain]Jakie jest ryzyko w rekurencji wzajemnej f→g→f, gdy przypadki bazowe dotyczą tylko funkcji f, ale g nigdy nie przekazuje do niej malejącej miary? {
-  =Nie można wyprowadzić zakończenia samej obecności przypadku bazowego.
-  ~Funkcja f gwarantuje zakończenie
-  ~Funkcja g może zakończyć się tylko wtedy, gdy jej wywołania są ogonowe.
-  ~Wzajemna rekurencja kończy się po liczbie kroków równej liczbie funkcji w cyklu.
-  ####Potrzebna jest globalna miara malejąca na całym cyklu wywołań.
+::AISD-08-Q13::[plain]Dwie funkcje wywołują się wzajemnie: f(n) wywołuje g(n), a g(n) wywołuje f(n-1). Każda kończy się dla n\=0. Dlaczego taka wzajemna rekurencja może kończyć się dla n>\=0? {
+  =Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym.
+  ~Ponieważ każde pojedyncze wywołanie zmniejsza n.
+  ~Ponieważ wzajemna rekurencja zawsze kończy się, niezależnie od argumentów.
+  ~Ponieważ dwa przypadki bazowe dowodzą zakończenia nawet bez postępu.
+  ####Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
 }
 
 ::AISD-08-Q14::[plain]W liście jednokierunkowej head→A→B→C i nowy węzeł X ma zostać wstawiony po B. Jakie wskaźniki należy ustawić? {
+  =X.next\=C, B.next\=X.
   ~B.next\=X, a X.next\=B, co tworzy połączenie z nowym węzłem.
   ~X.next\=B, a B.next\=C, co dopina X przed B.
   ~B.next\=X, a X.next\=null
-  =X.next\=C, B.next\=X.
   ####Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
 }
 
-::AISD-08-Q15::[plain]W rekurencji f(n) dla n\=0 wykonuje się tylko return 1, dla n>0 return 2*f(n-1). Ile wynosi f(5)? {
-  ~16
-  ~64
-  =32
-  ~10
-  ####Pięć kolejnych przemnożeń przez 2 daje 2^5\=32.
+::AISD-08-Q15::[plain]Naiwny rekurencyjny Fibonacci wywołuje F(n-1) i F(n-2) bez pamiętania wyników. Który problem ujawnia drzewo wywołań F(5)? {
+  ~F(5) nie ma przypadku bazowego, nawet gdy F(0) i F(1) są zdefiniowane.
+  =F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów.
+  ~Każdy stan F(k) występuje dokładnie raz, więc memoizacja niczego nie zmienia.
+  ~Wartości F(3) i F(2) muszą być równe, bo są obliczane w tym samym wywołaniu.
+  ####W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
 }
 
 ::AISD-08-Q16::[plain]W tablicowej implementacji stosu wywołań każdy poziom rekurencji przechowuje dwie zmienne i adres powrotu. Jak rośnie dodatkowa pamięć dla głębokości d? {
@@ -131,32 +131,32 @@
 }
 
 ::AISD-08-Q17::[plain]Rekurencja T(n)\=T(n/2)+Θ(1) dla n\=2^k. Jaka jest klasa wzrostu? {
-  =Θ(log n)
   ~Θ(n)
   ~Θ(n log n)
   ~Θ(log² n)
+  =Θ(log n)
   ####Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
 }
 
 ::AISD-08-Q18::[plain]Rekurencyjny algorytm DFS grafu oznacza wierzchołek jako odwiedzony dopiero po powrocie z rekurencji. Co może się zdarzyć w grafie z cyklem? {
   ~DFS zakończy się prawidłowo
   ~DFS odwiedzi każdy wierzchołek najwyżej dwa razy, niezależnie od długości cyklu.
-  ~DFS znajdzie ścieżkę o minimalnej liczbie krawędzi, mimo opóźnionego oznaczenia.
   =Nastąpi ponowne wejście do już aktywnego wierzchołka.
+  ~DFS znajdzie ścieżkę o minimalnej liczbie krawędzi, mimo opóźnionego oznaczenia.
   ####Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
 }
 
-::AISD-08-Q19::[plain]Dla funkcji sum(n)\=0, gdy n\=0, a sum(n)\=n+sum(n-1) w przeciwnym razie, jaki jest wynik sum(5)? {
-  ~10
-  ~20
-  =15
-  ~25
-  ####Obliczenie odpowiada sumie 5+4+3+2+1\=15.
+::AISD-08-Q19::[plain]Obliczanie sumy 1+...+n ma wersję rekurencyjną S(n)\=n+S(n-1) i iteracyjną z akumulatorem. Która obserwacja wyjaśnia różnicę pamięci przy n>0? {
+  ~Rekurencja ma zawsze Θ(1) pamięci, bo zwraca jedną liczbę.
+  ~Iteracja musi zapisać wszystkie n argumentów, a rekurencja nie.
+  =Rekurencja bez eliminacji wywołań utrzymuje Θ(n) ramek stosu, a iteracja może użyć Θ(1) pamięci dodatkowej.
+  ~Oba rozwiązania muszą użyć Θ(n²) pamięci z powodu sumowania.
+  ####Klasyczna rekurencja gromadzi zaległe wywołania do osiągnięcia n\=0. Iteracja może aktualizować jeden akumulator.
 }
 
 ::AISD-08-Q20::[plain]W liście dwukierunkowej węzeł X znajduje się bezpośrednio przed Y. Wstawiamy między nimi węzeł N. Który zestaw aktualizacji wskaźników jest kompletny? {
-  ~X.next\=N, N.prev\=Y, N.next\=X, Y.prev\=N.
   =X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N.
+  ~X.next\=N, N.prev\=Y, N.next\=X, Y.prev\=N.
   ~X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=X.
   ~X.next\=Y, N.prev\=X, N.next\=Y, Y.prev\=N.
   ####Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.

@@ -1,10 +1,10 @@
 // AIiSD 04: Analiza i złożoność algorytmów RAM
-// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-04-Q01::[plain]Pętla wykonuje dla i\=1,...,n dokładnie i porównań. Jaka jest liczba porównań? {
-  =n(n+1)/2
   ~n(n-1)/2
+  =n(n+1)/2
   ~n²
   ~n(n+1)
   ####Suma kolejnych liczb od 1 do n wynosi n(n+1)/2.
@@ -12,73 +12,73 @@
 
 ::AISD-04-Q02::[plain]Wyszukiwanie liniowe przerywa po znalezieniu pierwszego dopasowania. Jaką liczbę porównań wykonuje w najlepszym przypadku dla niepustej tablicy? {
   ~0
+  =1
   ~2
   ~n
-  =1
   ####Jeżeli pierwszy element jest dopasowaniem, potrzeba jednego porównania kluczy.
 }
 
-::AISD-04-Q03::[plain]Który opis kosztu dodatkowej pamięci odpowiada iteracyjnemu sumowaniu tablicy bez tworzenia jej kopii? {
-  ~Θ(n)
-  ~Θ(log n)
-  =Θ(1)
-  ~Θ(n²)
-  ####Przy standardowym modelu słów i wyłączeniu wejścia kilka zmiennych roboczych zajmuje stałą liczbę komórek.
+::AISD-04-Q03::[plain]Program A sumuje n-elementową tablicę przy użyciu jednego akumulatora. Program B tworzy osobną kopię całej tablicy, a dopiero potem ją sumuje. Pomijając dane wejściowe, jak porównać dodatkową pamięć? {
+  ~A używa Θ(n), B używa Θ(1).
+  ~Oba używają Θ(n), ponieważ muszą odczytać n elementów.
+  ~Oba używają Θ(1), ponieważ wynik sumowania jest jedną liczbą.
+  =A używa Θ(1), B używa Θ(n).
+  ####Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
 }
 
-::AISD-04-Q04::[plain]Dwa algorytmy mają odpowiednio T1(n)\=5n²+7n i T2(n)\=30n log₂ n dla n>\=2. Co wynika z asymptotyki? {
-  ~T2 jest mniejsza od T1 już dla każdego n co najmniej 2.
-  =Dla dostatecznie dużego n funkcja T2(n) jest mniejsza niż T1(n).
-  ~T1 asymptotycznie wygrywa
-  ~T1 i T2 są tego samego rzędu
-  ####n log n rośnie asymptotycznie wolniej niż n²; nie przesądza to o wszystkich małych n.
+::AISD-04-Q04::[plain]Algorytm A kosztuje 5n²+7n operacji, a B 30n log₂(n) dla n>\=2. Które rozumowanie poprawnie uzasadnia wybór implementacji dla konkretnego n? {
+  ~B jest szybszy dla każdego n>\=2, ponieważ ma mniejszą klasę asymptotyczną.
+  ~A jest szybszy dla każdego n>\=2, ponieważ ma mniejszy współczynnik przy n².
+  =Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n.
+  ~Obie funkcje są zawsze porównywalne i mają ten sam rząd wzrostu.
+  ####Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów. Konkretne współczynniki mogą zmienić kolejność dla określonych n.
 }
 
-::AISD-04-Q05::[plain]W modelu RAM o jednostkowym koszcie każdej instrukcji co stanowi miarę czasu wykonania programu? {
-  =Liczba wykonanych instrukcji, włącznie z powtórzeniami w pętlach.
-  ~Liczba statycznych instrukcji w programie pomnożona przez liczbę wejść.
-  ~Liczba wszystkich odczytów rejestrów i zapisów, ale bez instrukcji warunkowych.
-  ~Liczba wykonanych instrukcji różna od zera
-  ####Koszt jednostkowy sumuje wykonania dynamiczne instrukcji, a nie rozmiar listingu.
+::AISD-04-Q05::[plain]W RAM jednostkowym program wykonuje 2 instrukcje inicjalizacji, a następnie n razy po 3 instrukcje. Jaką wartość przyjmuje koszt dla n\=4 przy liczeniu każdej instrukcji? {
+  =14.
+  ~11.
+  ~12.
+  ~18.
+  ####Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
 }
 
 ::AISD-04-Q06::[plain]Algorytm sprawdza dla każdej pary indeksów 0<\=i<j<n pewien warunek. Ile razy uruchamia test? {
+  =n(n-1)/2
   ~n(n+1)/2
   ~n(n-1)
   ~n²/2+n
-  =n(n-1)/2
   ####Liczba nieuporządkowanych par różnych indeksów wynosi n(n-1)/2.
 }
 
-::AISD-04-Q07::[plain]Czy dowód poprawności pętli może wynikać tylko z wyznaczenia jej złożoności O(n)? {
-  ~Tak, jeśli udowodniono dokładną liczbę iteracji, bez analizy wartości zwracanej.
-  ~Tak, jeżeli O(n) dotyczy również przypadku najgorszego i programu z ograniczeniem czasu.
-  =Nie, ograniczenie kosztu nie dowodzi zgodności wyniku ze specyfikacją.
-  ~Nie, ale wystarczy dodatkowo wykazać, że n jest dodatnie, bez analizy niezmiennika.
-  ####Poprawność funkcjonalna i koszt wykonania to odrębne własności algorytmu.
+::AISD-04-Q07::[plain]Algorytm dla każdej tablicy wykonuje dokładnie n iteracji i na końcu zwraca zawsze 0. Co można wywnioskować z dowodu, że wykonuje O(n) operacji? {
+  ~Że oblicza poprawną sumę tablicy, jeśli pętla przechodzi po wszystkich elementach.
+  ~Że na pewno zwraca poprawne minimum, gdy tablica nie jest pusta.
+  ~Że jest równoważny każdemu innemu algorytmowi o koszcie O(n).
+  =Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy.
+  ####Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
 }
 
-::AISD-04-Q08::[plain]Która wielkość opisuje rozmiar danych wejściowych w analizie przeszukiwania tablicy? {
-  ~Liczba różnych wartości w tablicy
-  =Liczba przeszukiwanych elementów.
-  ~Liczba wykonanych porównań dla jednego konkretnego wejścia, użyta jako stały parametr n.
-  ~Rozmiar reprezentacji pojedynczego elementu zamiast liczby elementów, niezależnie od modelu kosztu.
-  ####W klasycznym modelu porównań liczba elementów kontroluje potencjalną liczbę testów klucza.
+::AISD-04-Q08::[plain]W jednym zadaniu przeszukujemy n liczb 32-bitowych, w drugim n liczb o dowolnej liczbie bitów. Które stwierdzenie o rozmiarze wejścia jest najbardziej precyzyjne? {
+  ~W obu przypadkach rozmiar bitowy wynosi dokładnie n.
+  =Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby.
+  ~Długość największego elementu zawsze równa się liczbie elementów n.
+  ~W drugim przypadku nie można zdefiniować rozmiaru danych wejściowych.
+  ####Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
 }
 
 ::AISD-04-Q09::[plain]Pętla zewnętrzna wykonuje się n razy, a wewnętrzna dokładnie 2i razy dla i\=0,...,n-1. Ile łącznie razy działa ciało wewnętrzne? {
-  =n(n-1)
   ~n(n+1)
   ~n²
   ~2n(n-1)
+  =n(n-1)
   ####Suma 2i od 0 do n-1 wynosi 2·n(n-1)/2\=n(n-1).
 }
 
 ::AISD-04-Q10::[plain]Algorytm przeszukuje tablicę od końca do początku i zatrzymuje się po znalezieniu klucza. Ile porównań wykona dla A\=[3,8,5,8,1] i x\=8? {
   ~4
+  =2
   ~3
   ~5
-  =2
   ####Od końca porównuje 1, potem 8; drugie porównanie znajduje klucz.
 }
 
@@ -91,43 +91,43 @@
 }
 
 ::AISD-04-Q12::[plain]Algorytm dzieli zakres przeszukiwania o połowę, dopóki jego długość przekracza 1. Od długości 64 ile redukcji potrzeba do długości 1? {
-  ~5
   =6
+  ~5
   ~7
   ~8
   ####64 → 32 → 16 → 8 → 4 → 2 → 1, czyli sześć redukcji.
 }
 
 ::AISD-04-Q13::[plain]Dla rekurencji T(n)\=T(n-1)+3, T(0)\=2 jaka jest wartość T(5)? {
-  =17
   ~15
   ~12
   ~20
+  =17
   ####Pięć etapów dodaje po 3 do kosztu bazowego 2: 2+5·3\=17.
 }
 
 ::AISD-04-Q14::[plain]Pętla przegląda wszystkie n elementów, a operacja wewnętrzna kosztuje Θ(log n) dla każdego elementu. Jaki jest łączny koszt przy n>\=2? {
   ~Θ(n+log n)
   ~Θ(n)
-  ~Θ(log n)
   =Θ(n log n)
+  ~Θ(log n)
   ####Liczba iteracji jest liniowa, a każda ma koszt logarytmiczny.
 }
 
 ::AISD-04-Q15::[plain]Ile dodatkowej pamięci zużywa rekurencyjne przeszukiwanie DFS łańcucha o n węzłach, jeśli pominiemy pamięć danych wejściowych? {
   ~Θ(log n) ramek
   ~Θ(n²) ramek
-  =Θ(n) ramek stosu.
   ~Θ(1) ramek
+  =Θ(n) ramek stosu.
   ####Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
 }
 
-::AISD-04-Q16::[plain]Algorytm A wykonuje 4n+10 operacji, a B 2n²+1. Jakie stwierdzenie jest prawdziwe asymptotycznie? {
-  ~Oba mają Θ(n²)
-  =A ma Θ(n), a B ma Θ(n²).
-  ~A ma Θ(n²), a B ma Θ(n), po odrzuceniu współczynników.
-  ~Oba mają Θ(n)
-  ####Dominującymi składnikami są odpowiednio 4n i 2n².
+::AISD-04-Q16::[plain]Algorytm A wykonuje 4n+10 operacji, algorytm B 2n²+1. Dla n\=2 który jest tańszy, a który ma lepszy rząd wzrostu dla dostatecznie dużych n? {
+  ~Dla n\=2 tańszy jest A; asymptotycznie lepszy jest B.
+  ~Dla n\=2 tańszy jest B; asymptotycznie lepszy jest B.
+  =Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A.
+  ~Dla n\=2 tańszy jest A; asymptotycznie lepszy jest A.
+  ####Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
 }
 
 ::AISD-04-Q17::[plain]Dla rekurencji T(n)\=2T(n/2)+1, T(1)\=1 i n\=8, ile jednostek kosztu powstaje? {
@@ -139,25 +139,25 @@
 }
 
 ::AISD-04-Q18::[plain]Ile porównań wykonuje algorytm znajdowania maksimum w tablicy n>\=1 elementów, który inicjuje maksimum pierwszą wartością, a następnie przegląda pozostałe? {
+  =n-1
   ~n
   ~n-2
   ~ceil(log₂ n)
-  =n-1
   ####Pierwszy element inicjuje maksimum, pozostałe n-1 podlegają porównaniu.
 }
 
-::AISD-04-Q19::[plain]Dla T(n)\=n(n-1)/2+n jaka jest najściślejsza z podanych klas rzędu wzrostu? {
-  ~Θ(n log n)
-  ~Θ(n³)
-  =Θ(n²)
-  ~Θ(n)
-  ####Po uproszczeniu T(n)\=(n²+n)/2, więc wyraz n² dominuje.
+::AISD-04-Q19::[plain]Kod wykonuje pętle: for i\=0..n-1: for j\=0..i: compare(). Ile porównań wykonuje dla n\=4 i jaka jest klasa kosztu dla rosnącego n? {
+  ~6 i Θ(n²).
+  =10 i Θ(n²).
+  ~10 i Θ(n).
+  ~16 i Θ(n²).
+  ####Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
 }
 
 ::AISD-04-Q20::[plain]Pętla while k<n zaczyna od k\=1 i w każdej iteracji ustawia k\=3k. Ile iteracji wykona dla n\=82? {
   ~4
-  =5
   ~6
+  =5
   ~3
   ####Wartości k na początku iteracji to 1,3,9,27,81; po piątej k\=243 przekracza 82.
 }

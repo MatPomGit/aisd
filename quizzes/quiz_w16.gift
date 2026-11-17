@@ -1,37 +1,37 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-16-Q01::[plain]BFS po raz pierwszy odkrywa wierzchołek docelowy na poziomie 4. Co oznacza ten poziom w grafie nieważonym, jeśli źródło znajduje się na poziomie 0? {
-  =Najkrótsza ścieżka od źródła ma 4 krawędzie.
-  ~Poziom cztery oznacza koszt ścieżki równy 4 nawet w grafie o różnych wagach.
-  ~Poziom cztery oznacza cztery odwiedzone wierzchołki łącznie ze źródłem.
-  ~Poziom cztery oznacza cztery rozwinięcia wierzchołka docelowego, a nie długość ścieżki.
-  ####BFS odkrywa kolejne warstwy odległości w liczbie krawędzi.
+::AISD-16-Q01::[plain]W nieważonym grafie istnieją ścieżki A→B→D oraz A→C→E→D. BFS startuje w A. Dlaczego pierwsze odkrycie D daje odległość 2? {
+  ~Ponieważ BFS zawsze wybiera ścieżkę o najmniejszej sumie dodatnich wag.
+  ~Ponieważ ścieżka przez C ma więcej wierzchołków o krótszych nazwach.
+  ~Ponieważ DFS i BFS mają identyczną kolejność odwiedzin.
+  =Ponieważ BFS przetwarza warstwy rosnącej odległości od źródła.
+  ####Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
 }
 
 ::AISD-16-Q02::[plain]Jakie jest górne ograniczenie złożoności czasowej pełnego przeszukiwania BFS w grafie reprezentowanym listami sąsiedztwa? {
   ~O(V²)
   ~O(E log V)
-  ~O(VE)
   =O(V+E)
+  ~O(VE)
   ####Każdy wierzchołek i każda reprezentowana krawędź są przetwarzane stałą liczbę razy.
 }
 
 ::AISD-16-Q03::[plain]W skierowanym grafie z cyklem A→B→C→A DFS wykonywany rekurencyjnie bez znaczników odwiedzenia może: {
   ~Zakończyć po obejściu cyklu dokładnie raz, nawet bez stanu odwiedzenia.
-  ~Znaleźć najkrótszą ścieżkę
   =wchodzić w nieskończony ciąg wywołań.
+  ~Znaleźć najkrótszą ścieżkę
   ~Odwiedzić każdy wierzchołek dwukrotnie, ale nigdy nie powtórzyć aktywnego wywołania.
   ####Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
 }
 
-::AISD-16-Q04::[plain]Czym różni się zachłanne przeszukiwanie best-first, korzystające tylko z h(v), od algorytmu A*, który wykorzystuje g(v)+h(v)? {
-  ~Best-first uwzględnia koszt ścieżki g, a A* korzysta tylko z h.
-  =Best-first nie uwzględnia dotychczasowego kosztu ścieżki g(v) w swojej funkcji wyboru.
-  ~Best-first i A* różnią się wyłącznie dopuszczalnością heurystyki, a nie funkcją wyboru.
-  ~A* używa wyłącznie g, a best-first sumy g+h.
-  ####Samo h(v) ocenia cel z bieżącego węzła, a A* dodaje koszt przebytej ścieżki.
+::AISD-16-Q04::[plain]Z A do celu T prowadzą drogi A→B→T o koszcie 2+2 oraz A→C→T o koszcie 1+10. W wierzchołkach B i C heurystyka h(B)\=2, h(C)\=1. Co może zrobić zachłanne best-first wybierające tylko mniejsze h, a co uwzględnia A* przez g+h? {
+  ~Best-first i A* zawsze wybiorą C, bo h(C) jest mniejsze.
+  ~A* ignoruje g i wybiera wyłącznie według h.
+  =Best-first może preferować C przez niższe h, a A* uwzględnia także koszt dotarcia do węzła.
+  ~Best-first minimalizuje całkowity koszt, ponieważ samo h określa koszt drogi już przebytej.
+  ####Zachłanne best-first używa h, natomiast A* używa sumy dotychczasowego kosztu g i oszacowania pozostałego h. Ich kolejność wyborów może się różnić.
 }
 
 ::AISD-16-Q05::[plain]W jakiej sytuacji standardowy DFS nie gwarantuje znalezienia ścieżki o najmniejszej liczbie krawędzi? {
@@ -42,97 +42,97 @@
   ####DFS zależy od kolejności eksploracji sąsiadów i może najpierw znaleźć dłuższą trasę.
 }
 
-::AISD-16-Q06::[plain]BFS dodaje wierzchołek do kolejki przy odkryciu. Kiedy należy oznaczyć go jako odwiedzony, aby uniknąć wielokrotnego kolejkowania? {
-  ~W chwili zdjęcia wierzchołka z kolejki, przed przeglądaniem jego sąsiadów.
-  ~Po przetworzeniu wszystkich sąsiadów, aby zbadać każdą krawędź.
-  ~Dopiero po drugim napotkaniu, by wyeliminować powtarzające się wpisy FIFO.
-  =Przed lub w chwili dodania do kolejki.
-  ####Natychmiastowe oznaczenie blokuje powtórne odkrycia przez inne krawędzie.
+::AISD-16-Q06::[plain]W grafie A→B, A→C, B→D, C→D BFS dodaje odkryte wierzchołki do kolejki. Co może się stać, jeśli D oznaczymy jako odwiedzony dopiero przy zdejmowaniu z kolejki? {
+  ~BFS nie będzie mógł w ogóle odwiedzić D.
+  ~BFS wykryje ujemne wagi, nawet gdy graf ich nie ma.
+  =D może zostać dodany do kolejki z B i ponownie z C.
+  ~D zostanie automatycznie pominięty przez kolejkę FIFO niezależnie od znaczników.
+  ####Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
 }
 
 ::AISD-16-Q07::[plain]W pełnym drzewie rozgałęzień o czynniku b>1 i głębokości d jaka może być asymptotyczna liczba węzłów na najgłębszym poziomie? {
+  =Θ(b^d)
   ~Θ(d b)
   ~Θ(bd)
-  =Θ(b^d)
   ~Θ(b^(d-1))
   ####Każdy kolejny poziom może mnożyć liczbę węzłów przez b.
 }
 
 ::AISD-16-Q08::[plain]Kiedy BFS zwykle zużywa więcej pamięci granicy przeszukiwania niż DFS w bardzo szerokim, płytkim drzewie? {
   ~Gdy granica BFS zawiera tylko bieżący poziom, którego rozmiar jest stały niezależnie od b.
-  =Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi.
   ~Gdy DFS przechowuje wszystkie liście jednocześnie, a BFS tylko jedną aktywną ścieżkę.
   ~Gdy BFS i DFS mają identyczną wielkość granicy dla dowolnej kolejności rozwijania.
+  =Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi.
   ####BFS przechowuje w kolejce wiele wierzchołków z kolejnych warstw, natomiast rekurencyjny DFS wykorzystuje pamięć przede wszystkim na bieżącą ścieżkę.
 }
 
-::AISD-16-Q09::[plain]W nieważonym grafie krawędzie to AB,AC,BD,CD. BFS startuje od A, a sąsiedzi są przetwarzani alfabetycznie. Który wierzchołek zostanie rodzicem D w drzewie BFS? {
-  =B
-  ~C
-  ~A
-  ~D
-  ####B zostaje zdjęty z kolejki przed C i pierwszy odkrywa D.
+::AISD-16-Q09::[plain]Graf nieważony ma krawędzie A-B, A-C, B-D, C-D. BFS z A przetwarza sąsiadów alfabetycznie. Który szczegół zmieni rodzica D, lecz nie jego odległość? {
+  ~Zastąpienie kolejki FIFO przez stos DFS bez innych zmian.
+  ~Zmiana odległości początkowej A na 7.
+  ~Usunięcie obu krawędzi prowadzących do D.
+  =Przetworzenie C przed B, przy tej samej strukturze grafu.
+  ####Przy remisie dwóch najkrótszych dróg o długości 2 kolejność odkrycia B i C może wskazać innego rodzica D, ale odległość pozostaje 2.
 }
 
 ::AISD-16-Q10::[plain]W grafie o krawędziach A-B, A-C, B-D, C-E algorytm DFS zaczyna od A i odwiedza sąsiadów w kolejności alfabetycznej. Jaka jest kolejność pierwszych odwiedzin? {
+  =A,B,D,C,E
   ~A,B,C,D,E
   ~A,C,E,B,D
   ~A,C,B,D,E
-  =A,B,D,C,E
   ####DFS podąża z A do B, następnie do D i po powrocie eksploruje C oraz E.
 }
 
 ::AISD-16-Q11::[plain]W grafie o dodatnich wagach łuków A→B\=2, A→C\=6 i B→C\=1, jaki jest minimalny koszt dotarcia z A do C? {
   ~6
-  ~2
   =3
+  ~2
   ~7
   ####Ścieżka A→B→C kosztuje 2+1\=3 i jest tańsza od bezpośredniej krawędzi 6.
 }
 
-::AISD-16-Q12::[plain]BFS w grafie nieważonym z A do F odkrywa F po 3 krawędziach. Jaki koszt w liczbie krawędzi ma najkrótsza ścieżka? {
-  ~2
-  =3
-  ~4
-  ~6
-  ####BFS przetwarza wierzchołki według liczby krawędzi od źródła.
+::AISD-16-Q12::[plain]Z A do F w nieważonym grafie prowadzą dwie ścieżki o długości odpowiednio 3 i 5 krawędzi. Które zachowanie poprawnego BFS wynika z jego reguły odkrywania? {
+  =Pierwsze odkrycie F daje odległość 3, niezależnie od istnienia dłuższej ścieżki.
+  ~Pierwsze odkrycie F zawsze nastąpi po 5 krawędziach, bo dłuższa ścieżka ma więcej wierzchołków.
+  ~BFS nie potrafi rozróżnić odległości 3 i 5 bez wag.
+  ~BFS zawsze odwiedza każdy wierzchołek więcej niż jeden raz, aby znaleźć krótszą drogę.
+  ####BFS rozwija rosnące poziomy, dlatego pierwsza znaleziona droga ma minimalną liczbę krawędzi.
 }
 
 ::AISD-16-Q13::[plain]W standardowym A* w grafie o nieujemnych kosztach, jak obliczana jest wartość f(v)? {
-  =g(v)+h(v)
   ~h(v)
+  =g(v)+h(v)
   ~g(v)
   ~g(v)-h(v)
   ####A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
 }
 
-::AISD-16-Q14::[plain]Który warunek na heurystykę h zapewnia dopuszczalność dla A* w problemie najkrótszej ścieżki? {
-  ~h(v) zawsze jest równe rzeczywistemu kosztowi do celu.
-  ~h(v) jest dodatnia dla każdego wierzchołka różnego od celu.
-  ~h(v) nie przekracza kosztu dotarcia od źródła do v, niezależnie od celu.
-  =h(v) nigdy nie przekracza rzeczywistego minimalnego kosztu do celu.
-  ####Heurystyka dopuszczalna nie przeszacowuje optymalnego kosztu pozostałej drogi.
+::AISD-16-Q14::[plain]W A* minimalizującym koszt do celu T heurystyka h(v) ma oszacowywać pozostały koszt. Dla węzła B faktyczny najkrótszy koszt B→T wynosi 5. Która wartość h(B) jest dopuszczalna? {
+  ~7, bo większa wartość przyspieszy przeszukiwanie.
+  ~6, bo przeszacowanie o 1 nie zmienia optymalności.
+  ~10, bo heurystyka może być dowolną dodatnią liczbą.
+  =5, ponieważ nie przekracza rzeczywistego minimalnego kosztu.
+  ####Heurystyka dopuszczalna nie przeszacowuje kosztu do celu. Wartość 5 jest zgodna z tym warunkiem; 6,7 i 10 go łamią.
 }
 
-::AISD-16-Q15::[plain]W grafie reprezentowanym listą sąsiedztwa liczba wierzchołków V\=100 i krawędzi E\=200. Jaką klasę ma pełny BFS? {
-  ~O(VE)
-  ~O(V²E)
-  =O(V+E)
-  ~O(log V)
-  ####BFS przetwarza każdy wierzchołek i wpis sąsiedztwa stałą liczbę razy.
+::AISD-16-Q15::[plain]Pełne BFS uruchamiamy na grafie z V wierzchołkami i E krawędziami. Dlaczego implementacja na listach sąsiedztwa często jest korzystniejsza od macierzy dla grafu rzadkiego? {
+  ~Na listach BFS ma koszt O(1) niezależnie od liczby krawędzi.
+  ~Macierz zawsze wymaga mniej pamięci dla E dużo mniejszego od V².
+  =Na listach iterujemy po istniejących sąsiadach z kosztem O(V+E); w macierzy przeglądanie wierszy może kosztować O(V²).
+  ~BFS na macierzy nie potrafi oznaczać wierzchołków odwiedzonych.
+  ####Listy pozwalają iterować po rzeczywistych krawędziach. Macierz wymaga sprawdzania potencjalnych sąsiadów w każdym wierszu.
 }
 
 ::AISD-16-Q16::[plain]W przeszukiwaniu drzewa o współczynniku rozgałęzień b\=3 i głębokości 2 ile jest węzłów na dokładnie drugim poziomie, licząc korzeń jako poziom 0? {
   ~6
-  =9
   ~3
   ~13
+  =9
   ####Każdy z trzech węzłów poziomu 1 ma po trzech potomków, razem 3²\=9.
 }
 
 ::AISD-16-Q17::[plain]W grafie o wagach A→B\=10, A→C\=1 i C→B\=1 stosujemy zwykły BFS zamiast algorytmu Dijkstry. Jakiego błędnego wyniku możemy się spodziewać przy minimalizowaniu sumy wag? {
-  =BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2.
   ~BFS wybierze A→C→B
+  =BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2.
   ~BFS nie znajdzie B
   ~BFS zwróci minimalny koszt 2 niezależnie od wielkości dodatnich wag.
   ####BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
@@ -141,24 +141,24 @@
 ::AISD-16-Q18::[plain]Algorytm DFS rekurencyjnie przechodzi graf będący prostą ścieżką o n wierzchołkach. Jak rośnie maksymalna głębokość stosu? {
   ~Θ(1)
   ~Θ(log n)
-  ~Θ(n²)
   =Θ(n)
+  ~Θ(n²)
   ####Głębokość wywołań odpowiada długości odwiedzanej ścieżki.
 }
 
 ::AISD-16-Q19::[plain]Ile liści ma pełne drzewo wyborów opisujące wszystkie kombinacje n decyzji binarnych? {
+  =2^n
   ~n²
   ~2n
-  =2^n
   ~n!
   ####Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
 }
 
-::AISD-16-Q20::[plain]W grafie nieważonym są krawędzie A-B, A-C, B-D i C-D. BFS startuje w A i przegląda sąsiadów alfabetycznie. Jaką odległość i rodzica zapisze dla D? {
-  ~1 krawędź, rodzic B
-  =2 krawędzie, rodzic B
-  ~2 krawędzie, rodzic C
-  ~3 krawędzie, rodzic B
-  ####BFS odkrywa B przed C; D zostaje po raz pierwszy odkryty z B na odległości dwóch krawędzi od A.
+::AISD-16-Q20::[plain]Graf skierowany ma drogi A→B→C→T o długości 3 oraz A→D→T o długości 2. Sąsiedzi A są przeglądani alfabetycznie, więc B przed D. Dlaczego DFS może zwrócić trasę dłuższą niż BFS? {
+  ~DFS zawsze znajduje trasę o minimalnej liczbie krawędzi, więc obie trasy muszą mieć tę samą długość.
+  =DFS może wejść najpierw w gałąź B i znaleźć trasę długości 3; BFS odkrywa cel przez D na poziomie 2.
+  ~BFS wybierze trasę długości 3, ponieważ alfabetycznie B jest przed D.
+  ~BFS nie może przeszukiwać grafów skierowanych, więc nie znajdzie żadnej trasy.
+  ####DFS bada głęboko pierwszą gałąź, co nie gwarantuje najmniejszej liczby krawędzi. BFS przegląda kolejne poziomy i znajduje krótszą trasę długości 2.
 }
 

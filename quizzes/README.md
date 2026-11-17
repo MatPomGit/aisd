@@ -1,12 +1,12 @@
 # Quizy do wykładów AIiSD (W01–W20)
 
-**Wersja zestawu:** 1.2.2 (W01); pozostałe banki: 1.2.1  
+**Wersja zestawu:** 1.3.0 (W02–W20); W01: 1.2.2  
 **Data:** 2026-11-17  
 **Zakres:** 20 oddzielnych banków, po 20 pytań jednokrotnego wyboru (łącznie 400 pytań).
 
 ## Organizacja
 
-Każdy plik `quiz_wXX.gift` zawiera 20 pytań. W wersji 1.2.2 dodatkowo poprawiono bank W01 na podstawie niezależnej recenzji merytorycznej: doprecyzowano niezmienniki i kontrakty, wymieniono oczywiste dystraktory, ograniczono powtórzenia tematyczne i usunięto okresowy układ poprawnych odpowiedzi. W wersji 1.2.0 zredagowano większość pytań w każdym banku: wyeliminowano podpowiedzi stylistyczne, przebudowano dystraktory i zastąpiono część powtarzalnych zadań analizą konkretnych przypadków. Każdy bank odpowiada wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, dokładnie jedną prawidłową odpowiedź oraz informację zwrotną z uzasadnieniem.
+Każdy plik `quiz_wXX.gift` zawiera 20 pytań. W wersji 1.3.0 przeprowadzono ponowną recenzję W02–W20 (380 pytań): przebudowano merytorycznie 143 pytania, naprawiono niejednoznaczności i urwane dystraktory, ograniczono powtórzenia tematyczne, uzupełniono zadania o rozumowanie na konkretnych przykładach oraz przemieszano klucze we wszystkich 19 bankach. Zachowano identyfikatory i cztery warianty odpowiedzi. W wersji 1.2.2 dodatkowo poprawiono bank W01 na podstawie niezależnej recenzji merytorycznej: doprecyzowano niezmienniki i kontrakty, wymieniono oczywiste dystraktory, ograniczono powtórzenia tematyczne i usunięto okresowy układ poprawnych odpowiedzi. W wersji 1.2.0 zredagowano większość pytań w każdym banku: wyeliminowano podpowiedzi stylistyczne, przebudowano dystraktory i zastąpiono część powtarzalnych zadań analizą konkretnych przypadków. Każdy bank odpowiada wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, dokładnie jedną prawidłową odpowiedź oraz informację zwrotną z uzasadnieniem.
 
 - `quiz_w01.gift`–`quiz_w05.gift`: podstawy algorytmiki, RAM, pseudokod, analiza kosztu, notacje asymptotyczne;
 - `quiz_w06.gift`–`quiz_w10.gift`: tablice, macierze, rekurencja, listy liniowe, stosy;
@@ -37,6 +37,12 @@ Banki zostały opracowane na podstawie mapy `docs/curriculum-map.md`, tytułów 
 
 Powyższe zasady ograniczają zgadywanie na podstawie konstrukcji testu. Nie gwarantują, że każde pytanie jest odporne na eliminację bez wiedzy; wymagałoby to pilotażu i analizy psychometrycznej odpowiedzi studentów (trudność, moc różnicująca, częstość wyboru poszczególnych dystraktorów).
 
+## Głębokość sprawdzanej wiedzy
+
+Celem kolejnych redakcji jest następujący rozkład pytań w banku 20-elementowym: pięć zadań analizujących wykonanie algorytmu, pięć dotyczących diagnozy błędu lub kontrprzykładu, cztery wymagające doboru struktury albo strategii, cztery sprawdzające uzasadnienie poprawności lub kosztu oraz najwyżej dwa pytania pojęciowe. To kierunek rozwoju banków, **nie deklaracja, że każde 20 pytań już idealnie spełnia tę proporcję**.
+
+Każdy dystraktor powinien reprezentować prawdopodobny błąd rozumowania, np. pomylenie górnego i dolnego ograniczenia, błędne przejście po wskaźnikach lub przyjęcie nieudowodnionej zachłanności. Rachunek liczbowy bez interpretacji ma ograniczoną wartość pomiarową. Odpowiedzi i uzasadnienia nie mogą sugerować klucza przez długość, oczywiste sformułowania lub niepełne zdania.
+
 ## Polszczyzna i wyświetlanie w Moodle
 
 Wszystkie 400 pytań mają jawny znacznik formatu `[plain]`. Moodle zapisuje wówczas treść pytań, odpowiedzi i uzasadnień jako zwykły tekst, bez interpretowania nierówności `a<b`, `a>b` czy zapisów indeksów jako znaczników HTML. Nie należy umieszczać znaczników HTML ani encji `&lt;` i `&gt;` w tych polach. Odwołania do funkcji, instrukcji oraz standardowych nazw algorytmów zachowują pisownię stosowaną w pseudokodzie.
@@ -55,7 +61,7 @@ Zasady formatu: [dokumentacja GIFT w Moodle](https://docs.moodle.org/502/en/GIFT
 python3 scripts/validate_quizzes.py
 ```
 
-Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, pojedynczy klucz, uzasadnienie, rozkład pozycji odpowiedzi prawidłowych i poprawność zapisu znaków w Moodle. W każdym banku pozycje poprawnych odpowiedzi rozłożono po 5 na każdą z czterech możliwości. W W01 dodatkowo wyeliminowano powtarzalną sekwencję klucza. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle. Te dwa etapy pozostają do wykonania przed ocenianiem.
+Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, pojedynczy klucz, uzasadnienie, rozkład pozycji odpowiedzi prawidłowych i poprawność zapisu znaków w Moodle. W każdym banku pozycje poprawnych odpowiedzi rozłożono po 5 na każdą z czterech możliwości. Od wersji 1.3.0 walidator odrzuca klucze okresowe, trzy jednakowe pozycje z rzędu i sześciopozycyjny naprzemienny wzorzec klucza. Kontroluje też część niedokończonych dystraktorów i odpowiedzi logicznie równoważnych typu „Nie” oraz „Nie, ponieważ…”. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle. Te dwa etapy pozostają do wykonania przed ocenianiem.
 
 **Bezpieczeństwo oceniania:** repozytorium jest publiczne, a format GIFT zawiera jawne klucze odpowiedzi. Nie używaj tych plików bezpośrednio do egzaminu o wysokiej stawce. Do takiego zastosowania przenieś bank do prywatnego miejsca, zachowaj kontrolę dostępu i przygotuj alternatywne, nieopublikowane wersje zadań.
 

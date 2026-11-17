@@ -1,27 +1,27 @@
 // AIiSD 03: Pseudokod i schematy blokowe
-// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-03-Q01::[plain]Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli obejmuje wszystkie elementy, gdy i\=0 na początku i zwiększa się o 1 po każdej iteracji? {
   ~i<\=n
   ~i<n-1
-  ~i<\=n+1
   =i<n
+  ~i<\=n+1
   ####Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
 }
 
-::AISD-03-Q02::[plain]Który symbol schematu blokowego standardowo reprezentuje decyzję z rozgałęzieniem warunkowym? {
-  ~Prostokąt.
-  ~Równoległobok.
-  =Romb.
-  ~Owal.
-  ####Romb oznacza test warunku; pozostałe symbole mają zwykle inne role.
+::AISD-03-Q02::[plain]Schemat blokowy ma wykonać dodatkową instrukcję tylko dla x>0, a następnie niezależnie od znaku x wypisać wynik. Gdzie należy połączyć obie gałęzie decyzji? {
+  ~Za blokiem wypisania, aby każda ścieżka powtórzyła instrukcję.
+  =Przed wspólnym blokiem wypisania, poza obiema gałęziami.
+  ~Wewnątrz gałęzi prawda, bo gałąź fałsz omija dalsze obliczenia.
+  ~Przed testem x>0, aby wymusić ponowne sprawdzenie.
+  ####Wspólne wypisanie musi być osiągalne po obu wynikach testu. Połączenie gałęzi następuje więc przed wspólną instrukcją.
 }
 
 ::AISD-03-Q03::[plain]Pseudokod: jeśli x>0, ustaw y\=x; następnie zwróć y. Jaki jest istotny błąd kontraktu? {
   ~Dla x równego zero y ma wartość domyślną
-  =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
   ~Dla x mniejszego od zera instrukcja return zwróci ostatnią wartość x.
+  =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
   ~Dla x dodatniego y nie jest zainicjalizowane, jeśli funkcja ma wynik.
   ####Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
 }
@@ -34,60 +34,60 @@
   ####Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
 }
 
-::AISD-03-Q05::[plain]Tablica jest indeksowana od zera i ma n>1 elementów. Od którego indeksu należy rozpocząć wypisywanie jej elementów w odwrotnej kolejności? {
-  ~n
-  ~n-2
-  ~n+1
-  =n-1
-  ####Ostatni poprawny indeks tablicy długości n to n-1.
+::AISD-03-Q05::[plain]Tablica ma n elementów i indeksy 0,...,n-1. Pętla wypisuje A[i], po czym zmniejsza i o 1. Jak ustawić początek i warunek pętli, aby wypisać wszystkie elementy w odwrotnej kolejności, także dla n\=0? {
+  =i\=n-1; dopóki i>\=0.
+  ~i\=n; dopóki i>\=0.
+  ~i\=n-1; dopóki i>0.
+  ~i\=n; dopóki i>0.
+  ####Dla n>0 pierwszy poprawny indeks to n-1, a ostatni to 0. Dla n\=0 początek i\=-1 powoduje pominięcie ciała.
 }
 
 ::AISD-03-Q06::[plain]Dlaczego opis 'powtarzaj, aż wynik będzie dobry' jest niewystarczającym pseudokodem? {
   ~Brakuje jawnego limitu iteracji, nawet gdy predykat zakończenia byłby ścisły.
-  ~Opis nie rozstrzyga, czy kryterium ocenia się przed ciałem, czy po nim, choć jest formalne.
   =Nie definiuje sprawdzalnego predykatu zakończenia.
+  ~Opis nie rozstrzyga, czy kryterium ocenia się przed ciałem, czy po nim, choć jest formalne.
   ~Opis nie podaje wartości liczbowej wyniku, mimo że predykat jest poprawnie zdefiniowany.
   ####Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
 }
 
 ::AISD-03-Q07::[plain]W pseudokodzie funkcji suma(A, n) zmienną s inicjalizuje się wartością 0, a następnie dodaje się A[i] dla i\=1,...,n. Jakiej informacji potrzeba, aby ocenić poprawność indeksowania? {
-  ~Czy wartość n oznacza rozmiar tablicy, czy największy jej element.
   =Konwencji indeksowania tablicy i dopuszczalnego zakresu i.
+  ~Czy wartość n oznacza rozmiar tablicy, czy największy jej element.
   ~Czy pętla for ma granice domknięte, nie określając indeksu pierwszego elementu.
   ~Czy wynik sumowania jest liczbą całkowitą, niezależnie od sposobu indeksowania.
   ####Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
 }
 
-::AISD-03-Q08::[plain]Które stwierdzenie odróżnia schemat blokowy od programu źródłowego? {
-  =Schemat przedstawia przepływ sterowania, lecz nie narzuca semantyki konkretnego języka wykonawczego.
-  ~Schemat zawsze jednoznacznie określa reprezentację zmiennych i ich zakresy.
-  ~Schemat jest niezależny od języka, więc gwarantuje jednakowe zachowanie przy przepełnieniu.
-  ~Schemat można uruchomić bez zdefiniowania znaczenia operacji w jego blokach.
-  ####Schemat reprezentuje logikę algorytmu; jego wykonanie wymaga formalizacji operacji w wybranym środowisku.
+::AISD-03-Q08::[plain]Schemat blokowy testuje x>0, po czym przy prawdzie wykonuje y\=x, a przy fałszu y\=-x. Program źródłowy wykonuje if x>0: y\=x; if x<\=0: y\=-x. Przy jakim założeniu oba zapisy są równoważne? {
+  ~Tylko gdy drugi test jest wykonywany przed pierwszym.
+  ~Tylko gdy x jest dodatnie.
+  ~Nie są równoważne nawet dla niezmienianej wartości x.
+  =Gdy instrukcje przypisania nie zmieniają x i oba warunki są oceniane w tym samym stanie x.
+  ####Dwa rozłączne, dopełniające się warunki if realizują ten sam wybór co if-else, o ile pierwszy blok nie zmienia zmiennej testowanej ponownie.
 }
 
 ::AISD-03-Q09::[plain]Dany jest pseudokod: i\=0; while i<5: i\=i+2. Jaką wartość ma zmienna i po zakończeniu pętli? {
   ~4
   ~5
-  ~8
   =6
+  ~8
   ####Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
 }
 
 ::AISD-03-Q10::[plain]W schemacie blokowym obliczamy sumę liczb od 1 do n. Który warunek testu przy inicjalizacji i\=1 i zwiększaniu i po dodaniu zapewnia uwzględnienie n? {
   ~i<n
-  ~i<n+1
   =i<\=n
+  ~i<n+1
   ~i<\=n-1
   ####Warunek i<\=n pozwala wykonać dodawanie także dla i równego n.
 }
 
-::AISD-03-Q11::[plain]Funkcja ma zwracać minimum dwóch liczb a i b, również równych. Które rozgałęzienie zapewnia poprawność przy remisie? {
-  ~Jeśli a<b zwróć a, w przeciwnym razie nie zwracaj wyniku dla równości.
-  =Jeśli a<\=b zwróć a, w przeciwnym razie b.
-  ~Jeśli a>b zwróć b, w przeciwnym razie nie zwracaj wyniku dla równości.
-  ~Jeśli a<\=b zwróć b, w przeciwnym razie a.
-  ####Przypadek a\=b też wymaga wyniku, który jest wspólną wartością argumentów.
+::AISD-03-Q11::[plain]Funkcja ma zwracać minimum a i b także przy a\=b. Który zapis nie spełni kontraktu przy równości? {
+  ~Jeśli a<\=b: zwróć a; w przeciwnym razie zwróć b.
+  ~Jeśli a<b: zwróć a; w przeciwnym razie zwróć b.
+  =Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku.
+  ~Jeśli a>b: zwróć b; w przeciwnym razie zwróć a.
+  ####Dwa ostre porównania nie pokrywają przypadku a\=b, dlatego czwarty wariant nie zwraca wyniku przy remisie. Pozostałe zwracają jedną z wartości równych.
 }
 
 ::AISD-03-Q12::[plain]Pętla for i\=0..n-1 zawiera instrukcję return po sprawdzeniu A[i]. Jaki jest skutek wykonania tej instrukcji? {
@@ -98,35 +98,35 @@
   ####Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
 }
 
-::AISD-03-Q13::[plain]Kiedy rozgałęzienie złożone z dwóch testów if jest równoważne if-else? {
-  ~Gdy drugi warunek jest równy pierwszemu i działa na tym samym stanie.
-  ~Gdy drugi warunek jest negacją pierwszego, lecz pierwszy zmienia stan przed drugim testem.
-  ~Gdy warunki nie mogą być jednocześnie prawdziwe, ale mogą być oba fałszywe.
-  =Gdy drugi warunek jest dokładną negacją pierwszego i oba testują ten sam niezmieniony stan.
-  ####Tylko rozłączne i wyczerpujące warunki nad tym samym stanem zastępują alternatywę if-else.
+::AISD-03-Q13::[plain]Kod: if x>0: x\=x-1; if x<\=0: y\=1 else: y\=2. Dla x\=1 jakie y zostanie wybrane i dlaczego nie jest to równoważne jednemu if-else opartemu na pierwotnym x? {
+  ~y\=2, ponieważ oba testy używają początkowego x\=1.
+  ~y\=1, ponieważ oba testy są zawsze wykonywane równocześnie.
+  ~y\=2, ponieważ warunek x<\=0 jest negacją x>0.
+  =y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem.
+  ####Po pierwszym if wartość x zmienia się z 1 na 0; drugi test jest prawdziwy. Należy uwzględniać zmianę stanu pomiędzy testami.
 }
 
 ::AISD-03-Q14::[plain]Pseudokod: s\=0; dla i od 1 do 4: jeśli i mod 2\=0, s\=s+i. Ile wynosi s po pętli? {
   ~4
-  ~10
   =6
+  ~10
   ~2
   ####Dodane zostają tylko liczby parzyste 2 i 4.
 }
 
 ::AISD-03-Q15::[plain]Algorytm ma pętlę repeat ... until x>\=10; początkowo x\=12, a ciało zwiększa x o 1. Jaka wartość x jest po zakończeniu? {
   ~12
-  =13
   ~11
+  =13
   ~14
   ####Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
 }
 
 ::AISD-03-Q16::[plain]Na schemacie blokowym dwa warunki są testowane szeregowo: x>0, potem x<10. Które przypadki trafiają do gałęzi akceptacji? {
-  =0<x<10
   ~x>\=0 i x<\=10
   ~x>0 lub x<10
   ~x<\=0 lub x>\=10
+  =0<x<10
   ####Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
 }
 
@@ -138,25 +138,25 @@
   ####Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
 }
 
-::AISD-03-Q18::[plain]W schemacie blokowym pętli, w której warunek sprawdza się przed wykonaniem ciała, strzałka powrotna powinna prowadzić do: {
-  ~bloku wejścia programu.
-  ~bloku wyjścia całego programu.
-  =testu warunku pętli.
-  ~ostatniego bloku instrukcji przed testem.
-  ####Po wykonaniu ciała konieczna jest ponowna ocena warunku.
+::AISD-03-Q18::[plain]Schemat pętli while i<n ma test na wejściu i blok i\=i+1 w ciele. Strzałka po zwiększeniu i została błędnie skierowana do bloku wypisania wyniku zamiast do testu. Jaki skutek może to mieć dla n\=5 i początkowego i\=0? {
+  =Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5.
+  ~Pętla wykona pięć iteracji mimo błędnego połączenia.
+  ~Przy każdej iteracji nastąpi podwójne sprawdzenie warunku.
+  ~Dojdzie do nieskończonej pętli, ponieważ i przestanie rosnąć.
+  ####Po jednym zwiększeniu i sterowanie omija ponowny test, więc nie wykonuje się pozostałych iteracji.
 }
 
-::AISD-03-Q19::[plain]Pseudokod: a\=2; b\=3; a\=b; b\=a. Jakie wartości pozostają w a i b? {
-  ~a\=3, b\=2.
-  =a\=3, b\=3.
-  ~a\=2, b\=3.
-  ~a\=2, b\=2.
-  ####Przypisania są sekwencyjne; po pierwszym a traci wartość 2.
+::AISD-03-Q19::[plain]Kod ma zamienić wartości a\=2 oraz b\=3, ale wykonuje a\=b; b\=a. Jaka zmiana naprawia kod dla dowolnych początkowych a i b? {
+  ~Usunąć drugie przypisanie b\=a.
+  ~Wykonać b\=a; a\=b zamiast dotychczasowej kolejności.
+  ~Wstawić a\=a+1 po obu przypisaniach.
+  =Użyć zmiennej pomocniczej t\=a; a\=b; b\=t.
+  ####Po a\=b wartość pierwotnego a ginie. Zmienna pomocnicza zachowuje ją do ostatniego przypisania.
 }
 
 ::AISD-03-Q20::[plain]Który warunek bez operatora not jest równoważny zapisowi while not (a>0 and b>0)? {
-  =while a<\=0 or b<\=0
   ~while a<\=0 and b<\=0
+  =while a<\=0 or b<\=0
   ~while a>0 or b>0
   ~while a<0 or b<0
   ####Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
