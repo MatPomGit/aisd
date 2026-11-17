@@ -1,8 +1,8 @@
 // AIiSD 06: Tablice jednowymiarowe
-// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
-// Import: Moodle > Baza pytan > Import > GIFT
+// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-06-Q01::Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
+::AISD-06-Q01::[plain]Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
   ~[3,2,5,2,2]
   ~[2,3,5,2]
   =[3,2,5,2]
@@ -10,7 +10,7 @@
   ####Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
 }
 
-::AISD-06-Q02::Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
+::AISD-06-Q02::[plain]Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
   ~n-k+1
   =n-k
   ~k
@@ -18,7 +18,7 @@
   ####Przesuwane są istniejące elementy o indeksach od k do n-1.
 }
 
-::AISD-06-Q03::W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
+::AISD-06-Q03::[plain]W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
   =n porównań
   ~n-1 porównań
   ~⌈log₂ n⌉ porównań
@@ -26,7 +26,7 @@
   ####Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
 }
 
-::AISD-06-Q04::Przyjmujemy tablicę o długości n i zaalokowanej pojemności c>n. Co może się zmienić po dopisaniu jednego elementu bez realokacji? {
+::AISD-06-Q04::[plain]Rozważamy tablicę o długości n i przydzielonej pojemności c>n. Co może się zmienić po dopisaniu jednego elementu bez ponownego przydzielania pamięci? {
   ~Długość wzrośnie do n+1, a pojemność spadnie do c-1.
   ~Długość pozostanie n, ale pojemność wzrośnie do c+1.
   ~Długość i pojemność wzrosną do n+1, mimo istnienia wolnych komórek.
@@ -34,7 +34,7 @@
   ####Długość to liczba logicznie zapisanych elementów; pojemność określa dostępne miejsce.
 }
 
-::AISD-06-Q05::Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
+::AISD-06-Q05::[plain]Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
   ~⌈n/2⌉
   ~n-1
   =⌊n/2⌋
@@ -42,7 +42,7 @@
   ####Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
 }
 
-::AISD-06-Q06::Dostęp do A[k] w zwykłej tablicy o znanym poprawnym indeksie k ma jaki koszt w modelu RAM z losowym dostępem? {
+::AISD-06-Q06::[plain]Jaki jest koszt odczytu A[k] w tablicy, gdy indeks k jest poprawny, w modelu RAM z dostępem swobodnym? {
   ~Θ(log n)
   =Θ(1)
   ~Θ(k+1)
@@ -50,7 +50,7 @@
   ####Adres elementu oblicza się z adresu bazowego i przesunięcia indeksu w stałej liczbie operacji modelu.
 }
 
-::AISD-06-Q07::Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
+::AISD-06-Q07::[plain]Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
   =n-k-1
   ~n-k
   ~k+1
@@ -58,7 +58,7 @@
   ####Elementy od k+1 do n-1 przesuwają się o jedną pozycję w lewo.
 }
 
-::AISD-06-Q08::Dynamiczna tablica podwaja pojemność przy pełnym buforze. Jaki jest amortyzowany koszt pojedynczego dopisania na końcu, przy standardowym modelu? {
+::AISD-06-Q08::[plain]Dynamiczna tablica podwaja pojemność przy pełnym buforze. Jaki jest amortyzowany koszt pojedynczego dopisania na końcu, przy standardowym modelu? {
   ~O(1) w najgorszym przypadku
   ~O(log n) zamortyzowany
   ~O(n) zamortyzowany
@@ -66,7 +66,7 @@
   ####Drogie kopiowania występują rzadko; ich sumaryczny koszt po n dopisaniach jest liniowy.
 }
 
-::AISD-06-Q09::Tablica A\=[7,3,9,3,5], a algorytm zwraca liczbę wystąpień wartości 3. Jaki wynik powinien zwrócić? {
+::AISD-06-Q09::[plain]Tablica A\=[7,3,9,3,5], a algorytm zwraca liczbę wystąpień wartości 3. Jaki wynik powinien zwrócić? {
   ~1
   ~3
   =2
@@ -74,7 +74,7 @@
   ####Wartość 3 występuje dokładnie na indeksach 1 i 3.
 }
 
-::AISD-06-Q10::Tablica A\=[5,8,2,6], usuwamy element o indeksie 1 przez przesunięcie pozostałych w lewo. Jaka jest wynikowa tablica logicznej długości 3? {
+::AISD-06-Q10::[plain]Z tablicy A\=[5,8,2,6] usuwamy element o indeksie 1, przesuwając pozostałe w lewo. Jaką zawartość ma tablica po zmniejszeniu jej długości do trzech elementów? {
   ~[8,2,6]
   =[5,2,6]
   ~[5,8,6]
@@ -82,7 +82,7 @@
   ####Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
 }
 
-::AISD-06-Q11::Tablica A\=[2,4,6,8] jest indeksowana od zera. Wstawiamy liczbę 5 na indeks 2, zachowując kolejność. Co powstaje? {
+::AISD-06-Q11::[plain]Tablica A\=[2,4,6,8] jest indeksowana od zera. Wstawiamy liczbę 5 na indeks 2, zachowując kolejność. Co powstaje? {
   =[2,4,5,6,8]
   ~[2,5,4,6,8]
   ~[2,4,6,5,8]
@@ -90,7 +90,7 @@
   ####Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
 }
 
-::AISD-06-Q12::Wyszukiwanie binarne w posortowanej tablicy [1,3,5,7,9,11,13] z przedziałem domkniętym [0,6] szuka 11. Jakie indeksy środka są sprawdzane przy m\=floor((l+r)/2)? {
+::AISD-06-Q12::[plain]Wyszukiwanie binarne wartości 11 w posortowanej tablicy [1,3,5,7,9,11,13] rozpoczyna się od przedziału domkniętego [0,6]. Jakie indeksy środkowe zostaną sprawdzone przy m\=floor((l+r)/2)? {
   ~3,4,5
   ~3,6,5
   ~2,4,5
@@ -98,7 +98,7 @@
   ####Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
 }
 
-::AISD-06-Q13::Pusta dynamiczna tablica ma pojemność 2 i przy przepełnieniu podwaja pojemność. Jaką pojemność ma po zapisaniu piątego elementu? {
+::AISD-06-Q13::[plain]Pusta dynamiczna tablica ma pojemność 2 i przy przepełnieniu podwaja pojemność. Jaką pojemność ma po zapisaniu piątego elementu? {
   ~5
   ~4
   =8
@@ -106,7 +106,7 @@
   ####Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
 }
 
-::AISD-06-Q14::Zwarte usunięcie elementu o indeksie k\=2 z tablicy długości n\=9 wymaga ilu przypisań przesuwających elementy? {
+::AISD-06-Q14::[plain]Z tablicy o długości n\=9 usuwamy element o indeksie k\=2, przesuwając pozostałe elementy w lewo. Ile przypisań wymaga to przesunięcie? {
   ~7
   =6
   ~5
@@ -114,7 +114,7 @@
   ####Przesuwane są indeksy źródłowe 3 do 8, czyli 6 elementów.
 }
 
-::AISD-06-Q15::Tablica A\=[4,1,9,2]. Odwracamy ją w miejscu, zamieniając pary skrajne. Co otrzymamy po pierwszej zamianie? {
+::AISD-06-Q15::[plain]Tablica A\=[4,1,9,2]. Odwracamy ją w miejscu, zamieniając pary skrajne. Co otrzymamy po pierwszej zamianie? {
   =[2,1,9,4]
   ~[2,9,1,4]
   ~[4,9,1,2]
@@ -122,7 +122,7 @@
   ####Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
 }
 
-::AISD-06-Q16::Dla tablicy [2,2,2,3,3,4] jaki indeks zwróci lower_bound dla wartości 3 przy indeksowaniu od zera? {
+::AISD-06-Q16::[plain]Dla tablicy [2,2,2,3,3,4] jaki indeks zwróci lower_bound dla wartości 3 przy indeksowaniu od zera? {
   ~4
   ~2
   ~5
@@ -130,7 +130,7 @@
   ####Lower_bound zwraca pierwszy indeks z elementem nie mniejszym niż szukany klucz.
 }
 
-::AISD-06-Q17::Dla A\=[1,4,2,4,3] ile wyniesie wynik pętli s\=0; dla i od 0 do 4: jeśli A[i]>2, s\=s+1? {
+::AISD-06-Q17::[plain]Dla A\=[1,4,2,4,3] ile wyniesie wynik pętli s\=0; dla i od 0 do 4: jeśli A[i]>2, s\=s+1? {
   ~2
   ~4
   =3
@@ -138,7 +138,7 @@
   ####Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
 }
 
-::AISD-06-Q18::W tablicy dynamicznej jest 7 elementów przy pojemności 8. Po dołożeniu dwóch kolejnych elementów z podwajaniem pojemności otrzymamy stan: {
+::AISD-06-Q18::[plain]W tablicy dynamicznej jest 7 elementów przy pojemności 8. Po dołożeniu dwóch kolejnych elementów z podwajaniem pojemności otrzymamy stan: {
   ~Długość 9 i pojemność 8
   =długość 9, pojemność 16.
   ~Długość 9 i pojemność 9
@@ -146,7 +146,7 @@
   ####Ósmy element mieści się w buforze, a dziewiąty wymusza rozszerzenie do 16.
 }
 
-::AISD-06-Q19::Jaką liczbę porównań wykona wyszukiwanie liniowe wartości 6 w [5,4,6,6], kończące po pierwszym trafieniu? {
+::AISD-06-Q19::[plain]Jaką liczbę porównań wykona wyszukiwanie liniowe wartości 6 w [5,4,6,6], kończące po pierwszym trafieniu? {
   =3
   ~2
   ~4
@@ -154,7 +154,7 @@
   ####Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
 }
 
-::AISD-06-Q20::Tablica A\=[3,1,4,1,5] ma indeksy od zera. Pętla i\=4; dopóki i>\=0: wypisz A[i]; i\=i-2. Jaki ciąg zostanie wypisany? {
+::AISD-06-Q20::[plain]Tablica A\=[3,1,4,1,5] ma indeksy od zera. Pętla i\=4; dopóki i>\=0: wypisz A[i]; i\=i-2. Jaki ciąg zostanie wypisany? {
   ~5,1,3
   ~3,4,5
   ~5,1,1
