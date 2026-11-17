@@ -3,33 +3,33 @@
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-03-Q01::[plain]Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli obejmuje wszystkie elementy, gdy i\=0 na początku i zwiększa się o 1 po każdej iteracji? {
-  =i<n
   ~i<\=n
   ~i<n-1
+  =i<n
   ~i<\=n+1
   ####Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
 }
 
 ::AISD-03-Q02::[plain]Schemat blokowy ma wykonać dodatkową instrukcję tylko dla x>0, a następnie niezależnie od znaku x wypisać wynik. Gdzie należy połączyć obie gałęzie decyzji? {
-  =Przed wspólnym blokiem wypisania, poza obiema gałęziami.
   ~Za blokiem wypisania, aby każda ścieżka powtórzyła instrukcję.
+  =Przed wspólnym blokiem wypisania, poza obiema gałęziami.
   ~Wewnątrz gałęzi prawda, bo gałąź fałsz omija dalsze obliczenia.
   ~Przed testem x>0, aby wymusić ponowne sprawdzenie.
   ####Wspólne wypisanie musi być osiągalne po obu wynikach testu. Połączenie gałęzi następuje więc przed wspólną instrukcją.
 }
 
 ::AISD-03-Q03::[plain]Pseudokod: jeśli x>0, ustaw y\=x; następnie zwróć y. Jaki jest istotny błąd kontraktu? {
-  =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
   ~Dla x równego zero y ma wartość domyślną
   ~Dla x mniejszego od zera instrukcja return zwróci ostatnią wartość x.
+  =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
   ~Dla x dodatniego y nie jest zainicjalizowane, jeśli funkcja ma wynik.
   ####Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
 }
 
 ::AISD-03-Q04::[plain]W schemacie blokowym po zakończeniu obu gałęzi warunku wykonywana jest ta sama instrukcja. Jaka struktura przepływu jest właściwa? {
+  =Dwie gałęzie łączą się przed wspólną instrukcją.
   ~Połączenie następuje dopiero za wspólną instrukcją, do której dochodzą osobne strzałki.
   ~Obie gałęzie wracają do warunku i dopiero potem dochodzą do wspólnego kroku.
-  =Dwie gałęzie łączą się przed wspólną instrukcją.
   ~Wspólną instrukcję trzeba umieścić w jednej gałęzi, aby druga ją ominęła.
   ####Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
 }
@@ -44,16 +44,16 @@
 
 ::AISD-03-Q06::[plain]Dlaczego opis 'powtarzaj, aż wynik będzie dobry' jest niewystarczającym pseudokodem? {
   ~Brakuje jawnego limitu iteracji, nawet gdy predykat zakończenia byłby ścisły.
-  ~Opis nie rozstrzyga, czy kryterium ocenia się przed ciałem, czy po nim, choć jest formalne.
   =Nie definiuje sprawdzalnego predykatu zakończenia.
+  ~Opis nie rozstrzyga, czy kryterium ocenia się przed ciałem, czy po nim, choć jest formalne.
   ~Opis nie podaje wartości liczbowej wyniku, mimo że predykat jest poprawnie zdefiniowany.
   ####Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
 }
 
 ::AISD-03-Q07::[plain]W pseudokodzie funkcji suma(A, n) zmienną s inicjalizuje się wartością 0, a następnie dodaje się A[i] dla i\=1,...,n. Jakiej informacji potrzeba, aby ocenić poprawność indeksowania? {
+  =Konwencji indeksowania tablicy i dopuszczalnego zakresu i.
   ~Czy wartość n oznacza rozmiar tablicy, czy największy jej element.
   ~Czy pętla for ma granice domknięte, nie określając indeksu pierwszego elementu.
-  =Konwencji indeksowania tablicy i dopuszczalnego zakresu i.
   ~Czy wynik sumowania jest liczbą całkowitą, niezależnie od sposobu indeksowania.
   ####Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
 }
@@ -69,8 +69,8 @@
 ::AISD-03-Q09::[plain]Dany jest pseudokod: i\=0; while i<5: i\=i+2. Jaką wartość ma zmienna i po zakończeniu pętli? {
   ~4
   ~5
-  ~8
   =6
+  ~8
   ####Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
 }
 
@@ -84,25 +84,25 @@
 
 ::AISD-03-Q11::[plain]Funkcja ma zwracać minimum a i b także przy a\=b. Który zapis nie spełni kontraktu przy równości? {
   ~Jeśli a<\=b: zwróć a; w przeciwnym razie zwróć b.
-  =Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku.
   ~Jeśli a<b: zwróć a; w przeciwnym razie zwróć b.
+  =Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku.
   ~Jeśli a>b: zwróć b; w przeciwnym razie zwróć a.
   ####Dwa ostre porównania nie pokrywają przypadku a\=b, dlatego czwarty wariant nie zwraca wyniku przy remisie. Pozostałe zwracają jedną z wartości równych.
 }
 
 ::AISD-03-Q12::[plain]Pętla for i\=0..n-1 zawiera instrukcję return po sprawdzeniu A[i]. Jaki jest skutek wykonania tej instrukcji? {
+  =Zakończenie całej funkcji, a nie tylko bieżącej iteracji.
   ~Zakończenie pętli, lecz wykonanie dalszych instrukcji funkcji.
   ~Wyjście z gałęzi if i sprawdzenie następnego elementu.
   ~Przerwanie tylko bieżącego wywołania pętli bez zwracania wartości.
-  =Zakończenie całej funkcji, a nie tylko bieżącej iteracji.
   ####Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
 }
 
 ::AISD-03-Q13::[plain]Kod: if x>0: x\=x-1; if x<\=0: y\=1 else: y\=2. Dla x\=1 jakie y zostanie wybrane i dlaczego nie jest to równoważne jednemu if-else opartemu na pierwotnym x? {
   ~y\=2, ponieważ oba testy używają początkowego x\=1.
   ~y\=1, ponieważ oba testy są zawsze wykonywane równocześnie.
-  =y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem.
   ~y\=2, ponieważ warunek x<\=0 jest negacją x>0.
+  =y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem.
   ####Po pierwszym if wartość x zmienia się z 1 na 0; drugi test jest prawdziwy. Należy uwzględniać zmianę stanu pomiędzy testami.
 }
 
@@ -116,8 +116,8 @@
 
 ::AISD-03-Q15::[plain]Algorytm ma pętlę repeat ... until x>\=10; początkowo x\=12, a ciało zwiększa x o 1. Jaka wartość x jest po zakończeniu? {
   ~12
-  =13
   ~11
+  =13
   ~14
   ####Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
 }
@@ -125,8 +125,8 @@
 ::AISD-03-Q16::[plain]Na schemacie blokowym dwa warunki są testowane szeregowo: x>0, potem x<10. Które przypadki trafiają do gałęzi akceptacji? {
   ~x>\=0 i x<\=10
   ~x>0 lub x<10
-  =0<x<10
   ~x<\=0 lub x>\=10
+  =0<x<10
   ####Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
 }
 
@@ -139,24 +139,24 @@
 }
 
 ::AISD-03-Q18::[plain]Schemat pętli while i<n ma test na wejściu i blok i\=i+1 w ciele. Strzałka po zwiększeniu i została błędnie skierowana do bloku wypisania wyniku zamiast do testu. Jaki skutek może to mieć dla n\=5 i początkowego i\=0? {
+  =Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5.
   ~Pętla wykona pięć iteracji mimo błędnego połączenia.
   ~Przy każdej iteracji nastąpi podwójne sprawdzenie warunku.
   ~Dojdzie do nieskończonej pętli, ponieważ i przestanie rosnąć.
-  =Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5.
   ####Po jednym zwiększeniu i sterowanie omija ponowny test, więc nie wykonuje się pozostałych iteracji.
 }
 
 ::AISD-03-Q19::[plain]Kod ma zamienić wartości a\=2 oraz b\=3, ale wykonuje a\=b; b\=a. Jaka zmiana naprawia kod dla dowolnych początkowych a i b? {
   ~Usunąć drugie przypisanie b\=a.
-  =Użyć zmiennej pomocniczej t\=a; a\=b; b\=t.
   ~Wykonać b\=a; a\=b zamiast dotychczasowej kolejności.
   ~Wstawić a\=a+1 po obu przypisaniach.
+  =Użyć zmiennej pomocniczej t\=a; a\=b; b\=t.
   ####Po a\=b wartość pierwotnego a ginie. Zmienna pomocnicza zachowuje ją do ostatniego przypisania.
 }
 
 ::AISD-03-Q20::[plain]Który warunek bez operatora not jest równoważny zapisowi while not (a>0 and b>0)? {
-  =while a<\=0 or b<\=0
   ~while a<\=0 and b<\=0
+  =while a<\=0 or b<\=0
   ~while a>0 or b>0
   ~while a<0 or b<0
   ####Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
