@@ -1,12 +1,12 @@
 # Quizy do wykładów AIiSD (W01–W20)
 
-**Wersja:** 1.2.0  
+**Wersja:** 1.2.1  
 **Data:** 2026-11-17  
 **Zakres:** 20 oddzielnych banków, po 20 pytań jednokrotnego wyboru (łącznie 400 pytań).
 
 ## Organizacja
 
-Każdy plik `quiz_wXX.gift` zawiera 20 pytań. W wersji 1.2.0 zredagowano większość banku: wyeliminowano podpowiedzi stylistyczne, przebudowano dystraktory i zastąpiono część powtarzalnych zadań analizą konkretnych przypadków. Każdy bank odpowiada wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, dokładnie jedną prawidłową odpowiedź oraz informację zwrotną z uzasadnieniem.
+Każdy plik `quiz_wXX.gift` zawiera 20 pytań. W wersji 1.2.0 zredagowano większość pytań w każdym banku: wyeliminowano podpowiedzi stylistyczne, przebudowano dystraktory i zastąpiono część powtarzalnych zadań analizą konkretnych przypadków. Każdy bank odpowiada wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, dokładnie jedną prawidłową odpowiedź oraz informację zwrotną z uzasadnieniem.
 
 - `quiz_w01.gift`–`quiz_w05.gift`: podstawy algorytmiki, RAM, pseudokod, analiza kosztu, notacje asymptotyczne;
 - `quiz_w06.gift`–`quiz_w10.gift`: tablice, macierze, rekurencja, listy liniowe, stosy;
@@ -37,13 +37,25 @@ Banki zostały opracowane na podstawie mapy `docs/curriculum-map.md`, tytułów 
 
 Powyższe zasady ograniczają zgadywanie na podstawie konstrukcji testu. Nie gwarantują, że każde pytanie jest odporne na eliminację bez wiedzy; wymagałoby to pilotażu i analizy psychometrycznej odpowiedzi studentów (trudność, moc różnicująca, częstość wyboru poszczególnych dystraktorów).
 
+## Polszczyzna i wyświetlanie w Moodle
+
+Wszystkie 400 pytań mają jawny znacznik formatu `[plain]`. Moodle zapisuje wówczas treść pytań, odpowiedzi i uzasadnień jako zwykły tekst, bez interpretowania nierówności `a<b`, `a>b` czy zapisów indeksów jako znaczników HTML. Nie należy umieszczać znaczników HTML ani encji `&lt;` i `&gt;` w tych polach. Odwołania do funkcji, instrukcji oraz standardowych nazw algorytmów zachowują pisownię stosowaną w pseudokodzie.
+
+- Pliki są kodowane jako **UTF-8 bez BOM** i używają normalizacji **Unicode NFC**, potrzebnej m.in. dla polskich znaków.
+- Znaki sterujące GIFT `~`, `=`, `#`, `{` i `}` występują w treści wyłącznie z poprzedzającym je ukośnikiem `\`. Importer GIFT usuwa ten ukośnik i wyświetla znak dosłownie.
+- Zachowano standardowe symbole matematyczne Unicode, takie jak `Θ`, `Ω`, `→`, `×`, `≤` oraz indeksy górne i dolne. Rzadziej obsługiwane graficzne nawiasy funkcji podłogi i sufitu zastąpiono zapisami `floor(...)` i `ceil(...)`.
+- Walidator kontroluje nagłówki `[plain]`, poprawność UTF-8, obecność BOM, normalizację NFC, niewidoczne lub uszkodzone znaki, poprawne maskowanie separatorów GIFT, unikatowość odpowiedzi i rozkład kluczy.
+- Przed wykorzystaniem pytań do oceniania trzeba **zaimportować je do testowej kategorii Moodle i obejrzeć podgląd** na komputerze i urządzeniu mobilnym, szczególnie wzory, nierówności, polskie znaki oraz symbole matematyczne. Sam test statyczny nie potwierdza krojów pisma dostępnych w konkretnym motywie Moodle.
+
+Zasady formatu: [dokumentacja GIFT w Moodle](https://docs.moodle.org/502/en/GIFT_format).
+
 ## Kontrola jakości
 
 ```bash
 python3 scripts/validate_quizzes.py
 ```
 
-Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, pojedynczy klucz, uzasadnienie oraz rozkład pozycji odpowiedzi prawidłowych. W każdym banku pozycje poprawnych odpowiedzi rozłożono po 5 na każdą z czterech możliwości. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle. Te dwa etapy pozostają do wykonania przed ocenianiem.
+Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, pojedynczy klucz, uzasadnienie, rozkład pozycji odpowiedzi prawidłowych i poprawność zapisu znaków w Moodle. W każdym banku pozycje poprawnych odpowiedzi rozłożono po 5 na każdą z czterech możliwości. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle. Te dwa etapy pozostają do wykonania przed ocenianiem.
 
 **Bezpieczeństwo oceniania:** repozytorium jest publiczne, a format GIFT zawiera jawne klucze odpowiedzi. Nie używaj tych plików bezpośrednio do egzaminu o wysokiej stawce. Do takiego zastosowania przenieś bank do prywatnego miejsca, zachowaj kontrolę dostępu i przygotuj alternatywne, nieopublikowane wersje zadań.
 
