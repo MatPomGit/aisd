@@ -3,10 +3,10 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-13-Q01::W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
-  ~8 → 10 → 6, bo 6 jest mniejsze od 10, więc trzeba zejść na lewo.
+  ~8 → 10 → 6
   =8 → 3 → 6
-  ~8 → 3 → 1 → 6, bo każdą wartość mniejszą od 8 trzeba porównać z 1.
-  ~8 → 6, ponieważ w BST wyszukiwanie pomija wszystkie wewnętrzne węzły pośrednie.
+  ~8 → 3 → 1 → 6
+  ~8 → 6
   ####6<8 kieruje w lewo, a 6>3 w prawo.
 }
 
@@ -27,15 +27,15 @@
 }
 
 ::AISD-13-Q04::Do pustego BST bez równoważenia wstawiono rosnące klucze 1,2,...,n. Jaką wysokość w krawędziach ma wynik dla n>0? {
-  ~⌈log₂ n⌉, ponieważ BST z definicji jest zrównoważone.
-  ~n, ponieważ wysokość liczy się wraz z dodatkową krawędzią nad korzeniem.
+  ~⌈log₂ n⌉
+  ~n
   =n-1
-  ~⌈log₂(n+1)⌉-1, ponieważ rosnące dane zapewniają pełne drzewo.
+  ~⌈log₂(n+1)⌉-1
   ####Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
 }
 
 ::AISD-13-Q05::Jaka jest asymptotyczna liczba porównań przy wyszukiwaniu klucza w BST o wysokości h? {
-  ~O(log h), ponieważ porównania zawsze dzielą pozostałą wysokość na pół.
+  ~O(log h)
   =O(h+1)
   ~O(h), nawet dla drzewa składającego się tylko z korzenia h\=0.
   ~O(n), które jest zawsze najściślejszym ograniczeniem niezależnie od h.
@@ -44,9 +44,9 @@
 
 ::AISD-13-Q06::W BST bez duplikatów węzeł 12 ma lewe poddrzewo o korzeniu 7 i prawe o korzeniu 18. Gdzie poprawnie może leżeć klucz 15? {
   =W lewym poddrzewie węzła 18.
-  ~W prawym poddrzewie węzła 7, bo 15 jest większe od 7.
-  ~W prawym poddrzewie korzenia 18, gdyż 15 jest większe od 12.
-  ~W lewym poddrzewie 7, bo jest mniejsze od 18.
+  ~W prawym poddrzewie węzła 7
+  ~W prawym poddrzewie korzenia 18
+  ~W lewym poddrzewie 7
   ####15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
 }
 
@@ -59,10 +59,10 @@
 }
 
 ::AISD-13-Q08::Jaki koszt ma wyszukiwanie w BST o n węzłach, którego wysokość wynosi Θ(log n)? {
-  ~O(n) w najgorszym przypadku również wtedy, gdy wysokość jest Θ(log n).
-  ~O(log log n), bo równoważenie dzieli logarytmiczną wysokość przez dwa.
+  ~O(n) w najgorszym przypadku również wtedy
+  ~O(log log n)
   =O(log n)
-  ~O(1), bo balansowanie zapewnia bezpośredni dostęp do każdego klucza.
+  ~O(1)
   ####Przejście po jednej ścieżce ma długość ograniczoną wysokością drzewa.
 }
 
@@ -76,9 +76,9 @@
 
 ::AISD-13-Q10::BST ma klucze 10,5,15,3,7,12,18. Jaki jest następnik inorder klucza 10? {
   =12
-  ~15, ponieważ jest bezpośrednim prawym dzieckiem węzła 10.
-  ~7, ponieważ jest największym elementem lewego poddrzewa.
-  ~18, ponieważ jest maksimum prawego poddrzewa.
+  ~15
+  ~7
+  ~18
   ####Następnik 10 jest najmniejszym elementem jego prawego poddrzewa, czyli 12.
 }
 
@@ -99,18 +99,18 @@
 }
 
 ::AISD-13-Q13::W BST korzeń 8 ma jedyne dziecko 12 po prawej, a 12 ma jedyne lewe dziecko 10. Po usunięciu 8 przez zastąpienie jego jedynym dzieckiem jaki jest nowy korzeń? {
-  ~10, ponieważ najbliższy mniejszy od 12 klucz jest jego lewym dzieckiem.
+  ~10
   =12
-  ~8, ponieważ usuwany korzeń zachowuje dotychczasowy indeks.
-  ~Brak korzenia, ponieważ usunięty węzeł miał tylko jedno dziecko.
+  ~8
+  ~Brak korzenia
   ####Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
 }
 
 ::AISD-13-Q14::W BST bez duplikatów zawierającym 8,4,12,2,6,10,14 jakie klucze zostaną odwiedzone przy nieudanym wyszukiwaniu 11? {
   =8,12,10
-  ~8,4,6, ponieważ wyszukiwanie klucza 11 zaczyna się w lewym poddrzewie.
-  ~8,12,14, ponieważ klucz 11 jest mniejszy od prawego dziecka 12.
-  ~8,10,12, ponieważ sprawdzanie BST przebiega rosnąco po wartościach.
+  ~8,4,6
+  ~8,12,14
+  ~8,10,12
   ####11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
 }
 
@@ -123,18 +123,18 @@
 }
 
 ::AISD-13-Q16::BST zawiera wartości 4,2,6,1,3,5,7. Usunięcie liścia 1 zmienia który wskaźnik? {
-  ~Prawe dziecko 2 zostaje puste, ponieważ węzeł 1 jest jego prawym liściem.
-  ~Lewe dziecko 4 zostaje puste, ponieważ usunięcie 1 usuwa całe poddrzewo.
+  ~Prawe dziecko 2 zostaje puste
+  ~Lewe dziecko 4 zostaje puste
   =Lewe dziecko węzła 2 staje się puste.
-  ~Prawe dziecko 6 zostaje puste, ponieważ 1 jest mniejsze od korzenia.
+  ~Prawe dziecko 6 zostaje puste
   ####1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
 }
 
 ::AISD-13-Q17::Dla BST o n węzłach i wysokości h, jaki jest koszt wyznaczenia minimum, jeśli nie ma dodatkowego wskaźnika do minimum? {
-  ~O(1), ponieważ minimum jest zawsze bezpośrednim dzieckiem korzenia.
+  ~O(1)
   =O(h+1)
-  ~O(log h), ponieważ lewe przejścia pomijają połowę pozostałej wysokości.
-  ~O(nh), ponieważ minimum wymaga odwiedzenia wszystkich węzłów na każdym poziomie.
+  ~O(log h)
+  ~O(nh)
   ####Szukanie minimum polega na podążaniu lewymi dziećmi od korzenia.
 }
 
@@ -147,18 +147,18 @@
 }
 
 ::AISD-13-Q19::W BST przechowującym różne klucze równoważenie ogranicza wysokość do O(log n). Który skutek dotyczy wyszukiwania? {
-  ~Najgorszy koszt pozostaje Θ(n), ponieważ BST nie używa tablicy indeksowanej.
-  ~Najgorszy koszt staje się Θ(1), bo wysokość jest ograniczona logarytmicznie.
-  ~Wyszukiwanie wymaga Θ(log² n), bo dla każdego poziomu trzeba sprawdzić dwa poddrzewa.
+  ~Najgorszy koszt pozostaje Θ(n)
+  ~Najgorszy koszt staje się Θ(1)
+  ~Wyszukiwanie wymaga Θ(log² n)
   =Najgorszy koszt wyszukiwania spada do O(log n).
   ####Wyszukiwanie podąża jedną ścieżką o długości ograniczonej logarytmiczną wysokością.
 }
 
 ::AISD-13-Q20::BST ma korzeń 20, lewe poddrzewo zawierające klucze 12 i 17 oraz prawe zawierające 24 i 30. Który klucz zastąpi 20, jeśli usuwamy korzeń przez podstawienie jego poprzednika inorder? {
-  ~12, ponieważ poprzednik inorder to najmniejszy element lewego poddrzewa.
-  ~24, ponieważ poprzednik inorder leży w prawym poddrzewie.
+  ~12
+  ~24
   =17
-  ~30, ponieważ poprzednik inorder jest największym kluczem całego drzewa.
+  ~30
   ####Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
 }
 
