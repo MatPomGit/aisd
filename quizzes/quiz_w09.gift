@@ -92,7 +92,7 @@
 
 ::AISD-09-Q12::[plain]Do listy jednokierunkowej bez wskaźnika ogona tail dopisujemy element na końcu. Ile węzłów trzeba odwiedzić, zaczynając od head, aby znaleźć ogon listy o długości n>0? {
   ~n-1 węzłów
-  ~⌈n/2⌉ węzłów
+  ~ceil(n/2) węzłów
   =n węzłów
   ~n+1 węzłów
   ####Trzeba przejść kolejno przez wszystkie n węzłów, aby dotrzeć do ostatniego.
