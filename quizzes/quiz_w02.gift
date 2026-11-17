@@ -146,7 +146,15 @@
   ####Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
 }
 
-::AISD-02-Q19::Program ma 6 instrukcji na każde z n wejść oraz jedną instrukcję zakończenia. Dla n\=0 ile instrukcji wykona przy założeniu, że wejście pętli jest poprawnie ominięte? {
+::AISD-02-Q19::W RAM JZERO L skacze do L, gdy akumulator jest zerowy. Dla R[1]\=6 i R[2]\=2 wykonano LOAD 1; SUB 2; JZERO L; SUB 2; L: STORE 3. Ile wyniesie R[3]? {
+  =2
+  ~4
+  ~0
+  ~6
+  ####Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
+}
+
+
   =1
   ~0
   ~6
