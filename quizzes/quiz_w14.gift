@@ -3,10 +3,10 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-14-Q01::W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
-  ~2i
-  ~⌊i/2⌋
+  ~2i, ponieważ pierwszy potomek stoi pod parzystym indeksem.
+  ~⌊i/2⌋, ponieważ lewy potomek ma indeks rodzica dzielony przez dwa.
   =2i+1
-  ~2i+2
+  ~2i+2, ponieważ lewe dziecko leży po prawej stronie tablicowego zapisu.
   ####W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
 }
 
@@ -52,9 +52,9 @@
 
 ::AISD-14-Q07::Kopiec minimalny ma tablicę [2,5,3,9,7,8]. Jaka wartość pojawi się w korzeniu po jednokrotnym extract-min i prawidłowej naprawie kopca? {
   =3
-  ~5
-  ~7
-  ~8
+  ~5, ponieważ jest lewym dzieckiem dawnego korzenia.
+  ~7, ponieważ zostaje jako pierwszy nieprzeniesiony klucz liścia.
+  ~8, ponieważ jest ostatnim elementem i zastępuje usuwane minimum.
   ####Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
 }
 
@@ -84,16 +84,16 @@
 
 ::AISD-14-Q11::W tablicowym kopcu indeksowanym od zera, jaki jest indeks rodzica węzła o indeksie i\=10? {
   =4
-  ~5
-  ~3
-  ~9
+  ~5, ponieważ rodzicem indeksu i jest floor(i/2).
+  ~3, ponieważ od indeksu dziecka odejmuje się połowę wysokości.
+  ~9, ponieważ rodzic bezpośrednio poprzedza dziecko w tablicy.
   ####Indeks rodzica wynosi floor((i-1)/2)\=floor(9/2)\=4.
 }
 
 ::AISD-14-Q12::Do kopca minimalnego [2,4,3,9,7,6] dodano 1 na końcu i wykonano sift-up. Która tablica powstaje? {
-  ~[1,2,3,9,7,6,4]
-  ~[2,4,1,9,7,6,3]
-  ~[1,3,2,9,7,6,4]
+  ~[1,2,3,9,7,6,4], ponieważ po pierwszej zamianie należy zatrzymać sift-up.
+  ~[2,4,1,9,7,6,3], ponieważ nowy element nie może przejść nad korzeniem.
+  ~[1,3,2,9,7,6,4], ponieważ każde dziecko mniejsze od rodzica zamienia się z lewym.
   =[1,4,2,9,7,6,3]
   ####1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
 }
@@ -116,9 +116,9 @@
 
 ::AISD-14-Q15::Ile poziomów (licząc korzeń jako poziom 0) może mieć kopiec o 15 węzłach? {
   =4
-  ~3
-  ~5
-  ~15
+  ~3 poziomy, ponieważ korzeń jest poziomem zerowym i ostatni ma indeks 3.
+  ~5 poziomów, ponieważ poziom liści liczy się dwukrotnie.
+  ~15 poziomów, ponieważ każdy element tworzy oddzielny poziom.
   ####Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
 }
 
