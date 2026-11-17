@@ -4,15 +4,15 @@
 
 ::AISD-20-Q01::[plain]Dla monet o nominałach 1,3,4 chcemy wydać kwotę 6 najmniejszą liczbą monet. Dlaczego strategia wybierania zawsze największej dostępnej monety nie jest optymalna? {
   ~Daje 3+3 i wymaga 3 monet, mimo że wystarczą dwie.
-  =Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety.
   ~Nie może wydać 6, ponieważ brak monety o nominale 2.
+  =Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety.
   ~Zawsze daje rozwiązanie optymalne, ponieważ najmniejsza reszta oznacza najmniejszą liczbę monet.
   ####To kontrprzykład dla zachłanności: lokalny wybór 4 prowadzi do wyniku gorszego niż dwa razy 3.
 }
 
 ::AISD-20-Q02::[plain]Który wybór zachłanny prowadzi do optymalnego rozwiązania problemu wyznaczenia maksymalnej liczby niepokrywających się przedziałów? {
-  =Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi.
   ~Wybór przedziału o najwcześniejszym początku, gdy jego koniec nie koliduje z poprzednim.
+  =Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi.
   ~Wybór najkrótszego przedziału
   ~Wybór przedziału o najmniejszej liczbie kolizji z pozostałymi.
   ####Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
@@ -20,33 +20,33 @@
 
 ::AISD-20-Q03::[plain]Co odróżnia memoizację od tabulacji w programowaniu dynamicznym? {
   ~Memoizacja oblicza wszystkie stany z góry, a tabulacja tylko stany osiągalne.
-  =Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń.
   ~Memoizacja i tabulacja różnią się wyłącznie sposobem przechowywania tablicy wyników.
   ~Memoizacja zawsze wymaga iteracji po stanach, a tabulacja tylko wywołań rekurencyjnych.
+  =Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń.
   ####Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
 }
 
 ::AISD-20-Q04::[plain]Algorytm dziel i zwyciężaj dzieli n elementów na dwie połowy, rozwiązuje obie rekurencyjnie i scala w czasie liniowym. Co stanie się z kosztem, jeśli scalanie w każdej ramce zastąpimy operacją o koszcie Θ(n²)? {
+  =Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania.
   ~Rekurencja nadal ma Θ(n log n), bo liczba podproblemów się nie zmienia.
   ~Koszt spadnie do Θ(log n), bo podział jest binarny.
   ~Koszt wzrośnie do Θ(2^n), bo pojawia się scalanie kwadratowe.
-  =Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania.
   ####Dla T(n)\=2T(n/2)+Θ(n²) suma kosztów na poziomach jest geometryczna i dominuje koszt korzenia Θ(n²).
 }
 
 ::AISD-20-Q05::[plain]Plecak 0/1 ma pojemność 4 oraz przedmioty A\=(masa 3, wartość 5), B\=(masa 2, wartość 3), C\=(masa 2, wartość 3). Algorytm zachłanny bierze przedmiot o największej wartości do masy. Co pokazuje błąd tej reguły? {
+  =Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum.
   ~Bierze B+C o wartości 6, co zawsze jest optymalne dla każdego plecaka 0/1.
   ~Bierze A+B o wartości 8, choć przekracza pojemność 4.
-  =Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum.
   ~Nie potrafi porównać stosunków wartości do masy w liczbach całkowitych.
   ####Stosunek dla A wynosi 5/3, a dla B i C po 3/2, więc zachłanność wybiera A. Dwa pozostałe razem mieszczą się w pojemności i mają większą wartość.
 }
 
 ::AISD-20-Q06::[plain]W programowaniu dynamicznym stosujemy zależność F[i]\=min(F[i-1]+a[i],F[i-2]+b[i]) dla i>\=2. Jakie wartości początkowe trzeba określić? {
   ~Wystarczy F[1]
-  =Co najmniej wartości F[0] i F[1].
   ~Wystarczy F[0]
   ~Wystarczy wartość F[n], jeżeli obliczamy tablicę rosnąco po indeksach.
+  =Co najmniej wartości F[0] i F[1].
   ####Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
 }
 
@@ -75,35 +75,35 @@
 }
 
 ::AISD-20-Q10::[plain]Dla przedziałów [1,3), [2,5), [3,4), [4,6) wybieranych zachłannie według najwcześniejszego końca, ile maksymalnie można wybrać niepokrywających się przedziałów? {
+  =3
   ~2
   ~4
   ~1
-  =3
   ####Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
 }
 
 ::AISD-20-Q11::[plain]Najkrótsze ścieżki w skierowanym grafie acyklicznym, również z ujemnymi wagami łuków, można obliczać metodą programowania dynamicznego zgodnie z: {
-  =porządku topologicznym.
   ~porządku rosnących wag.
   ~porządku malejących stopni.
   ~porządku BFS.
+  =porządku topologicznym.
   ####Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
 }
 
 ::AISD-20-Q12::[plain]Dla rekurencji T(n)\=3T(n/3)+n, gdzie n jest potęgą 3, student szacuje Θ(n), bo dzieli n na trzy części. Co przeoczył? {
   ~Każde wywołanie kosztuje Θ(n²) przez liczbę gałęzi.
+  =Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n).
   ~Rozmiary podproblemów nie zmniejszają się, więc rekurencja jest nieskończona.
   ~Rekurencja ma dokładnie n poziomów, stąd Θ(n²).
-  =Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n).
   ####Na poziomie d jest 3^d podproblemów po n/3^d, więc suma pracy poziomu to n. Istnieje Θ(log n) poziomów.
 }
 
-::AISD-20-Q13::[plain]Algorytm zachłanny dla monet 1,3,4 wybiera najpierw 4 przy kwocie 6. Które postępowanie może wykazać brak optymalności bez badania wszystkich możliwych kwot? {
-  =Podać kontrprzykład 6, dla którego wynik zachłanny 4+1+1 jest gorszy niż 3+3.
-  ~Sprawdzić tylko kwoty 1,2,3, bo to najmniejsze wartości.
-  ~Zwiększyć liczbę testów losowych, aż wszystkie dadzą wynik zachłanny.
-  ~Dowodzić poprawności przez pokazanie, że moneta 4 jest największa.
-  ####Jeden kontrprzykład wystarcza do obalenia twierdzenia o poprawności dla każdej kwoty.
+::AISD-20-Q13::[plain]W problemie wyboru największej liczby niepokrywających się przedziałów rozważamy [0,3), [3,6) i [2,4). Dlaczego zachłanne wybieranie najkrótszego przedziału może być błędne? {
+  ~Wszystkie trzy przedziały są rozłączne, więc wybór kolejności nie ma znaczenia.
+  ~Najkrótszy przedział to [0,3), dlatego można następnie wybrać [3,6).
+  =Przedział [2,4) jest najkrótszy i blokuje oba pozostałe, a wybór [0,3) oraz [3,6) daje dwa przedziały.
+  ~Algorytm nie może działać na przedziałach półotwartych, ponieważ mają różne końce.
+  ####[2,4) ma długość 2 i przecina oba dłuższe przedziały. Strategia końca najwcześniejszego wybrałaby [0,3) i potem [3,6), osiągając lepszy wynik.
 }
 
 ::AISD-20-Q14::[plain]W programowaniu dynamicznym F[i]\=F[i-1]+F[i-2], a F[0]\=1 i F[1]\=2. Ile wynosi F[5]? {
@@ -117,16 +117,16 @@
 ::AISD-20-Q15::[plain]W algorytmie dziel i zwyciężaj T(n)\=2T(n/2)+Θ(n) i n jest potęgą 2. Student usuwa pracę scalania, twierdząc, że na wyniku kosztu nic się nie zmieni. Który wniosek jest prawidłowy? {
   ~Obie rekurencje mają Θ(n log n), bo liczba wywołań jest identyczna.
   ~Obie mają Θ(n²), bo każde wywołanie tworzy dwa kolejne.
-  =Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n).
   ~Bez scalania rekurencja zawsze ma Θ(1), bo przypadki bazowe są stałe.
+  =Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n).
   ####Sumowanie kosztu wszystkich węzłów daje Θ(n) dla pracy stałej na węzeł i Θ(n log n) dla liniowego scalania na poziom.
 }
 
 ::AISD-20-Q16::[plain]W DP dla plecaka 0/1 stan DP[i][c] oznacza optimum użycia pierwszych i przedmiotów przy pojemności c. Która decyzja jest poprawna, gdy masa i-tego przedmiotu w_i>c? {
   ~DP[i][c]\=v_i+DP[i-1][c].
   ~DP[i][c]\=DP[i-1][c-w_i].
-  ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]).
   =DP[i][c]\=DP[i-1][c].
+  ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]).
   ####Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
 }
 
@@ -139,16 +139,16 @@
 }
 
 ::AISD-20-Q18::[plain]W grafie o dodatnich wagach krawędzi szukamy ścieżki o najmniejszej sumie wag. Dlaczego wybieranie w każdym kroku najtańszej dostępnej krawędzi może prowadzić do nieoptymalnego wyniku? {
+  =Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu.
   ~Lokalny wybór zawsze daje optimum, jeśli wszystkie koszty są nieujemne.
   ~Wybór najtańszej krawędzi zapewnia najkrótszą ścieżkę tylko w grafach bez cykli.
   ~Łączny koszt przyszłej części ścieżki jest niezależny od obecnego wyboru.
-  =Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu.
   ####Lokalna ocena nie uwzględnia przyszłych kosztów i nie zapewnia własności wyboru zachłannego.
 }
 
 ::AISD-20-Q19::[plain]W DP z tabelą o wymiarach (n+1)×(C+1), dla n>\=1 i C>\=1, jaka jest pamięć potrzebna do przechowania całej tabeli? {
-  =Θ(nC)
   ~Θ(n+C)
+  =Θ(nC)
   ~Θ(log n+log C)
   ~Θ(n²+C²)
   ####Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
@@ -157,8 +157,8 @@
 ::AISD-20-Q20::[plain]W plecaku 0/1 aktualizujemy jednowymiarową tablicę DP[c] dla kolejnych przedmiotów. Dlaczego pojemności trzeba przetwarzać malejąco? {
   ~Aby móc zawsze wybierać ten sam przedmiot dowolnie wiele razy.
   ~Aby liczba pojemności spadła z C do log C.
-  =Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany.
   ~Aby wartości DP[c] były zawsze malejące w funkcji c.
+  =Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany.
   ####Przetwarzanie od dużych pojemności do małych zachowuje stany z poprzedniego kroku dla mniejszych c i uniemożliwia wielokrotny wybór przedmiotu.
 }
 
