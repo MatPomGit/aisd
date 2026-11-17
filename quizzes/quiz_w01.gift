@@ -18,7 +18,15 @@
   ####To niezmiennik wyszukiwania liniowego: przed każdą iteracją przeszukany prefiks nie zawiera szukanego elementu.
 }
 
-::AISD-01-Q03::Dla wejścia będącego pustą tablicą zadanie polega na znalezieniu maksimum. Co trzeba ustalić przed napisaniem algorytmu? {
+::AISD-01-Q03::Funkcja maksimum ma zwracać największy element tablicy niepustej i zgłaszać błąd dla tablicy pustej. Implementacja rozpoczyna od m\=A[0]. Która poprawka zachowuje ten kontrakt? {
+  ~Zastąpić inicjalizację m\=A[0] przez m\=0 i nie obsługiwać pustki.
+  ~Zastąpić inicjalizację m\=A[0] przez najmniejszą wartość typu i nie obsługiwać pustki.
+  ~Pominąć odczyt A[0] przy n\=0, a następnie zwrócić dotychczasowe m.
+  =Przed odczytem A[0] sprawdzić n\=0 i zgłosić błąd, a dla n>0 pozostawić dotychczasowy algorytm.
+  ####Sprawdzenie n\=0 musi poprzedzać odczyt A[0], a pozostałe przypadki nie mogą zmieniać specyfikacji wyniku.
+}
+
+
   ~Czy dla pustej tablicy zwracać najmniejszą reprezentowalną wartość liczbową.
   ~Czy dla pustej tablicy inicjalizować maksimum wartością 0 zamiast A[0].
   ~Czy brak elementów ma być interpretowany jako maksimum równe minus nieskończoności.
@@ -42,7 +50,15 @@
   ####Sposób dostępu może zmienić liczbę operacji, nawet przy zachowaniu tej samej funkcji obliczanej.
 }
 
-::AISD-01-Q06::W pętli i przyjmuje kolejno wartości 0, 1, ..., n-1. Ile razy zostanie wykonana instrukcja wewnątrz pętli dla n\=0? {
+::AISD-01-Q06::Pętla for dla i od 0 do n-1 odczytuje A[i+1] zamiast A[i]. Która pojedyncza poprawka usuwa błąd indeksowania bez pomijania elementów tablicy dla n>0? {
+  =Zamienić odczyt A[i+1] na A[i].
+  ~Zmienić górną granicę i z n-1 na n.
+  ~Zwiększyć początkową wartość i do 1 bez zmiany zakresu.
+  ~Zastąpić odczyt A[i+1] przez A[n-i].
+  ####Poprawne indeksy wynoszą od 0 do n-1, a przesunięcie odczytu o 1 narusza granicę w ostatniej iteracji.
+}
+
+
   =0 razy.
   ~1 raz.
   ~n+1 razy.
