@@ -1,8 +1,8 @@
 // AIiSD 05: Notacje asymptotyczne i kryteria wagowe
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
-// Import: Moodle > Baza pytan > Import > GIFT
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-05-Q01::Dla f(n)\=3n²+7n+5 i n>\=1 która relacja jest prawdziwa? {
+::AISD-05-Q01::[plain]Dla f(n)\=3n²+7n+5 i n>\=1, która relacja jest prawdziwa? {
   ~f(n) należy do Θ(n).
   =f(n) należy do Θ(n²).
   ~f(n) należy do o(n²).
@@ -10,7 +10,7 @@
   ####Dla dużego n wyraz kwadratowy dominuje i daje jednocześnie stałe dolne oraz górne ograniczenie.
 }
 
-::AISD-05-Q02::Która relacja dla n dążącego do nieskończoności jest prawdziwa? {
+::AISD-05-Q02::[plain]Która relacja dla n dążącego do nieskończoności jest prawdziwa? {
   =n log₂ n należy do o(n²).
   ~n² należy do o(n log₂ n).
   ~n log₂ n należy do Θ(n).
@@ -18,15 +18,15 @@
   ####Iloraz (n log₂ n)/n² \= (log₂ n)/n zmierza do zera.
 }
 
-::AISD-05-Q03::Które zdanie o zapisie f(n) należy do O(g(n)) jest poprawne? {
-  ~Oznacza to, że f opisuje wyłącznie koszt najgorszego przypadku.
-  ~Wymaga, aby f(n)\=g(n) dla wszystkich dostatecznie dużych n.
-  ~Oznacza, że f(n)/g(n) musi dążyć do zera.
+::AISD-05-Q03::[plain]Które stwierdzenie dotyczące relacji f(n) należy do O(g(n)) jest poprawne? {
+  ~Dla każdej stałej C dodatniej nierówność f(n)<\=C g(n) zachodzi od pewnego n.
+  ~Istnieje dodatnie C i n0 takie, że f(n)>\=C g(n) przy n>\=n0.
+  ~Istnieją dodatnie C i n0 takie, że f(n)<\=C g(n) dla nieskończenie wielu n, ale niekoniecznie wszystkich dalszych.
   =Istnieją dodatnie C i n₀, dla których f(n)<\=Cg(n) przy n>\=n₀, przy nieujemnych funkcjach kosztu.
   ####Duże O określa asymptotyczne ograniczenie górne funkcji, nie konkretną kategorię wejścia.
 }
 
-::AISD-05-Q04::Dla f(n)\=5n+3 i g(n)\=n+1, przy n>\=1, jaka relacja zachodzi? {
+::AISD-05-Q04::[plain]Dla f(n)\=5n+3 i g(n)\=n+1, przy n>\=1, jaka relacja zachodzi? {
   ~f(n) należy do o(g(n)).
   ~f(n) należy do ω(g(n)).
   =f(n) należy do Θ(g(n)).
@@ -34,23 +34,23 @@
   ####Iloraz funkcji zmierza do 5, czyli dodatniej skończonej stałej.
 }
 
-::AISD-05-Q05::W modelu bitowym mnożenie liczb o rosnącej długości nie musi mieć stałego kosztu. Czego nie wolno bez uzasadnienia przenieść z analizy jednostkowej RAM? {
-  ~Liczby wykonań pętli zależnej wyłącznie od n.
+::AISD-05-Q05::[plain]W modelu bitowym mnożenie liczb o rosnącej długości nie musi mieć stałego kosztu. Czego nie wolno bez uzasadnienia przenieść z analizy jednostkowej RAM? {
+  ~Liczby wykonanych instrukcji mnożenia, jeśli każda instrukcja ma identyczny kod.
   =Wniosku o stałym koszcie pojedynczego mnożenia niezależnym od wielkości operandów.
-  ~Kolejności instrukcji programu.
-  ~Warunku poprawnego zakończenia algorytmu.
+  ~Liniowego ograniczenia liczby iteracji, nawet gdy warunek pętli zależy wyłącznie od n.
+  ~Poprawności wyniku w arytmetyce o nieograniczonej precyzji, jeśli kod jest taki sam.
   ####Koszt instrukcji i liczba jej wykonań to dwie różne składowe analizy.
 }
 
-::AISD-05-Q06::Która relacja jest prawdziwa dla f(n)\=n²+n i g(n)\=n²? {
+::AISD-05-Q06::[plain]Która relacja jest prawdziwa dla f(n)\=n²+n i g(n)\=n²? {
   =f(n) należy do O(g(n)) i do Ω(g(n)).
-  ~f(n) należy do o(g(n)).
-  ~f(n) należy do ω(g(n)).
-  ~f(n) należy do Θ(n³).
+  ~f(n) jest tylko O(g(n)), lecz nie Ω(g(n)).
+  ~f(n) jest Ω(g(n)), ale nie O(g(n)).
+  ~f(n) jest Θ(n)
   ####Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
 }
 
-::AISD-05-Q07::Jaką klasę Θ ma suma 1+2+...+n? {
+::AISD-05-Q07::[plain]Do której klasy Θ należy suma 1+2+...+n? {
   ~Θ(n log n)
   ~Θ(n)
   ~Θ(log n)
@@ -58,15 +58,15 @@
   ####Dokładna suma to n(n+1)/2, jej dominujący składnik jest kwadratowy.
 }
 
-::AISD-05-Q08::Który warunek wystarcza do wykazania f(n) należy do Ω(g(n)), gdy obie funkcje są nieujemne? {
-  ~Istnieje c>0 i n₀ takie, że f(n)<\=c g(n) dla n>\=n₀.
-  ~Iloraz f(n)/g(n) musi dążyć do zera.
+::AISD-05-Q08::[plain]Który warunek wystarcza do wykazania f(n) należy do Ω(g(n)), gdy obie funkcje są nieujemne? {
+  ~Istnieją dodatnie c i n0 takie, że f(n)<\=c g(n) przy n>\=n0.
+  ~Istnieje dodatnie c takie, że f(n)>\=c g(n) jedynie dla nieskończenie wielu n.
   =Istnieje c>0 i n₀ takie, że f(n)>\=c g(n) dla n>\=n₀.
-  ~Funkcje mają identyczne wartości dla nieskończenie wielu n.
+  ~Istnieją dodatnie c i n0 takie, że f(n)>\=c g(n) tylko dla n<\=n0.
   ####Ω jest asymptotycznym ograniczeniem dolnym.
 }
 
-::AISD-05-Q09::Dla f(n)\=n log₂ n i g(n)\=n^1.5, która relacja zachodzi przy n→∞? {
+::AISD-05-Q09::[plain]Dla f(n)\=n log₂ n i g(n)\=n^(3/2), która relacja zachodzi, gdy n dąży do nieskończoności? {
   ~f(n) należy do Θ(g(n)).
   =f(n) należy do o(g(n)).
   ~g(n) należy do O(f(n)).
@@ -74,31 +74,31 @@
   ####Iloraz f/g\=(log₂ n)/sqrt(n) dąży do zera.
 }
 
-::AISD-05-Q10::Dla f(n)\=4n³+2n i g(n)\=n³+100 jaka jest granica ilorazu f(n)/g(n) przy n→∞? {
+::AISD-05-Q10::[plain]Dla f(n)\=4n³+2n i g(n)\=n³+100 jaka jest granica ilorazu f(n)/g(n) przy n→∞? {
   =4
   ~0
   ~1
-  ~∞
+  ~+∞
   ####Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
 }
 
-::AISD-05-Q11::Jaka jest najściślejsza klasa spośród podanych dla funkcji f(n)\=n²/log₂ n, n>\=2? {
+::AISD-05-Q11::[plain]Jaka jest najściślejsza klasa spośród podanych dla funkcji f(n)\=n²/log₂ n, n>\=2? {
   ~Θ(n²)
-  ~Ω(n³)
   ~Θ(n log₂ n)
+  ~O(n)
   =o(n²)
   ####Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
 }
 
-::AISD-05-Q12::Które stwierdzenie jest prawdziwe dla f(n)\=n i g(n)\=n log₂ n, n>\=2? {
+::AISD-05-Q12::[plain]Które stwierdzenie jest prawdziwe dla f(n)\=n i g(n)\=n log₂ n, n>\=2? {
   ~f(n) należy do Θ(g(n)).
-  ~g(n) należy do O(f(n)).
+  ~f(n) należy do Ω(g(n)).
   =f(n) należy do O(g(n)), ale nie do Θ(g(n)).
-  ~f(n) należy do Ω(n²).
+  ~f(n) należy do o(g(n)), ale nie do O(g(n)).
   ####Stosunek f/g\=1/log₂ n zmierza do zera.
 }
 
-::AISD-05-Q13::W przyjętym modelu koszt pętli wynosi 5n²+2. Jaki stały współczynnik C wystarcza, by dla n>\=1 wykazać f(n)<\=C n²? {
+::AISD-05-Q13::[plain]W przyjętym modelu koszt pętli wynosi 5n²+2. Jaki stały współczynnik C wystarcza, by dla n>\=1 wykazać f(n)<\=C n²? {
   ~5
   =7
   ~6
@@ -106,31 +106,31 @@
   ####Dla n>\=1 zachodzi 5n²+2<\=7n², zatem C\=7 jest wystarczający.
 }
 
-::AISD-05-Q14::Dla n będącego potęgą 2 porównaj funkcje f(n)\=log₂(n²) i g(n)\=log₂ n. Jaka relacja zachodzi? {
+::AISD-05-Q14::[plain]Dla n będącego potęgą 2 porównaj funkcje f(n)\=log₂(n²) i g(n)\=log₂ n. Jaka relacja zachodzi? {
   =f(n) należy do Θ(g(n)).
-  ~f(n) należy do Θ(g(n)²).
-  ~f(n) należy do o(g(n)).
-  ~g(n) należy do o(f(n)).
+  ~f należy do o(g)
+  ~f należy do Θ(g²)
+  ~g należy do o(f)
   ####log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
 }
 
-::AISD-05-Q15::Dla f(n)\=n log n i g(n)\=n² która relacja nie jest prawdziwa? {
-  ~f(n) należy do O(g(n)).
-  ~f(n) należy do o(g(n)).
-  ~g(n) należy do ω(f(n)).
+::AISD-05-Q15::[plain]Dla f(n)\=n log n i g(n)\=n² która relacja nie jest prawdziwa? {
+  ~f należy do ω(g)
+  ~g należy do o(f)
+  ~f należy do Θ(g)
   =f(n) należy do Ω(g(n)).
   ####f(n)/g(n) dąży do zera, zatem nie istnieje dodatnie asymptotyczne dolne ograniczenie przez n².
 }
 
-::AISD-05-Q16::W jednostkowym modelu RAM pojedyncze porównanie liczb dowolnie długich ma koszt 1. Jakie ryzyko powstaje przy analizie danych o wielkich liczbach? {
-  ~Liczba iteracji pętli staje się zawsze stała.
-  ~Wymóg zakończenia programu przestaje być potrzebny.
+::AISD-05-Q16::[plain]W jednostkowym modelu RAM pojedyncze porównanie liczb dowolnie długich ma koszt 1. Jakie ryzyko powstaje przy analizie danych o wielkich liczbach? {
+  ~Pamięć w modelu bitowym musi rosnąć szybciej niż czas obliczeń.
+  ~Koszt jednostkowy uwzględnia długość operandów, lecz pomija liczbę dodawań.
   =Koszt bitowy porównania może rosnąć wraz z długością zapisu argumentów.
-  ~Złożoność pamięciowa zawsze jest mniejsza od czasowej.
+  ~Porównanie długich liczb zawsze wymaga tylko jednego sprawdzenia bitu.
   ####Model jednostkowy abstrahuje od długości operandów, podczas gdy porównanie bitowe czyta ich zapis.
 }
 
-::AISD-05-Q17::Dla f(n)\=2^n i g(n)\=n^10 która relacja zachodzi asymptotycznie? {
+::AISD-05-Q17::[plain]Dla f(n)\=2^n i g(n)\=n^10 która relacja zachodzi asymptotycznie? {
   ~f(n) należy do O(g(n)).
   =g(n) należy do o(f(n)).
   ~f(n) należy do Θ(g(n)).
@@ -138,27 +138,27 @@
   ####Każda stała potęga n jest asymptotycznie zdominowana przez wykładniczą 2^n.
 }
 
-::AISD-05-Q18::Czy f(n)\=n²+(-1)^n n należy do Θ(n²) dla naturalnych n? {
-  =Tak, bo składnik liniowy nie zmienia rzędu wzrostu.
-  ~Nie, bo dla nieparzystych n funkcja jest mniejsza od n².
-  ~Nie, bo wyrażenie zawiera naprzemienny składnik.
-  ~Tak, ale tylko dla parzystych n.
+::AISD-05-Q18::[plain]Czy f(n)\=n²+(-1)^n n należy do Θ(n²) dla naturalnych n? {
+  =Tak; składnik liniowy nie zmienia rzędu Θ(n²).
+  ~Nie; dla nieparzystych n funkcja ma rząd Θ(n).
+  ~Nie; naprzemienność uniemożliwia dolne ograniczenie Θ(n²).
+  ~Tak, ale wyłącznie dla parzystych n.
   ####Dla dużego n funkcja mieści się pomiędzy stałymi dodatnimi wielokrotnościami n².
 }
 
-::AISD-05-Q19::Jaką relację spełniają funkcje f(n)\=n² i g(n)\=3n²+4n dla n>\=1? {
-  ~f należy do o(g).
-  ~g należy do ω(f).
-  ~f należy do Θ(n).
+::AISD-05-Q19::[plain]Jaką relację spełniają funkcje f(n)\=n² i g(n)\=3n²+4n dla n>\=1? {
+  ~f należy do o(g)
+  ~g należy do ω(f)
+  ~f należy do Θ(n)
   =Obie należą do tej samej klasy Θ.
   ####Iloraz f/g dąży do 1/3, dodatniej skończonej stałej.
 }
 
-::AISD-05-Q20::Dla dwóch dodatnich funkcji f,g gdzie lim f(n)/g(n)\=0, która konsekwencja jest prawdziwa? {
-  ~f należy do Ω(g).
-  ~g należy do o(f).
+::AISD-05-Q20::[plain]Dla dwóch dodatnich funkcji f oraz g, jeśli granica f(n)/g(n) przy n dążącym do nieskończoności wynosi 0, która relacja jest prawdziwa? {
+  ~f należy do O(g), ale nie do Ω(g)
+  ~f należy do Θ(g) tylko przy pominięciu składnika 4n.
   =f należy do o(g).
-  ~f należy do Θ(g).
+  ~g należy do o(f)
   ####Definicja małego o odpowiada granicy ilorazu równej zeru.
 }
 

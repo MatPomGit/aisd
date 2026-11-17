@@ -1,8 +1,8 @@
 // AIiSD 13: Binarne drzewa wyszukiwań BST
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
-// Import: Moodle > Baza pytan > Import > GIFT
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-13-Q01::W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
+::AISD-13-Q01::[plain]W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
   ~8 → 10 → 6
   =8 → 3 → 6
   ~8 → 3 → 1 → 6
@@ -10,63 +10,63 @@
   ####6<8 kieruje w lewo, a 6>3 w prawo.
 }
 
-::AISD-13-Q02::W BST o unikatowych kluczach usuwamy węzeł z dwojgiem dzieci. Który zamiennik pozwala zachować porządek BST? {
+::AISD-13-Q02::[plain]W BST o unikatowych kluczach usuwamy węzeł z dwojgiem dzieci. Który zamiennik pozwala zachować porządek BST? {
   =Następnik inorder, czyli minimum prawego poddrzewa.
-  ~Maksimum całego lewego i prawego poddrzewa jednocześnie.
-  ~Dowolny liść z prawego poddrzewa.
-  ~Bezpośrednio lewe dziecko bez żadnych dalszych operacji.
-  ####Następnik inorder nie ma mniejszego klucza po swojej prawej stronie i zachowuje granicę porządku.
+  ~Poprzednik inorder, czyli maksimum prawego poddrzewa.
+  ~Bezpośrednie prawe dziecko, bez względu na jego lewe poddrzewo.
+  ~Najmniejszy liść dowolnego poddrzewa bez sprawdzenia relacji kluczy.
+  ####Następnik inorder jest najmniejszym kluczem w prawym poddrzewie usuwanego węzła, dlatego jego podstawienie pozwala zachować porządek BST.
 }
 
-::AISD-13-Q03::Jaką kolejność kluczy zwraca inorder dla BST bez duplikatów? {
-  ~Według czasu wstawienia.
-  ~Według malejących głębokości.
-  ~Według priorytetu równoważenia.
+::AISD-13-Q03::[plain]Jaką kolejność kluczy zwraca inorder dla BST bez duplikatów? {
+  ~Malejącą.
+  ~Według poziomów.
+  ~Według kolejności wstawienia.
   =Ściśle rosnącą.
   ####Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
 }
 
-::AISD-13-Q04::Do pustego BST bez równoważenia wstawiono rosnące klucze 1,2,...,n. Jaką wysokość w krawędziach ma wynik dla n>0? {
-  ~⌊log₂ n⌋
+::AISD-13-Q04::[plain]Do pustego BST bez równoważenia wstawiono rosnące klucze 1,2,...,n. Jaką wysokość w krawędziach ma wynik dla n>0? {
+  ~ceil(log₂ n)
   ~n
   =n-1
-  ~⌈log₂(n+1)⌉-1
+  ~ceil(log₂(n+1))-1
   ####Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
 }
 
-::AISD-13-Q05::Jaka jest asymptotyczna liczba porównań przy wyszukiwaniu klucza w BST o wysokości h? {
-  ~O(log h)
-  =O(h+1)
-  ~O(nh)
-  ~O(1) dla dowolnej wysokości
-  ####Wyszukiwanie porównuje klucz z węzłami jednej ścieżki od korzenia.
+::AISD-13-Q05::[plain]W BST o wysokości h (mierzonej krawędziami) jaka jest asymptotycznie ścisła liczba porównań przy wyszukiwaniu w najgorszym przypadku? {
+  ~Θ(log(h+1))
+  =Θ(h+1)
+  ~Θ((h+1)²)
+  ~Θ(1)
+  ####W najgorszym przypadku trzeba przejść ścieżkę od korzenia do najgłębszego węzła i porównać klucz na każdym z h+1 poziomów.
 }
 
-::AISD-13-Q06::W BST bez duplikatów węzeł 12 ma lewe poddrzewo o korzeniu 7 i prawe o korzeniu 18. Gdzie poprawnie może leżeć klucz 15? {
+::AISD-13-Q06::[plain]W BST bez duplikatów węzeł 12 ma lewe poddrzewo o korzeniu 7 i prawe o korzeniu 18. Gdzie poprawnie może leżeć klucz 15? {
   =W lewym poddrzewie węzła 18.
-  ~W lewym poddrzewie węzła 7.
-  ~W prawym poddrzewie węzła 7.
-  ~W dowolnym miejscu, gdy liście są na różnych wysokościach.
+  ~W prawym poddrzewie węzła 7
+  ~W prawym poddrzewie korzenia 18
+  ~W lewym poddrzewie 7
   ####15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
 }
 
-::AISD-13-Q07::Który warunek jest niezbędny do zachowania poprawności BST, gdy w implementacji dopuszcza się duplikaty? {
-  ~Umieszczanie duplikatów raz po lewej, raz po prawej bez reguły.
-  ~Usuwanie dowolnych kluczy równych podczas wyszukiwania.
-  ~Wymaganie, aby wszystkie duplikaty były w korzeniu.
+::AISD-13-Q07::[plain]Który warunek jest niezbędny do zachowania poprawności BST, gdy w implementacji dopuszcza się duplikaty? {
+  ~Duplikaty należy rozmieszczać naprzemiennie w lewym i prawym poddrzewie, aby zachować równowagę.
+  ~Duplikaty muszą być usuwane po wstawieniu, aby BST mógł wykonać inorder.
+  ~Każdy duplikat należy umieścić jako nowe prawe dziecko bez uwzględniania pozostałych węzłów.
   =Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji.
   ####Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
 }
 
-::AISD-13-Q08::Jaki koszt ma wyszukiwanie w BST o n węzłach, którego wysokość wynosi Θ(log n)? {
-  ~O(n) dla każdego klucza.
+::AISD-13-Q08::[plain]BST ma n węzłów i wysokość Θ(log n). Jakie z podanych ograniczeń jest najściślejszym asymptotycznym ograniczeniem górnym kosztu wyszukiwania? {
+  ~O(n) w najgorszym przypadku również wtedy
   ~O(log log n)
   =O(log n)
-  ~O(n log n)
+  ~O(1)
   ####Przejście po jednej ścieżce ma długość ograniczoną wysokością drzewa.
 }
 
-::AISD-13-Q09::Do pustego BST bez duplikatów wstawiono kolejno 5,2,8,1,3,7,9. Jaki klucz znajduje się w prawym dziecku węzła 2? {
+::AISD-13-Q09::[plain]Do pustego BST bez duplikatów wstawiono kolejno 5,2,8,1,3,7,9. Jaki klucz znajduje się w prawym dziecku węzła 2? {
   ~1
   =3
   ~5
@@ -74,7 +74,7 @@
   ####3>2, ale 3<5, więc zostaje prawym dzieckiem 2.
 }
 
-::AISD-13-Q10::BST ma klucze 10,5,15,3,7,12,18. Jaki jest następnik inorder klucza 10? {
+::AISD-13-Q10::[plain]BST ma klucze 10,5,15,3,7,12,18. Jaki jest następnik inorder klucza 10? {
   =12
   ~15
   ~7
@@ -82,7 +82,7 @@
   ####Następnik 10 jest najmniejszym elementem jego prawego poddrzewa, czyli 12.
 }
 
-::AISD-13-Q11::BST ma klucze 10,5,15,3,7,12,18. Jaki jest poprzednik inorder klucza 10? {
+::AISD-13-Q11::[plain]BST ma klucze 10,5,15,3,7,12,18. Jaki jest poprzednik inorder klucza 10? {
   ~5
   ~12
   ~3
@@ -90,7 +90,7 @@
   ####Poprzednik 10 jest maksimum lewego poddrzewa, czyli 7.
 }
 
-::AISD-13-Q12::Do pustego BST bez równoważenia wstawiamy kolejno 4,2,6,1,3,5,7. Jaka będzie wysokość w krawędziach? {
+::AISD-13-Q12::[plain]Do pustego BST bez równoważenia wstawiamy kolejno 4,2,6,1,3,5,7. Jaka będzie wysokość w krawędziach? {
   ~3
   ~4
   =2
@@ -98,15 +98,15 @@
   ####Korzeń ma dwa poziomy potomków; najdłuższa ścieżka od 4 do liścia ma dwie krawędzie.
 }
 
-::AISD-13-Q13::W BST korzeń 8 ma jedyne dziecko 12 po prawej, a 12 ma jedyne lewe dziecko 10. Po usunięciu 8 przez zastąpienie jego jedynym dzieckiem jaki jest nowy korzeń? {
+::AISD-13-Q13::[plain]W BST korzeń 8 ma jedyne dziecko 12 po prawej, a 12 ma jedyne lewe dziecko 10. Po usunięciu 8 przez zastąpienie jego jedynym dzieckiem jaki jest nowy korzeń? {
   ~10
   =12
   ~8
-  ~brak korzenia
+  ~6
   ####Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
 }
 
-::AISD-13-Q14::W BST bez duplikatów zawierającym 8,4,12,2,6,10,14 jakie klucze zostaną odwiedzone przy nieudanym wyszukiwaniu 11? {
+::AISD-13-Q14::[plain]W BST bez duplikatów zawierającym 8,4,12,2,6,10,14 jakie klucze zostaną odwiedzone przy nieudanym wyszukiwaniu 11? {
   =8,12,10
   ~8,4,6
   ~8,12,14
@@ -114,7 +114,7 @@
   ####11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
 }
 
-::AISD-13-Q15::Do pustego BST wstawiamy 9,5,12,3,7,6. Jaka jest głębokość węzła 6, licząc liczbę krawędzi od korzenia? {
+::AISD-13-Q15::[plain]Do pustego BST wstawiamy 9,5,12,3,7,6. Jaka jest głębokość węzła 6, licząc liczbę krawędzi od korzenia? {
   ~2
   ~4
   ~1
@@ -122,23 +122,23 @@
   ####Ścieżka to 9→5→7→6, czyli trzy krawędzie.
 }
 
-::AISD-13-Q16::BST zawiera wartości 4,2,6,1,3,5,7. Usunięcie liścia 1 zmienia który wskaźnik? {
-  ~Prawe dziecko węzła 2 staje się puste.
-  ~Lewe dziecko węzła 4 staje się puste.
+::AISD-13-Q16::[plain]BST zawiera klucze 4,2,6,1,3,5,7. Który wskaźnik należy zmienić po usunięciu liścia o kluczu 1? {
+  ~Prawe dziecko 2 zostaje puste
+  ~Lewe dziecko 4 zostaje puste
   =Lewe dziecko węzła 2 staje się puste.
-  ~Prawe dziecko węzła 6 staje się puste.
+  ~Prawe dziecko 6 zostaje puste
   ####1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
 }
 
-::AISD-13-Q17::Dla BST o n węzłach i wysokości h, jaki jest koszt wyznaczenia minimum, jeśli nie ma dodatkowego wskaźnika do minimum? {
-  ~O(1) niezależnie od kształtu.
+::AISD-13-Q17::[plain]Które z podanych ograniczeń najściślej opisuje koszt znalezienia minimum w BST o wysokości h bez dodatkowego wskaźnika do minimum? {
+  ~O(1)
   =O(h+1)
   ~O(log h)
   ~O(nh)
   ####Szukanie minimum polega na podążaniu lewymi dziećmi od korzenia.
 }
 
-::AISD-13-Q18::Do BST bez duplikatów wstawiono klucze 10,5,15,12,13. Jaką wartość ma rodzic węzła 13? {
+::AISD-13-Q18::[plain]Do pustego BST bez duplikatów wstawiono kolejno klucze 10,5,15,12,13. Jaki klucz ma rodzic węzła 13? {
   =12
   ~15
   ~10
@@ -146,15 +146,15 @@
   ####13<15 prowadzi do 12, a 13>12 kieruje do prawego dziecka 12.
 }
 
-::AISD-13-Q19::W BST przechowującym różne klucze równoważenie ogranicza wysokość do O(log n). Który skutek dotyczy wyszukiwania? {
-  ~Koszt wyszukiwania staje się Θ(1) dla każdego klucza.
-  ~Wyszukiwanie wymaga dodatkowo Θ(n) porównań.
-  ~Wyszukiwanie przestaje zależeć od relacji porządku.
+::AISD-13-Q19::[plain]W BST przechowującym różne klucze równoważenie ogranicza wysokość do O(log n). Który skutek dotyczy wyszukiwania? {
+  ~Najgorszy koszt pozostaje Θ(n)
+  ~Najgorszy koszt staje się Θ(1)
+  ~Wyszukiwanie wymaga Θ(log² n)
   =Najgorszy koszt wyszukiwania spada do O(log n).
   ####Wyszukiwanie podąża jedną ścieżką o długości ograniczonej logarytmiczną wysokością.
 }
 
-::AISD-13-Q20::BST ma korzeń 20, lewe poddrzewo zawierające klucze 12 i 17 oraz prawe zawierające 24 i 30. Który klucz zastąpi 20, jeśli usuwamy korzeń przez podstawienie jego poprzednika inorder? {
+::AISD-13-Q20::[plain]BST ma korzeń 20, lewe poddrzewo zawierające klucze 12 i 17 oraz prawe zawierające 24 i 30. Który klucz zastąpi 20, jeśli usuwamy korzeń przez podstawienie jego poprzednika inorder? {
   ~12
   ~24
   =17

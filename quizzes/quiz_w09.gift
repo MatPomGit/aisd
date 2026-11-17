@@ -1,48 +1,48 @@
 // AIiSD 09: Listy liniowe
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
-// Import: Moodle > Baza pytan > Import > GIFT
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-09-Q01::Lista jednokierunkowa o n elementach nie ma dodatkowego indeksu. Jaki jest najgorszy koszt znalezienia elementu na pozycji k od głowy? {
+::AISD-09-Q01::[plain]Lista jednokierunkowa o n elementach nie ma dodatkowego indeksu. Jaki jest najgorszy koszt znalezienia elementu na pozycji k od głowy? {
   ~Θ(1)
   =Θ(k+1)
-  ~Θ(log n)
+  ~Θ(log(k+1))
   ~Θ(n-k)
   ####Dojście do pozycji k wymaga przejścia od głowy przez k wiązań.
 }
 
-::AISD-09-Q02::W liście jednokierunkowej znamy wskaźnik na poprzednik p elementu x. Jak poprawnie usunąć x z wnętrza listy? {
+::AISD-09-Q02::[plain]W liście jednokierunkowej znamy wskaźnik na poprzednik p elementu x. Jak poprawnie usunąć x z wnętrza listy? {
   =Ustawić p.next na x.next, a następnie zwolnić x.
-  ~Ustawić x.next na p i zwolnić p.
-  ~Ustawić p.next na null, niezależnie od dalszych węzłów.
-  ~Zamienić wartości p oraz x i pozostawić oba węzły.
+  ~Ustawić x.next na p.next, a następnie zwolnić p.
+  ~Ustawić p.next na x, a dopiero potem zwolnić x.
+  ~Ustawić p.next na x.next.next, pomijając również następcę x.
   ####Przepięcie p.next pomija x, nie tracąc dalszej części listy.
 }
 
-::AISD-09-Q03::Dwukierunkowa lista ma węzeł x między p i q. Jakie wiązania są konieczne po usunięciu x? {
-  ~p.prev\=q oraz q.next\=p.
-  ~p.next\=x oraz q.prev\=x.
-  ~x.next\=p oraz x.prev\=q.
+::AISD-09-Q03::[plain]Dwukierunkowa lista ma węzeł x między p i q. Jakie wiązania są konieczne po usunięciu x? {
+  ~p.next\=q i q.next\=p, co odtwarza oba kierunki listy.
+  ~p.prev\=q i q.prev\=p, co odtwarza połączenie poprzednika z następcą.
+  ~p.next\=q i q.prev\=x
   =p.next\=q oraz q.prev\=p.
   ####Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
 }
 
-::AISD-09-Q04::Lista cykliczna jednokierunkowa z jednym węzłem x ma jaki warunek strukturalny, jeśli nie używa węzła strażnika? {
-  ~x.next\=null.
-  ~head\=null, a x.next\=head.
+::AISD-09-Q04::[plain]Lista cykliczna jednokierunkowa z jednym węzłem x ma jaki warunek strukturalny, jeśli nie używa węzła strażnika? {
+  ~x.next\=null
+  ~head\=null, a x.next\=x
   =x.next\=x.
-  ~x.next wskazuje nowy niezaalokowany węzeł.
+  ~x.next\=head.next
   ####W jednowęzłowym cyklu następnik wraca do tego samego węzła.
 }
 
-::AISD-09-Q05::Lista jednokierunkowa przechowuje wskaźniki head i tail. Jaki koszt ma dopisanie elementu na koniec przy poprawnej obsłudze pustej listy? {
-  ~Θ(log n)
+::AISD-09-Q05::[plain]Lista jednokierunkowa przechowuje wskaźniki head i tail. Jaki koszt ma dopisanie elementu na koniec przy poprawnej obsłudze pustej listy? {
+  ~Θ(1) tylko wtedy
   =Θ(1)
   ~Θ(n)
-  ~Θ(n log n)
+  ~Θ(log n)
   ####Posiadanie tail pozwala bez przeglądania listy połączyć stary ogon z nowym.
 }
 
-::AISD-09-Q06::Dla listy jednokierunkowej bez wskaźnika poprzednika chcemy usunąć ostatni węzeł. Jaki jest koszt w najgorszym przypadku? {
+::AISD-09-Q06::[plain]Chcemy usunąć ostatni węzeł listy jednokierunkowej bez wskaźników do poprzedników. Jaki jest koszt tej operacji w najgorszym przypadku? {
   =Θ(n)
   ~Θ(1)
   ~Θ(log n)
@@ -50,23 +50,23 @@
   ####Aby zmienić next przedostatniego węzła, trzeba go znaleźć, przechodząc od głowy.
 }
 
-::AISD-09-Q07::Jaki jest skutek pominięcia aktualizacji tail przy usunięciu jedynego węzła listy? {
-  ~Z listy zostanie usunięty także węzeł strażnika, jeśli występuje.
-  ~Lista automatycznie zmieni się w listę cykliczną.
-  ~Operacja zmieni jedynie złożoność czasową kolejnego wyszukiwania.
+::AISD-09-Q07::[plain]Jaki jest skutek pominięcia aktualizacji tail przy usunięciu jedynego węzła listy? {
+  ~head i tail będą automatycznie równe null po zwolnieniu ostatniego węzła.
+  ~tail będzie wskazywał nową pustą komórkę, co nie wpływa na poprawność.
+  ~Błędne tail wpłynie jedynie na koszt pamięci, a nie na kolejną operację enqueue.
   =tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty.
   ####Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
 }
 
-::AISD-09-Q08::Dla listy jednokierunkowej w porównaniu z tablicą jaki jest koszt dotarcia do elementu o podanym indeksie k, bez dodatkowych indeksów? {
-  ~W liście stały, w tablicy liniowy względem k.
-  ~W obu logarytmiczny względem k.
-  =W liście liniowy względem k, w tablicy stały w modelu RAM.
-  ~W obu stały, jeśli lista przechowuje head.
+::AISD-09-Q08::[plain]Dla listy jednokierunkowej w porównaniu z tablicą jaki jest koszt dotarcia do elementu o podanym indeksie k, bez dodatkowych indeksów? {
+  ~Lista Θ(1), tablica Θ(k+1).
+  ~Lista Θ(k+1), tablica Θ(k+1).
+  =Lista Θ(k+1), tablica Θ(1).
+  ~Lista Θ(1), tablica Θ(1).
   ####Powiązania umożliwiają przejście tylko do następnego węzła, natomiast tablica ma adresowanie indeksowe.
 }
 
-::AISD-09-Q09::Lista jednokierunkowa A→B→C→D; usuwamy węzeł C, mając wskaźnik do B. Na co powinno wskazywać B.next po operacji? {
+::AISD-09-Q09::[plain]Lista jednokierunkowa A→B→C→D; usuwamy węzeł C, mając wskaźnik do B. Na co powinno wskazywać B.next po operacji? {
   ~C
   =D
   ~A
@@ -74,7 +74,7 @@
   ####Aby ominąć C bez utraty sufiksu, B.next musi wskazać D.
 }
 
-::AISD-09-Q10::Pusta lista jednokierunkowa z head\=null otrzymuje dwa wstawienia na początek: X, potem Y. Jaka jest kolejność od head? {
+::AISD-09-Q10::[plain]Pusta lista jednokierunkowa z head\=null otrzymuje dwa wstawienia na początek: X, potem Y. Jaka jest kolejność od head? {
   =Y→X
   ~X→Y
   ~X→X
@@ -82,23 +82,23 @@
   ####Druga operacja tworzy nową głowę Y, której następnik wskazuje poprzednią głowę X.
 }
 
-::AISD-09-Q11::Lista dwukierunkowa A↔B↔C; usuwamy pierwszy węzeł A. Która aktualizacja jest konieczna? {
-  ~head\=C i C.prev\=B.
-  ~head\=B i B.prev\=A.
-  ~head\=null i B.next\=C.
+::AISD-09-Q11::[plain]Lista dwukierunkowa A↔B↔C; usuwamy pierwszy węzeł A. Która aktualizacja jest konieczna? {
+  ~head\=B, ale B.prev\=A
+  ~head\=C, a C.prev\=B
+  ~head\=B, ale B.prev\=C
   =head\=B i B.prev\=null.
   ####Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
 }
 
-::AISD-09-Q12::Na liście jednokierunkowej bez tail dopisujemy element na koniec. Przy długości n>0 ile węzłów w najgorszym przypadku trzeba odwiedzić od head, aby znaleźć ogon? {
-  ~n-1
-  ~⌈log₂ n⌉
-  =n
-  ~1
+::AISD-09-Q12::[plain]Do listy jednokierunkowej bez wskaźnika ogona tail dopisujemy element na końcu. Ile węzłów trzeba odwiedzić, zaczynając od head, aby znaleźć ogon listy o długości n>0? {
+  ~n-1 węzłów
+  ~ceil(n/2) węzłów
+  =n węzłów
+  ~n+1 węzłów
   ####Trzeba przejść kolejno przez wszystkie n węzłów, aby dotrzeć do ostatniego.
 }
 
-::AISD-09-Q13::Lista cykliczna A→B→C→A ma wskaźnik head\=A. Ile przejść po next od A potrzeba, by wrócić do A? {
+::AISD-09-Q13::[plain]Lista cykliczna A→B→C→A ma wskaźnik head\=A. Ile przejść po next od A potrzeba, by wrócić do A? {
   ~2
   =3
   ~4
@@ -106,15 +106,15 @@
   ####Trzy krawędzie A→B, B→C i C→A zamykają cykl.
 }
 
-::AISD-09-Q14::W liście dwukierunkowej A↔B↔C wstawiamy X między A i B. Jakie powinny być wskaźniki X? {
+::AISD-09-Q14::[plain]W liście dwukierunkowej A↔B↔C wstawiamy X między A i B. Jakie powinny być wskaźniki X? {
   =X.prev\=A i X.next\=B.
-  ~X.prev\=B i X.next\=A.
-  ~X.prev\=A i X.next\=C.
-  ~X.prev\=null i X.next\=B.
+  ~X.prev\=B i X.next\=A
+  ~X.prev\=A i X.next\=C
+  ~X.prev\=null i X.next\=B
   ####Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
 }
 
-::AISD-09-Q15::Jaką dodatkową pamięć wymaga przechowywanie n wskaźników next w jednokierunkowej liście n-węzłowej w standardowym modelu stałej wielkości wskaźnika? {
+::AISD-09-Q15::[plain]Jaką dodatkową pamięć wymaga przechowywanie n wskaźników next w jednokierunkowej liście n-węzłowej w standardowym modelu stałej wielkości wskaźnika? {
   ~Θ(1)
   ~Θ(log n)
   ~Θ(n²)
@@ -122,23 +122,23 @@
   ####Każdy z n węzłów zawiera jedno pole next o stałym rozmiarze.
 }
 
-::AISD-09-Q16::Jaka operacja na liście jednokierunkowej z head i tail w najgorszym przypadku zwykle nadal wymaga Θ(n)? {
-  ~Dodanie elementu na początek.
-  ~Dodanie elementu na koniec.
+::AISD-09-Q16::[plain]Jaka operacja na liście jednokierunkowej z head i tail w najgorszym przypadku zwykle nadal wymaga Θ(n)? {
+  ~Usunięcie ogona w Θ(1)
+  ~Usunięcie głowy w Θ(n)
   =Usunięcie ogona bez wskaźników prev.
-  ~Usunięcie głowy niepustej listy.
+  ~Dodanie na koniec w Θ(n)
   ####Aby wyznaczyć nowy ogon, trzeba znaleźć poprzednika starego ogona.
 }
 
-::AISD-09-Q17::Węzeł X ma next\=null. W której sytuacji może to być prawidłowe w liście jednokierunkowej bez strażnika? {
-  ~Gdy X jest dowolnym węzłem wewnętrznym.
+::AISD-09-Q17::[plain]Węzeł X ma next\=null. W której sytuacji może to być prawidłowe w liście jednokierunkowej bez strażnika? {
+  ~Gdy X jest węzłem wewnętrznym, a następca jest pomijany.
   =Gdy X jest ogonem listy niecyklicznej.
-  ~Gdy lista jest niepustym cyklem bez końca.
-  ~Gdy X jest głową niepustej listy co najmniej dwuelementowej.
+  ~Gdy lista ma co najmniej dwa węzły i X jest jej głową.
+  ~Gdy lista jest cykliczna, a X wskazuje bezpośrednio na head.
   ####W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
 }
 
-::AISD-09-Q18::Listę jednokierunkową A→B→C odwracamy w miejscu do C→B→A. Jaka wartość pola next powinna znaleźć się w dawnym węźle A? {
+::AISD-09-Q18::[plain]Listę jednokierunkową A→B→C odwracamy w miejscu do C→B→A. Jaka wartość pola next powinna znaleźć się w dawnym węźle A? {
   =Wskaźnik pusty (null).
   ~Wskaźnik do B.
   ~Wskaźnik do C.
@@ -146,19 +146,19 @@
   ####Dawna głowa staje się ogonem, którego next ma wartość null.
 }
 
-::AISD-09-Q19::Lista jednokierunkowa zawiera n węzłów. Ile zmian wskaźnika next co najmniej wymaga pełne odwrócenie ich kierunku w klasycznej metodzie iteracyjnej? {
-  ~n-1
-  ~2n
-  ~n(n-1)/2
-  =n
-  ####Każdy z n węzłów musi otrzymać nowego następnika, włącznie z nowym ogonem.
+::AISD-09-Q19::[plain]Ile przypisań do pól next wykonuje standardowy iteracyjny algorytm odwracania listy jednokierunkowej złożonej z n węzłów? {
+  ~n-1 zmian
+  ~2n zmian
+  ~n(n-1)/2 zmian
+  =n zmian
+  ####Algorytm ustawia pole next każdego z n węzłów, także tego, który stanie się nowym ogonem.
 }
 
-::AISD-09-Q20::Przy założeniu, że znany jest wskaźnik do węzła w liście dwukierunkowej, a nie jest to węzeł strażnika, jaki koszt ma jego usunięcie przy spójnych wskaźnikach i stałoczasowym zwalnianiu pamięci? {
-  ~O(log n)
-  ~O(n)
-  =O(1)
-  ~O(n log n)
-  ####Modyfikuje się stałą liczbę pól next i prev sąsiadów.
+::AISD-09-Q20::[plain]W liście dwukierunkowej znamy wskaźnik do usuwanego węzła wewnętrznego. Jaki jest ścisły koszt usunięcia przy stałoczasowym zwalnianiu pamięci? {
+  ~Θ(log n)
+  ~Θ(n)
+  =Θ(1)
+  ~Θ(n log n)
+  ####Znajomość węzła i wskaźniki prev oraz next pozwalają przepiąć stałą liczbę odwołań bez przechodzenia listy.
 }
 
