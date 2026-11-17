@@ -4,9 +4,9 @@
 
 ::AISD-08-Q01::Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
   =24
-  ~10
-  ~16
-  ~120
+  ~10, ponieważ zsumowano wartości od 1 do 4 zamiast je pomnożyć.
+  ~16, ponieważ każdy z czterech poziomów mnoży przez stałą 2.
+  ~120, ponieważ liczba wywołań obejmuje również przypadek bazowy n\=0 jako czynnik.
   ####f(4)\=4·3·2·1·1\=24.
 }
 
@@ -83,18 +83,18 @@
 }
 
 ::AISD-08-Q11::W rekurencyjnym przejściu drzewa binarnego rozmiaru n, jeśli każda funkcja odwiedza węzeł raz i wykonuje stałą pracę, jaki jest czas? {
-  ~Θ(log n)
-  ~Θ(n log n)
+  ~Θ(log n), ponieważ drzewo binarne ma zawsze logarytmiczną wysokość.
+  ~Θ(n log n), ponieważ każde przejście do dziecka wymaga ponownego wejścia od korzenia.
   =Θ(n)
-  ~Θ(n²)
+  ~Θ(n²), ponieważ każdy z n węzłów trzeba odwiedzić dla obu poddrzew.
   ####Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
 }
 
 ::AISD-08-Q12::Funkcja rekurencyjna otrzymuje n i wywołuje f(n//2) dopóki n>1. Ile wywołań z argumentem dodatnim powstanie dla n\=32, licząc pierwsze? {
-  ~5
+  ~5, ponieważ pierwszego wywołania nie liczy się do głębokości.
   =6
-  ~7
-  ~32
+  ~7, ponieważ trzeba policzyć dodatkowe wywołanie dla n\=0.
+  ~32, ponieważ liczba wywołań jest równa początkowej wartości argumentu.
   ####Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
 }
 
@@ -107,9 +107,9 @@
 }
 
 ::AISD-08-Q14::W liście jednokierunkowej head→A→B→C i nowy węzeł X ma zostać wstawiony po B. Jakie wskaźniki należy ustawić? {
-  ~B.next\=X, X.next\=B.
-  ~X.next\=A, B.next\=C.
-  ~B.next\=C, X.next\=B.
+  ~B.next\=X, a X.next\=B, co tworzy połączenie z nowym węzłem.
+  ~X.next\=B, a B.next\=C, co dopina X przed B.
+  ~B.next\=X, a X.next\=null, ponieważ X jest teraz ostatnim węzłem.
   =X.next\=C, B.next\=X.
   ####Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
 }
@@ -123,10 +123,10 @@
 }
 
 ::AISD-08-Q16::W tablicowej implementacji stosu wywołań każdy poziom rekurencji przechowuje dwie zmienne i adres powrotu. Jak rośnie dodatkowa pamięć dla głębokości d? {
-  ~Θ(log d)
+  ~Θ(log d), ponieważ każda ramka przechowuje stałą liczbę danych.
   =Θ(d)
-  ~Θ(d²)
-  ~Θ(1)
+  ~Θ(d²), ponieważ i-ta ramka musi zawierać kopię wszystkich poprzednich.
+  ~Θ(1), ponieważ liczba lokalnych zmiennych na poziom jest stała.
   ####Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
 }
 
@@ -155,10 +155,10 @@
 }
 
 ::AISD-08-Q20::W liście podwójnie powiązanej X znajduje się przed Y. Wstawiamy węzeł N między nimi. Który zestaw zmian jest kompletny? {
-  ~X.next\=N, Y.prev\=N, bez ustawiania pól N.
+  ~X.next\=N, N.prev\=Y, N.next\=X, Y.prev\=N.
   =X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N.
-  ~N.prev\=Y, N.next\=X, X.next\=N, Y.prev\=N.
-  ~X.prev\=N, N.next\=Y, Y.next\=N, N.prev\=X.
+  ~X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=X.
+  ~X.next\=Y, N.prev\=X, N.next\=Y, Y.prev\=N.
   ####Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
 }
 
