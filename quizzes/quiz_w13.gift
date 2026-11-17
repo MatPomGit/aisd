@@ -3,10 +3,10 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-13-Q01::W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
-  ~8 → 10 → 6
+  ~8 → 10 → 6, bo 6 jest mniejsze od 10, więc trzeba zejść na lewo.
   =8 → 3 → 6
-  ~8 → 3 → 1 → 6
-  ~8 → 6
+  ~8 → 3 → 1 → 6, bo każdą wartość mniejszą od 8 trzeba porównać z 1.
+  ~8 → 6, ponieważ w BST wyszukiwanie pomija wszystkie wewnętrzne węzły pośrednie.
   ####6<8 kieruje w lewo, a 6>3 w prawo.
 }
 
@@ -76,9 +76,9 @@
 
 ::AISD-13-Q10::BST ma klucze 10,5,15,3,7,12,18. Jaki jest następnik inorder klucza 10? {
   =12
-  ~15
-  ~7
-  ~18
+  ~15, ponieważ jest bezpośrednim prawym dzieckiem węzła 10.
+  ~7, ponieważ jest największym elementem lewego poddrzewa.
+  ~18, ponieważ jest maksimum prawego poddrzewa.
   ####Następnik 10 jest najmniejszym elementem jego prawego poddrzewa, czyli 12.
 }
 
@@ -108,9 +108,9 @@
 
 ::AISD-13-Q14::W BST bez duplikatów zawierającym 8,4,12,2,6,10,14 jakie klucze zostaną odwiedzone przy nieudanym wyszukiwaniu 11? {
   =8,12,10
-  ~8,4,6
-  ~8,12,14
-  ~8,10,12
+  ~8,4,6, ponieważ wyszukiwanie klucza 11 zaczyna się w lewym poddrzewie.
+  ~8,12,14, ponieważ klucz 11 jest mniejszy od prawego dziecka 12.
+  ~8,10,12, ponieważ sprawdzanie BST przebiega rosnąco po wartościach.
   ####11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
 }
 
@@ -123,10 +123,10 @@
 }
 
 ::AISD-13-Q16::BST zawiera wartości 4,2,6,1,3,5,7. Usunięcie liścia 1 zmienia który wskaźnik? {
-  ~Prawe dziecko węzła 2 staje się puste.
-  ~Lewe dziecko węzła 4 staje się puste.
+  ~Prawe dziecko 2 zostaje puste, ponieważ węzeł 1 jest jego prawym liściem.
+  ~Lewe dziecko 4 zostaje puste, ponieważ usunięcie 1 usuwa całe poddrzewo.
   =Lewe dziecko węzła 2 staje się puste.
-  ~Prawe dziecko węzła 6 staje się puste.
+  ~Prawe dziecko 6 zostaje puste, ponieważ 1 jest mniejsze od korzenia.
   ####1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
 }
 
@@ -155,10 +155,10 @@
 }
 
 ::AISD-13-Q20::BST ma korzeń 20, lewe poddrzewo zawierające klucze 12 i 17 oraz prawe zawierające 24 i 30. Który klucz zastąpi 20, jeśli usuwamy korzeń przez podstawienie jego poprzednika inorder? {
-  ~12
-  ~24
+  ~12, ponieważ poprzednik inorder to najmniejszy element lewego poddrzewa.
+  ~24, ponieważ poprzednik inorder leży w prawym poddrzewie.
   =17
-  ~30
+  ~30, ponieważ poprzednik inorder jest największym kluczem całego drzewa.
   ####Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
 }
 
