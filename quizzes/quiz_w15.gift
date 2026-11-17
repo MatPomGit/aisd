@@ -19,41 +19,41 @@
 }
 
 ::AISD-15-Q03::[plain]Graf nieskierowany o V wierzchołkach i E krawędziach przechowujemy listami sąsiedztwa. Jaki jest koszt pamięci reprezentacji? {
-  =Θ(V+E)
   ~Θ(V²)
+  =Θ(V+E)
   ~Θ(E)
   ~Θ(V log V+E)
   ####Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
 }
 
 ::AISD-15-Q04::[plain]Ile najwyżej krawędzi może mieć prosty graf nieskierowany o V wierzchołkach? {
+  =V(V-1)/2
   ~V²
   ~V(V+1)/2
-  =V(V-1)/2
   ~V(V-1)
   ####Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
 }
 
 ::AISD-15-Q05::[plain]Dla nieskierowanego grafu spójnego o 8 wierzchołkach, który warunek musi zachodzić? {
   ~Dokładnie V-1 krawędzi
-  =Ma co najmniej 7 krawędzi.
   ~Co najmniej V krawędzi
   ~Co najmniej 2(V-1) krawędzi
+  =Ma co najmniej 7 krawędzi.
   ####Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
 }
 
 ::AISD-15-Q06::[plain]W grafie skierowanym ścieżka A→B→C istnieje, a łuk C→A nie istnieje. Co z tego wynika? {
-  =Z A do C jest osiągalność, ale nie wynika osiągalność z C do A.
   ~A i C są silnie spójne
   ~W grafie nie istnieje żadna ścieżka prowadząca od C do A.
   ~A musi być bezpośrednim poprzednikiem C w macierzy sąsiedztwa.
+  =Z A do C jest osiągalność, ale nie wynika osiągalność z C do A.
   ####Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
 }
 
 ::AISD-15-Q07::[plain]Jaki jest koszt sprawdzenia istnienia krawędzi (u,v) w grafie reprezentowanym macierzą sąsiedztwa przy poprawnych indeksach? {
   ~Θ(deg(u))
-  ~Θ(log V)
   =Θ(1)
+  ~Θ(log V)
   ~Θ(V)
   ####Wystarcza bezpośredni odczyt jednego pola M[u,v].
 }
@@ -61,23 +61,23 @@
 ::AISD-15-Q08::[plain]Podczas BFS w grafie z cyklami w którym momencie najbezpieczniej oznaczać nowo odkryty wierzchołek jako odwiedzony? {
   ~Przy pobieraniu go z kolejki.
   ~Po zakończeniu analizy sąsiadów.
-  ~Przy ponownym odkryciu wierzchołka.
   =Przy dodawaniu go do kolejki.
+  ~Przy ponownym odkryciu wierzchołka.
   ####Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
 }
 
 ::AISD-15-Q09::[plain]Graf nieważony ma krawędzie AB,BC,AC. Student wybiera trasę A→B→C do przejścia z A do C. Co pokazuje, że nie jest to najkrótsza trasa w liczbie krawędzi? {
   ~Każda trasa przez B jest zabroniona w grafie nieważonym.
+  =Ścieżka A→C ma tylko jedną krawędź, a wybrana ma dwie.
   ~Trasa A→B→C ma zawsze mniejszy koszt niż A→C, bo zawiera więcej wierzchołków.
   ~W grafie nieważonym długości ścieżek nie da się porównywać.
-  =Ścieżka A→C ma tylko jedną krawędź, a wybrana ma dwie.
   ####Najkrótsza ścieżka minimalizuje liczbę krawędzi. Bezpośrednia krawędź A-C daje odległość 1.
 }
 
 ::AISD-15-Q10::[plain]Graf skierowany ma łuki A→B, B→C, C→A. Ile wynosi stopień wejściowy każdego wierzchołka? {
   ~0
-  =1
   ~2
+  =1
   ~3
   ####Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
 }
@@ -99,25 +99,25 @@
 }
 
 ::AISD-15-Q13::[plain]Graf skierowany ma łuki 0→1,0→2,2→1. Jaki jest stopień wyjściowy wierzchołka 0? {
+  =2
   ~1
   ~3
-  =2
   ~0
   ####Z wierzchołka 0 wychodzą dokładnie dwa łuki.
 }
 
 ::AISD-15-Q14::[plain]Graf nieskierowany ma V\=5 i E\=4. Która dodatkowa informacja wystarcza, aby stwierdzić, że jest drzewem? {
   ~Graf ma dokładnie dwa wierzchołki stopnia 1, ale może zawierać cykl.
-  =Graf jest spójny, ponieważ spójność wraz z E\=V-1 wyklucza cykle.
   ~Graf nie ma pętli własnych, choć może być niespójny.
+  =Graf jest spójny, ponieważ spójność wraz z E\=V-1 wyklucza cykle.
   ~Każdy wierzchołek ma co najmniej jednego sąsiada, ale graf może być niespójny.
   ####Spójny graf nieskierowany z V-1 krawędziami jest drzewem. Sama liczba krawędzi nie wystarcza.
 }
 
 ::AISD-15-Q15::[plain]Która reprezentacja jest zwykle oszczędniejsza pamięciowo dla grafu z 1000 wierzchołkami i 10 krawędziami? {
   ~Macierz sąsiedztwa
-  =Lista sąsiedztwa.
   ~Pełna macierz wag
+  =Lista sąsiedztwa.
   ~Macierz osiągalności
   ####Lista sąsiedztwa zajmuje Θ(V+E) pamięci, natomiast macierz sąsiedztwa wymaga Θ(V²) pól.
 }
@@ -133,8 +133,8 @@
 ::AISD-15-Q17::[plain]Spójny prosty graf nieskierowany ma pięć wierzchołków, a każdy ma stopień 2. Która struktura musi powstać? {
   ~Pięć rozłącznych krawędzi.
   ~Jedna ścieżka z pięcioma wierzchołkami.
-  =Pojedynczy cykl z pięcioma wierzchołkami.
   ~Drzewo z pięcioma wierzchołkami.
+  =Pojedynczy cykl z pięcioma wierzchołkami.
   ####Każda spójna składowa grafu dwuregularnego jest cyklem. Spójność zapewnia, że jest jeden cykl.
 }
 
@@ -147,18 +147,18 @@
 }
 
 ::AISD-15-Q19::[plain]Macierz sąsiedztwa prostego grafu nieskierowanego bez pętli ma element M[1][3]\=1. Co musi zachodzić? {
-  =M[3][1]\=1 i M[1][1]\=0.
   ~M[3][1]\=0, ponieważ macierz jest skierowana.
+  =M[3][1]\=1 i M[1][1]\=0.
   ~M[1][1]\=1, ponieważ wierzchołek 1 ma sąsiada.
   ~M[3][3]\=1, ponieważ istnieje krawędź między wierzchołkami 1 i 3.
   ####Symetria wynika z nieskierowania krawędzi, a brak pętli daje zera na przekątnej.
 }
 
 ::AISD-15-Q20::[plain]Dla BFS od wierzchołka A w grafie z krawędziami AB,AC,BD,CE i kolejnością sąsiadów alfabetyczną, jaka jest kolejność odkrywania? {
+  =A,B,C,D,E
   ~A,B,D,C,E
   ~A,C,E,B,D
   ~A,B,C,E,D
-  =A,B,C,D,E
   ####BFS najpierw odkrywa sąsiadów A: B,C, a następnie sąsiadów B i C: D,E.
 }
 
