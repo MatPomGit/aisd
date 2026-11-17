@@ -141,7 +141,7 @@
 ::AISD-04-Q18::[plain]Ile porównań wykonuje algorytm znajdowania maksimum w tablicy n>\=1 elementów, który inicjuje maksimum pierwszą wartością, a następnie przegląda pozostałe? {
   ~n
   ~n-2
-  ~⌈log₂ n⌉
+  ~ceil(log₂ n)
   =n-1
   ####Pierwszy element inicjuje maksimum, pozostałe n-1 podlegają porównaniu.
 }
