@@ -3,16 +3,16 @@
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-06-Q01::[plain]Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
-  =[3,2,5,2]
   ~[3,2,5,2,2]
+  =[3,2,5,2]
   ~[2,3,5,2]
   ~[3,2,2,5]
   ####Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
 }
 
 ::AISD-06-Q02::[plain]Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
-  =n-k
   ~n-k+1
+  =n-k
   ~k
   ~n-1
   ####Przesuwane są istniejące elementy o indeksach od k do n-1.
@@ -28,16 +28,16 @@
 
 ::AISD-06-Q04::[plain]Tablica dynamiczna ma długość 3 i pojemność 5. Dodajemy dwa elementy, po czym usuwamy ostatni bez zmniejszania bufora. Który stan otrzymamy? {
   ~Długość 5 i pojemność 4.
-  =Długość 4 i pojemność 5.
   ~Długość 4 i pojemność 4.
   ~Długość 3 i pojemność 5.
+  =Długość 4 i pojemność 5.
   ####Po dwóch dopisaniach długość wynosi 5, a po usunięciu 4. Pojemność nie musi zmieniać się przy żadnej z tych operacji.
 }
 
 ::AISD-06-Q05::[plain]Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
   ~ceil(n/2)
-  =floor(n/2)
   ~n-1
+  =floor(n/2)
   ~floor((n-1)/2)
   ####Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
 }
@@ -51,25 +51,25 @@
 }
 
 ::AISD-06-Q07::[plain]Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
+  =n-k-1
   ~n-k
   ~k+1
-  =n-k-1
   ~n-k-2
   ####Elementy od k+1 do n-1 przesuwają się o jedną pozycję w lewo.
 }
 
 ::AISD-06-Q08::[plain]Tablica dynamiczna podwaja pojemność po zapełnieniu. Dlaczego dopisanie na końcu ma amortyzowany koszt O(1), mimo że pojedyncze dopisanie może kosztować Θ(n)? {
   ~Ponieważ przy każdej operacji kopiuje się dokładnie jeden element.
+  =Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).
   ~Ponieważ podczas realokacji pojemność nigdy nie wzrasta ponad n.
   ~Ponieważ operacja kopiowania n elementów ma stały koszt w modelu RAM.
-  =Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).
   ####Przy podwajaniu pojemności każda seria n dopisań powoduje łączny koszt przesunięć geometrycznie ograniczony przez O(n), stąd O(1) amortyzowane.
 }
 
 ::AISD-06-Q09::[plain]Pętla ma policzyć wystąpienia x w A\=[3,3,2,3], ale po znalezieniu A[i]\=x zwiększa i o 2, a w pozostałych przypadkach o 1. Jaki wynik zwróci dla x\=3 i na czym polega błąd? {
   ~3; algorytm prawidłowo liczy wszystkie trafienia.
-  ~1; pomija wszystkie kolejne trafienia po pierwszym.
   =2; pomija elementy bezpośrednio po trafieniu, w tym drugie 3.
+  ~1; pomija wszystkie kolejne trafienia po pierwszym.
   ~4; błędnie liczy elementy różne od x.
   ####Dla i\=0 algorytm liczy 3 i przechodzi na i\=2; pomija A[1]\=3. Następnie przechodzi na i\=3 i liczy kolejne 3, razem 2 zamiast 3.
 }
@@ -77,14 +77,14 @@
 ::AISD-06-Q10::[plain]Z tablicy A\=[5,8,2,6] usuwamy element o indeksie 1, przesuwając pozostałe w lewo. Jaką zawartość ma tablica po zmniejszeniu jej długości do trzech elementów? {
   ~[8,2,6]
   ~[5,8,6]
-  ~[5,6,2]
   =[5,2,6]
+  ~[5,6,2]
   ####Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
 }
 
 ::AISD-06-Q11::[plain]Tablica A\=[2,4,6,8] jest indeksowana od zera. Wstawiamy liczbę 5 na indeks 2, zachowując kolejność. Co powstaje? {
-  ~[2,5,4,6,8]
   =[2,4,5,6,8]
+  ~[2,5,4,6,8]
   ~[2,4,6,5,8]
   ~[2,4,6,8,5]
   ####Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
@@ -99,33 +99,33 @@
 }
 
 ::AISD-06-Q13::[plain]Pusta dynamiczna tablica ma pojemność 2 i przy przepełnieniu podwaja pojemność. Jaką pojemność ma po zapisaniu piątego elementu? {
-  =8
   ~5
   ~4
   ~16
+  =8
   ####Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
 }
 
 ::AISD-06-Q14::[plain]Tablica A\=[4,7,2,9,1] ma pięć elementów. Usuwamy A[1] w zwartej tablicy, zachowując kolejność. Która sekwencja przypisań jest poprawna? {
+  =A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.
   ~A[1]\=A[0]; A[2]\=A[1]; A[3]\=A[2].
   ~A[4]\=A[3]; A[3]\=A[2]; A[2]\=A[1]; zmniejsz długość do 4.
   ~Zmień długość na 4 bez przesuwania elementów, bo usunięta pozycja jest wewnętrzna.
-  =A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.
   ####Elementy po usuwanej pozycji muszą przesunąć się o jeden indeks w lewo, w kolejności rosnących indeksów, zanim zmniejszymy długość logiczną.
 }
 
 ::AISD-06-Q15::[plain]Tablica A\=[4,1,9,2]. Odwracamy ją w miejscu, zamieniając pary skrajne. Co otrzymamy po pierwszej zamianie? {
   ~[2,9,1,4]
-  =[2,1,9,4]
   ~[4,9,1,2]
   ~[1,4,9,2]
+  =[2,1,9,4]
   ####Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
 }
 
 ::AISD-06-Q16::[plain]W posortowanej tablicy A\=[2,2,2,3,3,4] procedura lower_bound(3) zwraca pierwszy indeks z A[i]>\=3. Jak zachować jej wynik, gdy wartość 3 występuje wielokrotnie? {
-  =Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.
   ~Zwrócić indeks 4, bo ostatnie dopasowanie jest prawą granicą.
   ~Zwrócić indeks 5, bo 4 jest pierwszą wartością większą niż 3.
+  =Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.
   ~Zwrócić -1, bo duplikaty naruszają założenia wyszukiwania binarnego.
   ####Lower bound wskazuje początek zakresu wartości nie mniejszych od 3. Pierwsza taka pozycja to 3.
 }
@@ -147,8 +147,8 @@
 }
 
 ::AISD-06-Q19::[plain]Jaką liczbę porównań wykona wyszukiwanie liniowe wartości 6 w [5,4,6,6], kończące po pierwszym trafieniu? {
-  ~2
   =3
+  ~2
   ~4
   ~1
   ####Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
@@ -156,8 +156,8 @@
 
 ::AISD-06-Q20::[plain]Tablica A\=[3,1,4,1,5] ma indeksy od zera. Pętla i\=4; dopóki i>\=0: wypisz A[i]; i\=i-2. Jaki ciąg zostanie wypisany? {
   ~5,1,3
-  ~3,4,5
   =5,4,3
+  ~3,4,5
   ~5,1,1
   ####Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
 }
