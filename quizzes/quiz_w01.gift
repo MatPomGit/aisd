@@ -1,8 +1,8 @@
 // AIiSD 01: Podstawy algorytmów
-// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
-// Import: Moodle > Baza pytan > Import > GIFT
+// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-01-Q01::Który warunek wystarczy, aby poprawnie wykazać zakończenie pętli dla wszystkich dopuszczalnych wejść? {
+::AISD-01-Q01::[plain]Który warunek wystarczy, aby poprawnie wykazać zakończenie pętli dla wszystkich dopuszczalnych wejść? {
   ~Miara przyjmuje wartości całkowite, jest ograniczona z góry i zmienia się w każdej iteracji.
   =Istnieje całkowitoliczbowa miara nieujemna, która ściśle maleje w każdej iteracji.
   ~Miara jest nieujemna na wejściu i ściśle maleje, choć może później przyjmować wartości ujemne.
@@ -10,7 +10,7 @@
   ####Dobrze ufundowana, ściśle malejąca miara wyklucza nieskończoną sekwencję iteracji.
 }
 
-::AISD-01-Q02::Algorytm zwraca indeks pierwszego wystąpienia x w tablicy albo -1. Jaka własność musi być zachowana po sprawdzeniu pierwszych i elementów? {
+::AISD-01-Q02::[plain]Algorytm zwraca indeks pierwszego wystąpienia x w tablicy albo -1. Jaka własność musi być zachowana po sprawdzeniu pierwszych i elementów? {
   =Wśród elementów o indeksach od 0 do i-1 nie występuje x.
   ~Wśród elementów o indeksach od 0 do i nie występuje x, zanim sprawdzimy A[i].
   ~Przeszukany prefiks zawiera co najwyżej jedno wystąpienie x.
@@ -18,7 +18,7 @@
   ####To niezmiennik wyszukiwania liniowego: przed każdą iteracją przeszukany prefiks nie zawiera szukanego elementu.
 }
 
-::AISD-01-Q03::Funkcja maksimum ma zwracać największy element tablicy niepustej i zgłaszać błąd dla tablicy pustej. Implementacja rozpoczyna od m\=A[0]. Która poprawka zachowuje ten kontrakt? {
+::AISD-01-Q03::[plain]Funkcja maksimum ma zwracać największy element tablicy niepustej i zgłaszać błąd dla tablicy pustej. Implementacja rozpoczyna od m\=A[0]. Która poprawka zachowuje ten kontrakt? {
   ~Zastąpić inicjalizację m\=A[0] przez m\=0 i nie obsługiwać pustki.
   ~Zastąpić inicjalizację m\=A[0] przez najmniejszą wartość typu i nie obsługiwać pustki.
   ~Pominąć odczyt A[0] przy n\=0, a następnie zwrócić dotychczasowe m.
@@ -26,7 +26,7 @@
   ####Sprawdzenie n\=0 musi poprzedzać odczyt A[0], a pozostałe przypadki nie mogą zmieniać specyfikacji wyniku.
 }
 
-::AISD-01-Q04::Dwa programy dają identyczny wynik na 1000 testach. Jaki wniosek jest naukowo uzasadniony? {
+::AISD-01-Q04::[plain]Dwa programy dają identyczny wynik na 1000 testach. Jaki wniosek jest naukowo uzasadniony? {
   ~Programy są równoważne, jeżeli testy obejmują każdą instrukcję w obu implementacjach.
   ~Programy są równoważne dla wszystkich danych o rozmiarze nie większym od największego przetestowanego.
   =Testy potwierdzają zgodność na badanych wejściach, ale nie dowodzą równoważności programów.
@@ -34,7 +34,7 @@
   ####Skończona liczba testów zwykle nie stanowi dowodu poprawności dla nieograniczonej dziedziny.
 }
 
-::AISD-01-Q05::Algorytm liczy sumę n elementów tablicy, używając jednego akumulatora. Która zmiana nie wpływa na wynik, ale może zmienić koszt wykonania? {
+::AISD-01-Q05::[plain]Algorytm liczy sumę n elementów tablicy, używając jednego akumulatora. Która zmiana nie wpływa na wynik, ale może zmienić koszt wykonania? {
   ~Zamiana dodawania na mnożenie dla każdego elementu przy tej samej inicjalizacji.
   =Zastąpienie bezpośredniego dostępu do elementów iteratorem z dodatkowym narzutem.
   ~Zastąpienie akumulatora sumy akumulatorem liczby niezerowych elementów.
@@ -42,7 +42,7 @@
   ####Sposób dostępu może zmienić liczbę operacji, nawet przy zachowaniu tej samej funkcji obliczanej.
 }
 
-::AISD-01-Q06::Pętla for dla i od 0 do n-1 odczytuje A[i+1] zamiast A[i]. Która pojedyncza poprawka usuwa błąd indeksowania bez pomijania elementów tablicy dla n>0? {
+::AISD-01-Q06::[plain]W pętli for zmienna i przyjmuje wartości od 0 do n-1. Kod odczytuje A[i+1] zamiast A[i]. Która pojedyncza zmiana usuwa błąd indeksowania dla n>0? {
   =Zamienić odczyt A[i+1] na A[i].
   ~Zmienić górną granicę i z n-1 na n.
   ~Zwiększyć początkową wartość i do 1 bez zmiany zakresu.
@@ -50,7 +50,7 @@
   ####Poprawne indeksy wynoszą od 0 do n-1, a przesunięcie odczytu o 1 narusza granicę w ostatniej iteracji.
 }
 
-::AISD-01-Q07::Który opis jest specyfikacją problemu, a nie opisem wybranej implementacji? {
+::AISD-01-Q07::[plain]Który opis jest specyfikacją problemu, a nie opisem wybranej implementacji? {
   ~Dla tablicy i x przeglądaj elementy do pierwszego dopasowania i zwróć jego pozycję.
   ~Dla tablicy i x przechowuj najmniejszy znaleziony indeks, aktualizując go przy dopasowaniu.
   ~Dla tablicy i x wykonaj pętlę po indeksach i zakończ ją przez return.
@@ -58,7 +58,7 @@
   ####Specyfikacja określa kontrakt wejścia i wyjścia, niezależnie od techniki rozwiązania.
 }
 
-::AISD-01-Q08::W algorytmie znajdowania maksimum niepustej tablicy zmienna m zaczyna od A[0]. Jak uzasadnić poprawność po przetworzeniu k pierwszych pozycji? {
+::AISD-01-Q08::[plain]W algorytmie znajdowania maksimum niepustej tablicy zmienną m inicjalizuje się wartością A[0]. Jak uzasadnić poprawność po przetworzeniu k pierwszych elementów? {
   ~m jest maksimum całej tablicy po przetworzeniu co najmniej jednej pozycji.
   ~m jest wartością ostatniego elementu, który zwiększył maksimum przed iteracją k.
   =m jest maksimum prefiksu A[0..k-1].
@@ -66,7 +66,7 @@
   ####Niezmiennik maksimum prefiksu zachowuje się po porównaniu m z kolejnym elementem.
 }
 
-::AISD-01-Q09::Dla algorytmu Euklidesa wykonywanego dla a\=252 i b\=105 z aktualizacją (a,b)\=(b,a mod b) aż do b\=0, jaka wartość zostanie zwrócona? {
+::AISD-01-Q09::[plain]Dla algorytmu Euklidesa wykonywanego dla a\=252 i b\=105 z aktualizacją (a,b)\=(b,a mod b) aż do b\=0, jaka wartość zostanie zwrócona? {
   ~42
   =21
   ~7
@@ -74,7 +74,7 @@
   ####Kolejne reszty to 42, 21 i 0; ostatni niezerowy dzielnik wynosi 21.
 }
 
-::AISD-01-Q10::Algorytm szuka najmniejszego elementu niepustej tablicy. Po przetworzeniu pierwszych k elementów jaki niezmiennik jest wystarczający do dowodu wyniku? {
+::AISD-01-Q10::[plain]Algorytm znajduje najmniejszy element niepustej tablicy. Który niezmiennik wystarcza do uzasadnienia poprawności po przetworzeniu pierwszych k elementów? {
   =m jest najmniejszą wartością w prefiksie A[0..k-1].
   ~m jest minimum A[0..k] przed sprawdzeniem elementu o indeksie k.
   ~m jest mniejsze lub równe każdemu elementowi z nieprzetworzonego sufiksu.
@@ -82,7 +82,7 @@
   ####Indukcyjnie po odczycie nowego elementu minimum prefiksu zostaje zachowane.
 }
 
-::AISD-01-Q11::Dla niepustej tablicy A\=[4,1,4,2] algorytm zwraca największy indeks wartości maksymalnej. Jaki powinien być wynik? {
+::AISD-01-Q11::[plain]Dla niepustej tablicy A\=[4,1,4,2] algorytm zwraca największy indeks wartości maksymalnej. Jaki powinien być wynik? {
   ~0
   ~3
   ~1
@@ -90,7 +90,7 @@
   ####Maksymalna wartość 4 występuje na indeksach 0 i 2; największym jest 2.
 }
 
-::AISD-01-Q12::Pętla while x>1 wykonuje x\=floor(x/2) dla całkowitego x>\=1. Ile iteracji wykona dla x\=37? {
+::AISD-01-Q12::[plain]Pętla while x>1 wykonuje x\=floor(x/2) dla całkowitego x>\=1. Ile iteracji wykona dla x\=37? {
   ~4
   ~6
   =5
@@ -98,7 +98,7 @@
   ####Kolejne wartości po iteracjach to 18,9,4,2,1; piąta kończy pętlę.
 }
 
-::AISD-01-Q13::Wykonano następującą pętlę: s\=0; dla i od 0 do 3: s\=s+2*i. Jaka jest końcowa wartość s? {
+::AISD-01-Q13::[plain]Wykonano następującą pętlę: s\=0; dla i od 0 do 3: s\=s+2*i. Jaka jest końcowa wartość s? {
   ~6
   =12
   ~20
@@ -106,7 +106,7 @@
   ####Dodawane są składniki 0,2,4,6; suma wynosi 12.
 }
 
-::AISD-01-Q14::Pseudokod zwraca true po wykryciu x w tablicy, a false po wykonaniu pętli bez trafienia. Jaką własność należy dowieść dla każdej iteracji, w której wykonanie trwa dalej? {
+::AISD-01-Q14::[plain]Pseudokod zwraca true po wykryciu x w tablicy, a false po wykonaniu pętli bez trafienia. Jaką własność należy dowieść dla każdej iteracji, w której wykonanie trwa dalej? {
   =W dotąd zbadanej części nie ma x.
   ~Element x nie występuje w tablicy
   ~W dotąd zbadanej części x wystąpił najwyżej raz.
@@ -114,7 +114,7 @@
   ####Kontynuacja po braku trafienia pozwala wykluczyć x tylko z przebadanego prefiksu.
 }
 
-::AISD-01-Q15::Algorytm obliczania średniej sumuje n liczb i dzieli przez n. Jaki kontrakt czyni obliczenie bezwarunkowo określonym bez dodatkowej obsługi wyjątków? {
+::AISD-01-Q15::[plain]Algorytm obliczania średniej sumuje n liczb i dzieli przez n. Jaki kontrakt czyni obliczenie bezwarunkowo określonym bez dodatkowej obsługi wyjątków? {
   ~n jest nieujemne, a wszystkie elementy mieszczą się w typie liczbowym.
   ~n może wynosić zero, jeśli akumulator jest inicjalizowany zerem.
   ~n jest dodatnie, ale sumę i dzielenie można wykonywać bez określania modelu arytmetyki.
@@ -122,7 +122,7 @@
   ####Warunek n>0 wyklucza dzielenie przez zero; model arytmetyki określa dopuszczalne działania.
 }
 
-::AISD-01-Q16::Algorytm ma zwrócić dowolne wystąpienie x. Jaką zmianę specyfikacji wprowadza wymaganie zwrócenia pierwszego wystąpienia? {
+::AISD-01-Q16::[plain]Algorytm ma zwrócić dowolne wystąpienie x. Jaką zmianę specyfikacji wprowadza wymaganie zwrócenia pierwszego wystąpienia? {
   ~Wybór największego indeksu spełniającego A[i]\=x, a nie dowolnego.
   ~Wybór dowolnego indeksu, lecz tylko spośród pierwszej połowy tablicy.
   =Wymusza najmniejszy indeks wśród wszystkich dopasowań.
@@ -130,7 +130,7 @@
   ####Przy duplikatach tylko pierwszy indeks spełnia mocniejszy kontrakt.
 }
 
-::AISD-01-Q17::Pętla: i\=0; dopóki i<n wykonuj i\=i+2. Dla n\=7 ile iteracji wykona, jeśli test występuje przed ciałem? {
+::AISD-01-Q17::[plain]Pętla: i\=0; dopóki i<n wykonuj i\=i+2. Dla n\=7 ile iteracji wykona, jeśli test występuje przed ciałem? {
   ~3
   =4
   ~5
@@ -138,7 +138,7 @@
   ####Początkowe wartości i przy wejściu do ciała to 0,2,4,6.
 }
 
-::AISD-01-Q18::Program zwraca 0 dla pustej listy oraz sumę elementów dla niepustej. Która własność funkcjonalna uzasadnia wybór wartości 0? {
+::AISD-01-Q18::[plain]Program zwraca 0 dla pustej listy oraz sumę elementów dla niepustej. Która własność funkcjonalna uzasadnia wybór wartości 0? {
   =Jest elementem neutralnym dodawania dla pustej sumy.
   ~0 jest elementem neutralnym mnożenia, a suma jest iloczynem pustym.
   ~1 jest neutralne względem dodawania w pustym prefiksie.
@@ -146,7 +146,7 @@
   ####Suma pustego zbioru składników przyjmowana jest jako 0, by zachować regułę sumowania.
 }
 
-::AISD-01-Q19::Dla tablicy A\=[2,4,6] algorytm inicjuje s\=1 i dodaje każdy element. Jaka poprawka prowadzi do sumy właściwej dla wszystkich tablic całkowitoliczbowych? {
+::AISD-01-Q19::[plain]Dla tablicy A\=[2,4,6] algorytm inicjuje s\=1 i dodaje każdy element. Jaka poprawka prowadzi do sumy właściwej dla wszystkich tablic całkowitoliczbowych? {
   ~Zainicjowanie s\=-1.
   ~Zainicjowanie s\=A[0] przy niezmienionej pętli.
   ~Zainicjowanie s\=1 i pominięcie A[0].
@@ -154,7 +154,7 @@
   ####Wartość początkowa powinna być neutralna względem dodawania, a nie powodować stałe przesunięcie wyniku.
 }
 
-::AISD-01-Q20::Dla specyfikacji 'zwróć indeks elementu większego od x, jeśli istnieje' jaka informacja jest niezbędna dla jednoznaczności wyniku przy wielu dopasowaniach? {
+::AISD-01-Q20::[plain]Specyfikacja brzmi: „Zwróć indeks elementu większego od x, jeśli taki istnieje”. Jaką informację należy dodać, aby jednoznacznie określić wynik przy wielu dopasowaniach? {
   ~Czy wynik ma być najmniejszą wartością większą od x, zamiast jej indeksu.
   ~Czy przeszukiwanie ma kończyć się na pierwszym dopasowaniu, bez względu na kontrakt wyniku.
   =Czy dopuszczalny jest dowolny indeks, czy wymagany określony, np. najmniejszy.
