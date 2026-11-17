@@ -146,7 +146,7 @@
   ####Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
 }
 
-::AISD-14-Q19::[plain]Która struktura zapewnia koszt O(log n) zarówno przy wstawianiu elementu, jak i pobieraniu minimum z kolejki priorytetowej, w najgorszym przypadku? {
+::AISD-14-Q19::[plain]Która struktura zapewnia w najgorszym przypadku koszt O(log n) zarówno wstawienia elementu, jak i usunięcia minimum z kolejki priorytetowej? {
   =Kopiec binarny.
   ~Nieposortowana tablica.
   ~Posortowana tablica.
