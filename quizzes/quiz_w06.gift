@@ -1,5 +1,5 @@
 // AIiSD 06: Tablice jednowymiarowe
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-06-Q01::[plain]Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
