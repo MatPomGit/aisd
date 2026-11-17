@@ -4,15 +4,15 @@
 
 ::AISD-20-Q01::W problemie wydawania reszty z monetami 1,3,4 jaka jest minimalna liczba monet dla kwoty 6? {
   =2
-  ~3, ponieważ algorytm zachłanny wybiera monety 4+1+1.
-  ~4, ponieważ każdą z trzech dostępnych wartości nominałów wolno użyć tylko raz.
-  ~6, ponieważ wszystkie monety muszą mieć nominał 1.
+  ~3
+  ~4
+  ~6
   ####Dwie monety po 3 dają 6; zachłanne 4+1+1 wymaga trzech monet.
 }
 
 ::AISD-20-Q02::Dla problemu wyboru maksymalnej liczby niepokrywających się przedziałów, który wybór zachłanny prowadzi do rozwiązania optymalnego przy standardowych założeniach? {
   ~Wybór przedziału o najwcześniejszym początku, gdy jego koniec nie koliduje z poprzednim.
-  ~Wybór najkrótszego przedziału, bo wtedy zawsze zostaje najwięcej wolnego czasu.
+  ~Wybór najkrótszego przedziału
   ~Wybór przedziału o najmniejszej liczbie kolizji z pozostałymi.
   =Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi.
   ####Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
@@ -43,8 +43,8 @@
 }
 
 ::AISD-20-Q06::Dla DP z relacją F[i]\=min(F[i-1]+a[i],F[i-2]+b[i]) dla i>\=2, jakie przypadki bazowe trzeba określić? {
-  ~Wystarczy F[1], bo pozostałe wartości zawsze da się wyprowadzić z ostatniego stanu.
-  ~Wystarczy F[0], ponieważ drugi składnik jest potrzebny dopiero po obliczeniu F[2].
+  ~Wystarczy F[1]
+  ~Wystarczy F[0]
   ~Wystarczy wartość F[n], jeżeli obliczamy tablicę rosnąco po indeksach.
   =Co najmniej wartości F[0] i F[1].
   ####Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
@@ -59,25 +59,25 @@
 }
 
 ::AISD-20-Q08::Przy problemie o n zadaniach każdy stan DP jest parą (i,c), gdzie 0<\=i<\=n i 0<\=c<\=C, a przejście kosztuje O(1). Jaki jest koszt zapełnienia pełnej tabeli? {
-  ~O(n+C), ponieważ liczba stanów jest sumą wymiarów tablicy.
+  ~O(n+C)
   =O(nC)
-  ~O(C log n), ponieważ stany o wspólnej pojemności można łączyć.
-  ~O(2^n), ponieważ każdy stan musi reprezentować podzbiór przedmiotów.
+  ~O(C log n)
+  ~O(2^n)
   ####Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
 }
 
 ::AISD-20-Q09::W plecaku 0/1 pojemność wynosi 5, a przedmioty mają (masa,wartość) A\=(2,3), B\=(3,4), C\=(4,5). Jaka jest maksymalna wartość? {
   =7
-  ~5, ponieważ najwyższą wartość daje pojedynczy przedmiot C.
-  ~8, ponieważ przedmioty A i C mieszczą się razem w pojemności 5.
-  ~9, ponieważ przedmioty B i C mieszczą się razem w pojemności 5.
+  ~5
+  ~8
+  ~9
   ####A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
 }
 
 ::AISD-20-Q10::Dla przedziałów [1,3), [2,5), [3,4), [4,6) wybieranych zachłannie według najwcześniejszego końca, ile maksymalnie można wybrać niepokrywających się przedziałów? {
-  ~2, ponieważ odcinki [1,3) i [3,4) nie nakładają się, ale [4,6) jest zbyt długi.
-  ~4, ponieważ każda para kolejnych przedziałów z listy jest zgodna.
-  ~1, ponieważ pierwszy wybrany przedział blokuje wszystkie pozostałe.
+  ~2
+  ~4
+  ~1
   =3
   ####Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
 }
@@ -107,9 +107,9 @@
 }
 
 ::AISD-20-Q14::Dla DP F[i]\=F[i-1]+F[i-2], przy F[0]\=1 i F[1]\=2, ile wynosi F[5]? {
-  ~8, ponieważ F[5] oblicza się po czterech dodaniach od stanu F[1].
-  ~21, ponieważ zastosowano bazowe wartości F[0]\=0 i F[1]\=1.
-  ~11, ponieważ w ostatnim kroku dodano tylko jeden wcześniejszy stan.
+  ~8
+  ~21
+  ~11
   =13
   ####Kolejne wartości to 1,2,3,5,8,13.
 }
@@ -123,7 +123,7 @@
 }
 
 ::AISD-20-Q16::W DP dla plecaka 0/1 stan DP[i][c] oznacza optimum użycia pierwszych i przedmiotów przy pojemności c. Która decyzja jest poprawna, gdy masa i-tego przedmiotu w_i>c? {
-  ~DP[i][c]\=v_i+DP[i-1][c] również wtedy, gdy w_i>c.
+  ~DP[i][c]\=v_i+DP[i-1][c] również wtedy
   =DP[i][c]\=DP[i-1][c].
   ~DP[i][c]\=DP[i-1][c-w_i], mimo ujemnej pojemności.
   ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]) bez sprawdzania dopuszczalności.
@@ -132,9 +132,9 @@
 
 ::AISD-20-Q17::Dla minimizacji kosztu pokrycia dystansu n, skoki mogą mieć długość 1 lub 2, a koszt skoku wynosi 1. Jakie jest optimum dla n\=7? {
   =4
-  ~3, ponieważ trzy skoki długości 2 wystarczają do pokrycia siedmiu jednostek.
-  ~5, ponieważ ostatnia pozycja wymaga dwóch skoków jednostkowych.
-  ~7, ponieważ aby zachować optimum, należy wybierać zawsze skok długości 1.
+  ~3
+  ~5
+  ~7
   ####Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
 }
 
@@ -155,9 +155,9 @@
 }
 
 ::AISD-20-Q20::Który warunek pozwala bezpiecznie zredukować pamięć DP plecaka 0/1 z O(nC) do O(C) przy obliczaniu kolejnych przedmiotów? {
-  ~Aktualizowanie pojemności rosnąco, ponieważ potrzebna jest informacja z już zaktualizowanego wiersza.
+  ~Aktualizowanie pojemności rosnąco
   =Aktualizowanie pojemności malejąco, aby nie wykorzystać przedmiotu wielokrotnie.
-  ~Aktualizowanie pojemności w losowej kolejności, ponieważ relacja DP nie zależy od kolejności.
+  ~Aktualizowanie pojemności w losowej kolejności
   ~Aktualizowanie pojemności malejąco, lecz przy tym samym przedmiocie dopuszczenie wielokrotnego wyboru.
   ####Malejący porządek pojemności chroni wyniki poprzedniego wiersza używane w przejściu 0/1.
 }
