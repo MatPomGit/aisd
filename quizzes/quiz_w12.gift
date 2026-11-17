@@ -51,10 +51,10 @@
 }
 
 ::AISD-12-Q07::W drzewie binarnym porządek preorder daje wyniki R, A, B, a inorder daje A, R, B. Jaki węzeł jest korzeniem? {
-  ~A
-  ~B
-  =R
-  ~Korzeń nie jest jednoznacznie określony
+  ~Węzeł A
+  ~Węzeł B
+  =Węzeł R
+  ~Brak danych
   ####Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
 }
 
