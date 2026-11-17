@@ -100,9 +100,9 @@
 
 ::AISD-16-Q13::W standardowym A* w grafie o nieujemnych kosztach, jak obliczana jest wartość f(v)? {
   =g(v)+h(v)
-  ~h(v), czyli szacowany koszt od v do celu, bez uwzględnienia przebytej drogi.
-  ~g(v), czyli koszt od źródła do v, bez oszacowania dalszej drogi.
-  ~g(v)-h(v), czyli koszt przebytej drogi pomniejszony o oszacowanie.
+  ~h(v)
+  ~g(v)
+  ~g(v)-h(v)
   ####A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
 }
 
