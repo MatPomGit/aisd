@@ -1,5 +1,5 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-16-Q01::[plain]BFS po raz pierwszy odkrywa wierzchołek docelowy na poziomie 4. Co oznacza ten poziom w grafie nieważonym, jeśli źródło znajduje się na poziomie 0? {
