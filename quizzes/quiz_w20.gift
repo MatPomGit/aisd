@@ -1,75 +1,75 @@
 // AIiSD 20: Zaawansowane techniki projektowania algorytmów
-// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-20-Q01::[plain]W problemie wydawania reszty z monetami 1,3,4 jaka jest minimalna liczba monet dla kwoty 6? {
-  =2
-  ~3
-  ~4
-  ~6
-  ####Dwie monety po 3 dają 6; zachłanne 4+1+1 wymaga trzech monet.
+::AISD-20-Q01::[plain]Dla monet o nominałach 1,3,4 chcemy wydać kwotę 6 najmniejszą liczbą monet. Dlaczego strategia wybierania zawsze największej dostępnej monety nie jest optymalna? {
+  ~Daje 3+3 i wymaga 3 monet, mimo że wystarczą dwie.
+  =Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety.
+  ~Nie może wydać 6, ponieważ brak monety o nominale 2.
+  ~Zawsze daje rozwiązanie optymalne, ponieważ najmniejsza reszta oznacza najmniejszą liczbę monet.
+  ####To kontrprzykład dla zachłanności: lokalny wybór 4 prowadzi do wyniku gorszego niż dwa razy 3.
 }
 
 ::AISD-20-Q02::[plain]Który wybór zachłanny prowadzi do optymalnego rozwiązania problemu wyznaczenia maksymalnej liczby niepokrywających się przedziałów? {
+  =Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi.
   ~Wybór przedziału o najwcześniejszym początku, gdy jego koniec nie koliduje z poprzednim.
   ~Wybór najkrótszego przedziału
   ~Wybór przedziału o najmniejszej liczbie kolizji z pozostałymi.
-  =Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi.
   ####Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
 }
 
 ::AISD-20-Q03::[plain]Co odróżnia memoizację od tabulacji w programowaniu dynamicznym? {
   ~Memoizacja oblicza wszystkie stany z góry, a tabulacja tylko stany osiągalne.
-  ~Memoizacja i tabulacja różnią się wyłącznie sposobem przechowywania tablicy wyników.
   =Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń.
+  ~Memoizacja i tabulacja różnią się wyłącznie sposobem przechowywania tablicy wyników.
   ~Memoizacja zawsze wymaga iteracji po stanach, a tabulacja tylko wywołań rekurencyjnych.
   ####Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
 }
 
-::AISD-20-Q04::[plain]Jaki jest asymptotyczny rząd rozwiązania rekurencji T(n)\=2T(n/2)+Θ(n), jeśli n jest potęgą dwójki? {
-  ~Θ(n²)
-  =Θ(n log n)
-  ~Θ(log n)
-  ~Θ(n)
-  ####Na każdym poziomie drzewa rekurencji koszt sumaryczny jest liniowy, a poziomów jest logarytmicznie wiele.
+::AISD-20-Q04::[plain]Algorytm dziel i zwyciężaj dzieli n elementów na dwie połowy, rozwiązuje obie rekurencyjnie i scala w czasie liniowym. Co stanie się z kosztem, jeśli scalanie w każdej ramce zastąpimy operacją o koszcie Θ(n²)? {
+  ~Rekurencja nadal ma Θ(n log n), bo liczba podproblemów się nie zmienia.
+  ~Koszt spadnie do Θ(log n), bo podział jest binarny.
+  ~Koszt wzrośnie do Θ(2^n), bo pojawia się scalanie kwadratowe.
+  =Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania.
+  ####Dla T(n)\=2T(n/2)+Θ(n²) suma kosztów na poziomach jest geometryczna i dominuje koszt korzenia Θ(n²).
 }
 
-::AISD-20-Q05::[plain]Dlaczego strategia wybierania przedmiotów według największego stosunku wartości do masy nie daje zawsze optimum w plecaku 0/1? {
-  =Nie można wybierać ułamków przedmiotów, więc lokalna gęstość nie wyznacza globalnego zestawu.
-  ~Zachłanność według gęstości wartości działa dla plecaka 0/1, jeżeli masy są dodatnie.
-  ~Zachłanność według wartości zawsze działa, o ile pojemność jest całkowita.
-  ~Optymalność wynika ze stabilnego sortowania przedmiotów według wartości na jednostkę masy.
-  ####W plecaku dyskretnym wybór całego przedmiotu może zablokować lepszą kombinację innych.
+::AISD-20-Q05::[plain]Plecak 0/1 ma pojemność 4 oraz przedmioty A\=(masa 3, wartość 5), B\=(masa 2, wartość 3), C\=(masa 2, wartość 3). Algorytm zachłanny bierze przedmiot o największej wartości do masy. Co pokazuje błąd tej reguły? {
+  ~Bierze B+C o wartości 6, co zawsze jest optymalne dla każdego plecaka 0/1.
+  ~Bierze A+B o wartości 8, choć przekracza pojemność 4.
+  =Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum.
+  ~Nie potrafi porównać stosunków wartości do masy w liczbach całkowitych.
+  ####Stosunek dla A wynosi 5/3, a dla B i C po 3/2, więc zachłanność wybiera A. Dwa pozostałe razem mieszczą się w pojemności i mają większą wartość.
 }
 
 ::AISD-20-Q06::[plain]W programowaniu dynamicznym stosujemy zależność F[i]\=min(F[i-1]+a[i],F[i-2]+b[i]) dla i>\=2. Jakie wartości początkowe trzeba określić? {
   ~Wystarczy F[1]
+  =Co najmniej wartości F[0] i F[1].
   ~Wystarczy F[0]
   ~Wystarczy wartość F[n], jeżeli obliczamy tablicę rosnąco po indeksach.
-  =Co najmniej wartości F[0] i F[1].
   ####Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
 }
 
-::AISD-20-Q07::[plain]W dowodzie poprawności algorytmu zachłannego argument wymiany polega na: {
-  ~Wykazaniu, że decyzja zachłanna jest najtańsza na przetestowanych wejściach.
-  ~Dowodzie, że lokalna decyzja optymalizuje każdy pojedynczy składnik funkcji celu.
-  =wykazaniu, że pewne rozwiązanie optymalne można przekształcić tak, aby zawierało wybór zachłanny, bez pogorszenia celu.
-  ~Wykazaniu, że nie istnieją inne rozwiązania dopuszczalne niż wybrane zachłannie.
-  ####Argument wymiany łączy wybór lokalny z istnieniem rozwiązania optymalnego zgodnego z tym wyborem.
+::AISD-20-Q07::[plain]W problemie wyboru maksymalnej liczby niepokrywających się przedziałów algorytm zachłanny wybiera przedział o najwcześniejszym końcu. Jaki krok stanowi sedno argumentu wymiany? {
+  ~Pokazanie na kilku danych testowych, że wybór najwcześniejszego początku jest równie dobry.
+  =Pokazanie, że w pewnym optimum pierwszy przedział można zastąpić tym kończącym się najwcześniej, nie zmniejszając liczby wybranych przedziałów.
+  ~Założenie, że każdy lokalnie najkrótszy przedział musi należeć do każdego optimum.
+  ~Stwierdzenie, że zachłanność jest optymalna dla wszystkich zadań z przedziałami.
+  ####Wymiana nie pogarsza możliwości wyboru dalszych przedziałów, bo zachłanny przedział kończy się nie później niż zastępowany.
 }
 
 ::AISD-20-Q08::[plain]Każdy stan programowania dynamicznego jest parą (i,c), gdzie 0<\=i<\=n i 0<\=c<\=C, dla n,C>\=1. Obliczenie stanu ma koszt O(1). Jaki jest koszt wypełnienia całej tabeli? {
   ~O(n+C)
-  =O(nC)
   ~O(C log n)
+  =O(nC)
   ~O(2^n)
   ####Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
 }
 
 ::AISD-20-Q09::[plain]W plecaku 0/1 pojemność wynosi 5, a przedmioty mają (masa,wartość) A\=(2,3), B\=(3,4), C\=(4,5). Jaka jest maksymalna wartość? {
-  =7
   ~5
   ~8
+  =7
   ~9
   ####A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
 }
@@ -83,50 +83,50 @@
 }
 
 ::AISD-20-Q11::[plain]Najkrótsze ścieżki w skierowanym grafie acyklicznym, również z ujemnymi wagami łuków, można obliczać metodą programowania dynamicznego zgodnie z: {
+  =porządku topologicznym.
   ~porządku rosnących wag.
   ~porządku malejących stopni.
-  =porządku topologicznym.
   ~porządku BFS.
   ####Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
 }
 
-::AISD-20-Q12::[plain]Dla rekurencji T(n)\=3T(n/3)+n, gdy n jest potęgą 3, jaka jest asymptotyczna złożoność? {
-  ~Θ(n)
-  =Θ(n log n)
-  ~Θ(n²)
-  ~Θ(log n)
-  ####Na każdym z log₃ n poziomów całkowita praca wynosi Θ(n).
+::AISD-20-Q12::[plain]Dla rekurencji T(n)\=3T(n/3)+n, gdzie n jest potęgą 3, student szacuje Θ(n), bo dzieli n na trzy części. Co przeoczył? {
+  ~Każde wywołanie kosztuje Θ(n²) przez liczbę gałęzi.
+  ~Rozmiary podproblemów nie zmniejszają się, więc rekurencja jest nieskończona.
+  ~Rekurencja ma dokładnie n poziomów, stąd Θ(n²).
+  =Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n).
+  ####Na poziomie d jest 3^d podproblemów po n/3^d, więc suma pracy poziomu to n. Istnieje Θ(log n) poziomów.
 }
 
-::AISD-20-Q13::[plain]Problem wymaga wyznaczenia optimum, ale algorytm zachłanny nie ma udowodnionej własności wyboru zachłannego. Jaką strategię należy rozważyć dla nakładających się podproblemów? {
-  =Programowanie dynamiczne ze stanem i relacją przejścia.
-  ~Zachłanność z głębszym spojrzeniem na następny krok, bez dowodu optymalności.
-  ~Rekurencję bez zapamiętywania, jeżeli te same stany pojawiają się wielokrotnie.
-  ~Losowanie lokalnych decyzji, traktując najczęstszy wynik jako optimum.
-  ####DP może rozważać alternatywy i zachowywać optymalne wartości stanów bez zakładania poprawności wyboru lokalnego.
+::AISD-20-Q13::[plain]Algorytm zachłanny dla monet 1,3,4 wybiera najpierw 4 przy kwocie 6. Które postępowanie może wykazać brak optymalności bez badania wszystkich możliwych kwot? {
+  =Podać kontrprzykład 6, dla którego wynik zachłanny 4+1+1 jest gorszy niż 3+3.
+  ~Sprawdzić tylko kwoty 1,2,3, bo to najmniejsze wartości.
+  ~Zwiększyć liczbę testów losowych, aż wszystkie dadzą wynik zachłanny.
+  ~Dowodzić poprawności przez pokazanie, że moneta 4 jest największa.
+  ####Jeden kontrprzykład wystarcza do obalenia twierdzenia o poprawności dla każdej kwoty.
 }
 
 ::AISD-20-Q14::[plain]W programowaniu dynamicznym F[i]\=F[i-1]+F[i-2], a F[0]\=1 i F[1]\=2. Ile wynosi F[5]? {
   ~8
+  =13
   ~21
   ~11
-  =13
   ####Kolejne wartości to 1,2,3,5,8,13.
 }
 
-::AISD-20-Q15::[plain]Algorytm dziel i zwyciężaj rozbija problem na dwa podproblemy o rozmiarze n/2 i scala wyniki w Θ(n). Jaką klasę kosztu ma typowa rekurencja? {
-  ~Θ(n²)
-  ~Θ(log n)
-  =Θ(n log n)
-  ~Θ(n)
-  ####Rekurencja 2T(n/2)+Θ(n) ma logarytmicznie wiele poziomów o liniowym koszcie.
+::AISD-20-Q15::[plain]W algorytmie dziel i zwyciężaj T(n)\=2T(n/2)+Θ(n) i n jest potęgą 2. Student usuwa pracę scalania, twierdząc, że na wyniku kosztu nic się nie zmieni. Który wniosek jest prawidłowy? {
+  ~Obie rekurencje mają Θ(n log n), bo liczba wywołań jest identyczna.
+  ~Obie mają Θ(n²), bo każde wywołanie tworzy dwa kolejne.
+  =Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n).
+  ~Bez scalania rekurencja zawsze ma Θ(1), bo przypadki bazowe są stałe.
+  ####Sumowanie kosztu wszystkich węzłów daje Θ(n) dla pracy stałej na węzeł i Θ(n log n) dla liniowego scalania na poziom.
 }
 
 ::AISD-20-Q16::[plain]W DP dla plecaka 0/1 stan DP[i][c] oznacza optimum użycia pierwszych i przedmiotów przy pojemności c. Która decyzja jest poprawna, gdy masa i-tego przedmiotu w_i>c? {
   ~DP[i][c]\=v_i+DP[i-1][c].
-  =DP[i][c]\=DP[i-1][c].
   ~DP[i][c]\=DP[i-1][c-w_i].
   ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]).
+  =DP[i][c]\=DP[i-1][c].
   ####Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
 }
 
@@ -147,18 +147,18 @@
 }
 
 ::AISD-20-Q19::[plain]W DP z tabelą o wymiarach (n+1)×(C+1), dla n>\=1 i C>\=1, jaka jest pamięć potrzebna do przechowania całej tabeli? {
+  =Θ(nC)
   ~Θ(n+C)
   ~Θ(log n+log C)
-  =Θ(nC)
   ~Θ(n²+C²)
   ####Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
 }
 
-::AISD-20-Q20::[plain]Który warunek pozwala bezpiecznie zredukować pamięć DP plecaka 0/1 z O(nC) do O(C) przy obliczaniu kolejnych przedmiotów? {
-  ~Aktualizowanie pojemności rosnąco
-  =Aktualizowanie pojemności malejąco, aby nie wykorzystać przedmiotu wielokrotnie.
-  ~Aktualizowanie pojemności w losowej kolejności
-  ~Aktualizowanie pojemności malejąco, lecz przy tym samym przedmiocie dopuszczenie wielokrotnego wyboru.
-  ####Malejący porządek pojemności chroni wyniki poprzedniego wiersza używane w przejściu 0/1.
+::AISD-20-Q20::[plain]W plecaku 0/1 aktualizujemy jednowymiarową tablicę DP[c] dla kolejnych przedmiotów. Dlaczego pojemności trzeba przetwarzać malejąco? {
+  ~Aby móc zawsze wybierać ten sam przedmiot dowolnie wiele razy.
+  ~Aby liczba pojemności spadła z C do log C.
+  =Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany.
+  ~Aby wartości DP[c] były zawsze malejące w funkcji c.
+  ####Przetwarzanie od dużych pojemności do małych zachowuje stany z poprzedniego kroku dla mniejszych c i uniemożliwia wielokrotny wybór przedmiotu.
 }
 
