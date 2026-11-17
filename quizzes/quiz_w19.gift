@@ -50,7 +50,15 @@
   ####Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
 }
 
-::AISD-19-Q07::Problem wydawania reszty dopuszcza nominały 1,3,4. Dla kwoty 6 zachłanne wybieranie największego możliwego nominału daje ile monet? {
+::AISD-19-Q07::W stabilnym counting sort mamy rekordy o kluczach [1,0,1,0]. Po zsumowaniu liczników prefiksowych C\=[2,4] rozmieszczamy rekordy od końca wejścia, każdorazowo zmniejszając C[klucz] i używając wyniku jako indeksu. Na jaki indeks trafi ostatni rekord wejściowy? {
+  ~0
+  =1
+  ~2
+  ~3
+  ####Ostatni rekord ma klucz 0; licznik C[0] zmniejsza się z 2 do 1, więc rekord trafia na indeks 1.
+}
+
+
   ~2
   =3
   ~4
@@ -98,7 +106,15 @@
   ####Licznik jest potrzebny dla każdej z pięciu dopuszczalnych wartości klucza.
 }
 
-::AISD-19-Q13::Zachłanne wydawanie reszty przy nominałach 1,3,4 i kwocie 6 wybiera ile monet? {
+::AISD-19-Q13::Dla counting sort kluczy [2,1,2,0] tablica liczników częstości wynosi [1,1,2]. Jak wygląda tablica po zastąpieniu liczników sumami prefiksowymi? {
+  ~[1,1,2]
+  ~[0,1,3]
+  ~[1,3,4]
+  =[1,2,4]
+  ####Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
+}
+
+
   ~2
   ~4
   ~1
