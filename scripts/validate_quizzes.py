@@ -21,7 +21,7 @@ EXPECTED_QUESTIONS = 20
 GIFT_CONTROL = frozenset("~=#{}")
 INVISIBLE_OR_INVALID = frozenset("\u00a0\u200b\u200c\u200d\ufeff\ufffd")
 UNFINISHED_ANSWER = re.compile(
-    r"(?:tylko wtedy|również wtedy|jedynie wtedy|wyłącznie|tylko gdy|jedynie gdy|pod warunkiem)\\.?$",
+    r"(?:tylko wtedy|również wtedy|jedynie wtedy|wyłącznie|tylko gdy|jedynie gdy|pod warunkiem)\.?$",
     flags=re.IGNORECASE,
 )
 
