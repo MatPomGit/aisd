@@ -3,9 +3,9 @@
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-19-Q01::[plain]Quicksort wybiera pierwszy element jako pivot, a wejście jest rosnąco posortowane. Która cecha partycjonowania wyjaśnia czas Θ(n²) dla tej implementacji? {
-  =Podział na podproblemy o rozmiarach 0 oraz n-1 w kolejnych wywołaniach.
   ~Podział na dwie równe części o rozmiarze n/2.
   ~Koszt pojedynczego partycjonowania Θ(log n).
+  =Podział na podproblemy o rozmiarach 0 oraz n-1 w kolejnych wywołaniach.
   ~Brak wykonywania porównań, bo dane są już uporządkowane.
   ####Skrajnie niezrównoważony podział prowadzi do sumy kosztów n+(n-1)+...+1\=Θ(n²).
 }
@@ -28,9 +28,9 @@
 
 ::AISD-19-Q04::[plain]Kiedy szczególnie przydaje się trójdzielny podział w sortowaniu szybkim, który rozdziela klucze mniejsze, równe i większe od pivota? {
   ~Gdy powtarza się wiele kluczy, ale wszystkie równe pivotowi nadal poddaje się rekurencji.
-  =dane zawierają wiele powtórzeń tych samych kluczy.
   ~Gdy wszystkie klucze są unikatowe
   ~Gdy wejście jest już posortowane i trójdzielny podział zawsze daje idealnie równe części.
+  =dane zawierają wiele powtórzeń tych samych kluczy.
   ####Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
 }
 
@@ -43,24 +43,24 @@
 }
 
 ::AISD-19-Q06::[plain]Kiedy counting sort może być niepraktyczny pomimo liniowej zależności od n w pierwszym składniku kosztu? {
+  =Gdy zakres k jest ogromny w stosunku do n.
   ~Gdy klucze są już posortowane rosnąco
   ~Gdy wiele kluczy się powtarza
   ~Gdy wymagane jest sortowanie stabilne
-  =Gdy zakres k jest ogromny w stosunku do n.
   ####Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
 }
 
 ::AISD-19-Q07::[plain]Stabilny counting sort przetwarza od końca rekordy o kluczach [1,0,1,0]. Po sumowaniu liczników C\=[2,4] (liczności skumulowane). Gdzie umieści ostatni rekord wejścia o kluczu 0, stosując C[0]\=C[0]-1 jako indeks? {
   ~Na indeksie 0.
-  ~Na indeksie 2.
   =Na indeksie 1.
+  ~Na indeksie 2.
   ~Na indeksie 3.
   ####Początkowo C[0]\=2 oznacza koniec obszaru kluczy 0. Po dekrementacji otrzymujemy indeks 1.
 }
 
 ::AISD-19-Q08::[plain]Dla tablicy [9,2,7,5,1] wybieramy pivot jako medianę trzech kluczy: pierwszego, środkowego i ostatniego. Jaka wartość zostanie wybrana? {
-  ~9
   =7
+  ~9
   ~5
   ~1
   ####Rozważane klucze to 9, 7 i 1. Ich medianą jest 7, niezależnie od pozostałych wartości tablicy.
@@ -68,17 +68,17 @@
 
 ::AISD-19-Q09::[plain]Quicksort z pivotem jako ostatnim elementem partycjonuje [4,2,7,1,5]. Ile elementów jest mniejszych od pivota 5? {
   ~2
+  =3
   ~4
   ~1
-  =3
   ####Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
 }
 
 ::AISD-19-Q10::[plain]Dla counting sort kluczy [2,0,2,1,0,2] z dziedziny \{0,1,2\}, jaka jest tablica liczników? {
   ~[2,2,2]
   ~[3,1,2]
-  =[2,1,3]
   ~[1,2,3]
+  =[2,1,3]
   ####Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
 }
 
@@ -91,9 +91,9 @@
 }
 
 ::AISD-19-Q12::[plain]Counting sort rozpatruje n\=10 rekordów o kluczach z zakresu od 0 do 999999. Co może uczynić metodę niepraktyczną w porównaniu z sortowaniem przez porównania? {
+  =Tablica liczników o milionie pozycji, choć liczba rekordów wynosi zaledwie 10.
   ~Niezbędne wykonanie n! porównań.
   ~Brak możliwości uporządkowania liczb całkowitych.
-  =Tablica liczników o milionie pozycji, choć liczba rekordów wynosi zaledwie 10.
   ~Wymóg zapisania wszystkich 999999 wartości jako danych wejściowych.
   ####Koszt pamięci i inicjalizacji tablicy liczników zależy od wielkości zakresu kluczy k, a nie tylko n.
 }
@@ -101,14 +101,14 @@
 ::AISD-19-Q13::[plain]Dla counting sort kluczy [2,1,2,0] tablica liczników częstości wynosi [1,1,2]. Jak wygląda tablica po zastąpieniu liczników sumami prefiksowymi? {
   ~[1,1,2]
   ~[0,1,3]
-  ~[1,3,4]
   =[1,2,4]
+  ~[1,3,4]
   ####Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
 }
 
 ::AISD-19-Q14::[plain]Ile stabilnych przebiegów sortowania według kolejnych cyfr wymaga sortowanie pozycyjne LSD liczb trzycyfrowych w systemie dziesiętnym? {
-  =3
   ~1
+  =3
   ~2
   ~10
   ####Każdy z trzech rzędów dziesiętnych, jedności, dziesiątki i setki, wymaga jednego stabilnego przebiegu.
@@ -116,47 +116,47 @@
 
 ::AISD-19-Q15::[plain]Quicksort wybiera pivot losowo, a wejście ma n różnych kluczy. Jaki wniosek wynika o jego czasie? {
   ~Najgorszy czas staje się Θ(n log n), bo pivot jest losowany.
+  =Oczekiwany czas jest Θ(n log n), lecz najgorszy przypadek nadal może wynosić Θ(n²).
   ~Oczekiwany czas to Θ(n²) dla każdej kolejności kluczy.
   ~Oczekiwany czas jest Θ(n), bo losowość eliminuje partycjonowanie.
-  =Oczekiwany czas jest Θ(n log n), lecz najgorszy przypadek nadal może wynosić Θ(n²).
   ####Losowy pivot prowadzi do oczekiwanych zrównoważonych podziałów, ale nie wyklucza niekorzystnej sekwencji pivotów.
 }
 
 ::AISD-19-Q16::[plain]LSD radix sort poprawnie sortuje według jedności. Przy drugim przebiegu po dziesiątkach zamienia kolejność liczb 21 i 22 o tym samym dziesiątku. Dlaczego to błąd? {
   ~Równa cyfra dziesiątek oznacza, że dwie liczby mają identyczną wartość.
   ~W LSD nie wolno sortować po dziesiątkach po sortowaniu po jedności.
-  =Narusza porządek ustalony według jedności i może dać wynik 22 przed 21.
   ~Zamiana zawsze poprawia porządek, bo cyfry bardziej znaczące są ważniejsze.
+  =Narusza porządek ustalony według jedności i może dać wynik 22 przed 21.
   ####Stabilność kolejnego przebiegu zachowuje wyniki wcześniejszego sortowania mniej znaczących cyfr dla równych cyfr bardziej znaczących.
 }
 
 ::AISD-19-Q17::[plain]Sortowanie kubełkowe używa pięciu koszyków o szerokości 0,2. Wartości 0,15; 0,35; 0,85 trafiają do koszyka o indeksie floor(5x). Jakie są ich kolejne indeksy? {
   ~0,2,4
-  =0,1,4
   ~1,2,4
   ~0,1,3
+  =0,1,4
   ####Po przemnożeniu wartości przez 5 otrzymujemy kolejno 0,75; 1,75 i 4,25. Zaokrąglenie każdej z nich w dół daje indeksy 0, 1 i 4.
 }
 
 ::AISD-19-Q18::[plain]W sortowaniu szybkim z podziałem trójdzielnym wydzielamy wartości mniejsze, równe i większe od pivota. Co robimy z grupą kluczy równych pivotowi? {
   ~Grupa równa pivotowi jest ponownie dzielona, ale bez porównań.
-  =Nie wymaga ponownego sortowania rekurencyjnego.
   ~Grupa równa pivotowi trafia zawsze do lewej rekurencji, aby zakończyć podział.
+  =Nie wymaga ponownego sortowania rekurencyjnego.
   ~Grupa równa pivotowi jest sortowana jeszcze raz, aby przywrócić stabilność.
   ####Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
 }
 
 ::AISD-19-Q19::[plain]W sortowaniu szybkim z podziałem trójdzielnym wszystkie klucze tablicy [3,3,3,3,3] są równe pivotowi. Jakie rozmiary mają dwa podproblemy po pierwszym podziale? {
   ~0 i 4
-  =0 i 0
   ~2 i 2
+  =0 i 0
   ~4 i 0
   ####Wszystkie wartości są równe pivotowi, dlatego trafiają do grupy środkowej, a oba rekurencyjne podproblemy są puste.
 }
 
 ::AISD-19-Q20::[plain]Quicksort w każdym podziale pozostawia jeden podproblem o rozmiarze n-1, a partycjonowanie kosztuje Θ(n). Jaka jest klasa czasu w najgorszym przypadku? {
-  =Θ(n²)
   ~Θ(n)
+  =Θ(n²)
   ~Θ(n log n)
   ~Θ(2^n)
   ####Rekurencja T(n)\=T(n-1)+Θ(n) daje sumę kosztów liniowych od 1 do n, a więc Θ(n²).
