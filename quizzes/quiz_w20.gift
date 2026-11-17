@@ -83,10 +83,10 @@
 }
 
 ::AISD-20-Q11::Zadanie najkrótszej ścieżki w grafie acyklicznym skierowanym z dowolnymi wagami krawędzi, bez cykli, można rozwiązać przez DP po: {
-  ~Porządku rosnących wag łuków, niezależnie od kierunku.
-  ~Porządku malejących stopni wyjściowych, aby najpierw wykonać rozgałęzienia.
+  ~porządku rosnących wag.
+  ~porządku malejących stopni.
   =porządku topologicznym.
-  ~Porządku BFS od dowolnego wierzchołka, nawet gdy nie obejmuje wszystkich zależności.
+  ~porządku BFS.
   ####Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
 }
 
@@ -123,10 +123,10 @@
 }
 
 ::AISD-20-Q16::W DP dla plecaka 0/1 stan DP[i][c] oznacza optimum użycia pierwszych i przedmiotów przy pojemności c. Która decyzja jest poprawna, gdy masa i-tego przedmiotu w_i>c? {
-  ~DP[i][c]\=v_i+DP[i-1][c] również wtedy
+  ~DP[i][c]\=v_i+DP[i-1][c].
   =DP[i][c]\=DP[i-1][c].
-  ~DP[i][c]\=DP[i-1][c-w_i], mimo ujemnej pojemności.
-  ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]) bez sprawdzania dopuszczalności.
+  ~DP[i][c]\=DP[i-1][c-w_i].
+  ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]).
   ####Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
 }
 
