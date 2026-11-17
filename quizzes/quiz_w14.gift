@@ -1,5 +1,5 @@
 // AIiSD 14: Kopce i kolejki priorytetowe
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-14-Q01::W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
@@ -11,42 +11,42 @@
 }
 
 ::AISD-14-Q02::Które twierdzenie wynika z własności kopca minimalnego? {
-  ~Wszystkie klucze tablicy są uporządkowane niemalejąco.
+  ~Klucze na każdym poziomie są uporządkowane od lewej do prawej.
   =Najmniejszy klucz znajduje się w korzeniu.
-  ~Prawe poddrzewo zawiera tylko klucze większe od wszystkich w lewym.
-  ~Wysokość kopca może być liniowa przy kompletnym kształcie.
+  ~Najmniejszy klucz znajduje się w pierwszym liściu lewego poddrzewa.
+  ~Każdy węzeł lewego poddrzewa ma mniejszy klucz niż każdy w prawym.
   ####Rodzic nie ma klucza większego od dziecka; nie oznacza to globalnego uporządkowania elementów.
 }
 
 ::AISD-14-Q03::Do kopca maksymalnego wstawiono nowy klucz większy od swojego rodzica. Jaka operacja przywraca własność kopca? {
   =Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.
-  ~Zamiana wszystkich liści między lewą i prawą połową drzewa.
-  ~Sortowanie całej tablicy rosnąco przed każdym wstawieniem.
-  ~Usuwanie dotychczasowego korzenia bez porównania.
+  ~Przesianie nowego klucza w dół przez porównania z obydwoma dziećmi.
+  ~Zamiana z rodzicem tylko raz, niezależnie od wysokości kopca.
+  ~Przesianie korzenia w dół, bez zmiany pozycji nowego węzła.
   ####Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
 }
 
 ::AISD-14-Q04::Usuwamy minimum z kopca minimalnego o n>1 elementach. Który krok zwykle następuje bezpośrednio po zastąpieniu korzenia ostatnim elementem? {
-  ~Przesiewanie nowego korzenia wyłącznie w górę.
-  ~Zamiana wszystkich liści z ich rodzicami jednocześnie.
-  ~Sortowanie węzłów według czasu wstawienia.
+  ~Przesianie ostatniego elementu w górę, bo trafił na początek tablicy.
+  ~Przesianie wszystkich liści w górę, bez sprawdzania dzieci korzenia.
+  ~Przesianie korzenia w dół, zawsze wybierając większe dziecko.
   =Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.
   ####Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
 }
 
 ::AISD-14-Q05::Jaka jest złożoność budowy kopca metodą bottom-up heapify dla n elementów? {
-  ~Θ(n log n)
-  ~Θ(log n)
+  ~Θ(n log n), bo każdy poziom drzewa ma ten sam koszt poprawiania.
+  ~Θ(log n), ponieważ liczba poziomów ogranicza koszt całej budowy.
   =Θ(n)
-  ~Θ(n²)
+  ~Θ(n²), ponieważ każda para węzłów wymaga porównania.
   ####Większość węzłów ma małą wysokość, co daje łączny koszt liniowy.
 }
 
 ::AISD-14-Q06::Dla kopca binarnego zawierającego n elementów, jaki jest najgorszy koszt insert()? {
-  ~O(1) niezależnie od wartości klucza.
+  ~O(1) w najgorszym przypadku, bo nowy element dopisuje się na koniec tablicy.
   =O(log n)
-  ~O(n) dla dowolnego kopca.
-  ~O(n log n)
+  ~O(n), bo wszystkie wcześniej wstawione węzły trzeba przesunąć.
+  ~O(log² n), bo podczas sift-up sprawdza się wszystkie węzły każdego poziomu.
   ####Przesuwanie nowego elementu w górę obejmuje co najwyżej wysokość kopca.
 }
 
@@ -59,9 +59,9 @@
 }
 
 ::AISD-14-Q08::Jakie ograniczenie dotyczy standardowego heapsort z kopcem binarnym przechowywanym w tablicy? {
-  ~Wymaga dodatkowej tablicy Θ(n) do każdej zamiany.
-  ~Ma najgorszy koszt Θ(n²) dla wszystkich wejść.
-  ~Wymaga, aby klucze miały niewielki zakres wartości.
+  ~Standardowy heapsort jest stabilny, o ile klucze są liczbami całkowitymi.
+  ~Standardowy heapsort jest niestabilny tylko przy sortowaniu malejącym.
+  ~Stabilność wynika bezpośrednio z kompletnego kształtu drzewa kopca.
   =Nie gwarantuje stabilności dla elementów o równych kluczach.
   ####Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
 }
@@ -107,10 +107,10 @@
 }
 
 ::AISD-14-Q14::Który warunek musi spełniać tablica [5,7,6,9,8] aby reprezentowała kopiec minimalny? {
-  ~Każdy element na indeksie i jest mniejszy od elementu na indeksie i+1.
+  ~Kolejne elementy tablicy muszą być w porządku niemalejącym.
   =Każdy rodzic ma klucz nie większy niż jego dzieci.
-  ~Każdy węzeł lewego poddrzewa ma klucz mniejszy od każdego prawego.
-  ~Kolejne poziomy muszą zawierać dokładnie takie same klucze.
+  ~Klucze lewego poddrzewa muszą być mniejsze od wszystkich kluczy prawego.
+  ~Każdy rodzic musi być ściśle mniejszy od dzieci, bez dopuszczenia równości.
   ####Własność lokalna rodzic-dziecko jest istotą kopca; pełne uporządkowanie tablicy nie jest wymagane.
 }
 
@@ -131,10 +131,10 @@
 }
 
 ::AISD-14-Q17::W min-heap zmniejszamy klucz wewnętrznego węzła z 9 do 1, nie zmieniając dzieci. Jaki kierunek naprawy jest zwykle potrzebny? {
-  ~W dół do dzieci.
-  ~Wyłącznie zamiana lewego i prawego poddrzewa.
+  ~Przesianie w dół, gdyż zmniejszony klucz może być mniejszy od dzieci.
+  ~Naprawa tylko poddrzew potomnych, bez odwoływania się do rodzica.
   =W górę do rodziców.
-  ~Pełne sortowanie wszystkich węzłów.
+  ~Zamiana zmniejszonego klucza z największym liściem niezależnie od miejsca.
   ####Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
 }
 
@@ -148,16 +148,16 @@
 
 ::AISD-14-Q19::Dla kolejki priorytetowej obsługującej insert i extract-min, która struktura zwykle zapewnia oba koszty O(log n) w najgorszym przypadku? {
   =Kopiec binarny.
-  ~Nieposortowana tablica przy wymaganiu stałego kosztu extract-min.
-  ~Posortowana tablica przy wymaganiu stałego kosztu insert.
-  ~Lista jednokierunkowa bez dodatkowego indeksu.
+  ~Nieposortowana tablica, z O(log n) usuwaniem minimum dzięki skanowaniu połowy elementów.
+  ~Posortowana tablica, z O(log n) wstawianiem dzięki samemu wyszukiwaniu binarnemu.
+  ~Lista dwukierunkowa, z O(log n) wyszukiwaniem minimum bez indeksu.
   ####W kopcu binarnym obie operacje naprawiają co najwyżej ścieżkę logarytmicznej wysokości.
 }
 
 ::AISD-14-Q20::Jeśli w kopcu minimalnym klucze rodzica i dziecka są równe, co wynika z definicji kopca z relacją ≤? {
-  ~Własność jest naruszona, bo potrzebna jest nierówność ostra.
-  ~Równe klucze wymagają obrócenia całego poddrzewa.
-  ~Nie można usunąć żadnego z równych kluczy.
+  ~Równe klucze wymagają zamiany rodzica z dzieckiem, aby zachować stabilność.
+  ~Własność kopca jest naruszona tylko w kopcu minimalnym, nie maksymalnym.
+  ~Równe klucze są dopuszczalne wyłącznie, jeśli znajdują się w różnych poddrzewach.
   =Własność kopca nadal jest spełniona.
   ####Relacja nieostra dopuszcza remisy kluczy między rodzicem a dziećmi.
 }
