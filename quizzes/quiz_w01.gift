@@ -35,10 +35,10 @@
 }
 
 ::AISD-01-Q05::Algorytm liczy sumę n elementów tablicy, używając jednego akumulatora. Która zmiana nie wpływa na wynik, ale może zmienić koszt wykonania? {
-  ~Zamiana dodawania każdego elementu na odejmowanie.
+  ~Zamiana dodawania na mnożenie dla każdego elementu przy tej samej inicjalizacji.
   =Zastąpienie bezpośredniego dostępu do elementów iteratorem z dodatkowym narzutem.
-  ~Pominięcie ostatniego elementu w pętli.
-  ~Wyzerowanie akumulatora po zakończeniu obliczeń.
+  ~Zastąpienie akumulatora sumy akumulatorem liczby niezerowych elementów.
+  ~Zakończenie pętli po napotkaniu pierwszej ujemnej wartości zamiast po n elementach.
   ####Sposób dostępu może zmienić liczbę operacji, nawet przy zachowaniu tej samej funkcji obliczanej.
 }
 
@@ -83,18 +83,18 @@
 }
 
 ::AISD-01-Q11::Dla niepustej tablicy A\=[4,1,4,2] algorytm zwraca największy indeks wartości maksymalnej. Jaki powinien być wynik? {
-  ~0
-  ~3
-  ~4
+  ~0, ponieważ pierwsze wystąpienie maksimum ma indeks 0.
+  ~3, ponieważ ostatni element domyka przeglądany prefiks.
+  ~1, ponieważ maksimum zostaje zastąpione przy każdym porównaniu.
   =2
   ####Maksymalna wartość 4 występuje na indeksach 0 i 2; największym jest 2.
 }
 
 ::AISD-01-Q12::Pętla while x>1 wykonuje x\=floor(x/2) dla całkowitego x>\=1. Ile iteracji wykona dla x\=37? {
-  ~4
-  ~6
+  ~4, ponieważ po czterech dzieleniach x jest już mniejsze od pięciu.
+  ~6, ponieważ liczy się również sprawdzenie warunku dla x\=1.
   =5
-  ~37
+  ~7, ponieważ każda potęga dwójki wymaga osobnego kroku dla reszty.
   ####Kolejne wartości po iteracjach to 18,9,4,2,1; piąta kończy pętlę.
 }
 
@@ -123,10 +123,10 @@
 }
 
 ::AISD-01-Q16::Algorytm ma zwrócić dowolne wystąpienie x. Jaką zmianę specyfikacji wprowadza wymaganie zwrócenia pierwszego wystąpienia? {
-  ~Wymusza największy indeks wśród wszystkich dopasowań.
-  ~Wymusza posortowanie danych przed wyszukiwaniem.
+  ~Wybór największego indeksu spełniającego A[i]\=x, a nie dowolnego.
+  ~Wybór dowolnego indeksu, lecz tylko spośród pierwszej połowy tablicy.
   =Wymusza najmniejszy indeks wśród wszystkich dopasowań.
-  ~Wymusza zwrócenie liczby wszystkich dopasowań.
+  ~Wybór najmniejszej wartości elementu tablicy, zamiast indeksu jego wystąpienia.
   ####Przy duplikatach tylko pierwszy indeks spełnia mocniejszy kontrakt.
 }
 
@@ -140,16 +140,16 @@
 
 ::AISD-01-Q18::Program zwraca 0 dla pustej listy oraz sumę elementów dla niepustej. Która własność funkcjonalna uzasadnia wybór wartości 0? {
   =Jest elementem neutralnym dodawania dla pustej sumy.
-  ~Jest najmniejszą wartością w dowolnej liście.
-  ~Jest średnią arytmetyczną pustej listy.
-  ~Jest wynikiem mnożenia wszystkich elementów pustej listy.
+  ~0 jest elementem neutralnym mnożenia, a suma jest iloczynem pustym.
+  ~1 jest neutralne względem dodawania w pustym prefiksie.
+  ~Wynik pustej sumy zależy od pierwszego elementu tablicy, którego nie odczytujemy.
   ####Suma pustego zbioru składników przyjmowana jest jako 0, by zachować regułę sumowania.
 }
 
 ::AISD-01-Q19::Dla tablicy A\=[2,4,6] algorytm inicjuje s\=1 i dodaje każdy element. Jaka poprawka prowadzi do sumy właściwej dla wszystkich tablic całkowitoliczbowych? {
-  ~Zainicjowanie s\=2.
-  ~Dodanie 1 do indeksu początkowego pętli.
-  ~Pominięcie ostatniego dodawania.
+  ~Zainicjowanie s\=-1, aby anulować późniejsze dodanie pierwszego elementu.
+  ~Zainicjowanie s wartością A[0] i dodawanie całego zakresu od indeksu 0.
+  ~Zainicjowanie s\=1, lecz rozpoczęcie pętli od indeksu 1.
   =Zainicjowanie s\=0.
   ####Wartość początkowa powinna być neutralna względem dodawania, a nie powodować stałe przesunięcie wyniku.
 }
