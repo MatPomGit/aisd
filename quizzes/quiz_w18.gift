@@ -3,42 +3,42 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-18-Q01::Sortowanie przez wybieranie rosnące przetwarza tablicę [4,1,3,2]. Jaki jest stan po pierwszej zamianie minimum z pozycją 0? {
-  ~[1,2,3,4], ponieważ pierwszy przebieg selection sort porządkuje całą tablicę.
-  ~[2,1,3,4], ponieważ minimum zamienia się z największym elementem.
+  ~[1,2,3,4]
+  ~[2,1,3,4]
   =[1,4,3,2]
-  ~[4,1,2,3], ponieważ pierwsza zamiana przenosi ostatni element na koniec.
+  ~[4,1,2,3]
   ####Minimum całej nieuporządkowanej części to 1 na indeksie 1, więc zostaje zamienione z 4.
 }
 
 ::AISD-18-Q02::Dla standardowego selection sort bez wcześniejszego przerywania jaka jest dokładna liczba porównań elementów dla n>\=1? {
-  ~n(n+1)/2, bo pierwszy element porównuje się ze sobą.
+  ~n(n+1)/2
   =n(n-1)/2
-  ~n(n-1), bo każdą parę różnych indeksów sprawdza się w obu kierunkach.
-  ~(n-1)², bo każdy przebieg sprawdza wszystkie pozostałe elementy.
+  ~n(n-1)
+  ~(n-1)²
   ####Algorytm porównuje n-1,n-2,...,1 elementów w kolejnych przebiegach.
 }
 
 ::AISD-18-Q03::Standardowy insertion sort przetwarza rosnąco [2,4,3,5]. Jaki wynik otrzymamy po wstawieniu trzeciego elementu 3 do uporządkowanego prefiksu? {
   =[2,3,4,5]
-  ~[2,4,5,3], ponieważ klucz 3 przechodzi za największy element prefiksu.
-  ~[3,2,4,5], ponieważ klucz 3 musi trafić na początek całej tablicy.
-  ~[2,4,3,5], ponieważ nie wykonuje się przesunięć w prefiksie.
+  ~[2,4,5,3]
+  ~[3,2,4,5]
+  ~[2,4,3,5]
   ####Trójka zostaje wstawiona między 2 i 4, co wymaga przesunięcia czwórki.
 }
 
 ::AISD-18-Q04::Podczas scalania stabilnego merge sort oba aktualnie porównywane klucze są równe. Który element należy wybrać jako pierwszy? {
-  ~Element z prawego podciągu, ponieważ klucz równy można wybrać z dowolnej strony bez utraty stabilności.
+  ~Element z prawego podciągu
   ~Element o największym pierwotnym indeksie, aby utrzymać kolejność scalania.
-  ~Element z krótszego podciągu, bo liczba pozostałych rekordów rozstrzyga remisy.
+  ~Element z krótszego podciągu
   =Element z lewego podciągu.
   ####Wybór z lewej przy remisie zachowuje względną kolejność równych elementów.
 }
 
 ::AISD-18-Q05::Jaki jest najgorszy koszt czasowy standardowego heapsort opartego na kopcu binarnym? {
-  ~Θ(n²), ponieważ każdy z n elementów przesiewa się przez cały kopiec.
-  ~Θ(n), ponieważ budowa kopca jest liniowa i dominuje koszt sortowania.
+  ~Θ(n²)
+  ~Θ(n)
   =Θ(n log n)
-  ~Θ(log n), ponieważ każda pojedyncza operacja naprawy kopca jest logarytmiczna.
+  ~Θ(log n)
   ####Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
 }
 
@@ -46,15 +46,15 @@
   ~Pomocniczy stos wywołań głębokości Θ(n) dla zrównoważonych podziałów.
   =Pomocniczy bufor do scalania.
   ~Tablica wskaźników do każdego porównania, po jednym na poziom drzewa rekurencji.
-  ~Bufor o Θ(log n) elementach, ponieważ wystarczy miejsce na jeden element na poziom.
+  ~Bufor o Θ(log n) elementach
   ####Standardowe scalanie tablic potrzebuje miejsca na tymczasowo łączone podciągi.
 }
 
 ::AISD-18-Q07::Który algorytm zwykle najlepiej wykorzystuje tablicę prawie posortowaną z małą liczbą inwersji? {
   =Insertion sort.
-  ~Selection sort, ponieważ ma Θ(n) przesunięć przy małej liczbie inwersji.
-  ~Heapsort, ponieważ podczas budowy kopca nie musi porównywać częściowo uporządkowanych danych.
-  ~Merge sort, ponieważ czas scalania maleje do Θ(n) dla prawie posortowanych danych.
+  ~Selection sort
+  ~Heapsort
+  ~Merge sort
   ####Liczba przesunięć insertion sort zależy od liczby inwersji, a pozostałe metody nie korzystają z tej cechy w klasycznej postaci.
 }
 
@@ -75,10 +75,10 @@
 }
 
 ::AISD-18-Q10::W insertion sort na [4,2,5,1,3] jaki jest stan po wstawieniu elementu z początkowego indeksu 3 do posortowanego prefiksu? {
-  ~[2,4,5,1,3], ponieważ dla indeksu 3 wstawianie nie wymaga przesunięć.
+  ~[2,4,5,1,3]
   =[1,2,4,5,3]
-  ~[1,4,2,5,3], ponieważ element 1 trafia za pierwszą większą wartość.
-  ~[1,2,3,4,5], ponieważ całe sortowanie kończy się po jednej iteracji.
+  ~[1,4,2,5,3]
+  ~[1,2,3,4,5]
   ####Po uporządkowaniu 4,2,5 mamy [2,4,5], a następnie wstawienie 1 przesuwa trzy elementy.
 }
 
@@ -99,18 +99,18 @@
 }
 
 ::AISD-18-Q13::Dla wejścia [1,2,3,4,5] ile przesunięć elementów wykona standardowy insertion sort, jeśli porównuje klucz przez > i nie przesuwa równych? {
-  ~4, ponieważ każdy z czterech kolejnych elementów wymaga przesunięcia.
-  ~5, ponieważ liczba przesunięć jest zawsze równa liczbie elementów.
+  ~4
+  ~5
   =0
-  ~10, ponieważ każda para wartości w już posortowanej tablicy jest inwersją.
+  ~10
   ####Każdy nowy klucz jest nie mniejszy od poprzedniego, więc nie ma potrzeby przesuwania.
 }
 
 ::AISD-18-Q14::W standardowym selection sort na n\=6 elementach ile zamian najwyżej wykona implementacja, która wykonuje zamianę po każdym z pierwszych n-1 przebiegów, także gdy minIndex\=i? {
-  ~6 zamian, ponieważ każda iteracja dla i\=0..5 wymaga zamiany.
+  ~6 zamian
   =5
-  ~15 zamian, ponieważ tyle porównań wykonuje się dla sześciu elementów.
-  ~4 zamiany, ponieważ ostatnie dwa elementy nie wymagają osobnego przebiegu.
+  ~15 zamian
+  ~4 zamiany
   ####Algorytm ma n-1\=5 przebiegów wybierania minimum i co najwyżej jedną zamianę na przebieg.
 }
 
@@ -123,9 +123,9 @@
 }
 
 ::AISD-18-Q16::Dla tablicy [3,1,2] ile inwersji występuje względem sortowania rosnącego? {
-  ~1, ponieważ tylko para (3,2) tworzy inwersję.
-  ~3, ponieważ każdy element tworzy inwersję ze swoim poprzednikiem.
-  ~0, ponieważ po przesortowaniu wejście nie zawiera już inwersji.
+  ~1
+  ~3
+  ~0
   =2
   ####Inwersjami są pary (3,1) i (3,2).
 }
@@ -139,25 +139,25 @@
 }
 
 ::AISD-18-Q18::Jaką klasę porównań ma standardowy selection sort dla wejścia już posortowanego rosnąco? {
-  ~Θ(n), bo wejście już spełnia porządek i selection sort przerywa.
+  ~Θ(n)
   =Θ(n²)
-  ~Θ(n log n), bo porównania rozkładają się na logarytmiczną liczbę przebiegów.
-  ~Θ(1), bo wszystkie pozycje minimum są znane przed rozpoczęciem.
+  ~Θ(n log n)
+  ~Θ(1)
   ####Mimo uporządkowania algorytm porównuje wszystkie pozostałe pozycje w każdym przebiegu.
 }
 
 ::AISD-18-Q19::Podczas stabilnego merge sort scalamy [(2,A),(4,B)] oraz [(2,C),(3,D)] po kluczu. Który rekord z kluczem 2 trafi pierwszy? {
   =(2,A)
-  ~(2,C), ponieważ równy klucz z prawej listy ma pierwszeństwo.
-  ~(4,B), ponieważ scalenie wybiera najpierw większy klucz z lewej.
-  ~(3,D), ponieważ z prawego podciągu wybiera się mniejszy z jego dwóch kluczy.
+  ~(2,C)
+  ~(4,B)
+  ~(3,D)
   ####Przy remisie stabilny merge pobiera rekord z lewej połowy, zachowując porządek pierwotny.
 }
 
 ::AISD-18-Q20::Jaką liczbę porównań wykonuje standardowy merge dwóch list o rozmiarach 3 i 3 w najgorszym przypadku? {
-  ~6 porównań, ponieważ porównuje się każdą możliwą parę.
-  ~4 porównania, ponieważ każdy z trzech elementów pierwszej listy porównuje się raz.
-  ~9 porównań, ponieważ każde z trzech elementów jednej listy porównuje się z każdym z drugiej.
+  ~6 porównań
+  ~4 porównania
+  ~9 porównań
   =5
   ####Po 5 porównaniach jedna z list może zostać wyczerpana, a resztę dopisuje się bez porównań.
 }
