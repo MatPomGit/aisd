@@ -11,10 +11,10 @@
 }
 
 ::AISD-07-Q02::Jakie wymiary ma transpozycja macierzy 3×5? {
-  ~3×5
-  ~3×3
+  ~3×5, ponieważ zamiana wierszy na kolumny nie zmienia wymiarów.
+  ~3×3, ponieważ liczba wierszy wyznacza oba wymiary wyniku.
   =5×3
-  ~5×5
+  ~5×5, ponieważ liczba kolumn wyznacza rozmiar macierzy kwadratowej.
   ####Transpozycja zamienia rolę wierszy i kolumn.
 }
 
@@ -75,10 +75,10 @@
 }
 
 ::AISD-07-Q10::Dla macierzy 4×6 w układzie row-major przy indeksowaniu od 0 jaki jest indeks liniowy A[3][4]? {
-  ~18
-  ~19
+  ~18, ponieważ mnoży się indeks wiersza przez liczbę wierszy.
+  ~19, ponieważ do początku ostatniego wiersza dodaje się numer indeksu 1.
   =22
-  ~24
+  ~24, ponieważ oblicza się (i+1) razy liczbę kolumn.
   ####Indeks liniowy oblicza się jako 3·6+4\=22.
 }
 
@@ -92,9 +92,9 @@
 
 ::AISD-07-Q12::Dla kwadratowej macierzy A 3×3 o indeksach od 0 jak można policzyć sumę przekątnej pobocznej? {
   =A[0][2]+A[1][1]+A[2][0]
-  ~A[0][0]+A[1][1]+A[2][2]
-  ~A[0][1]+A[1][1]+A[2][1]
-  ~A[0][2]+A[1][2]+A[2][2]
+  ~A[0][0]+A[1][1]+A[2][2], ponieważ indeksy przekątnej muszą być równe.
+  ~A[0][1]+A[1][1]+A[2][1], ponieważ pobiera się środkową kolumnę.
+  ~A[0][2]+A[1][2]+A[2][2], ponieważ używa się ostatniej kolumny.
   ####Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
 }
 
@@ -107,10 +107,10 @@
 }
 
 ::AISD-07-Q14::W klasycznym mnożeniu macierzy A o rozmiarze m×k i B o k×n ile mnożeń skalarnych jest wykonywanych? {
-  ~mn
-  ~mk+kn
+  ~mn mnożeń, ponieważ każde pole wyniku wymaga tylko jednego iloczynu.
+  ~mk+kn mnożeń, ponieważ liczy się liczbę elementów macierzy wejściowych.
   =mkn
-  ~mkn²
+  ~mkn² mnożeń, ponieważ wynik ma dodatkowo n kolumn do przemnożenia.
   ####Każdy z mn elementów wyniku powstaje jako suma k iloczynów.
 }
 
@@ -139,10 +139,10 @@
 }
 
 ::AISD-07-Q18::Dla DP wyznaczającego liczbę ścieżek w siatce 3×3 od (0,0) do (2,2), z ruchami wyłącznie w prawo i w dół, ile jest ścieżek? {
-  ~4
-  ~8
+  ~4 ścieżki, ponieważ są dwa możliwe kierunki w dwóch etapach.
+  ~8 ścieżek, ponieważ każdy z trzech kroków ma dwa możliwe kierunki.
   =6
-  ~9
+  ~9 ścieżek, ponieważ siatka ma dziewięć pól, a każde opisuje jedną trasę.
   ####Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
 }
 
