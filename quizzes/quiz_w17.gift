@@ -1,8 +1,8 @@
 // AIiSD 17: Teoria i klasyfikacja sortowania
-// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
-// Import: Moodle > Baza pytan > Import > GIFT
+// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-17-Q01::Dane są rekordy (klucz,etykieta): (2,A),(1,B),(2,C). Jaki wynik jest stabilnym sortowaniem rosnącym według klucza? {
+::AISD-17-Q01::[plain]Dane są rekordy (klucz,etykieta): (2,A),(1,B),(2,C). Jaki wynik jest stabilnym sortowaniem rosnącym według klucza? {
   ~(1,B),(2,C),(2,A)
   =(1,B),(2,A),(2,C)
   ~(2,A),(2,C),(1,B)
@@ -10,7 +10,7 @@
   ####Stabilność wymaga zachowania względnego porządku etykiet A i C przy równych kluczach 2.
 }
 
-::AISD-17-Q02::Skąd wynika dolne ograniczenie Ω(n log n) liczby porównań w najgorszym przypadku sortowania n różnych kluczy metodą porównań? {
+::AISD-17-Q02::[plain]Skąd wynika dolne ograniczenie Ω(n log n) liczby porównań w najgorszym przypadku sortowania n różnych kluczy metodą porównań? {
   =Drzewo decyzji musi rozróżnić co najmniej n! permutacji.
   ~Każda para elementów musi być porównana co najmniej raz w najgorszym przypadku.
   ~Drzewo porównań musi mieć co najmniej n różnych liści dla n kluczy.
@@ -18,7 +18,7 @@
   ####Binarne drzewo porównań o n! liściach ma wysokość co najmniej log₂(n!).
 }
 
-::AISD-17-Q03::Który rodzaj sortowania może ominąć ograniczenie Ω(n log n) w modelu porównań dzięki dodatkowemu założeniu o kluczach? {
+::AISD-17-Q03::[plain]Który algorytm może uzyskać czas O(n+k) przy sortowaniu n kluczy całkowitoliczbowych z zakresu k wartości, nie podlegając dolnemu ograniczeniu sortowania porównawczego? {
   ~Quicksort z losowym pivotem, gdy klucze są równomiernie rozmieszczone.
   ~Merge sort, jeśli wszystkie klucze są różne.
   ~Heapsort, jeśli zakres wartości kluczy jest mały.
@@ -26,7 +26,7 @@
   ####Counting sort wykorzystuje bezpośrednio wartości kluczy, a nie wyłącznie wyniki porównań par.
 }
 
-::AISD-17-Q04::Stabilność jest pożądana przy sortowaniu rekordów najpierw po nazwisku, a potem po dziale. Jak powinien działać drugi etap? {
+::AISD-17-Q04::[plain]Rekordy sortujemy najpierw według nazwiska, a następnie według działu. Jak przeprowadzić drugi etap, aby zachować poprzedni porządek nazwisk w obrębie działów? {
   ~Niestabilnie według działu
   ~Stabilnie według nazwiska
   =Stabilnie według działu, aby zachować poprzedni porządek nazwisk wewnątrz działów.
@@ -34,7 +34,7 @@
   ####Drugie stabilne sortowanie według ważniejszego klucza utrzymuje kolejność z pierwszego etapu w obrębie równych działów.
 }
 
-::AISD-17-Q05::Dla jakiej cechy wejścia algorytm sortowania przez wstawianie może uzyskiwać czas bliski liniowemu? {
+::AISD-17-Q05::[plain]Dla jakiej cechy wejścia algorytm sortowania przez wstawianie może uzyskiwać czas bliski liniowemu? {
   ~Dla danych zawierających same różne klucze, bez względu na ich kolejność.
   =Dla małej liczby inwersji w tablicy.
   ~Dla danych o dużym zakresie wartości, ale małej liczbie powtórzeń.
@@ -42,7 +42,7 @@
   ####Insertion sort wykonuje przesunięcia proporcjonalne do liczby inwersji.
 }
 
-::AISD-17-Q06::Ile różnych porządków wejściowych musi odróżniać porównawcze sortowanie n różnych kluczy? {
+::AISD-17-Q06::[plain]Ile różnych porządków wejściowych musi odróżniać porównawcze sortowanie n różnych kluczy? {
   =n!
   ~2^n
   ~n²
@@ -50,7 +50,7 @@
   ####Dla n różnych kluczy istnieje n! możliwych permutacji wymagających prawidłowej decyzji.
 }
 
-::AISD-17-Q07::Które zdanie rozróżnia stabilność sortowania od jego poprawności? {
+::AISD-17-Q07::[plain]Które zdanie rozróżnia stabilność sortowania od jego poprawności? {
   ~Poprawne sortowanie wymaga zachowania kolejności równych kluczy, a nie tylko porządku wartości.
   ~Sortowanie stabilne musi mieć lepszą złożoność w najgorszym przypadku.
   ~Brak stabilności oznacza, że porządek wynikowych kluczy jest niepoprawny.
@@ -58,7 +58,7 @@
   ####Warunek niemalejących kluczy nie narzuca relacji między rekordami o tym samym kluczu.
 }
 
-::AISD-17-Q08::Która obserwacja obala twierdzenie, że każdy algorytm porównawczy ma koszt Θ(n²) w najgorszym przypadku? {
+::AISD-17-Q08::[plain]Która obserwacja obala twierdzenie, że każdy algorytm porównawczy ma koszt Θ(n²) w najgorszym przypadku? {
   ~Heapsort wymaga Θ(n²) porównań w każdym najgorszym przypadku.
   ~Quicksort z pivotem pierwszym ma Θ(n²) w najgorszym przypadku.
   =Merge sort wykonuje Θ(n log n) porównań w najgorszym przypadku.
@@ -66,7 +66,7 @@
   ####Istnieją algorytmy porównawcze o najgorszej złożoności Θ(n log n), więc uogólnienie jest fałszywe.
 }
 
-::AISD-17-Q09::Rekordy wejściowe to (2,A),(1,B),(2,C),(1,D). Jaki wynik zachowuje stabilność sortowania po kluczu rosnąco? {
+::AISD-17-Q09::[plain]Rekordy wejściowe to (2,A),(1,B),(2,C),(1,D). Jaki wynik zachowuje stabilność sortowania po kluczu rosnąco? {
   ~(1,D),(1,B),(2,A),(2,C)
   =(1,B),(1,D),(2,A),(2,C)
   ~(1,B),(1,D),(2,C),(2,A)
@@ -74,7 +74,7 @@
   ####W ramach klucza 1 B poprzedza D, a w ramach klucza 2 A poprzedza C.
 }
 
-::AISD-17-Q10::Sortowanie porównawcze 4 różnych elementów musi rozróżnić ile permutacji wejściowych? {
+::AISD-17-Q10::[plain]Ile różnych permutacji musi rozróżnić algorytm sortowania porównawczego czterech różnych elementów? {
   =24
   ~16
   ~12
@@ -82,7 +82,7 @@
   ####Liczba możliwych kolejności czterech różnych wartości wynosi 4!\=24.
 }
 
-::AISD-17-Q11::Jakie jest minimalne możliwe najgorsze ograniczenie liczby binarnych porównań w drzewie decyzji sortującym 4 różne elementy? {
+::AISD-17-Q11::[plain]Jakie dolne ograniczenie liczby porównań obowiązuje w najgorszym przypadku sortowania czterech różnych elementów w modelu binarnego drzewa decyzji? {
   ~Co najmniej 4 porównania
   ~Co najmniej 6 porównań
   ~Co najmniej 3 porównania
@@ -90,7 +90,7 @@
   ####Wysokość drzewa musi wynosić co najmniej ceil(log₂ 24)\=5.
 }
 
-::AISD-17-Q12::Do uporządkowanej tablicy [1,3,5,7] wstawiono na koniec wartość 4. Ile przesunięć elementów wykona standardowy insertion sort, aby przywrócić porządek? {
+::AISD-17-Q12::[plain]Do uporządkowanej tablicy [1,3,5,7] wstawiono na koniec wartość 4. Ile przesunięć elementów wykona standardowy insertion sort, aby przywrócić porządek? {
   ~1
   ~3
   =2
@@ -98,7 +98,7 @@
   ####Element 4 musi minąć 7 oraz 5, co daje dwa przesunięcia.
 }
 
-::AISD-17-Q13::Jaki warunek oznacza adaptacyjność algorytmu sortowania? {
+::AISD-17-Q13::[plain]Która cecha świadczy o adaptacyjności algorytmu sortowania? {
   ~Koszt jest zawsze proporcjonalny do liczby kluczy, a nie do ich ustawienia.
   =Jego koszt może maleć dla danych już częściowo uporządkowanych.
   ~Algorytm zachowuje kolejność rekordów o równych kluczach.
@@ -106,7 +106,7 @@
   ####Adaptacyjność opisuje wykorzystanie istniejącego uporządkowania wejścia; nie jest to stabilność.
 }
 
-::AISD-17-Q14::Sortowanie stabilne rekordów najpierw według klucza drugorzędnego, a potem głównego zachowuje jaką własność? {
+::AISD-17-Q14::[plain]Sortowanie stabilne rekordów najpierw według klucza drugorzędnego, a potem głównego zachowuje jaką własność? {
   =W obrębie równego klucza głównego rekordy pozostają uporządkowane według drugorzędnego.
   ~Klucz drugorzędny zaczyna dominować nad głównym
   ~Klucze stają się unikatowe
@@ -114,7 +114,7 @@
   ####Stabilność drugiego sortowania utrzymuje kolejność z pierwszego etapu między rekordami z tym samym kluczem głównym.
 }
 
-::AISD-17-Q15::Który przykład spełnia warunki zastosowania sortowania przez zliczanie bez kosztu O(U), gdzie U jest ekstremalnie wielkim zakresem kluczy? {
+::AISD-17-Q15::[plain]Który zbiór danych nadaje się do sortowania przez zliczanie bez konieczności tworzenia bardzo dużej tablicy liczników? {
   ~Klucze o bardzo szerokiej dziedzinie liczb 64-bitowych bez gęstego zakresu.
   ~Ciągi znaków o różnej długości bez ograniczonego odwzorowania na indeksy.
   ~Liczby całkowite z zakresu 0..2^64-1 przy tablicy zliczeń dla każdej wartości.
@@ -122,7 +122,7 @@
   ####Koszt tablicy zliczeń jest proporcjonalny do rozmiaru dopuszczalnej dziedziny kluczy.
 }
 
-::AISD-17-Q16::Dla standardowego merge sort w najgorszym przypadku, jaki asymptotyczny koszt porównań uzyskujemy? {
+::AISD-17-Q16::[plain]Dla standardowego merge sort w najgorszym przypadku, jaki asymptotyczny koszt porównań uzyskujemy? {
   ~Θ(n²)
   ~Θ(n)
   =Θ(n log n)
@@ -130,7 +130,7 @@
   ####Rekurencyjny podział i liniowe scalanie dają Θ(n log n).
 }
 
-::AISD-17-Q17::Dlaczego standardowy quicksort nie zapewnia stabilności? {
+::AISD-17-Q17::[plain]Dlaczego standardowy quicksort nie zapewnia stabilności? {
   ~Podczas podziału elementy o równych kluczach mogą trafić do odrębnych stron i zmienić względną kolejność.
   =Zamiany elementów podczas partycjonowania mogą odwracać kolejność równych kluczy.
   ~Quicksort nigdy nie używa pamięci pomocniczej, więc stabilność jest niemożliwa dla każdej jego wersji.
@@ -138,7 +138,7 @@
   ####Standardowe partycjonowanie nie utrzymuje stabilnego porządku elementów o równych wartościach.
 }
 
-::AISD-17-Q18::Dla n\=8 różnych kluczy jaka jest liczba porównań standardowego selection sort, niezależnie od kolejności wejścia? {
+::AISD-17-Q18::[plain]Ile porównań wykona standardowy algorytm sortowania przez wybieranie dla n\=8 różnych kluczy, niezależnie od ich początkowej kolejności? {
   =28
   ~24
   ~32
@@ -146,7 +146,7 @@
   ####Selection sort wykonuje 7+6+5+4+3+2+1\=28 porównań.
 }
 
-::AISD-17-Q19::Dlaczego nie można wnioskować ze stabilności, że sortowanie jest adaptacyjne? {
+::AISD-17-Q19::[plain]Dlaczego nie można wnioskować ze stabilności, że sortowanie jest adaptacyjne? {
   ~Adaptacyjność jest cechą każdej stabilnej implementacji, niezależnie od algorytmu.
   ~Stabilność wynika z małej liczby inwersji w wejściu.
   ~Sortowanie nie może być stabilne i adaptacyjne jednocześnie.
@@ -154,7 +154,7 @@
   ####Są to niezależne własności: jedna dotyczy wyniku, druga kosztu wykonania.
 }
 
-::AISD-17-Q20::Jaki wynik porównania asymptotycznego jest prawdziwy dla n! i 2^n, n→∞? {
+::AISD-17-Q20::[plain]Jaki wynik porównania asymptotycznego jest prawdziwy dla n! i 2^n, n→∞? {
   ~n! jest O(2^n)
   ~Obie funkcje należą do Θ(2^n)
   =2^n należy do o(n!).
