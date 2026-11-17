@@ -1,0 +1,164 @@
+// AIiSD 12: Podstawy drzew
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-12-Q01::Wysokość drzewa definiujemy jako liczbę krawędzi na najdłuższej ścieżce od korzenia do liścia. Jaką wysokość ma drzewo składające się z jednego węzła? {
+  =0
+  ~1
+  ~-1
+  ~2
+  ####Ścieżka od korzenia do niego samego zawiera zero krawędzi.
+}
+
+::AISD-12-Q02::Drzewo binarne ma korzeń R, lewe dziecko A i prawe dziecko B. Jaka jest kolejność przejścia inorder? {
+  ~R, A, B
+  ~A, B, R
+  ~B, R, A
+  =A, R, B
+  ####Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
+}
+
+::AISD-12-Q03::Który warunek odróżnia pełne drzewo binarne (full binary tree) od dowolnego binarnego? {
+  ~Wszystkie liście są na tej samej głębokości.
+  ~Wszystkie poziomy poza ostatnim są całkowicie zapełnione.
+  =Każdy węzeł wewnętrzny ma dokładnie dwoje dzieci.
+  ~Drzewo musi mieć tyle samo lewych i prawych liści.
+  ####Full binary tree wymaga stopnia węzła równego 0 albo 2, nie wymaga wyrównanych poziomów.
+}
+
+::AISD-12-Q04::Dla drzewa binarnego o wysokości h liczonej w krawędziach, jaka jest maksymalna liczba węzłów? {
+  ~2^h-1
+  =2^(h+1)-1
+  ~h(h+1)/2
+  ~2h+1
+  ####Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
+}
+
+::AISD-12-Q05::Pełne drzewo binarne, w którym każdy węzeł wewnętrzny ma dwoje dzieci, zawiera 7 węzłów wewnętrznych. Ile ma liści? {
+  =8
+  ~7
+  ~14
+  ~15
+  ####W pełnym drzewie binarnym z I węzłami wewnętrznymi liczba liści wynosi I+1.
+}
+
+::AISD-12-Q06::Drzewo z n węzłami jest spójne i nie zawiera cykli. Ile ma krawędzi? {
+  ~n
+  ~n+1
+  ~2n-2
+  =n-1
+  ####Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
+}
+
+::AISD-12-Q07::W drzewie binarnym porządek preorder daje wyniki R, A, B, a inorder daje A, R, B. Jaki węzeł jest korzeniem? {
+  ~A
+  ~B
+  =R
+  ~Nie można go wyznaczyć przy tych dwóch porządkach.
+  ####Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
+}
+
+::AISD-12-Q08::Jaką złożoność ma pełne przejście po wszystkich węzłach drzewa z n węzłami, gdy obsługa węzła trwa O(1)? {
+  ~Θ(log n)
+  =Θ(n)
+  ~Θ(n log n)
+  ~Θ(n²)
+  ####Każdy węzeł zostaje odwiedzony stałą liczbę razy.
+}
+
+::AISD-12-Q09::Drzewo binarne ma korzeń R, lewe dziecko A, prawe dziecko B, a A ma prawe dziecko C. Jaka jest kolejność preorder? {
+  =R,A,C,B
+  ~A,C,R,B
+  ~C,A,B,R
+  ~R,B,A,C
+  ####Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
+}
+
+::AISD-12-Q10::Dla tego samego drzewa R z lewym A, prawym B i prawym dzieckiem C w A, jaka jest kolejność postorder? {
+  ~A,C,B,R
+  ~B,C,A,R
+  ~R,A,C,B
+  =C,A,B,R
+  ####Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
+}
+
+::AISD-12-Q11::Pełne drzewo binarne (każdy węzeł ma zero lub dwoje dzieci) ma 5 węzłów wewnętrznych. Ile liści zawiera? {
+  ~5
+  ~10
+  =6
+  ~11
+  ####W drzewie pełnym liczba liści wynosi I+1.
+}
+
+::AISD-12-Q12::Wysokość drzewa liczymy w krawędziach. Drzewo będące łańcuchem pięciu węzłów ma jaką wysokość? {
+  ~5
+  =4
+  ~3
+  ~2
+  ####Między pierwszym a ostatnim węzłem jest 4 krawędzie.
+}
+
+::AISD-12-Q13::W idealnym drzewie binarnym z trzema poziomami (0,1,2) ile jest węzłów? {
+  =7
+  ~6
+  ~8
+  ~15
+  ####Liczba węzłów na poziomach to 1,2,4, więc suma wynosi 7.
+}
+
+::AISD-12-Q14::Jaka jest minimalna możliwa liczba węzłów w drzewie binarnym o wysokości h\=5, liczonej w krawędziach? {
+  ~5
+  ~11
+  ~32
+  =6
+  ####Aby osiągnąć wysokość 5, wystarczy pojedyncza ścieżka o sześciu węzłach.
+}
+
+::AISD-12-Q15::W drzewie ukorzenionym każdy węzeł oprócz korzenia ma dokładnie jednego rodzica. Dla 12 węzłów ile jest relacji rodzic-dziecko? {
+  ~12
+  ~10
+  =11
+  ~22
+  ####Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
+}
+
+::AISD-12-Q16::Dla drzewa binarnego ukorzenionego z 7 węzłami jaka jest maksymalna wysokość liczona w krawędziach? {
+  ~3
+  =6
+  ~7
+  ~2
+  ####Maksimum osiąga łańcuch siedmiu węzłów, czyli sześć krawędzi.
+}
+
+::AISD-12-Q17::W drzewie R ma dwoje dzieci A i B; A ma dzieci C i D. Jaka jest liczba liści? {
+  =3
+  ~2
+  ~4
+  ~5
+  ####Liśćmi są C,D,B; R i A mają dzieci.
+}
+
+::AISD-12-Q18::Dla drzewa binarnego bez przechowywanych wskaźników rodzica, jakie jest ograniczenie pamięci na stos dla rekurencyjnego inorder w najgorszym przypadku wysokości h? {
+  ~O(1) dla dowolnego drzewa.
+  ~O(log h)
+  ~O(n²)
+  =O(h+1)
+  ####Stos ma ramkę na każdy aktywny węzeł jednej ścieżki.
+}
+
+::AISD-12-Q19::Przechodzimy drzewo w porządku poziomowym od lewej do prawej. Korzeń 8 ma dzieci 3 i 10, a 3 ma dzieci 1 i 6. Jaka kolejność wynikowa? {
+  ~8,3,1,6,10
+  ~1,3,6,8,10
+  =8,3,10,1,6
+  ~8,10,3,6,1
+  ####Przejście poziomami odwiedza oba dzieci korzenia przed wnukami.
+}
+
+::AISD-12-Q20::W pełnym drzewie binarnym z 9 liśćmi ile jest łącznie węzłów? {
+  ~18
+  =17
+  ~9
+  ~19
+  ####Pełne drzewo ma I\=L-1\=8 węzłów wewnętrznych i 9 liści, razem 17.
+}
+

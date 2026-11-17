@@ -1,0 +1,33 @@
+name: AIiSD | weryfikacja banków pytań
+
+on:
+  pull_request:
+    paths:
+      - 'quizzes/**'
+      - 'scripts/validate_quizzes.py'
+      - '.github/workflows/quizzes.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'quizzes/**'
+      - 'scripts/validate_quizzes.py'
+      - '.github/workflows/quizzes.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quizzes-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-gift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check 20 GIFT banks
+        run: python3 scripts/validate_quizzes.py

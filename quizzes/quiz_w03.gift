@@ -1,0 +1,164 @@
+// AIiSD 03: Pseudokod i schematy blokowe
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-03-Q01::Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli poprawnie obejmuje wszystkie elementy przy inicjalizacji i\=0 i inkrementacji i o 1? {
+  ~i <\= n
+  ~i < n-1
+  ~i <\= n+1
+  =i < n
+  ####Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
+}
+
+::AISD-03-Q02::Który symbol schematu blokowego standardowo reprezentuje decyzję z rozgałęzieniem warunkowym? {
+  ~Równoległobok.
+  ~Prostokąt.
+  =Romb.
+  ~Owal.
+  ####Romb oznacza test warunku; pozostałe symbole mają zwykle inne role.
+}
+
+::AISD-03-Q03::Pseudokod: jeśli x>0, ustaw y\=x; następnie zwróć y. Jaki jest istotny błąd kontraktu? {
+  ~Dla x>0 nie można użyć instrukcji zwróć.
+  =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.
+  ~Dla x\=1 gałąź warunkowa wykona się dwukrotnie.
+  ~Dla x<0 program zawsze zwróci 0.
+  ####Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
+}
+
+::AISD-03-Q04::W schemacie blokowym po zakończeniu obu gałęzi warunku wykonywana jest ta sama instrukcja. Jaka struktura przepływu jest właściwa? {
+  =Dwie gałęzie łączą się przed wspólną instrukcją.
+  ~Każda gałąź zawiera osobną kopię instrukcji START.
+  ~Jedna gałąź musi bezwarunkowo wracać do testu.
+  ~Obie gałęzie muszą prowadzić bezpośrednio do STOP.
+  ####Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
+}
+
+::AISD-03-Q05::W tablicy indeksowanej od zera jest n>1 elementów. Który indeks należy odczytać jako pierwszy podczas wypisywania elementów od końca? {
+  ~n
+  ~n-2
+  ~n+1
+  =n-1
+  ####Ostatni poprawny indeks tablicy długości n to n-1.
+}
+
+::AISD-03-Q06::Dlaczego opis 'powtarzaj, aż wynik będzie dobry' jest niewystarczającym pseudokodem? {
+  ~Nie podaje nazwy języka programowania.
+  ~Nie wymienia jawnie użytej struktury danych.
+  =Nie definiuje sprawdzalnego predykatu zakończenia.
+  ~Nie ma osobnego bloku do zapisu danych.
+  ####Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
+}
+
+::AISD-03-Q07::W pseudokodzie funkcji suma(A,n) ustawiono s\=0 i następnie dodawano A[i] dla i\=1,...,n. Jakiej dodatkowej informacji potrzeba, by ocenić poprawność indeksów? {
+  ~Rodzaju symbolu schematu blokowego dla wejścia.
+  =Konwencji indeksowania tablicy i dopuszczalnego zakresu i.
+  ~Tego, czy liczby w tablicy są dodatnie.
+  ~Tego, czy suma jest zwracana przez funkcję.
+  ####Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
+}
+
+::AISD-03-Q08::Które stwierdzenie odróżnia schemat blokowy od programu źródłowego? {
+  =Schemat przedstawia przepływ sterowania, lecz nie narzuca semantyki konkretnego języka wykonawczego.
+  ~Schemat jest wykonywalny na każdej maszynie RAM bez translacji.
+  ~Schemat musi zawierać wszystkie instrukcje konkretnego procesora.
+  ~Schemat z definicji umożliwia pominięcie warunków brzegowych.
+  ####Schemat reprezentuje logikę algorytmu; jego wykonanie wymaga formalizacji operacji w wybranym środowisku.
+}
+
+::AISD-03-Q09::Pseudokod: i\=0; while i<5: i\=i+2. Jaka jest końcowa wartość i? {
+  ~4
+  ~5
+  ~8
+  =6
+  ####Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
+}
+
+::AISD-03-Q10::W schemacie blokowym obliczamy sumę liczb od 1 do n. Który warunek testu przy inicjalizacji i\=1 i zwiększaniu i po dodaniu zapewnia uwzględnienie n? {
+  ~i<n
+  ~i<n-1
+  =i<\=n
+  ~i>n
+  ####Warunek i<\=n pozwala wykonać dodawanie także dla i równego n.
+}
+
+::AISD-03-Q11::Funkcja ma zwracać minimum dwóch liczb a i b, również równych. Które rozgałęzienie zapewnia poprawność przy remisie? {
+  ~Jeśli a<b zwróć b, w przeciwnym razie a.
+  =Jeśli a<\=b zwróć a, w przeciwnym razie b.
+  ~Jeśli a>b zwróć a, w przeciwnym razie b.
+  ~Jeśli a\=b zakończ bez wyniku, w przeciwnym razie zwróć mniejszą.
+  ####Przypadek a\=b też wymaga wyniku, który jest wspólną wartością argumentów.
+}
+
+::AISD-03-Q12::Pseudokod pętli for i\=0..n-1 zawiera instrukcję return po sprawdzeniu A[i]. Co określa zakres tego return? {
+  =Zakończenie całej funkcji, a nie tylko bieżącej iteracji.
+  ~Przejście automatycznie do kolejnej iteracji pętli.
+  ~Wyjście tylko z gałęzi if i wykonanie następnej instrukcji pętli.
+  ~Powrót do nagłówka pętli z pominięciem zwiększenia i.
+  ####Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
+}
+
+::AISD-03-Q13::Kiedy rozgałęzienie złożone z dwóch testów if jest równoważne if-else? {
+  ~Gdy oba warunki są jednocześnie prawdziwe.
+  ~Gdy oba warunki zależą od dowolnych różnych zmiennych.
+  ~Gdy w obu gałęziach występuje ta sama liczba instrukcji.
+  =Gdy drugi warunek jest dokładną negacją pierwszego i oba testują ten sam niezmieniony stan.
+  ####Tylko rozłączne i wyczerpujące warunki nad tym samym stanem zastępują alternatywę if-else.
+}
+
+::AISD-03-Q14::Pseudokod: s\=0; dla i od 1 do 4: jeśli i mod 2\=0, s\=s+i. Ile wynosi s po pętli? {
+  ~4
+  ~10
+  =6
+  ~2
+  ####Dodane zostają tylko liczby parzyste 2 i 4.
+}
+
+::AISD-03-Q15::Algorytm ma pętlę repeat ... until x>\=10; początkowo x\=12, a ciało zwiększa x o 1. Jaka wartość x jest po zakończeniu? {
+  ~12
+  =13
+  ~11
+  ~14
+  ####Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
+}
+
+::AISD-03-Q16::Na schemacie blokowym dwa warunki są testowane szeregowo: x>0, potem x<10. Które przypadki trafiają do gałęzi akceptacji? {
+  =0<x<10
+  ~x>\=0 i x<\=10
+  ~x>0 lub x<10
+  ~x<\=0 lub x>\=10
+  ####Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
+}
+
+::AISD-03-Q17::Pseudokod binarnego wyszukiwania w przedziale domkniętym [l,r] przy A[m]<x powinien zmienić którą granicę? {
+  ~r\=m-1
+  ~l\=m
+  ~r\=m
+  =l\=m+1
+  ####Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
+}
+
+::AISD-03-Q18::W przedstawieniu schematu blokowego dla pętli z warunkiem testowanym przed ciałem strzałka powrotna powinna prowadzić do: {
+  ~bloku wejścia programu.
+  ~bloku wyjścia całego programu.
+  =testu warunku pętli.
+  ~ostatniego bloku instrukcji przed testem.
+  ####Po wykonaniu ciała konieczna jest ponowna ocena warunku.
+}
+
+::AISD-03-Q19::Pseudokod: a\=2; b\=3; a\=b; b\=a. Jakie wartości pozostają w a i b? {
+  ~a\=3, b\=2.
+  =a\=3, b\=3.
+  ~a\=2, b\=3.
+  ~a\=2, b\=2.
+  ####Przypisania są sekwencyjne; po pierwszym a traci wartość 2.
+}
+
+::AISD-03-Q20::Przy tłumaczeniu warunku while not (a>0 and b>0) na równoważny zapis bez not, która postać jest właściwa? {
+  =while a<\=0 or b<\=0
+  ~while a<\=0 and b<\=0
+  ~while a>0 or b>0
+  ~while a<0 and b<0
+  ####Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
+}
+

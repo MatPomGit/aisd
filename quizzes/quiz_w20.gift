@@ -1,0 +1,164 @@
+// AIiSD 20: Zaawansowane techniki projektowania algorytmów
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-20-Q01::W problemie wydawania reszty z monetami 1,3,4 jaka jest minimalna liczba monet dla kwoty 6? {
+  =2
+  ~3
+  ~4
+  ~6
+  ####Dwie monety po 3 dają 6; zachłanne 4+1+1 wymaga trzech monet.
+}
+
+::AISD-20-Q02::Dla problemu wyboru maksymalnej liczby niepokrywających się przedziałów, który wybór zachłanny prowadzi do rozwiązania optymalnego przy standardowych założeniach? {
+  ~Wybór przedziału o najmniejszym początku bez dalszych kryteriów.
+  ~Wybór przedziału o największej długości.
+  ~Wybór przedziału z najmniejszą liczbą sąsiadujących przedziałów.
+  =Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi.
+  ####Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
+}
+
+::AISD-20-Q03::Co odróżnia memoizację od tabulacji w programowaniu dynamicznym? {
+  ~Memoizacja zawsze wymaga iteracji, a tabulacja zawsze rekurencji.
+  ~Memoizacja może działać tylko na grafach, a tabulacja tylko na tablicach.
+  =Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń.
+  ~Tabulacja nie używa zapamiętanych wyników podproblemów.
+  ####Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
+}
+
+::AISD-20-Q04::Rekurencja T(n)\=2T(n/2)+Θ(n), dla n będącego potęgą dwójki, odpowiada której złożoności? {
+  ~Θ(n²)
+  =Θ(n log n)
+  ~Θ(log n)
+  ~Θ(n)
+  ####Na każdym poziomie drzewa rekurencji koszt sumaryczny jest liniowy, a poziomów jest logarytmicznie wiele.
+}
+
+::AISD-20-Q05::Dlaczego strategia wybierania przedmiotów według największego stosunku wartości do masy nie daje zawsze optimum w plecaku 0/1? {
+  =Nie można wybierać ułamków przedmiotów, więc lokalna gęstość nie wyznacza globalnego zestawu.
+  ~W plecaku 0/1 wszystkie wartości są identyczne.
+  ~Strategia działa tylko wtedy, gdy wszystkie masy są zerowe.
+  ~Sortowanie przedmiotów uniemożliwia sprawdzenie ich mas.
+  ####W plecaku dyskretnym wybór całego przedmiotu może zablokować lepszą kombinację innych.
+}
+
+::AISD-20-Q06::Dla DP z relacją F[i]\=min(F[i-1]+a[i],F[i-2]+b[i]) dla i>\=2, jakie przypadki bazowe trzeba określić? {
+  ~Wyłącznie F[n].
+  ~Wyłącznie F[n-1].
+  ~Dowolny jeden przypadek bazowy jest wystarczający.
+  =Co najmniej wartości F[0] i F[1].
+  ####Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
+}
+
+::AISD-20-Q07::W dowodzie poprawności algorytmu zachłannego argument wymiany polega na: {
+  ~pokazaniu, że rozwiązanie zachłanne działało na kilku dużych testach.
+  ~zliczeniu instrukcji w pierwszej iteracji.
+  =wykazaniu, że pewne rozwiązanie optymalne można przekształcić tak, aby zawierało wybór zachłanny, bez pogorszenia celu.
+  ~zastąpieniu każdego stanu DP odrębnym wywołaniem rekurencyjnym.
+  ####Argument wymiany łączy wybór lokalny z istnieniem rozwiązania optymalnego zgodnego z tym wyborem.
+}
+
+::AISD-20-Q08::Przy problemie o n zadaniach każdy stan DP jest parą (i,c), gdzie 0<\=i<\=n i 0<\=c<\=C, a przejście kosztuje O(1). Jaki jest koszt zapełnienia pełnej tabeli? {
+  ~O(n+C)
+  =O(nC)
+  ~O(log n·C)
+  ~O(2^n)
+  ####Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
+}
+
+::AISD-20-Q09::W plecaku 0/1 pojemność wynosi 5, a przedmioty mają (masa,wartość) A\=(2,3), B\=(3,4), C\=(4,5). Jaka jest maksymalna wartość? {
+  =7
+  ~5
+  ~8
+  ~9
+  ####A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
+}
+
+::AISD-20-Q10::Dla przedziałów [1,3), [2,5), [3,4), [4,6) wybieranych zachłannie według najwcześniejszego końca, ile maksymalnie można wybrać niepokrywających się przedziałów? {
+  ~2
+  ~4
+  ~1
+  =3
+  ####Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
+}
+
+::AISD-20-Q11::Zadanie najkrótszej ścieżki w grafie acyklicznym skierowanym z dowolnymi wagami krawędzi, bez cykli, można rozwiązać przez DP po: {
+  ~sortowaniu wierzchołków według ich identyfikatorów.
+  ~porządku malejących wag niezależnie od krawędzi.
+  =porządku topologicznym.
+  ~posortowaniu krawędzi wyłącznie według liczby sąsiadów.
+  ####Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
+}
+
+::AISD-20-Q12::Dla rekurencji T(n)\=3T(n/3)+n, gdy n jest potęgą 3, jaka jest asymptotyczna złożoność? {
+  ~Θ(n)
+  =Θ(n log n)
+  ~Θ(n²)
+  ~Θ(log n)
+  ####Na każdym z log₃ n poziomów całkowita praca wynosi Θ(n).
+}
+
+::AISD-20-Q13::Problem wymaga wyznaczenia optimum, ale algorytm zachłanny nie ma udowodnionej własności wyboru zachłannego. Jaką strategię należy rozważyć dla nakładających się podproblemów? {
+  =Programowanie dynamiczne ze stanem i relacją przejścia.
+  ~Wyłącznie bardziej szczegółowe sortowanie wejścia.
+  ~Pominięcie warunku optymalności w specyfikacji.
+  ~Zastąpienie wyniku dokładnego dowolnym wynikiem dopuszczalnym bez zmiany wymagań.
+  ####DP może rozważać alternatywy i zachowywać optymalne wartości stanów bez zakładania poprawności wyboru lokalnego.
+}
+
+::AISD-20-Q14::Dla DP F[i]\=F[i-1]+F[i-2], przy F[0]\=1 i F[1]\=2, ile wynosi F[5]? {
+  ~8
+  ~21
+  ~11
+  =13
+  ####Kolejne wartości to 1,2,3,5,8,13.
+}
+
+::AISD-20-Q15::Algorytm dziel i zwyciężaj rozbija problem na dwa podproblemy o rozmiarze n/2 i scala wyniki w Θ(n). Jaką klasę kosztu ma typowa rekurencja? {
+  ~Θ(n²)
+  ~Θ(log n)
+  =Θ(n log n)
+  ~Θ(n)
+  ####Rekurencja 2T(n/2)+Θ(n) ma logarytmicznie wiele poziomów o liniowym koszcie.
+}
+
+::AISD-20-Q16::W DP dla plecaka 0/1 stan DP[i][c] oznacza optimum użycia pierwszych i przedmiotów przy pojemności c. Która decyzja jest poprawna, gdy masa i-tego przedmiotu w_i>c? {
+  ~DP[i][c]\=v_i+DP[i-1][c].
+  =DP[i][c]\=DP[i-1][c].
+  ~DP[i][c]\=DP[i-1][c-w_i].
+  ~DP[i][c]\=max(v_i,DP[i-1][c-w_i]).
+  ####Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
+}
+
+::AISD-20-Q17::Dla minimizacji kosztu pokrycia dystansu n, skoki mogą mieć długość 1 lub 2, a koszt skoku wynosi 1. Jakie jest optimum dla n\=7? {
+  =4
+  ~3
+  ~5
+  ~7
+  ####Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
+}
+
+::AISD-20-Q18::Zadania mają wagi dodatnie, a celem jest minimalny koszt z dokładnością do optimum. Dlaczego sama heurystyka lokalnego najmniejszego kosztu krawędzi może zawieść? {
+  ~Każda dodatnia waga gwarantuje optymalność dowolnego lokalnego wyboru.
+  ~Suma wag nie jest określona dla ścieżek o więcej niż jednej krawędzi.
+  ~W grafach nieujemnych nie mogą istnieć dwie różne ścieżki do celu.
+  =Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu.
+  ####Lokalna ocena nie uwzględnia przyszłych kosztów i nie zapewnia własności wyboru zachłannego.
+}
+
+::AISD-20-Q19::W DP z tabelą o wymiarach (n+1)×(C+1), dla n>\=1 i C>\=1, jaka jest pamięć potrzebna do przechowania całej tabeli? {
+  ~Θ(n+C)
+  ~Θ(log n+log C)
+  =Θ(nC)
+  ~Θ(n²+C²)
+  ####Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
+}
+
+::AISD-20-Q20::Który warunek pozwala bezpiecznie zredukować pamięć DP plecaka 0/1 z O(nC) do O(C) przy obliczaniu kolejnych przedmiotów? {
+  ~Aktualizowanie pojemności rosnąco, by umożliwić ponowny wybór bieżącego przedmiotu.
+  =Aktualizowanie pojemności malejąco, aby nie wykorzystać przedmiotu wielokrotnie.
+  ~Usunięcie ograniczenia pojemności z definicji stanu.
+  ~Zastąpienie wartości przedmiotów ich masami bez innych zmian.
+  ####Malejący porządek pojemności chroni wyniki poprzedniego wiersza używane w przejściu 0/1.
+}
+

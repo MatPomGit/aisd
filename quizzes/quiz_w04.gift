@@ -1,0 +1,164 @@
+// AIiSD 04: Analiza i złożoność algorytmów RAM
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-04-Q01::Pętla wykonuje dla i\=1,...,n dokładnie i porównań. Jaka jest liczba porównań? {
+  =n(n+1)/2
+  ~n(n-1)/2
+  ~n²
+  ~2n-1
+  ####Suma kolejnych liczb od 1 do n wynosi n(n+1)/2.
+}
+
+::AISD-04-Q02::Wyszukiwanie liniowe przerywa po znalezieniu pierwszego dopasowania. Jaką liczbę porównań wykonuje w najlepszym przypadku dla niepustej tablicy? {
+  ~0
+  ~n-1
+  ~n
+  =1
+  ####Jeżeli pierwszy element jest dopasowaniem, potrzeba jednego porównania kluczy.
+}
+
+::AISD-04-Q03::Który opis kosztu dodatkowej pamięci odpowiada iteracyjnemu sumowaniu tablicy bez tworzenia jej kopii? {
+  ~Θ(n), ponieważ tablica wejściowa ma n elementów.
+  ~Θ(log n), ponieważ rośnie liczba bitów indeksu w każdym modelu.
+  =Θ(1), nie licząc pamięci tablicy wejściowej.
+  ~Θ(n²), ponieważ każdy element jest przetwarzany oddzielnie.
+  ####Przy standardowym modelu słów i wyłączeniu wejścia kilka zmiennych roboczych zajmuje stałą liczbę komórek.
+}
+
+::AISD-04-Q04::Dwa algorytmy mają odpowiednio T1(n)\=5n²+7n i T2(n)\=30n log₂ n dla n>\=2. Co wynika z asymptotyki? {
+  ~T2(n) jest mniejsza niż T1(n) dla każdego n>\=2.
+  =Dla dostatecznie dużego n funkcja T2(n) jest mniejsza niż T1(n).
+  ~Obie funkcje należą do Θ(n²).
+  ~T1(n) należy do O(n log n).
+  ####n log n rośnie asymptotycznie wolniej niż n²; nie przesądza to o wszystkich małych n.
+}
+
+::AISD-04-Q05::Model jednostkowego kosztu RAM przypisuje każdej instrukcji koszt 1. Co jest w nim równe czasowi wykonania? {
+  =Liczba wykonanych instrukcji, włącznie z powtórzeniami w pętlach.
+  ~Liczba odmiennych instrukcji występujących w tekście programu.
+  ~Liczba wykorzystanych rejestrów.
+  ~Maksymalna wartość przechowywana w akumulatorze.
+  ####Koszt jednostkowy sumuje wykonania dynamiczne instrukcji, a nie rozmiar listingu.
+}
+
+::AISD-04-Q06::Algorytm sprawdza dla każdej pary indeksów 0<\=i<j<n pewien warunek. Ile razy uruchamia test? {
+  ~n(n+1)/2
+  ~n²/2+n
+  ~n(n-1)
+  =n(n-1)/2
+  ####Liczba nieuporządkowanych par różnych indeksów wynosi n(n-1)/2.
+}
+
+::AISD-04-Q07::Czy dowód poprawności pętli może wynikać tylko z wyznaczenia jej złożoności O(n)? {
+  ~Tak, jeżeli złożoność wyznaczono dla najgorszego wejścia.
+  ~Tak, jeśli pętla nie korzysta z rekurencji.
+  =Nie, ograniczenie kosztu nie dowodzi zgodności wyniku ze specyfikacją.
+  ~Nie, ale tylko wtedy, gdy wejście zawiera duplikaty.
+  ####Poprawność funkcjonalna i koszt wykonania to odrębne własności algorytmu.
+}
+
+::AISD-04-Q08::Która wielkość jest sensownym parametrem rozmiaru danych przy analizie przeszukiwania tablicy? {
+  ~Maksymalna wartość elementu niezależnie od modelu danych.
+  =Liczba przeszukiwanych elementów.
+  ~Liczba linii pseudokodu.
+  ~Liczba różnych instrukcji maszynowych w procesorze.
+  ####W klasycznym modelu porównań liczba elementów kontroluje potencjalną liczbę testów klucza.
+}
+
+::AISD-04-Q09::Pętla zewnętrzna wykonuje się n razy, a wewnętrzna dokładnie 2i razy dla i\=0,...,n-1. Ile łącznie razy działa ciało wewnętrzne? {
+  =n(n-1)
+  ~n(n+1)
+  ~n²
+  ~2n(n-1)
+  ####Suma 2i od 0 do n-1 wynosi 2·n(n-1)/2\=n(n-1).
+}
+
+::AISD-04-Q10::Algorytm przeszukuje tablicę od końca do początku i zatrzymuje się po znalezieniu klucza. Ile porównań wykona dla A\=[3,8,5,8,1] i x\=8? {
+  ~4
+  ~3
+  ~5
+  =2
+  ####Od końca porównuje 1, potem 8; drugie porównanie znajduje klucz.
+}
+
+::AISD-04-Q11::W modelu liczby porównań pętla ma kod: for i\=0..n-1: for j\=0..i-1: compare(). Ile porównań wykona dla n\=5? {
+  ~15
+  ~20
+  =10
+  ~25
+  ####Liczby porównań w kolejnych iteracjach to 0+1+2+3+4\=10.
+}
+
+::AISD-04-Q12::Algorytm dzieli zakres przeszukiwania o połowę, dopóki jego długość przekracza 1. Od długości 64 ile redukcji potrzeba do długości 1? {
+  ~5
+  =6
+  ~7
+  ~8
+  ####64 → 32 → 16 → 8 → 4 → 2 → 1, czyli sześć redukcji.
+}
+
+::AISD-04-Q13::Dla rekurencji T(n)\=T(n-1)+3, T(0)\=2 jaka jest wartość T(5)? {
+  =17
+  ~15
+  ~12
+  ~20
+  ####Pięć etapów dodaje po 3 do kosztu bazowego 2: 2+5·3\=17.
+}
+
+::AISD-04-Q14::Pętla przegląda wszystkie n elementów, a operacja wewnętrzna kosztuje Θ(log n) dla każdego elementu. Jaki jest łączny koszt przy n>\=2? {
+  ~Θ(n)
+  ~Θ(log n)
+  ~Θ(n²)
+  =Θ(n log n)
+  ####Liczba iteracji jest liniowa, a każda ma koszt logarytmiczny.
+}
+
+::AISD-04-Q15::Jakie jest wykorzystanie dodatkowej pamięci w rekurencyjnym DFS jednego łańcucha o n węzłach, pomijając pamięć danych wejściowych? {
+  ~Θ(1) ramek stosu.
+  ~Θ(log n) ramek stosu.
+  =Θ(n) ramek stosu.
+  ~Θ(n²) ramek stosu.
+  ####Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
+}
+
+::AISD-04-Q16::Algorytm A wykonuje 4n+10 operacji, a B 2n²+1. Jakie stwierdzenie jest prawdziwe asymptotycznie? {
+  ~Oba mają Θ(n).
+  =A ma Θ(n), a B ma Θ(n²).
+  ~A ma Θ(n²), a B ma Θ(n).
+  ~Oba mają Θ(n log n).
+  ####Dominującymi składnikami są odpowiednio 4n i 2n².
+}
+
+::AISD-04-Q17::Dla rekurencji T(n)\=2T(n/2)+1, T(1)\=1 i n\=8, ile jednostek kosztu powstaje? {
+  =15
+  ~8
+  ~7
+  ~16
+  ####Pełne drzewo podziałów do pojedynczych elementów ma 8 liści i 7 węzłów wewnętrznych, razem 15.
+}
+
+::AISD-04-Q18::Ile porównań wykonuje pełne znalezienie maksimum tablicy n>\=1 wartości przez liniowe porównywanie kolejnych elementów z bieżącym maksimum? {
+  ~n
+  ~n+1
+  ~n(n-1)/2
+  =n-1
+  ####Pierwszy element inicjuje maksimum, pozostałe n-1 podlegają porównaniu.
+}
+
+::AISD-04-Q19::Dla T(n)\=n(n-1)/2+n jaka jest najściślejsza z podanych klas rzędu wzrostu? {
+  ~Θ(n log n)
+  ~Θ(n³)
+  =Θ(n²)
+  ~Θ(n)
+  ####Po uproszczeniu T(n)\=(n²+n)/2, więc wyraz n² dominuje.
+}
+
+::AISD-04-Q20::Pętla while k<n zaczyna od k\=1 i w każdej iteracji ustawia k\=3k. Ile iteracji wykona dla n\=82? {
+  ~4
+  =5
+  ~6
+  ~3
+  ####Wartości k na początku iteracji to 1,3,9,27,81; po piątej k\=243 przekracza 82.
+}
+

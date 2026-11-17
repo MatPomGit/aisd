@@ -1,0 +1,164 @@
+// AIiSD 08: Rekurencja i dynamiczne struktury danych
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-08-Q01::Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
+  =24
+  ~10
+  ~16
+  ~120
+  ####f(4)\=4·3·2·1·1\=24.
+}
+
+::AISD-08-Q02::Rekurencja ma przypadek bazowy n\=0 i wywołuje f(n-2) dla n>0. Dla jakich danych nie można bez dodatkowego warunku dowieść zakończenia? {
+  ~Dla parzystych dodatnich n.
+  ~Dla n\=0.
+  ~Dla n\=2.
+  =Dla nieparzystych dodatnich n.
+  ####Od nieparzystej liczby kolejne odejmowania 2 omijają zero i przechodzą w liczby ujemne.
+}
+
+::AISD-08-Q03::W standardowej implementacji rekurencyjnego obliczania silni powstaje łańcuch wywołań n,n-1,...,0. Jaki jest maksymalny rząd głębokości stosu? {
+  ~Θ(1)
+  ~Θ(log n)
+  =Θ(n)
+  ~Θ(n²)
+  ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
+}
+
+::AISD-08-Q04::Lista jednokierunkowa ma wskaźnik head. Wstawiamy nowy węzeł x na początek niepustej listy. Która kolejność aktualizacji zachowuje wszystkie elementy? {
+  ~head\=x, potem x.next\=head.
+  =x.next\=head, potem head\=x.
+  ~head\=head.next, potem x.next\=head.
+  ~x.next\=null, potem head\=head.next.
+  ####Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
+}
+
+::AISD-08-Q05::Rekurencyjne przeglądanie grafu z cyklem może nie zakończyć się, jeśli nie ograniczymy powtórnych odwiedzin. Które działanie temu przeciwdziała? {
+  =Oznaczanie wierzchołka jako odwiedzonego przed rekurencją w sąsiadów.
+  ~Zmiana kolejności sąsiadów przy każdym wywołaniu.
+  ~Zastosowanie większego stosu wywołań.
+  ~Rekurencyjne wywołanie dla każdego sąsiada bez zapamiętywania stanu.
+  ####Stan odwiedzenia pozwala ominąć wierzchołki już rozpoczęte lub przetworzone.
+}
+
+::AISD-08-Q06::Dla rekurencji T(n)\=2T(n/2)+Θ(n), przy n potędze dwójki, jaki jest rząd kosztu? {
+  ~Θ(n)
+  ~Θ(log n)
+  ~Θ(n²)
+  =Θ(n log n)
+  ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
+}
+
+::AISD-08-Q07::Z czym wiąże się istotna różnica między strukturą dynamiczną z węzłami a tablicą ciągłą? {
+  ~Węzły zawsze mają mniejszy narzut pamięci niż tablica.
+  ~Tablica nie pozwala odczytać elementu po jego indeksie.
+  =Węzły mogą leżeć w nieciągłych adresach i wymagają pól wiązań.
+  ~Każda struktura dynamiczna zapewnia odczyt losowy w O(1).
+  ####Wskaźniki łączą rozproszone alokacje, lecz zajmują pamięć i pogarszają lokalność.
+}
+
+::AISD-08-Q08::Czy kompilator zawsze zamienia rekurencję ogonową na iterację bez dodatkowego stosu? {
+  ~Tak, jeśli przypadek bazowy ma wartość zero.
+  =Nie, zależy to od języka, implementacji i optymalizacji.
+  ~Tak, jeśli wywołanie dotyczy tej samej funkcji.
+  ~Nie, ale wyłącznie w przypadku funkcji wzajemnie rekurencyjnych.
+  ####Eliminacja wywołania ogonowego jest optymalizacją, a nie uniwersalną gwarancją.
+}
+
+::AISD-08-Q09::Rekurencja f(n)\=f(n-1)+2 dla n>0, f(0)\=3. Jaką wartość zwróci f(4)? {
+  =11
+  ~9
+  ~13
+  ~8
+  ####Każdy z czterech poziomów dodaje 2 do wartości bazowej 3.
+}
+
+::AISD-08-Q10::Dla rekurencji f(n)\=f(n-1)+f(n-2), f(0)\=0, f(1)\=1 jaka jest wartość f(6)? {
+  ~5
+  ~13
+  ~6
+  =8
+  ####Kolejne wartości to 0,1,1,2,3,5,8.
+}
+
+::AISD-08-Q11::W rekurencyjnym przejściu drzewa binarnego rozmiaru n, jeśli każda funkcja odwiedza węzeł raz i wykonuje stałą pracę, jaki jest czas? {
+  ~Θ(log n)
+  ~Θ(n log n)
+  =Θ(n)
+  ~Θ(n²)
+  ####Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
+}
+
+::AISD-08-Q12::Funkcja rekurencyjna otrzymuje n i wywołuje f(n//2) dopóki n>1. Ile wywołań z argumentem dodatnim powstanie dla n\=32, licząc pierwsze? {
+  ~5
+  =6
+  ~7
+  ~32
+  ####Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
+}
+
+::AISD-08-Q13::Jakie jest ryzyko w rekurencji wzajemnej f→g→f, gdy przypadki bazowe dotyczą tylko funkcji f, ale g nigdy nie przekazuje do niej malejącej miary? {
+  =Nie można wyprowadzić zakończenia samej obecności przypadku bazowego.
+  ~Można dowieść zakończenia, bo f zawiera instrukcję return.
+  ~Wzajemna rekurencja zawsze działa w pamięci stałej.
+  ~Wzajemna rekurencja wymusza dokładnie dwa poziomy stosu.
+  ####Potrzebna jest globalna miara malejąca na całym cyklu wywołań.
+}
+
+::AISD-08-Q14::W liście jednokierunkowej head→A→B→C i nowy węzeł X ma zostać wstawiony po B. Jakie wskaźniki należy ustawić? {
+  ~B.next\=X, X.next\=B.
+  ~X.next\=A, B.next\=C.
+  ~B.next\=C, X.next\=B.
+  =X.next\=C, B.next\=X.
+  ####Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
+}
+
+::AISD-08-Q15::W rekurencji f(n) dla n\=0 wykonuje się tylko return 1, dla n>0 return 2*f(n-1). Ile wynosi f(5)? {
+  ~16
+  ~64
+  =32
+  ~10
+  ####Pięć kolejnych przemnożeń przez 2 daje 2^5\=32.
+}
+
+::AISD-08-Q16::W tablicowej implementacji stosu wywołań każdy poziom rekurencji przechowuje dwie zmienne i adres powrotu. Jak rośnie dodatkowa pamięć dla głębokości d? {
+  ~Θ(log d)
+  =Θ(d)
+  ~Θ(d²)
+  ~Θ(1)
+  ####Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
+}
+
+::AISD-08-Q17::Rekurencja T(n)\=T(n/2)+Θ(1) dla n\=2^k. Jaka jest klasa wzrostu? {
+  =Θ(log n)
+  ~Θ(n)
+  ~Θ(n log n)
+  ~Θ(log² n)
+  ####Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
+}
+
+::AISD-08-Q18::Rekurencyjny algorytm DFS grafu oznacza wierzchołek jako odwiedzony dopiero po powrocie z rekurencji. Co może się zdarzyć w grafie z cyklem? {
+  ~Zawsze powstanie najkrótsze drzewo ścieżek.
+  ~Wszystkie krawędzie zostaną przetworzone raz bez znaczników.
+  ~Kolejność odwiedzin zawsze odpowie BFS.
+  =Nastąpi ponowne wejście do już aktywnego wierzchołka.
+  ####Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
+}
+
+::AISD-08-Q19::Dla funkcji sum(n)\=0, gdy n\=0, a sum(n)\=n+sum(n-1) w przeciwnym razie, jaki jest wynik sum(5)? {
+  ~10
+  ~20
+  =15
+  ~25
+  ####Obliczenie odpowiada sumie 5+4+3+2+1\=15.
+}
+
+::AISD-08-Q20::W liście podwójnie powiązanej X znajduje się przed Y. Wstawiamy węzeł N między nimi. Który zestaw zmian jest kompletny? {
+  ~X.next\=N, Y.prev\=N, bez ustawiania pól N.
+  =X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N.
+  ~N.prev\=Y, N.next\=X, X.next\=N, Y.prev\=N.
+  ~X.prev\=N, N.next\=Y, Y.next\=N, N.prev\=X.
+  ####Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
+}
+

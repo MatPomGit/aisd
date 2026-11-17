@@ -1,0 +1,164 @@
+// AIiSD 06: Tablice jednowymiarowe
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-06-Q01::Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
+  ~[3,5,2,2]
+  ~[2,3,5,2]
+  =[3,2,5,2]
+  ~[2,3,2,5]
+  ####Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
+}
+
+::AISD-06-Q02::Do tablicy o długości n i pojemności co najmniej n+1 wstawiamy element na pozycję k (0<\=k<\=n). Ile elementów trzeba przesunąć w prawo? {
+  ~n-k+1
+  =n-k
+  ~k
+  ~n-1
+  ####Przesuwane są istniejące elementy o indeksach od k do n-1.
+}
+
+::AISD-06-Q03::W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
+  =n
+  ~n-1
+  ~log₂ n zaokrąglone w górę
+  ~n(n-1)/2
+  ####Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
+}
+
+::AISD-06-Q04::Przyjmujemy tablicę o długości n i zaalokowanej pojemności c>n. Co może się zmienić po dopisaniu jednego elementu bez realokacji? {
+  ~Pojemność c rośnie o 1, a długość n pozostaje bez zmian.
+  ~Długość n i pojemność c muszą wzrosnąć o 1.
+  ~Długość pozostaje bez zmian do następnej realokacji.
+  =Długość n rośnie o 1, a pojemność c pozostaje bez zmian.
+  ####Długość to liczba logicznie zapisanych elementów; pojemność określa dostępne miejsce.
+}
+
+::AISD-06-Q05::Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
+  ~n-1
+  ~n
+  =⌊n/2⌋
+  ~⌈n/2⌉
+  ####Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
+}
+
+::AISD-06-Q06::Dostęp do A[k] w zwykłej tablicy o znanym poprawnym indeksie k ma jaki koszt w modelu RAM z losowym dostępem? {
+  ~Θ(log n)
+  =Θ(1)
+  ~Θ(k)
+  ~Θ(n)
+  ####Adres elementu oblicza się z adresu bazowego i przesunięcia indeksu w stałej liczbie operacji modelu.
+}
+
+::AISD-06-Q07::Podczas usuwania elementu z indeksu k w zwartej tablicy n elementów zachowujemy kolejność. Ile przesunięć w lewo trzeba wykonać? {
+  =n-k-1
+  ~n-k
+  ~k
+  ~n-1
+  ####Elementy od k+1 do n-1 przesuwają się o jedną pozycję w lewo.
+}
+
+::AISD-06-Q08::Dynamiczna tablica podwaja pojemność przy pełnym buforze. Jaki jest amortyzowany koszt pojedynczego dopisania na końcu, przy standardowym modelu? {
+  ~O(log n)
+  ~O(n)
+  ~O(n log n)
+  =O(1)
+  ####Drogie kopiowania występują rzadko; ich sumaryczny koszt po n dopisaniach jest liniowy.
+}
+
+::AISD-06-Q09::Tablica A\=[7,3,9,3,5], a algorytm zwraca liczbę wystąpień wartości 3. Jaki wynik powinien zwrócić? {
+  ~1
+  ~3
+  =2
+  ~4
+  ####Wartość 3 występuje dokładnie na indeksach 1 i 3.
+}
+
+::AISD-06-Q10::Tablica A\=[5,8,2,6], usuwamy element o indeksie 1 przez przesunięcie pozostałych w lewo. Jaka jest wynikowa tablica logicznej długości 3? {
+  ~[8,2,6]
+  =[5,2,6]
+  ~[5,8,6]
+  ~[5,6,2]
+  ####Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
+}
+
+::AISD-06-Q11::Tablica A\=[2,4,6,8] jest indeksowana od zera. Wstawiamy liczbę 5 na indeks 2, zachowując kolejność. Co powstaje? {
+  =[2,4,5,6,8]
+  ~[2,5,4,6,8]
+  ~[2,4,6,5,8]
+  ~[2,4,6,8,5]
+  ####Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
+}
+
+::AISD-06-Q12::Wyszukiwanie binarne w posortowanej tablicy [1,3,5,7,9,11,13] z przedziałem domkniętym [0,6] szuka 11. Jakie indeksy środka są sprawdzane przy m\=floor((l+r)/2)? {
+  ~3,4,5
+  ~3,6
+  ~2,5
+  =3,5
+  ####Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
+}
+
+::AISD-06-Q13::Pusta dynamiczna tablica ma pojemność 2 i przy przepełnieniu podwaja pojemność. Jaką pojemność ma po zapisaniu piątego elementu? {
+  ~4
+  ~5
+  =8
+  ~16
+  ####Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
+}
+
+::AISD-06-Q14::Zwarte usunięcie elementu o indeksie k\=2 z tablicy długości n\=9 wymaga ilu przypisań przesuwających elementy? {
+  ~7
+  =6
+  ~5
+  ~8
+  ####Przesuwane są indeksy źródłowe 3 do 8, czyli 6 elementów.
+}
+
+::AISD-06-Q15::Tablica A\=[4,1,9,2]. Odwracamy ją w miejscu, zamieniając pary skrajne. Co otrzymamy po pierwszej zamianie? {
+  =[2,1,9,4]
+  ~[2,9,1,4]
+  ~[4,9,1,2]
+  ~[1,4,9,2]
+  ####Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
+}
+
+::AISD-06-Q16::Dla tablicy [2,2,2,3,3,4] jaki indeks zwróci lower_bound dla wartości 3 przy indeksowaniu od zera? {
+  ~2
+  ~4
+  ~5
+  =3
+  ####Lower_bound zwraca pierwszy indeks z elementem nie mniejszym niż szukany klucz.
+}
+
+::AISD-06-Q17::Dla A\=[1,4,2,4,3] ile wyniesie wynik pętli s\=0; dla i od 0 do 4: jeśli A[i]>2, s\=s+1? {
+  ~2
+  ~4
+  =3
+  ~5
+  ####Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
+}
+
+::AISD-06-Q18::W tablicy dynamicznej jest 7 elementów przy pojemności 8. Po dołożeniu dwóch kolejnych elementów z podwajaniem pojemności otrzymamy stan: {
+  ~długość 9, pojemność 8.
+  =długość 9, pojemność 16.
+  ~długość 16, pojemność 16.
+  ~długość 8, pojemność 16.
+  ####Ósmy element mieści się w buforze, a dziewiąty wymusza rozszerzenie do 16.
+}
+
+::AISD-06-Q19::Jaką liczbę porównań wykona wyszukiwanie liniowe wartości 6 w [5,4,6,6], kończące po pierwszym trafieniu? {
+  =3
+  ~2
+  ~4
+  ~1
+  ####Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
+}
+
+::AISD-06-Q20::Tablica A\=[3,1,4,1,5] ma indeksy od zera. Pętla i\=4; dopóki i>\=0: wypisz A[i]; i\=i-2. Jaki ciąg zostanie wypisany? {
+  ~5,1,3
+  ~3,4,5
+  ~5,1,1
+  =5,4,3
+  ####Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
+}
+

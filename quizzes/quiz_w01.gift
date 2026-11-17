@@ -1,0 +1,164 @@
+// AIiSD 01: Podstawy algorytmów
+// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Import: Moodle > Baza pytan > Import > GIFT
+
+::AISD-01-Q01::Który warunek wystarczy, aby poprawnie wykazać zakończenie pętli dla wszystkich dopuszczalnych wejść? {
+  ~W każdej iteracji zmienia się przynajmniej jedna zmienna.
+  =Istnieje całkowitoliczbowa miara nieujemna, która ściśle maleje w każdej iteracji.
+  ~Dla kilku dużych wejść pętla wykonała skończoną liczbę iteracji.
+  ~Warunek pętli zależy od zmiennej będącej liczbą całkowitą.
+  ####Dobrze ufundowana, ściśle malejąca miara wyklucza nieskończoną sekwencję iteracji.
+}
+
+::AISD-01-Q02::Algorytm zwraca indeks pierwszego wystąpienia x w tablicy albo -1. Jaka własność musi być zachowana po sprawdzeniu pierwszych i elementów? {
+  =Wśród elementów o indeksach od 0 do i-1 nie występuje x.
+  ~Wśród elementów o indeksach od 0 do i nie występuje x.
+  ~Pozostałe elementy tablicy są posortowane rosnąco.
+  ~Zmienna i wskazuje ostatnie znalezione wystąpienie x.
+  ####To niezmiennik wyszukiwania liniowego: przed każdą iteracją przeszukany prefiks nie zawiera szukanego elementu.
+}
+
+::AISD-01-Q03::Dla wejścia będącego pustą tablicą zadanie polega na znalezieniu maksimum. Co trzeba ustalić przed napisaniem algorytmu? {
+  ~Czy maksimum będzie wyszukiwane pętlą for czy while.
+  ~Czy tablica będzie przechowywana na stosie czy na stercie.
+  ~Czy koszt porównań zostanie zapisany w notacji O czy Θ.
+  =Czy puste wejście jest niedopuszczalne, czy wymaga zdefiniowanego wyniku lub błędu.
+  ####Bez kontraktu dla n\=0 nie da się ocenić poprawności inicjalizacji maksimum pierwszym elementem.
+}
+
+::AISD-01-Q04::Dwa programy dają identyczny wynik na 1000 testach. Jaki wniosek jest naukowo uzasadniony? {
+  ~Programy realizują ten sam algorytm dla wszystkich wejść.
+  ~Programy mają identyczne złożoności w każdym modelu kosztu.
+  =Testy potwierdzają zgodność na badanych wejściach, ale nie dowodzą równoważności programów.
+  ~Programy są równoważne, jeśli zestaw testów obejmuje graniczne wartości.
+  ####Skończona liczba testów zwykle nie stanowi dowodu poprawności dla nieograniczonej dziedziny.
+}
+
+::AISD-01-Q05::Algorytm liczy sumę n elementów tablicy, używając jednego akumulatora. Która zmiana nie wpływa na wynik, ale może zmienić koszt wykonania? {
+  ~Zamiana dodawania każdego elementu na odejmowanie.
+  =Zastąpienie bezpośredniego dostępu do elementów iteratorem z dodatkowym narzutem.
+  ~Pominięcie ostatniego elementu w pętli.
+  ~Wyzerowanie akumulatora po zakończeniu obliczeń.
+  ####Sposób dostępu może zmienić liczbę operacji, nawet przy zachowaniu tej samej funkcji obliczanej.
+}
+
+::AISD-01-Q06::W pętli i przyjmuje kolejno wartości 0, 1, ..., n-1. Ile razy zostanie wykonana instrukcja wewnątrz pętli dla n\=0? {
+  =0 razy.
+  ~1 raz.
+  ~n+1 razy.
+  ~Liczba wykonań zależy od wartości elementów tablicy.
+  ####Pusty zakres indeksów nie uruchamia ciała pętli.
+}
+
+::AISD-01-Q07::Który opis jest specyfikacją problemu, a nie opisem wybranej implementacji? {
+  ~Przeglądaj tablicę od pierwszego do ostatniego indeksu.
+  ~Użyj dodatkowej tablicy wyników o rozmiarze n.
+  ~Przerwij pętlę przy pierwszym znalezionym dopasowaniu.
+  =Dla tablicy liczb i wartości x zwróć najmniejszy indeks zawierający x lub -1.
+  ####Specyfikacja określa kontrakt wejścia i wyjścia, niezależnie od techniki rozwiązania.
+}
+
+::AISD-01-Q08::W algorytmie znajdowania maksimum niepustej tablicy zmienna m zaczyna od A[0]. Jak uzasadnić poprawność po przetworzeniu k pierwszych pozycji? {
+  ~m jest większe od wszystkich elementów, także jeszcze nieodczytanych.
+  ~m przechowuje indeks elementu, który pojawił się najwcześniej.
+  =m jest maksimum prefiksu A[0..k-1].
+  ~m jest równe ostatniemu przetworzonemu elementowi.
+  ####Niezmiennik maksimum prefiksu zachowuje się po porównaniu m z kolejnym elementem.
+}
+
+::AISD-01-Q09::Dla algorytmu Euklidesa wykonywanego dla a\=252 i b\=105 z aktualizacją (a,b)\=(b,a mod b) aż do b\=0, jaka wartość zostanie zwrócona? {
+  ~42
+  =21
+  ~7
+  ~35
+  ####Kolejne reszty to 42, 21 i 0; ostatni niezerowy dzielnik wynosi 21.
+}
+
+::AISD-01-Q10::Algorytm szuka najmniejszego elementu niepustej tablicy. Po przetworzeniu pierwszych k elementów jaki niezmiennik jest wystarczający do dowodu wyniku? {
+  =m jest najmniejszą wartością w prefiksie A[0..k-1].
+  ~m jest najmniejszą wartością w całej tablicy od pierwszej iteracji.
+  ~m jest indeksem ostatnio przetworzonej pozycji.
+  ~m jest mniejsze od A[k] dla każdej dopuszczalnej tablicy.
+  ####Indukcyjnie po odczycie nowego elementu minimum prefiksu zostaje zachowane.
+}
+
+::AISD-01-Q11::Dla niepustej tablicy A\=[4,1,4,2] algorytm zwraca największy indeks wartości maksymalnej. Jaki powinien być wynik? {
+  ~0
+  ~3
+  ~4
+  =2
+  ####Maksymalna wartość 4 występuje na indeksach 0 i 2; największym jest 2.
+}
+
+::AISD-01-Q12::Pętla while x>1 wykonuje x\=floor(x/2) dla całkowitego x>\=1. Ile iteracji wykona dla x\=37? {
+  ~4
+  ~6
+  =5
+  ~37
+  ####Kolejne wartości po iteracjach to 18,9,4,2,1; piąta kończy pętlę.
+}
+
+::AISD-01-Q13::Wykonano następującą pętlę: s\=0; dla i od 0 do 3: s\=s+2*i. Jaka jest końcowa wartość s? {
+  ~6
+  =12
+  ~20
+  ~8
+  ####Dodawane są składniki 0,2,4,6; suma wynosi 12.
+}
+
+::AISD-01-Q14::Pseudokod zwraca true po wykryciu x w tablicy, a false po wykonaniu pętli bez trafienia. Jaką własność należy dowieść dla każdej iteracji, w której wykonanie trwa dalej? {
+  =W dotąd zbadanej części nie ma x.
+  ~W pozostałej części na pewno występuje x.
+  ~Indeks i zawsze wskazuje największą wartość.
+  ~Wszystkie zbadane elementy są dodatnie.
+  ####Kontynuacja po braku trafienia pozwala wykluczyć x tylko z przebadanego prefiksu.
+}
+
+::AISD-01-Q15::Algorytm obliczania średniej sumuje n liczb i dzieli przez n. Jaki kontrakt czyni obliczenie bezwarunkowo określonym bez dodatkowej obsługi wyjątków? {
+  ~n jest dowolną liczbą całkowitą, również ujemną.
+  ~Dane są posortowane niemalejąco, ale n może być zerem.
+  ~W tablicy występuje co najmniej jedna niezerowa liczba, niezależnie od n.
+  =n jest dodatnią liczbą całkowitą, a dane liczbowe mieszczą się w dopuszczonym modelu arytmetyki.
+  ####Warunek n>0 wyklucza dzielenie przez zero; model arytmetyki określa dopuszczalne działania.
+}
+
+::AISD-01-Q16::Algorytm ma zwrócić dowolne wystąpienie x. Jaką zmianę specyfikacji wprowadza wymaganie zwrócenia pierwszego wystąpienia? {
+  ~Wymusza największy indeks wśród wszystkich dopasowań.
+  ~Wymusza posortowanie danych przed wyszukiwaniem.
+  =Wymusza najmniejszy indeks wśród wszystkich dopasowań.
+  ~Wymusza zwrócenie liczby wszystkich dopasowań.
+  ####Przy duplikatach tylko pierwszy indeks spełnia mocniejszy kontrakt.
+}
+
+::AISD-01-Q17::Pętla: i\=0; dopóki i<n wykonuj i\=i+2. Dla n\=7 ile iteracji wykona, jeśli test występuje przed ciałem? {
+  ~3
+  =4
+  ~5
+  ~7
+  ####Początkowe wartości i przy wejściu do ciała to 0,2,4,6.
+}
+
+::AISD-01-Q18::Program zwraca 0 dla pustej listy oraz sumę elementów dla niepustej. Która własność funkcjonalna uzasadnia wybór wartości 0? {
+  =Jest elementem neutralnym dodawania dla pustej sumy.
+  ~Jest najmniejszą wartością w dowolnej liście.
+  ~Jest średnią arytmetyczną pustej listy.
+  ~Jest wynikiem mnożenia wszystkich elementów pustej listy.
+  ####Suma pustego zbioru składników przyjmowana jest jako 0, by zachować regułę sumowania.
+}
+
+::AISD-01-Q19::Dla tablicy A\=[2,4,6] algorytm inicjuje s\=1 i dodaje każdy element. Jaka poprawka prowadzi do sumy właściwej dla wszystkich tablic całkowitoliczbowych? {
+  ~Zainicjowanie s\=2.
+  ~Dodanie 1 do indeksu początkowego pętli.
+  ~Pominięcie ostatniego dodawania.
+  =Zainicjowanie s\=0.
+  ####Wartość początkowa powinna być neutralna względem dodawania, a nie powodować stałe przesunięcie wyniku.
+}
+
+::AISD-01-Q20::Dla specyfikacji 'zwróć indeks elementu większego od x, jeśli istnieje' jaka informacja jest niezbędna dla jednoznaczności wyniku przy wielu dopasowaniach? {
+  ~Czy implementacja wykorzystuje instrukcję break czy return.
+  ~Czy przeglądana tablica znajduje się w pamięci głównej.
+  =Czy dopuszczalny jest dowolny indeks, czy wymagany określony, np. najmniejszy.
+  ~Czy koszt porównań jest liczony w modelu jednostkowym.
+  ####Przy wielu elementach spełniających warunek specyfikacja musi definiować zbiór poprawnych odpowiedzi.
+}
+
