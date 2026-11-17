@@ -1,5 +1,5 @@
 // AIiSD 09: Listy liniowe
-// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-09-Q01::[plain]Lista jednokierunkowa o n elementach nie ma dodatkowego indeksu. Jaki jest najgorszy koszt znalezienia elementu na pozycji k od głowy? {
