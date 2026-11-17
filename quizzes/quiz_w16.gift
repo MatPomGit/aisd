@@ -154,7 +154,15 @@
   ####Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
 }
 
-::AISD-16-Q20::W grafie z cyklem przy implementacji BFS kiedy oznaczyć nowo odkryty wierzchołek jako odwiedzony, by nie zakolejkować go kilka razy? {
+::AISD-16-Q20::W grafie nieważonym są krawędzie A-B, A-C, B-D i C-D. BFS startuje w A i przegląda sąsiadów alfabetycznie. Jaką odległość i rodzica zapisze dla D? {
+  ~1 krawędź, rodzic B
+  =2 krawędzie, rodzic B
+  ~2 krawędzie, rodzic C
+  ~3 krawędzie, rodzic B
+  ####BFS odkrywa B przed C; D zostaje po raz pierwszy odkryty z B na odległości dwóch krawędzi od A.
+}
+
+
   ~Dopiero podczas końcowego wypisywania ścieżek.
   =Przy odkryciu, przed dodaniem do kolejki lub jednocześnie z dodaniem.
   ~Wyłącznie przy drugiej próbie dodania do kolejki.
