@@ -4,7 +4,7 @@
 
 ::AISD-14-Q01::[plain]W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
   ~2i
-  ~⌊i/2⌋
+  ~floor(i/2)
   =2i+1
   ~2i+2
   ####W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
