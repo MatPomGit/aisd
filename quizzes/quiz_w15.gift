@@ -60,9 +60,9 @@
 
 ::AISD-15-Q08::Podczas BFS w grafie z cyklami w którym momencie najbezpieczniej oznaczać nowo odkryty wierzchołek jako odwiedzony? {
   =Przy dodawaniu go do kolejki.
-  ~Po zdjęciu wierzchołka z kolejki, ale jeszcze przed przetworzeniem sąsiadów.
-  ~Po rozpatrzeniu wszystkich sąsiadów wierzchołka, podczas zamykania jego wizyty.
-  ~Dopiero przy drugim odkryciu, aby rozpoznać wierzchołki z wieloma poprzednikami.
+  ~Przy pobieraniu go z kolejki.
+  ~Po zakończeniu analizy sąsiadów.
+  ~Przy ponownym odkryciu wierzchołka.
   ####Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
 }
 
@@ -91,7 +91,7 @@
 }
 
 ::AISD-15-Q12::Nieskierowany graf ma 6 wierzchołków w dwóch rozłącznych trójkątach. Ile ma spójnych składowych? {
-  =2
+  =2 składowe
   ~1 składowa
   ~3 składowe
   ~6 składowych
