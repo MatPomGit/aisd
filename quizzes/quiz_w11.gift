@@ -1,20 +1,20 @@
 // AIiSD 11: Kolejki
-// Wersja 1.2.1 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-11-Q01::[plain]Do pustej kolejki FIFO trafiają kolejno A, B, C. Następnie wykonujemy dequeue() oraz enqueue(D). Co zwróci następne dequeue()? {
-  ~A
-  ~C
-  ~D
-  =B
-  ####Pierwsze usunięcie zwróciło A, a nowy element D trafia na koniec.
+::AISD-11-Q01::[plain]Pusta kolejka FIFO otrzymuje A,B,C; wykonano dequeue(), enqueue(D), dequeue(). Który element zostanie usunięty w następnym dequeue()? {
+  =C.
+  ~A.
+  ~B.
+  ~D.
+  ####Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
 }
 
 ::AISD-11-Q02::[plain]Kolejka cykliczna ma pojemność 5, a rear oznacza indeks ostatniego elementu. Jeżeli rear\=4, jaki będzie indeks nowego ostatniego elementu po poprawnym enqueue, gdy jest miejsce? {
   ~1
   ~4
-  =0
   ~5
+  =0
   ####Nowy indeks wynosi (4+1) mod 5, czyli 0.
 }
 
@@ -26,65 +26,65 @@
   ####Same indeksy front i rear nie pozwalają odróżnić obu stanów bez dodatkowej informacji o liczbie elementów lub pełności bufora.
 }
 
-::AISD-11-Q04::[plain]Którą parę wskaźników należy utrzymywać w kolejce opartej na liście jednokierunkowej, aby operacje enqueue i dequeue miały koszt O(1)? {
-  =head oraz tail.
-  ~Dwa wskaźniki na początki kolejnych węzłów od head, bez wskaźnika ogona.
-  ~Wyłącznie head
-  ~Wyłącznie tail
-  ####Usuwanie następuje przy głowie, a dopisywanie przy ogonie.
+::AISD-11-Q04::[plain]Niecykliczna lista jednokierunkowa ma reprezentować kolejkę FIFO z operacjami enqueue i dequeue w czasie O(1), także przy przejściu do stanu pustego. Jakie wskaźniki wystarczą? {
+  ~Tylko head, bo wstawienie na koniec nie wymaga przejścia listy.
+  ~Tylko tail, który wskazuje null, gdy kolejka jest pełna.
+  =head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować.
+  ~Wskaźniki do dwóch pierwszych elementów, bez dostępu do ostatniego.
+  ####W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania. Przy pustce oba wskaźniki muszą być spójne.
 }
 
-::AISD-11-Q05::[plain]Jaką zasadą wyboru elementu kieruje się kolejka priorytetowa, w przeciwieństwie do standardowej kolejki FIFO? {
-  ~Usuwa najwcześniej dodany element spośród wszystkich, ignorując priorytet.
-  ~Usuwa element o najwyższym priorytecie wyłącznie wtedy, gdy jest na początku FIFO.
-  ~Usuwa element o najmniejszej wartości klucza, nawet jeśli priorytet określono odwrotnie.
-  =Usuwa element o najwyższym priorytecie według ustalonego porządku.
-  ####O kolejności decyduje klucz priorytetu; przy remisach polityka zależy od implementacji.
+::AISD-11-Q05::[plain]Kolejka FIFO zawiera zadania A, B, C w kolejności przybycia, lecz zadanie C ma najwyższy priorytet. Który element usunie standardowa FIFO, a który kolejka priorytetowa skonfigurowana na najwyższy priorytet? {
+  ~Obie usuną A, bo priorytet nie zmienia porządku.
+  ~FIFO usunie C, a kolejka priorytetowa usunie A.
+  =FIFO usunie A, a kolejka priorytetowa usunie C.
+  ~Obie usuną C, bo zadanie o najwyższym priorytecie zawsze trafia na początek.
+  ####FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
 }
 
-::AISD-11-Q06::[plain]W standardowym BFS grafu nieważonego używa się kolejki FIFO. Jaki wynik zapewnia dla pierwszego odkrycia wierzchołka z? {
-  ~Ścieżkę o najmniejszej sumie wag, o ile wszystkie wagi są dodatnie.
-  ~Ścieżkę o najmniejszej liczbie wierzchołków odkrytych przed osiągnięciem z.
-  =Najmniejszą liczbę krawędzi na ścieżce od źródła do z.
-  ~Ścieżkę o najmniejszej liczbie krawędzi tylko wtedy, gdy graf nie ma cykli.
-  ####Kolejka przetwarza wierzchołki warstwami według odległości mierzonej liczbą krawędzi.
+::AISD-11-Q06::[plain]Graf nieważony ma krawędzie A-B, A-C, B-D, C-D. BFS startuje w A i przetwarza sąsiadów alfabetycznie. Która informacja o D jest poprawna? {
+  ~D ma odległość 1, ponieważ można go odkryć przez B.
+  ~D ma odległość 3, bo istnieją dwie różne ścieżki.
+  ~D ma odległość 2, ale BFS zawsze wybierze C jako rodzica.
+  =D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B.
+  ####BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2. Odległości w nieważonym grafie są minimalne.
 }
 
 ::AISD-11-Q07::[plain]Które operacje udostępnia deque, a nie wymaga ich standardowa kolejka FIFO? {
-  ~Dodawanie na obu końcach, ale usuwanie wyłącznie z początku.
   =Dodawanie i usuwanie na obu końcach.
+  ~Dodawanie na obu końcach, ale usuwanie wyłącznie z początku.
   ~Dodawanie na końcu i usuwanie z dowolnego środka w stałym czasie.
   ~Usuwanie na obu końcach, lecz dodawanie wyłącznie na końcu.
   ####Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
 }
 
 ::AISD-11-Q08::[plain]Kolejka zrealizowana jako dynamiczna lista z head i tail usuwa ostatni pozostały element. Jak zaktualizować wskaźniki? {
-  =Ustawić head\=null i tail\=null.
   ~Ustawić head\=null, pozostawiając tail wskazujące dawny jedyny element.
+  =Ustawić head\=null i tail\=null.
   ~Ustawić tail\=null, pozostawiając head wskazujące dawny jedyny element.
   ~Ustawić head\=tail.next, ale nie zmieniać tail nawet przy pustej liście.
   ####Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
 }
 
-::AISD-11-Q09::[plain]Pusta kolejka cykliczna pojemności 5 używa front\=0 i size\=0. Dodano A,B,C, usunięto A i B, dodano D,E,F. Jaki jest aktualny front? {
-  ~0
-  ~1
-  ~4
-  =2
-  ####Dwie operacje dequeue przesuwają początek na indeks 2, niezależnie od późniejszych dopisań.
+::AISD-11-Q09::[plain]Kolejka cykliczna o pojemności 5 zaczyna z front\=0, size\=0. Dodano A,B,C, usunięto A,B, a potem dodano D,E,F. W jakich komórkach leżą C,D,E,F w kolejności FIFO? {
+  ~0,1,2,3.
+  ~2,3,4,5.
+  ~3,4,0,1.
+  =2,3,4,0.
+  ####Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
 }
 
 ::AISD-11-Q10::[plain]Kolejka FIFO otrzymuje 2,4,6. Wykonujemy dequeue(), enqueue(8), dequeue(). Co zwrócą kolejne dwa dequeue()? {
   ~4,6
-  ~8,6
   =6,8
+  ~8,6
   ~2,8
   ####Po usunięciu 2 i 4 pozostają 6 i 8 w tej kolejności.
 }
 
 ::AISD-11-Q11::[plain]W kolejce cyklicznej o pojemności 6, gdzie rear oznacza indeks następnej wolnej komórki, rear\=5. Po enqueue jaki będzie rear? {
-  ~1
   =0
+  ~1
   ~5
   ~4
   ####Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
@@ -101,8 +101,8 @@
 ::AISD-11-Q13::[plain]W kolejce priorytetowej min-heap mamy klucze 5,2,7,3. Jaką wartość zwróci pierwsze extract-min? {
   ~3
   ~5
-  ~7
   =2
+  ~7
   ####Priorytetem jest najmniejszy klucz; niezależnie od kolejności dodania minimum wynosi 2.
 }
 
@@ -114,51 +114,51 @@
   ####Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
 }
 
-::AISD-11-Q15::[plain]Kolejka zaimplementowana za pomocą dwóch stosów in i out przenosi elementy tylko wtedy, gdy out jest pusty. Jaki jest zamortyzowany koszt enqueue i dequeue na operację? {
-  ~O(1) w najgorszym przypadku
-  =O(1) zamortyzowany
-  ~O(log n) zamortyzowany
-  ~O(n) zamortyzowany
-  ####Każdy element jest wkładany i zdejmowany ze stosów stałą liczbę razy.
+::AISD-11-Q15::[plain]Kolejka jest zaimplementowana za pomocą dwóch stosów. Elementy są przenoszone ze stosu wejściowego do wyjściowego tylko wtedy, gdy wyjściowy jest pusty. Dlaczego dequeue ma amortyzowany koszt O(1)? {
+  ~Bo pojedyncze dequeue nigdy nie przenosi więcej niż jednego elementu.
+  ~Bo transfer trwa Θ(log n) dla każdej liczby elementów.
+  =Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz.
+  ~Bo dwa stosy gwarantują usuwanie w porządku LIFO zamiast FIFO.
+  ####Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
 }
 
 ::AISD-11-Q16::[plain]W pustej kolejce z head\=tail\=null dodano pojedynczy element X. Jakie powinny być wskaźniki po enqueue? {
-  =head\=X i tail\=X.
   ~head\=X i tail\=null.
+  =head\=X i tail\=X.
   ~head\=null i tail\=X.
   ~head\=null i tail\=null.
   ####W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
 }
 
 ::AISD-11-Q17::[plain]Kolejka cykliczna ma pojemność 7, front\=5 i size\=3. Na jaki indeks trafi nowy element enqueue, jeśli pozycja wstawienia to (front+size) mod 7? {
+  =1
   ~0
   ~2
   ~5
-  =1
   ####(5+3) mod 7 \= 1.
 }
 
 ::AISD-11-Q18::[plain]Przy realizacji kolejki FIFO zwykłą tablicą i przesuwaniu wszystkich elementów w lewo przy dequeue, jaki jest najgorszy koszt usunięcia pierwszego elementu? {
   ~Θ(1)
   ~Θ(log n)
-  =Θ(n)
   ~Θ(n log n)
+  =Θ(n)
   ####Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
 }
 
 ::AISD-11-Q19::[plain]Dwustronna kolejka (deque) zawiera kolejno od początku [1,2,3]. Wykonano push_front(4) oraz pop_back(). Jaka jest kolejność pozostałych elementów? {
   ~[1,2,4]
-  =[4,1,2]
   ~[4,2,3]
   ~[2,3,4]
+  =[4,1,2]
   ####Push_front dodaje 4 przed 1, a pop_back usuwa 3.
 }
 
-::AISD-11-Q20::[plain]Kolejka FIFO zleceń A,B,C ma stałe czasy obsługi odpowiednio 5,2,3. Jaki jest czas zakończenia zlecenia B, jeśli serwer zaczyna od t\=0, nie ma przerw ani narzutu? {
-  =7
-  ~5
-  ~2
-  ~10
-  ####B zaczyna się po zakończeniu A w t\=5 i kończy po dalszych 2 jednostkach w t\=7.
+::AISD-11-Q20::[plain]Zadania A,B,C trafiają do jednozadaniowego serwera FIFO w chwili t\=0. Czas obsługi wynosi odpowiednio 5,2,3. Jak długo czeka na rozpoczęcie obsługi C i kiedy kończy się C? {
+  ~C czeka 5, kończy się w t\=8.
+  =C czeka 7, kończy się w t\=10.
+  ~C czeka 3, kończy się w t\=6.
+  ~C nie czeka, kończy się w t\=3.
+  ####Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
 }
 
