@@ -3,16 +3,16 @@
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-02-Q01::[plain]W maszynie RAM przyjmujemy: LOAD r ustawia akumulator na R[r], ADD r dodaje R[r] do akumulatora, STORE r zapisuje akumulator do R[r]. Dla R[2]\=7 i R[3]\=5 wykonano LOAD 2; ADD 3; STORE 4. Ile wynosi R[4]? {
-  =12
   ~7
+  =12
   ~5
   ~19
   ####Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
 }
 
 ::AISD-02-Q02::[plain]Jakie założenie najbardziej zmienia analizę operacji dodawania dwóch n-bitowych liczb w modelu RAM? {
-  =Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów.
   ~Czy dopuszcza się instrukcję mnożenia, poza dodawaniem.
+  =Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów.
   ~Czy dodawanie zmienia akumulator czy osobny rejestr wynikowy.
   ~Czy długość słowa maszynowego jest stała, ale nieograniczona liczba słów może reprezentować operand.
   ####Model jednostkowy może przypisywać dodawaniu stały koszt, natomiast model bitowy uwzględnia długość liczb.
@@ -20,8 +20,8 @@
 
 ::AISD-02-Q03::[plain]Instrukcja JZERO L skacze do etykiety L, gdy akumulator ma wartość 0. Akumulator ma wartość -2. Co się wydarzy? {
   ~Nastąpi skok do L
-  =Wykonanie przejdzie do następnej instrukcji bez skoku.
   ~Nastąpi skok do L po znormalizowaniu wartości akumulatora do zera.
+  =Wykonanie przejdzie do następnej instrukcji bez skoku.
   ~Wykonanie przejdzie dalej, ale akumulator zostanie wyzerowany przez test.
   ####Warunek dotyczy równości zeru, a nie znaku liczby.
 }
@@ -29,47 +29,47 @@
 ::AISD-02-Q04::[plain]W danym wariancie RAM READ r pobiera liczbę z wejścia do R[r], nie zmieniając akumulatora. Akumulator wynosi 9; wykonano READ 0, a wejściem było 4. Jaki jest stan? {
   ~Akumulator pozostanie równy 9, natomiast R[0] zachowa wcześniejszą wartość.
   ~Akumulator przyjmie 4, a R[0] pozostanie niezmieniony.
-  =Akumulator 9, R[0]\=4.
   ~Akumulator i R[0] przyjmą 4
+  =Akumulator 9, R[0]\=4.
   ####Semantyka READ została określona jawnie: zmienia wyłącznie wskazany rejestr.
 }
 
 ::AISD-02-Q05::[plain]Jakie informacje należy uwzględnić przy porównywaniu zużycia pamięci przez dwa programy RAM wczytujące n liczb? {
-  ~Liczbę rejestrów kiedykolwiek zapisanych, pomijając ich ponowne użycie oraz rozmiar liczb.
   =Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu.
+  ~Liczbę rejestrów kiedykolwiek zapisanych, pomijając ich ponowne użycie oraz rozmiar liczb.
   ~Największy numer rejestru, traktowany zawsze jako liczbę zajętych komórek.
   ~Maksymalną liczbę aktywnych rejestrów, niezależnie od kosztu kodowania ich zawartości.
   ####Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
 }
 
 ::AISD-02-Q06::[plain]W programie RAM testuje się warunek c\=0 przed zmniejszeniem całkowitoliczbowego licznika c o 1. Jaki jest najszerszy z poniższych zbiorów wartości początkowych, dla którego program zawsze kończy się bez przepełnienia? {
-  =Wszystkie nieujemne liczby całkowite.
   ~Wszystkie liczby całkowite.
   ~Tylko dodatnie liczby całkowite.
   ~Wszystkie liczby całkowite różne od zera.
+  =Wszystkie nieujemne liczby całkowite.
   ####Dla c\=0 program kończy się od razu, a każda dodatnia wartość całkowita dochodzi do zera. Wartość ujemna przy dalszym zmniejszaniu nie osiąga zera.
 }
 
 ::AISD-02-Q07::[plain]Który wynik testu najlepiej ujawnia błąd przesunięcia indeksów o jedną pozycję w programie sumującym n danych wejściowych? {
   ~Dla n równego 1 suma zawiera dokładnie dwukrotność jedynego elementu.
-  ~Dla n równego 2 program oblicza sumę pierwszego elementu zamiast obu.
   =Dla n\=1 suma jest zaniżona o jedyny element.
+  ~Dla n równego 2 program oblicza sumę pierwszego elementu zamiast obu.
   ~Dla n równego 0 emulator nie zgłasza błędu przy pustym wejściu.
   ####Pojedynczy element pozwala odróżnić brak wykonania od prawidłowego jednego wykonania pętli.
 }
 
 ::AISD-02-Q08::[plain]Program RAM wykonuje n dodawań liczb, których długość może wzrastać aż do n bitów. Co można stwierdzić bez dodatkowych założeń? {
+  =Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów.
   ~Oba koszty są liniowe, jeśli liczba dodawań jest liniowa.
   ~Koszt jednostkowy jest liniowy tylko wtedy, gdy każda liczba ma długość O(1) bitów.
   ~Koszt bitowy wynosi zawsze Θ(n²), skoro każdy operand ma co najwyżej n bitów.
-  =Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów.
   ####Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
 }
 
 ::AISD-02-Q09::[plain]W RAM z instrukcjami LOAD r, SUB r, STORE r: R[1]\=12, R[2]\=5. Po LOAD 1; SUB 2; STORE 3, jaka wartość jest w R[3]? {
-  =7
   ~17
   ~5
+  =7
   ~12
   ####Akumulator otrzymuje 12, po odjęciu 5 ma 7 i ta wartość trafia do R[3].
 }
@@ -108,9 +108,9 @@
 
 ::AISD-02-Q14::[plain]R[0]\=3, R[1]\=8; wykonano LOAD 0; STORE 1; LOAD 1. Jaką wartość ma ostatecznie akumulator? {
   ~8
+  =3
   ~11
   ~0
-  =3
   ####STORE 1 nadpisuje poprzednie 8 wartością 3; ponowny LOAD 1 daje 3.
 }
 
@@ -133,31 +133,31 @@
 ::AISD-02-Q17::[plain]Program RAM: c\=n; dopóki c!\=0 wykonuj c\=c-2. Przyjmujemy dokładne liczby całkowite. Które wejście pokazuje, że przypadek bazowy c\=0 nie gwarantuje zakończenia dla wszystkich n>\=0? {
   ~n\=0.
   ~n\=2.
-  ~n\=4.
   =n\=3.
+  ~n\=4.
   ####Dla n\=3 kolejne wartości licznika to 3,1,-1,-3,..., więc c nigdy nie jest równe zeru. Należy zmienić warunek lub sposób postępu.
 }
 
 ::AISD-02-Q18::[plain]Jeżeli w RAM numer rejestru jest obliczany z akumulatora (adresowanie pośrednie), jaki dodatkowy warunek trzeba kontrolować? {
   ~Adres musi wskazywać wcześniej zapisany rejestr, nawet jeżeli dopuszcza się niezainicjalizowane komórki.
-  =Wyliczony adres musi wskazywać dopuszczalny rejestr.
   ~Adres musi być mniejszy od wartości akumulatora po odczycie.
   ~Adres musi być nieujemny, co samo wystarcza niezależnie od granic przyjętej pamięci.
+  =Wyliczony adres musi wskazywać dopuszczalny rejestr.
   ####Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
 }
 
 ::AISD-02-Q19::[plain]W RAM JZERO L skacze do L, gdy akumulator jest zerowy. Dla R[1]\=6 i R[2]\=2 wykonano LOAD 1; SUB 2; JZERO L; SUB 2; L: STORE 3. Ile wyniesie R[3]? {
-  ~4
   =2
+  ~4
   ~0
   ~6
   ####Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
 }
 
 ::AISD-02-Q20::[plain]RAM ma instrukcje LOAD r, SUB r, STORE r, gdzie SUB odejmuje R[r] od akumulatora. R[1]\=9, R[2]\=4. Program LOAD 1; STORE 3; SUB 2 kończy działanie. Co jest niezgodne z celem zapisania R[1]-R[2] do R[3]? {
+  =STORE 3 następuje przed odejmowaniem, więc zapisuje 9 zamiast 5.
   ~SUB 2 działa na liczbie 4, a powinien na liczbie 9.
   ~LOAD 1 nadpisuje R[1], zanim wykona się odejmowanie.
-  =STORE 3 następuje przed odejmowaniem, więc zapisuje 9 zamiast 5.
   ~Wynik nie może być ujemny, więc SUB 2 jest niedopuszczalne.
   ####STORE 3 zapisuje zawartość akumulatora sprzed SUB. Naprawa wymaga kolejności LOAD 1; SUB 2; STORE 3.
 }
