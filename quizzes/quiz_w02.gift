@@ -154,14 +154,6 @@
   ####Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
 }
 
-
-  =1
-  ~0
-  ~6
-  ~7
-  ####Przy zerowej liczbie iteracji pozostaje pojedyncza instrukcja kończąca.
-}
-
 ::AISD-02-Q20::Która sekwencja wyznacza R[3]\=R[1]-R[2] przy instrukcjach LOAD r, SUB r i STORE r oraz bez skutków ubocznych? {
   ~LOAD 2; SUB 1; STORE 3.
   ~LOAD 1; STORE 3; SUB 2.
