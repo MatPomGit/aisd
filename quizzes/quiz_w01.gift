@@ -83,18 +83,18 @@
 }
 
 ::AISD-01-Q11::Dla niepustej tablicy A\=[4,1,4,2] algorytm zwraca największy indeks wartości maksymalnej. Jaki powinien być wynik? {
-  ~0, ponieważ pierwsze wystąpienie maksimum ma indeks 0.
-  ~3, ponieważ ostatni element domyka przeglądany prefiks.
-  ~1, ponieważ maksimum zostaje zastąpione przy każdym porównaniu.
+  ~0
+  ~3
+  ~1
   =2
   ####Maksymalna wartość 4 występuje na indeksach 0 i 2; największym jest 2.
 }
 
 ::AISD-01-Q12::Pętla while x>1 wykonuje x\=floor(x/2) dla całkowitego x>\=1. Ile iteracji wykona dla x\=37? {
-  ~4, ponieważ po czterech dzieleniach x jest już mniejsze od pięciu.
-  ~6, ponieważ liczy się również sprawdzenie warunku dla x\=1.
+  ~4
+  ~6
   =5
-  ~7, ponieważ każda potęga dwójki wymaga osobnego kroku dla reszty.
+  ~7
   ####Kolejne wartości po iteracjach to 18,9,4,2,1; piąta kończy pętlę.
 }
 
@@ -108,7 +108,7 @@
 
 ::AISD-01-Q14::Pseudokod zwraca true po wykryciu x w tablicy, a false po wykonaniu pętli bez trafienia. Jaką własność należy dowieść dla każdej iteracji, w której wykonanie trwa dalej? {
   =W dotąd zbadanej części nie ma x.
-  ~Element x nie występuje w tablicy, skoro przeszukiwanie trwa dalej.
+  ~Element x nie występuje w tablicy
   ~W dotąd zbadanej części x wystąpił najwyżej raz.
   ~Jeżeli x występuje w tablicy, to znajduje się w przetworzonym prefiksie.
   ####Kontynuacja po braku trafienia pozwala wykluczyć x tylko z przebadanego prefiksu.
