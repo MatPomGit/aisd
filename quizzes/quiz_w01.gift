@@ -26,14 +26,6 @@
   ####Sprawdzenie n\=0 musi poprzedzać odczyt A[0], a pozostałe przypadki nie mogą zmieniać specyfikacji wyniku.
 }
 
-
-  ~Czy dla pustej tablicy zwracać najmniejszą reprezentowalną wartość liczbową.
-  ~Czy dla pustej tablicy inicjalizować maksimum wartością 0 zamiast A[0].
-  ~Czy brak elementów ma być interpretowany jako maksimum równe minus nieskończoności.
-  =Czy puste wejście jest niedopuszczalne, czy wymaga zdefiniowanego wyniku lub błędu.
-  ####Bez kontraktu dla n\=0 nie da się ocenić poprawności inicjalizacji maksimum pierwszym elementem.
-}
-
 ::AISD-01-Q04::Dwa programy dają identyczny wynik na 1000 testach. Jaki wniosek jest naukowo uzasadniony? {
   ~Programy są równoważne, jeżeli testy obejmują każdą instrukcję w obu implementacjach.
   ~Programy są równoważne dla wszystkich danych o rozmiarze nie większym od największego przetestowanego.
@@ -56,14 +48,6 @@
   ~Zwiększyć początkową wartość i do 1 bez zmiany zakresu.
   ~Zastąpić odczyt A[i+1] przez A[n-i].
   ####Poprawne indeksy wynoszą od 0 do n-1, a przesunięcie odczytu o 1 narusza granicę w ostatniej iteracji.
-}
-
-
-  =0 razy.
-  ~1 raz.
-  ~n+1 razy.
-  ~Liczba wykonań zależy od wartości elementów tablicy.
-  ####Pusty zakres indeksów nie uruchamia ciała pętli.
 }
 
 ::AISD-01-Q07::Który opis jest specyfikacją problemu, a nie opisem wybranej implementacji? {
