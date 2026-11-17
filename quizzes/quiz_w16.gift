@@ -1,51 +1,51 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-16-Q01::W nieważonym grafie BFS znajduje wierzchołek docelowy pierwszy raz na poziomie 4. Co oznacza ten poziom, jeśli źródło ma poziom 0? {
   =Najkrótsza ścieżka od źródła ma 4 krawędzie.
-  ~Najtańsza ścieżka ma sumę wag równą 4 dla dowolnych wag.
-  ~DFS odwiedzi ten wierzchołek po dokładnie 4 krokach.
-  ~Wierzchołek ma dokładnie 4 sąsiadów.
+  ~Poziom cztery oznacza koszt ścieżki równy 4 nawet w grafie o różnych wagach.
+  ~Poziom cztery oznacza cztery odwiedzone wierzchołki łącznie ze źródłem.
+  ~Poziom cztery oznacza cztery rozwinięcia wierzchołka docelowego, a nie długość ścieżki.
   ####BFS odkrywa kolejne warstwy odległości w liczbie krawędzi.
 }
 
 ::AISD-16-Q02::Dla grafu reprezentowanego listami sąsiedztwa, przy pełnym przeszukaniu BFS wszystkich osiągalnych wierzchołków, jaki jest górny koszt czasowy? {
-  ~O(V²+E²)
-  ~O(log V+E)
-  ~O(VE)
+  ~O(V²), ponieważ każdy wierzchołek może mieć co najwyżej V-1 sąsiadów.
+  ~O(E log V), ponieważ FIFO trzeba aktualizować po każdym odkryciu.
+  ~O(VE), ponieważ każda krawędź może być odwiedzona przy każdym nowym wierzchołku.
   =O(V+E)
   ####Każdy wierzchołek i każda reprezentowana krawędź są przetwarzane stałą liczbę razy.
 }
 
 ::AISD-16-Q03::W skierowanym grafie z cyklem A→B→C→A DFS wykonywany rekurencyjnie bez znaczników odwiedzenia może: {
-  ~gwarantować zakończenie po trzech wywołaniach.
-  ~gwarantować najkrótsze ścieżki.
+  ~Zakończyć po obejściu cyklu dokładnie raz, nawet bez stanu odwiedzenia.
+  ~Znaleźć najkrótszą ścieżkę, ponieważ rekurencja zawsze eksploruje najbliższych sąsiadów.
   =wchodzić w nieskończony ciąg wywołań.
-  ~zamienić cykl w drzewo bez dodatkowego stanu.
+  ~Odwiedzić każdy wierzchołek dwukrotnie, ale nigdy nie powtórzyć aktywnego wywołania.
   ####Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
 }
 
 ::AISD-16-Q04::Co odróżnia zachłanne best-first search sterowane tylko h(v) od A* sterowanego przez g(v)+h(v)? {
-  ~Best-first zawsze daje optymalną ścieżkę dla każdej heurystyki.
+  ~Best-first uwzględnia koszt ścieżki g, a A* korzysta tylko z h.
   =Best-first nie uwzględnia dotychczasowego kosztu ścieżki g(v) w swojej funkcji wyboru.
-  ~A* wybiera tylko wierzchołek o najmniejszej wartości h(v).
-  ~A* nie wymaga kolejki priorytetowej w typowej implementacji.
+  ~Best-first i A* różnią się wyłącznie dopuszczalnością heurystyki, a nie funkcją wyboru.
+  ~A* używa wyłącznie g, a best-first sumy g+h.
   ####Samo h(v) ocenia cel z bieżącego węzła, a A* dodaje koszt przebytej ścieżki.
 }
 
 ::AISD-16-Q05::W jakiej sytuacji standardowy DFS nie gwarantuje znalezienia ścieżki o najmniejszej liczbie krawędzi? {
   =Gdy cel jest osiągalny przez ścieżki o różnych długościach.
-  ~Gdy graf ma jeden wierzchołek i zero krawędzi.
-  ~Gdy graf jest drzewem będącym pojedynczą ścieżką.
-  ~Gdy źródło jest jednocześnie celem.
+  ~Gdy wszystkie krawędzie mają tę samą wagę, ale do celu prowadzą dwie ścieżki różnej długości.
+  ~Gdy graf nie zawiera cykli, a z każdego wierzchołka wychodzi najwyżej jedna krawędź.
+  ~Gdy graf ma jedną możliwą ścieżkę od źródła do celu, niezależnie od jej długości.
   ####DFS zależy od kolejności eksploracji sąsiadów i może najpierw znaleźć dłuższą trasę.
 }
 
 ::AISD-16-Q06::BFS dodaje wierzchołek do kolejki przy odkryciu. Kiedy należy oznaczyć go jako odwiedzony, aby uniknąć wielokrotnego kolejkowania? {
-  ~Dopiero po zakończeniu całego BFS.
-  ~Wyłącznie po przetworzeniu wszystkich sąsiadów.
-  ~Po drugim odnalezieniu tego samego wierzchołka.
+  ~W chwili zdjęcia wierzchołka z kolejki, przed przeglądaniem jego sąsiadów.
+  ~Po przetworzeniu wszystkich sąsiadów, aby zbadać każdą krawędź.
+  ~Dopiero po drugim napotkaniu, by wyeliminować powtarzające się wpisy FIFO.
   =Przed lub w chwili dodania do kolejki.
   ####Natychmiastowe oznaczenie blokuje powtórne odkrycia przez inne krawędzie.
 }
@@ -59,10 +59,10 @@
 }
 
 ::AISD-16-Q08::Kiedy BFS zwykle zużywa więcej pamięci granicy przeszukiwania niż DFS w bardzo szerokim, płytkim drzewie? {
-  ~Gdy BFS zawsze przechowuje wyłącznie bieżący wierzchołek.
+  ~Gdy granica BFS zawiera tylko bieżący poziom, którego rozmiar jest stały niezależnie od b.
   =Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi.
-  ~Gdy DFS musi zapisać na stosie wszystkie wierzchołki ostatniego poziomu.
-  ~Gdy oba algorytmy gwarantują ten sam maksymalny rozmiar granicy niezależnie od kolejności.
+  ~Gdy DFS przechowuje wszystkie liście jednocześnie, a BFS tylko jedną aktywną ścieżkę.
+  ~Gdy BFS i DFS mają identyczną wielkość granicy dla dowolnej kolejności rozwijania.
   ####BFS buforuje bieżący front warstwy; rekurencyjny DFS może przechowywać przede wszystkim głębokość ścieżki.
 }
 
@@ -100,16 +100,16 @@
 
 ::AISD-16-Q13::W standardowym A* w grafie o nieujemnych kosztach, jak obliczana jest wartość f(v)? {
   =g(v)+h(v)
-  ~h(v)-g(v)
-  ~g(v)·h(v)
-  ~min(g(v),h(v))
+  ~h(v), czyli szacowany koszt od v do celu, bez uwzględnienia przebytej drogi.
+  ~g(v), czyli koszt od źródła do v, bez oszacowania dalszej drogi.
+  ~g(v)-h(v), czyli koszt przebytej drogi pomniejszony o oszacowanie.
   ####A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
 }
 
 ::AISD-16-Q14::Który warunek na heurystykę h zapewnia dopuszczalność dla A* w problemie najkrótszej ścieżki? {
-  ~h(v) zawsze jest większe od rzeczywistego kosztu do celu.
-  ~h(v) równa się odległości w liczbie wierzchołków dla dowolnych wag.
-  ~h(v) jest funkcją ściśle malejącą przy każdym kroku niezależnie od grafu.
+  ~h(v) zawsze jest równe rzeczywistemu kosztowi do celu.
+  ~h(v) jest dodatnia dla każdego wierzchołka różnego od celu.
+  ~h(v) nie przekracza kosztu dotarcia od źródła do v, niezależnie od celu.
   =h(v) nigdy nie przekracza rzeczywistego minimalnego kosztu do celu.
   ####Heurystyka dopuszczalna nie przeszacowuje optymalnego kosztu pozostałej drogi.
 }
@@ -132,9 +132,9 @@
 
 ::AISD-16-Q17::W grafie ważonym z krawędziami A→B\=10, A→C\=1, C→B\=1, jakie ryzyko daje użycie zwykłego BFS zamiast Dijkstry do minimalizacji sumy wag? {
   =BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2.
-  ~BFS może poprawnie optymalizować każdą sumę dodatnich wag.
-  ~BFS nie potrafi przejść ścieżki z dwiema krawędziami.
-  ~BFS nigdy nie odwiedza wierzchołków końcowych krawędzi bezpośrednich.
+  ~BFS wybierze A→C→B, ponieważ dwie krawędzie są tańsze od jednej.
+  ~BFS nie znajdzie B, ponieważ porównuje tylko sumy wag, a nie liczbę krawędzi.
+  ~BFS zwróci minimalny koszt 2 niezależnie od wielkości dodatnich wag.
   ####BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
 }
 
