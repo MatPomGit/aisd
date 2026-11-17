@@ -11,18 +11,18 @@
 }
 
 ::AISD-04-Q02::Wyszukiwanie liniowe przerywa po znalezieniu pierwszego dopasowania. Jaką liczbę porównań wykonuje w najlepszym przypadku dla niepustej tablicy? {
-  ~0 porównań
-  ~2 porównania
-  ~n porównań
+  ~0
+  ~2
+  ~n
   =1
   ####Jeżeli pierwszy element jest dopasowaniem, potrzeba jednego porównania kluczy.
 }
 
 ::AISD-04-Q03::Który opis kosztu dodatkowej pamięci odpowiada iteracyjnemu sumowaniu tablicy bez tworzenia jej kopii? {
   ~Θ(n)
-  ~Θ(log n) słów
-  =Θ(1), nie licząc pamięci tablicy wejściowej.
-  ~Θ(n) dodatkowych komórek
+  ~Θ(log n)
+  =Θ(1)
+  ~Θ(n²)
   ####Przy standardowym modelu słów i wyłączeniu wejścia kilka zmiennych roboczych zajmuje stałą liczbę komórek.
 }
 
@@ -139,9 +139,9 @@
 }
 
 ::AISD-04-Q18::Ile porównań wykonuje pełne znalezienie maksimum tablicy n>\=1 wartości przez liniowe porównywanie kolejnych elementów z bieżącym maksimum? {
-  ~n porównań
-  ~n-2 porównania
-  ~⌈log₂ n⌉ porównań
+  ~n
+  ~n-2
+  ~⌈log₂ n⌉
   =n-1
   ####Pierwszy element inicjuje maksimum, pozostałe n-1 podlegają porównaniu.
 }
