@@ -27,9 +27,9 @@
 }
 
 ::AISD-10-Q04::W notacji postfiksowej wyrażenie '4 2 - 3 *' ma jaką wartość? {
-  ~-6
-  ~18
-  ~-2
+  ~-6, ponieważ odejmowanie i mnożenie są wykonywane w odwrotnej kolejności.
+  ~18, ponieważ wynik 4+2 mnoży się następnie przez 3.
+  ~-2, ponieważ na stos odkłada się tylko wynik ostatniego odejmowania.
   =6
   ####Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
 }
@@ -75,10 +75,10 @@
 }
 
 ::AISD-10-Q10::Jaki wynik da postfiksowe wyrażenie '7 2 3 * -'? {
-  ~15
+  ~15, ponieważ mnożenie wykonuje się po odejmowaniu.
   =1
-  ~-15
-  ~-1
+  ~-15, ponieważ odejmuje się 7 od iloczynu 2 i 3.
+  ~-1, ponieważ po zdjęciu argumentów odejmowanie wykonuje się odwrotnie.
   ####Najpierw 2·3\=6, a następnie 7-6\=1.
 }
 
@@ -99,10 +99,10 @@
 }
 
 ::AISD-10-Q13::Stos o pojemności 4 posiada top\=2, gdzie top to indeks ostatniego elementu. Ile kolejnych wywołań push może wykonać bez przepełnienia? {
-  ~2
-  ~3
+  ~2, ponieważ top\=2 oznacza dwa zajęte miejsca.
+  ~3, ponieważ w stosie jest jeszcze miejsce na trzy elementy.
   =1
-  ~0
+  ~0, ponieważ indeks 2 oznacza całkowite zapełnienie pojemności 4.
   ####Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
 }
 
@@ -139,10 +139,10 @@
 }
 
 ::AISD-10-Q18::W rekurencyjnej funkcji f(n)\=f(n-1)+1 dla n>0, f(0)\=0, ile aktywnych ramek istnieje jednocześnie tuż przed powrotem z f(0), jeśli wywołano f(4)? {
-  ~4
+  ~4, ponieważ przypadek bazowy nie tworzy osobnej ramki.
   =5
-  ~6
-  ~1
+  ~6, ponieważ powrót z f(0) wymaga dodatkowej ramki.
+  ~1, ponieważ aktywna jest tylko ramka ostatniego wywołania.
   ####Na stosie są wywołania f(4),f(3),f(2),f(1),f(0).
 }
 
@@ -155,9 +155,9 @@
 }
 
 ::AISD-10-Q20::Do pustego stosu wpisujemy 5,7,9, następnie usuwamy dwa elementy i wpisujemy 6. Ile elementów zawiera stos? {
-  ~1
-  ~3
-  ~4
+  ~1, ponieważ dwa zdjęcia z trzech usuwają dwa elementy, a dopisanie nie jest liczone.
+  ~3, ponieważ dwa zdjęcia i jedno dopisanie nie zmieniają rozmiaru.
+  ~4, ponieważ zdjęte elementy pozostają zaalokowane w buforze.
   =2
   ####Liczność zmienia się 0→3→1→2.
 }
