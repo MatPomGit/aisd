@@ -59,10 +59,10 @@
 }
 
 ::AISD-09-Q08::Dla listy jednokierunkowej w porównaniu z tablicą jaki jest koszt dotarcia do elementu o podanym indeksie k, bez dodatkowych indeksów? {
-  ~W obu Θ(1)
-  ~W obu Θ(k)
-  =W liście liniowy względem k, w tablicy stały w modelu RAM.
-  ~W liście Θ(1), jeśli jest tail; w tablicy Θ(k).
+  ~Lista Θ(1), tablica Θ(k+1).
+  ~Lista Θ(k+1), tablica Θ(k+1).
+  =Lista Θ(k+1), tablica Θ(1).
+  ~Lista Θ(1), tablica Θ(1).
   ####Powiązania umożliwiają przejście tylko do następnego węzła, natomiast tablica ma adresowanie indeksowe.
 }
 
@@ -93,7 +93,7 @@
 ::AISD-09-Q12::Na liście jednokierunkowej bez tail dopisujemy element na koniec. Przy długości n>0 ile węzłów w najgorszym przypadku trzeba odwiedzić od head, aby znaleźć ogon? {
   ~n-1 węzłów
   ~⌈n/2⌉ węzłów
-  =n
+  =n węzłów
   ~n+1 węzłów
   ####Trzeba przejść kolejno przez wszystkie n węzłów, aby dotrzeć do ostatniego.
 }
@@ -147,18 +147,18 @@
 }
 
 ::AISD-09-Q19::Lista jednokierunkowa zawiera n węzłów. Ile zmian wskaźnika next co najmniej wymaga pełne odwrócenie ich kierunku w klasycznej metodzie iteracyjnej? {
-  ~n-1
-  ~2n
-  ~n(n-1)/2
-  =n
+  ~n-1 zmian
+  ~2n zmian
+  ~n(n-1)/2 zmian
+  =n zmian
   ####Każdy z n węzłów musi otrzymać nowego następnika, włącznie z nowym ogonem.
 }
 
-::AISD-09-Q20::Przy założeniu, że znany jest wskaźnik do węzła w liście dwukierunkowej, a nie jest to węzeł strażnika, jaki koszt ma jego usunięcie przy spójnych wskaźnikach i stałoczasowym zwalnianiu pamięci? {
-  ~O(log n)
-  ~O(n)
-  =O(1)
-  ~O(1) tylko dla usuwania głowy, a nie dowolnego znanego węzła.
-  ####Modyfikuje się stałą liczbę pól next i prev sąsiadów.
+::AISD-09-Q20::W liście dwukierunkowej znamy wskaźnik do usuwanego węzła wewnętrznego. Jaki jest ścisły koszt usunięcia przy stałoczasowym zwalnianiu pamięci? {
+  ~Θ(log n)
+  ~Θ(n)
+  =Θ(1)
+  ~Θ(n log n)
+  ####Znajomość węzła i wskaźniki prev oraz next pozwalają przepiąć stałą liczbę odwołań bez przechodzenia listy.
 }
 
