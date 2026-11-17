@@ -1,11 +1,11 @@
 // AIiSD 07: Tablice dwuwymiarowe
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-07-Q01::Macierz 3×4 jest przechowywana wierszowo w ciągłym buforze. Jaki jest indeks liniowy elementu A[2][1] przy indeksowaniu od 0? {
-  ~6
-  ~7
-  ~10
+  ~7, ponieważ numer wiersza mnoży się przez liczbę wierszy.
+  ~10, ponieważ stosuje się numer kolumny razy liczbę kolumn.
+  ~8, ponieważ od pozycji początkowej odejmuje się jeden element.
   =9
   ####Przy czterech kolumnach indeks to 2·4+1\=9.
 }
@@ -19,50 +19,50 @@
 }
 
 ::AISD-07-Q03::Wierszowo przechowywana macierz ma m wierszy i n kolumn. Która kolejność przejścia zwykle lepiej wykorzystuje lokalność pamięci? {
-  ~Zewnętrzna pętla po kolumnach, wewnętrzna po wierszach.
+  ~Przejście kolumnami, gdyż kolejno odwiedza się te same indeksy wiersza.
   =Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach.
-  ~Zewnętrzna pętla po przekątnych, wewnętrzna po wierszach.
-  ~Naprzemienne przejście po niepowiązanych wierszach.
+  ~Przejście wierszami, ale od ostatniej kolumny do pierwszej, niezależnie od ułożenia danych.
+  ~Przejście po przekątnych, gdyż minimalizuje długość skoków w układzie row-major.
   ####W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
 }
 
 ::AISD-07-Q04::Dla kwadratowej macierzy n×n wyznaczamy transpozycję w miejscu. Które zamiany wystarczają? {
   =Dla każdej pary i<j zamienić A[i][j] z A[j][i].
-  ~Zamienić każdy element A[i][j] z A[j][i], także dla i>j.
-  ~Zamienić wyłącznie elementy głównej przekątnej.
-  ~Zamienić A[i][j] z A[n-1-i][n-1-j].
+  ~Dla wszystkich i różnego od j wykonać zamianę A[i][j] z A[j][i] dokładnie raz dla obu kierunków.
+  ~Zamienić tylko elementy sąsiadujące z główną przekątną.
+  ~Dla każdej pary i<j zamienić A[i][j] z A[n-1-j][n-1-i].
   ####Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
 }
 
 ::AISD-07-Q05::Dla grafu o V wierzchołkach reprezentowanego przez macierz sąsiedztwa, jaki jest asymptotyczny koszt pamięci macierzy? {
-  ~Θ(V+E)
-  ~Θ(E log V)
-  ~Θ(V)
+  ~Θ(V+E), ponieważ każdy wpis macierzy odpowiada jednej istniejącej krawędzi.
+  ~Θ(V), ponieważ liczba wierszy macierzy równa jest liczbie wierzchołków.
+  ~Θ(E), ponieważ macierz można przydzielić jedynie dla występujących łuków.
   =Θ(V²)
   ####Macierz zawiera V² pól niezależnie od liczby krawędzi.
 }
 
 ::AISD-07-Q06::Obraz szary ma H wierszy i W kolumn. Filtr 3×3 z dopełnieniem brzegu oblicza jeden wynik na piksel. Ile wyników powstanie? {
-  ~(H-2)·(W-2)
-  ~3H·W
+  ~(H-2)(W-2), ponieważ piksele brzegowe wymagają dopełnienia.
+  ~(H+2)(W+2), ponieważ dopełnienie tworzy dodatkowe wyniki brzegowe.
   =H·W
-  ~H+W
+  ~9HW, ponieważ każde okno 3×3 wytwarza osobny wynik dla każdej próbki.
   ####Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
 }
 
 ::AISD-07-Q07::Dla macierzy 2×3, wiersze [1,2,3] i [4,5,6], jak wygląda obrót o 90° zgodnie z ruchem wskazówek zegara? {
-  ~[[3,2,1],[6,5,4]]
-  =[[4,1],[5,2],[6,3]]
   ~[[3,6],[2,5],[1,4]]
+  =[[4,1],[5,2],[6,3]]
+  ~[[4,5,6],[1,2,3]]
   ~[[1,4],[2,5],[3,6]]
   ####Po obrocie pierwszą kolumnę od góry tworzą elementy pierwotnej pierwszej kolumny od dołu.
 }
 
 ::AISD-07-Q08::Macierz DP F[i][j] zależy wyłącznie od F[i-1][j] i F[i][j-1]. Które przejście od (0,0) zapewnia dostępność obu poprzedników? {
   =Rosnące i, a wewnątrz każdego wiersza rosnące j.
-  ~Malejące i, a w każdym wierszu malejące j.
-  ~Rosnące i i malejące j bez szczególnych warunków brzegowych.
-  ~Dowolny porządek odwiedzania pól.
+  ~Malejące i, ale rosnące j, ponieważ poprzedni wiersz jest jeszcze w pamięci.
+  ~Rosnące i i malejące j, ponieważ poprzednia kolumna jest już przetworzona.
+  ~Rosnące j oraz malejące i, ponieważ oba zależne indeksy zostaną kiedyś obliczone.
   ####Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
 }
 
@@ -83,10 +83,10 @@
 }
 
 ::AISD-07-Q11::Macierz A ma rozmiar 2×3, B ma rozmiar 3×4. Jaki jest rozmiar iloczynu AB? {
-  ~3×3
+  ~3×2, ponieważ wymiar wyniku bierze się z wymiarów wewnętrznych.
   =2×4
-  ~2×3
-  ~4×2
+  ~2×3, ponieważ liczba wierszy A i liczba kolumn A pozostają bez zmian.
+  ~3×4, ponieważ liczba wierszy B wyznacza liczbę wierszy wyniku.
   ####Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
 }
 
@@ -124,16 +124,16 @@
 
 ::AISD-07-Q16::Obraz RGB o H×W pikselach zawiera trzy kanały bajtowe na piksel bez dodatkowych nagłówków. Ile bajtów zajmują same dane pikseli? {
   =3HW
-  ~HW
-  ~4HW
-  ~24HW
+  ~HW bajtów, gdyż zapis RGB pozwala użyć jednego bajtu na wszystkie kanały.
+  ~3HW bitów, bo pojedynczy kanał jest reprezentowany jednym bitem.
+  ~24HW bajtów, gdyż 24-bitowa głębia koloru oznacza 24 bajty na piksel.
   ####Każdy piksel ma trzy wartości jednobajtowe, więc suma wynosi 3 razy liczba pikseli.
 }
 
 ::AISD-07-Q17::W macierzy sąsiedztwa grafu nieskierowanego bez pętli o 4 wierzchołkach ilu elementów spoza przekątnej może odpowiadać jednej krawędzi? {
-  ~1
-  ~4
-  ~8
+  ~1 wpis, ponieważ krawędź nieskierowana nie ma wyróżnionego kierunku.
+  ~4 wpisy, ponieważ każda krawędź jest zapisywana dwukrotnie w każdym wierszu.
+  ~2 wpisy na przekątnej macierzy, niezależnie od końców krawędzi.
   =2
   ####Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
 }
