@@ -3,47 +3,47 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-15-Q01::Nieskierowany graf prosty ma 6 wierzchołków i 7 krawędzi. Jaka jest suma stopni wszystkich wierzchołków? {
-  ~7, ponieważ każda krawędź jest liczona tylko raz.
-  ~12, ponieważ po odjęciu korzenia liczba stopni maleje o dwa.
-  ~21, ponieważ każda krawędź jest liczona trzy razy w grafie sześciowierzchołkowym.
+  ~7
+  ~12
+  ~21
   =14
   ####Każda krawędź jest liczona w stopniu obu końców, stąd suma stopni wynosi 2E.
 }
 
 ::AISD-15-Q02::W skierowanym grafie istnieje łuk A→B, ale nie ma B→A. Jaki wpis w macierzy sąsiedztwa jest prawidłowy przy A jako pierwszym indeksie? {
-  ~M[A,B]\=0 i M[B,A]\=1, bo macierz przechowuje łuki w odwrotnej kolejności.
-  ~M[A,B]\=1 i M[B,A]\=1, ponieważ graf ma dwa końce łuku.
+  ~M[A,B]\=0 i M[B,A]\=1
+  ~M[A,B]\=1 i M[B,A]\=1
   =M[A,B]\=1 oraz M[B,A]\=0.
-  ~M[A,B]\=0 i M[B,A]\=0, ponieważ nie ma dwukierunkowej krawędzi.
+  ~M[A,B]\=0 i M[B,A]\=0
   ####Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
 }
 
 ::AISD-15-Q03::Graf nieskierowany o V wierzchołkach i E krawędziach przechowujemy listami sąsiedztwa. Jaki jest koszt pamięci reprezentacji? {
-  ~Θ(V²), ponieważ każda lista musi mieć miejsce na wszystkie możliwe sąsiedztwa.
+  ~Θ(V²)
   =Θ(V+E)
-  ~Θ(E), ponieważ wierzchołki bez krawędzi nie wymagają pozycji na liście.
-  ~Θ(V log V+E), ponieważ indeks każdego wierzchołka wymaga logarytmicznej liczby słów RAM.
+  ~Θ(E)
+  ~Θ(V log V+E)
   ####Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
 }
 
 ::AISD-15-Q04::Jaka jest liczba maksymalnie możliwych krawędzi w prostym grafie nieskierowanym o V wierzchołkach? {
   =V(V-1)/2
-  ~V², ponieważ każda para wierzchołków może połączyć się w dwóch kierunkach.
-  ~V(V+1)/2, ponieważ dopuszcza się również krawędzie własne.
-  ~V(V-1), ponieważ krawędź skierowaną liczy się raz dla każdej uporządkowanej pary.
+  ~V²
+  ~V(V+1)/2
+  ~V(V-1)
   ####Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
 }
 
 ::AISD-15-Q05::Dla nieskierowanego grafu spójnego o 8 wierzchołkach, który warunek musi zachodzić? {
-  ~Dokładnie V-1 krawędzi, ponieważ każdy graf spójny jest drzewem.
-  ~Co najmniej V krawędzi, ponieważ każdy wierzchołek ma sąsiada.
-  ~Co najmniej 2(V-1) krawędzi, ponieważ każdą krawędź liczy się dwukrotnie.
+  ~Dokładnie V-1 krawędzi
+  ~Co najmniej V krawędzi
+  ~Co najmniej 2(V-1) krawędzi
   =Ma co najmniej 7 krawędzi.
   ####Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
 }
 
 ::AISD-15-Q06::W grafie skierowanym ścieżka A→B→C istnieje, a łuk C→A nie istnieje. Co z tego wynika? {
-  ~A i C są silnie spójne, ponieważ istnieje skierowana ścieżka w jedną stronę.
+  ~A i C są silnie spójne
   ~W grafie nie istnieje żadna ścieżka prowadząca od C do A.
   =Z A do C jest osiągalność, ale nie wynika osiągalność z C do A.
   ~A musi być bezpośrednim poprzednikiem C w macierzy sąsiedztwa.
@@ -51,10 +51,10 @@
 }
 
 ::AISD-15-Q07::W reprezentacji grafu macierzą sąsiedztwa jaki jest koszt sprawdzenia, czy krawędź (u,v) istnieje, przy poprawnych indeksach? {
-  ~Θ(deg(u)), ponieważ wpis trzeba znaleźć przez przejście listy sąsiedztwa.
+  ~Θ(deg(u))
   =Θ(1)
-  ~Θ(log V), ponieważ indeksy macierzy wymagają wyszukiwania binarnego.
-  ~Θ(V), ponieważ odczyt M[u,v] sprawdza cały wiersz macierzy.
+  ~Θ(log V)
+  ~Θ(V)
   ####Wystarcza bezpośredni odczyt jednego pola M[u,v].
 }
 
@@ -75,10 +75,10 @@
 }
 
 ::AISD-15-Q10::Graf skierowany ma łuki A→B, B→C, C→A. Ile wynosi stopień wejściowy każdego wierzchołka? {
-  ~0, ponieważ w cyklu wejścia i wyjścia się równoważą.
-  ~2, ponieważ każdy wierzchołek ma jednego poprzednika i jednego następcę.
+  ~0
+  ~2
   =1
-  ~3, ponieważ trzy łuki wchodzą łącznie do całego grafu.
+  ~3
   ####Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
 }
 
@@ -92,22 +92,22 @@
 
 ::AISD-15-Q12::Nieskierowany graf ma 6 wierzchołków w dwóch rozłącznych trójkątach. Ile ma spójnych składowych? {
   =2
-  ~1 składowa, ponieważ każda z dwóch części zawiera cykl.
-  ~3 składowe, ponieważ każdy trójkąt tworzy więcej niż jeden komponent.
-  ~6 składowych, ponieważ wierzchołki dwóch trójkątów nie są połączone między sobą.
+  ~1 składowa
+  ~3 składowe
+  ~6 składowych
   ####Każdy trójkąt stanowi osobną składową, bo nie ma krawędzi między trójkątami.
 }
 
 ::AISD-15-Q13::Graf skierowany ma łuki 0→1,0→2,2→1. Jaki jest stopień wyjściowy wierzchołka 0? {
-  ~1, ponieważ tylko 0→1 jest krawędzią bezpośrednią do innego wierzchołka.
-  ~3, ponieważ liczy się również łuk 2→1.
-  ~0, ponieważ wierzchołek startowy nie ma stopnia wyjściowego.
+  ~1
+  ~3
+  ~0
   =2
   ####Z wierzchołka 0 wychodzą dokładnie dwa łuki.
 }
 
 ::AISD-15-Q14::Graf ma V\=5 wierzchołków i E\=4 krawędzie. Który z poniższych wariantów może być drzewem? {
-  ~Spójny graf z jednym cyklem, bo V\=E+1.
+  ~Spójny graf z jednym cyklem
   ~Graf złożony z dwóch spójnych składowych, każda bez cykli.
   =Spójny graf bez cykli.
   ~Graf zawierający jedną pętlę, ale mający V-1 krawędzi i spójność.
@@ -115,10 +115,10 @@
 }
 
 ::AISD-15-Q15::Dla grafu o 1000 wierzchołkach i 10 krawędziach, która reprezentacja jest zwykle oszczędniejsza pamięciowo? {
-  ~Macierz sąsiedztwa, ponieważ przy E\=10 zawiera wiele pól zerowych.
+  ~Macierz sąsiedztwa
   =Lista sąsiedztwa.
-  ~Pełna macierz wag, ponieważ nieistniejące krawędzie nie zajmują miejsca.
-  ~Macierz osiągalności, ponieważ koszt pamięci zależy wyłącznie od rzeczywistego E.
+  ~Pełna macierz wag
+  ~Macierz osiągalności
   ####Lista sąsiedztwa wymaga O(V+E), a macierze kwadratowej liczby pól.
 }
 
@@ -131,16 +131,16 @@
 }
 
 ::AISD-15-Q17::W grafie nieskierowanym prostym, którego każdy wierzchołek ma stopień 2, a graf jest spójny, jaka jest struktura? {
-  ~Suma rozłącznych cykli, ponieważ spójność nie wyklucza wielu cykli.
-  ~Ścieżka Hamiltona, ponieważ każdy wierzchołek ma stopień dwa.
-  ~Drzewo, ponieważ liczba stopni jest dwukrotnością liczby wierzchołków.
+  ~Suma rozłącznych cykli
+  ~Ścieżka Hamiltona
+  ~Drzewo
   =Pojedynczy cykl.
   ####Skończony spójny graf 2-regularny jest cyklem.
 }
 
 ::AISD-15-Q18::W grafie skierowanym ścieżki A→B i B→C istnieją. Która relacja wynika z przechodniości osiągalności? {
-  ~A jest osiągalne z C, ponieważ każda ścieżka daje przejście w obu kierunkach.
-  ~Łuk A→C musi istnieć bezpośrednio, skoro są dwa kolejne łuki.
+  ~A jest osiągalne z C
+  ~Łuk A→C musi istnieć bezpośrednio
   =C jest osiągalne z A.
   ~B i C muszą należeć do jednego silnie spójnego składnika.
   ####Sklejenie ścieżek A→B i B→C tworzy drogę od A do C.
