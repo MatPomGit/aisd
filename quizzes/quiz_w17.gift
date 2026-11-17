@@ -42,12 +42,12 @@
   ####Insertion sort wykonuje przesunięcia proporcjonalne do liczby inwersji.
 }
 
-::AISD-17-Q06::[plain]Ile różnych porządków wejściowych musi odróżniać porównawcze sortowanie n różnych kluczy? {
-  ~2^n
-  ~n²
-  ~n(n-1)/2
-  =n!
-  ####Dla n różnych kluczy istnieje n! możliwych permutacji wymagających prawidłowej decyzji.
+::AISD-17-Q06::[plain]Program ma sortować trzy liczby, ale wykonuje tylko: porównaj A[0] i A[1], a jeśli A[0]>A[1], zamień je. Które wejście dowodzi, że procedura nie jest pełnym sortowaniem? {
+  ~[1,2,3], bo brak zamiany oznacza błędny wynik.
+  ~[2,1,3], bo po zamianie powstaje [1,2,3].
+  ~[1,1,1], bo równych kluczy nie można porządkować.
+  =[3,1,2], bo po jednej zamianie powstaje [1,3,2], nadal nieuporządkowane.
+  ####Dla [3,1,2] porównanie pierwszej pary daje [1,3,2]. Klucze 3 i 2 pozostają w niewłaściwej kolejności.
 }
 
 ::AISD-17-Q07::[plain]Algorytm sortuje poprawnie według klucza, lecz przestawia rekordy (2,A) i (2,B), które miały równy klucz. Jak ocenić wynik? {
