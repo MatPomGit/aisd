@@ -115,7 +115,7 @@
 }
 
 ::AISD-14-Q15::Ile poziomów (licząc korzeń jako poziom 0) może mieć kopiec o 15 węzłach? {
-  =4
+  =4 poziomy
   ~3 poziomy
   ~5 poziomów
   ~15 poziomów
@@ -131,10 +131,10 @@
 }
 
 ::AISD-14-Q17::W min-heap zmniejszamy klucz wewnętrznego węzła z 9 do 1, nie zmieniając dzieci. Jaki kierunek naprawy jest zwykle potrzebny? {
-  ~Przesianie w dół
-  ~Naprawa tylko poddrzew potomnych, bez odwoływania się do rodzica.
+  ~W dół do dzieci.
+  ~W dół, a potem w górę.
   =W górę do rodziców.
-  ~Zamiana zmniejszonego klucza z największym liściem niezależnie od miejsca.
+  ~W obie strony od liści.
   ####Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
 }
 
@@ -148,9 +148,9 @@
 
 ::AISD-14-Q19::Dla kolejki priorytetowej obsługującej insert i extract-min, która struktura zwykle zapewnia oba koszty O(log n) w najgorszym przypadku? {
   =Kopiec binarny.
-  ~Nieposortowana tablica, z O(log n) usuwaniem minimum dzięki skanowaniu połowy elementów.
-  ~Posortowana tablica, z O(log n) wstawianiem dzięki samemu wyszukiwaniu binarnemu.
-  ~Lista dwukierunkowa, z O(log n) wyszukiwaniem minimum bez indeksu.
+  ~Nieposortowana tablica.
+  ~Posortowana tablica.
+  ~Lista dwukierunkowa.
   ####W kopcu binarnym obie operacje naprawiają co najwyżej ścieżkę logarytmicznej wysokości.
 }
 
