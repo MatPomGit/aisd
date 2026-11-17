@@ -11,9 +11,9 @@
 }
 
 ::AISD-12-Q02::Drzewo binarne ma korzeń R, lewe dziecko A i prawe dziecko B. Jaka jest kolejność przejścia inorder? {
-  ~R, A, B, ponieważ korzeń jest odwiedzany przed lewym poddrzewem.
-  ~A, B, R, ponieważ korzeń jest odwiedzany po obydwu poddrzewach.
-  ~B, R, A, ponieważ w inorder pierwsze jest prawe poddrzewo.
+  ~R, A, B
+  ~A, B, R
+  ~B, R, A
   =A, R, B
   ####Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
 }
@@ -27,66 +27,66 @@
 }
 
 ::AISD-12-Q04::Dla drzewa binarnego o wysokości h liczonej w krawędziach, jaka jest maksymalna liczba węzłów? {
-  ~2^h, ponieważ h oznacza liczbę krawędzi na najdłuższej ścieżce.
+  ~2^h
   =2^(h+1)-1
-  ~2^(h+1), ponieważ poziom korzenia wnosi jeszcze jeden węzeł.
-  ~2^h-1, ponieważ ostatni poziom nie jest uwzględniany w wysokości.
+  ~2^(h+1)
+  ~2^h-1
   ####Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
 }
 
 ::AISD-12-Q05::Pełne drzewo binarne, w którym każdy węzeł wewnętrzny ma dwoje dzieci, zawiera 7 węzłów wewnętrznych. Ile ma liści? {
   =8
-  ~7, ponieważ liczba liści jest równa liczbie węzłów wewnętrznych.
-  ~14, ponieważ każdemu węzłowi wewnętrznemu przypadają dwa osobne liście.
-  ~15, ponieważ liczbę wszystkich węzłów utożsamia się z liczbą liści.
+  ~7
+  ~14
+  ~15
   ####W pełnym drzewie binarnym z I węzłami wewnętrznymi liczba liści wynosi I+1.
 }
 
 ::AISD-12-Q06::Drzewo z n węzłami jest spójne i nie zawiera cykli. Ile ma krawędzi? {
-  ~n, jeśli drzewo ma jeden korzeń i n-1 pozostałych węzłów.
-  ~n+1, ponieważ korzeń i liście zwiększają liczbę połączeń.
-  ~2n-2, ponieważ każdą krawędź liczy się z obu końców.
+  ~n
+  ~n+1
+  ~2n-2
   =n-1
   ####Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
 }
 
 ::AISD-12-Q07::W drzewie binarnym porządek preorder daje wyniki R, A, B, a inorder daje A, R, B. Jaki węzeł jest korzeniem? {
-  ~A, ponieważ jest pierwszym elementem przejścia inorder.
-  ~B, ponieważ występuje na końcu obu porządków.
+  ~A
+  ~B
   =R
-  ~Korzeń nie jest jednoznacznie określony, gdy znane są tylko dwa przejścia.
+  ~Korzeń nie jest jednoznacznie określony
   ####Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
 }
 
 ::AISD-12-Q08::Jaką złożoność ma pełne przejście po wszystkich węzłach drzewa z n węzłami, gdy obsługa węzła trwa O(1)? {
-  ~Θ(log n), ponieważ przejście biegnie po wysokości drzewa.
+  ~Θ(log n)
   =Θ(n)
-  ~Θ(n log n), ponieważ każdy węzeł wymaga przejścia od korzenia.
-  ~Θ(n²), ponieważ węzły są odwiedzane w dwóch kierunkach.
+  ~Θ(n log n)
+  ~Θ(n²)
   ####Każdy węzeł zostaje odwiedzony stałą liczbę razy.
 }
 
 ::AISD-12-Q09::Drzewo binarne ma korzeń R, lewe dziecko A, prawe dziecko B, a A ma prawe dziecko C. Jaka jest kolejność preorder? {
   =R,A,C,B
-  ~A,C,R,B, ponieważ najpierw odwiedza się lewe poddrzewo.
-  ~C,A,B,R, ponieważ preorder odracza korzeń do końca.
-  ~R,B,A,C, ponieważ prawą gałąź przegląda się przed lewą.
+  ~A,C,R,B
+  ~C,A,B,R
+  ~R,B,A,C
   ####Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
 }
 
 ::AISD-12-Q10::Dla tego samego drzewa R z lewym A, prawym B i prawym dzieckiem C w A, jaka jest kolejność postorder? {
-  ~A,C,B,R, ponieważ postorder zachowuje kolejność lewej gałęzi przed dziećmi.
-  ~B,C,A,R, ponieważ prawą gałąź przetwarza się przed lewą.
-  ~R,A,C,B, ponieważ postorder odwiedza korzeń jako pierwszy.
+  ~A,C,B,R
+  ~B,C,A,R
+  ~R,A,C,B
   =C,A,B,R
   ####Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
 }
 
 ::AISD-12-Q11::Pełne drzewo binarne (każdy węzeł ma zero lub dwoje dzieci) ma 5 węzłów wewnętrznych. Ile liści zawiera? {
-  ~5, ponieważ liczba węzłów wewnętrznych i liści jest identyczna.
-  ~10, ponieważ każdy węzeł wewnętrzny ma dwoje dzieci, więc wszystkie dzieci są liśćmi.
+  ~5
+  ~10
   =6
-  ~11, ponieważ liczba liści jest równa liczbie wszystkich węzłów.
+  ~11
   ####W drzewie pełnym liczba liści wynosi I+1.
 }
 
@@ -107,18 +107,18 @@
 }
 
 ::AISD-12-Q14::Jaka jest minimalna możliwa liczba węzłów w drzewie binarnym o wysokości h\=5, liczonej w krawędziach? {
-  ~5, ponieważ wysokość w krawędziach oznacza pięć węzłów ścieżki.
-  ~11, ponieważ do każdej krawędzi potrzeba dwóch odrębnych węzłów.
-  ~32, ponieważ wysokość pięć wymusza pełne zapełnienie ostatniego poziomu.
+  ~5
+  ~11
+  ~32
   =6
   ####Aby osiągnąć wysokość 5, wystarczy pojedyncza ścieżka o sześciu węzłach.
 }
 
 ::AISD-12-Q15::W drzewie ukorzenionym każdy węzeł oprócz korzenia ma dokładnie jednego rodzica. Dla 12 węzłów ile jest relacji rodzic-dziecko? {
-  ~12, ponieważ każdy węzeł, również korzeń, ma rodzica.
-  ~10, ponieważ dwa skrajne węzły nie mają relacji rodzic-dziecko.
+  ~12
+  ~10
   =11
-  ~22, ponieważ każdą relację liczy się dwukrotnie, w obie strony.
+  ~22
   ####Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
 }
 
@@ -132,16 +132,16 @@
 
 ::AISD-12-Q17::W drzewie R ma dwoje dzieci A i B; A ma dzieci C i D. Jaka jest liczba liści? {
   =3
-  ~2, ponieważ tylko C i D są liśćmi lewego poddrzewa.
-  ~4, ponieważ korzeń R liczy się jako liść przy dwojgu dzieci.
-  ~5, ponieważ wszystkie węzły poza korzeniem są liśćmi.
+  ~2
+  ~4
+  ~5
   ####Liśćmi są C,D,B; R i A mają dzieci.
 }
 
 ::AISD-12-Q18::Dla drzewa binarnego bez przechowywanych wskaźników rodzica, jakie jest ograniczenie pamięci na stos dla rekurencyjnego inorder w najgorszym przypadku wysokości h? {
-  ~O(1), jeśli przejście inorder nie tworzy dodatkowej tablicy wynikowej.
-  ~O(log h), ponieważ rekurencja dzieli ścieżkę na połowy.
-  ~O(h²), ponieważ każda ramka przechowuje wszystkie poprzednie węzły.
+  ~O(1)
+  ~O(log h)
+  ~O(h²)
   =O(h+1)
   ####Stos ma ramkę na każdy aktywny węzeł jednej ścieżki.
 }
@@ -155,10 +155,10 @@
 }
 
 ::AISD-12-Q20::W pełnym drzewie binarnym z 9 liśćmi ile jest łącznie węzłów? {
-  ~18, ponieważ dziewięć liści wymaga dodatkowo dziewięciu rodziców.
+  ~18
   =17
-  ~9, ponieważ w pełnym drzewie wszystkie węzły są liśćmi.
-  ~19, ponieważ dla każdego liścia potrzebne są dwa węzły wewnętrzne.
+  ~9
+  ~19
   ####Pełne drzewo ma I\=L-1\=8 węzłów wewnętrznych i 9 liści, razem 17.
 }
 
