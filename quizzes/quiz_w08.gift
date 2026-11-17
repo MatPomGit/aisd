@@ -4,23 +4,23 @@
 
 ::AISD-08-Q01::Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
   =24
-  ~10, ponieważ zsumowano wartości od 1 do 4 zamiast je pomnożyć.
-  ~16, ponieważ każdy z czterech poziomów mnoży przez stałą 2.
-  ~120, ponieważ liczba wywołań obejmuje również przypadek bazowy n\=0 jako czynnik.
+  ~10
+  ~16
+  ~120
   ####f(4)\=4·3·2·1·1\=24.
 }
 
 ::AISD-08-Q02::Rekurencja ma przypadek bazowy n\=0 i wywołuje f(n-2) dla n>0. Dla jakich danych nie można bez dodatkowego warunku dowieść zakończenia? {
-  ~Dla każdego dodatniego n, ponieważ argument maleje zawsze o 2.
-  ~Dla parzystych dodatnich n, ponieważ wywołanie ominie przypadek n\=0.
-  ~Wyłącznie dla n\=1, bo każde inne n dotrze do zera.
+  ~Dla każdego dodatniego n
+  ~Dla parzystych dodatnich n
+  ~Wyłącznie dla n\=1
   =Dla nieparzystych dodatnich n.
   ####Od nieparzystej liczby kolejne odejmowania 2 omijają zero i przechodzą w liczby ujemne.
 }
 
 ::AISD-08-Q03::W standardowej implementacji rekurencyjnego obliczania silni powstaje łańcuch wywołań n,n-1,...,0. Jaki jest maksymalny rząd głębokości stosu? {
-  ~Θ(log n), gdyż argument wywołania zmniejsza się w każdym kroku.
-  ~Θ(n²), ponieważ każde wywołanie musi przechowywać wszystkie poprzednie.
+  ~Θ(log n)
+  ~Θ(n²)
   =Θ(n)
   ~Θ(1), jeżeli każde wywołanie przechowuje stałą liczbę zmiennych.
   ####Aktywnych jest liniowo wiele wywołań, zanim wykona się pierwszy powrót.
@@ -43,9 +43,9 @@
 }
 
 ::AISD-08-Q06::Dla rekurencji T(n)\=2T(n/2)+Θ(n), przy n potędze dwójki, jaki jest rząd kosztu? {
-  ~Θ(n), ponieważ praca na jednym poziomie podziału jest liniowa.
-  ~Θ(n²), ponieważ na każdym poziomie występują dwa wywołania.
-  ~Θ(log n), ponieważ drzewo podziałów ma logarytmiczną wysokość.
+  ~Θ(n)
+  ~Θ(n²)
+  ~Θ(log n)
   =Θ(n log n)
   ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
 }
@@ -59,9 +59,9 @@
 }
 
 ::AISD-08-Q08::Czy kompilator zawsze zamienia rekurencję ogonową na iterację bez dodatkowego stosu? {
-  ~Tak, ponieważ składniowo końcowe wywołanie jest wystarczającą gwarancją.
+  ~Tak
   =Nie, zależy to od języka, implementacji i optymalizacji.
-  ~Nie, ponieważ eliminacja rekurencji ogonowej jest niemożliwa dla funkcji zwracających wartość.
+  ~Nie
   ~Tak, o ile rekurencja nie ma żadnych argumentów przekazywanych przez wartość.
   ####Eliminacja wywołania ogonowego jest optymalizacją, a nie uniwersalną gwarancją.
 }
@@ -83,24 +83,24 @@
 }
 
 ::AISD-08-Q11::W rekurencyjnym przejściu drzewa binarnego rozmiaru n, jeśli każda funkcja odwiedza węzeł raz i wykonuje stałą pracę, jaki jest czas? {
-  ~Θ(log n), ponieważ drzewo binarne ma zawsze logarytmiczną wysokość.
-  ~Θ(n log n), ponieważ każde przejście do dziecka wymaga ponownego wejścia od korzenia.
+  ~Θ(log n)
+  ~Θ(n log n)
   =Θ(n)
-  ~Θ(n²), ponieważ każdy z n węzłów trzeba odwiedzić dla obu poddrzew.
+  ~Θ(n²)
   ####Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
 }
 
 ::AISD-08-Q12::Funkcja rekurencyjna otrzymuje n i wywołuje f(n//2) dopóki n>1. Ile wywołań z argumentem dodatnim powstanie dla n\=32, licząc pierwsze? {
-  ~5, ponieważ pierwszego wywołania nie liczy się do głębokości.
+  ~5
   =6
-  ~7, ponieważ trzeba policzyć dodatkowe wywołanie dla n\=0.
-  ~32, ponieważ liczba wywołań jest równa początkowej wartości argumentu.
+  ~7
+  ~32
   ####Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
 }
 
 ::AISD-08-Q13::Jakie jest ryzyko w rekurencji wzajemnej f→g→f, gdy przypadki bazowe dotyczą tylko funkcji f, ale g nigdy nie przekazuje do niej malejącej miary? {
   =Nie można wyprowadzić zakończenia samej obecności przypadku bazowego.
-  ~Funkcja f gwarantuje zakończenie, ponieważ zawiera dowolny przypadek bazowy.
+  ~Funkcja f gwarantuje zakończenie
   ~Funkcja g może zakończyć się tylko wtedy, gdy jej wywołania są ogonowe.
   ~Wzajemna rekurencja kończy się po liczbie kroków równej liczbie funkcji w cyklu.
   ####Potrzebna jest globalna miara malejąca na całym cyklu wywołań.
@@ -109,7 +109,7 @@
 ::AISD-08-Q14::W liście jednokierunkowej head→A→B→C i nowy węzeł X ma zostać wstawiony po B. Jakie wskaźniki należy ustawić? {
   ~B.next\=X, a X.next\=B, co tworzy połączenie z nowym węzłem.
   ~X.next\=B, a B.next\=C, co dopina X przed B.
-  ~B.next\=X, a X.next\=null, ponieważ X jest teraz ostatnim węzłem.
+  ~B.next\=X, a X.next\=null
   =X.next\=C, B.next\=X.
   ####Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
 }
@@ -123,10 +123,10 @@
 }
 
 ::AISD-08-Q16::W tablicowej implementacji stosu wywołań każdy poziom rekurencji przechowuje dwie zmienne i adres powrotu. Jak rośnie dodatkowa pamięć dla głębokości d? {
-  ~Θ(log d), ponieważ każda ramka przechowuje stałą liczbę danych.
+  ~Θ(log d)
   =Θ(d)
-  ~Θ(d²), ponieważ i-ta ramka musi zawierać kopię wszystkich poprzednich.
-  ~Θ(1), ponieważ liczba lokalnych zmiennych na poziom jest stała.
+  ~Θ(d²)
+  ~Θ(1)
   ####Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
 }
 
@@ -139,7 +139,7 @@
 }
 
 ::AISD-08-Q18::Rekurencyjny algorytm DFS grafu oznacza wierzchołek jako odwiedzony dopiero po powrocie z rekurencji. Co może się zdarzyć w grafie z cyklem? {
-  ~DFS zakończy się prawidłowo, ponieważ oznaczenie przy powrocie wystarcza dla cykli.
+  ~DFS zakończy się prawidłowo
   ~DFS odwiedzi każdy wierzchołek najwyżej dwa razy, niezależnie od długości cyklu.
   ~DFS znajdzie ścieżkę o minimalnej liczbie krawędzi, mimo opóźnionego oznaczenia.
   =Nastąpi ponowne wejście do już aktywnego wierzchołka.
