@@ -3,10 +3,10 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-19-Q01::Quicksort zawsze wybiera pierwszy element jako pivot. Co grozi przy już posortowanym rosnąco wejściu bez dalszych zabezpieczeń? {
-  ~Podziały o rozmiarach bliskich n/2
-  ~Podziały 1 i n-2
-  ~Koszt Θ(n log n)
-  =Podziały o rozmiarach 0 i n-1, prowadzące do Θ(n²) w typowym schemacie.
+  ~Podziały n/2 i n/2, prowadzące do Θ(n log n).
+  ~Podziały 1 i n-2, prowadzące do Θ(n log n).
+  ~Podziały 0 i n-1, z kosztem Θ(n log n).
+  =Podziały 0 i n-1, prowadzące do Θ(n²).
   ####Skrajny pivot wywołuje maksymalnie nierównoważne podproblemy.
 }
 
@@ -106,12 +106,12 @@
   ####Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
 }
 
-::AISD-19-Q14::Dla DP minimalnej liczby monet z nominałami \{1,3,4\} i kwotą 6 jaka jest wartość optimum? {
-  ~Θ(n²)
-  ~Θ(n)
-  =2
-  ~Θ(log n)
-  ####Dwie monety o nominale 3 wystarczają, więc wynik to 2.
+::AISD-19-Q14::Stabilny LSD radix sort liczb trzycyfrowych w systemie dziesiętnym sortuje cyfry od jedności. Ile pełnych przebiegów po cyfrach potrzeba? {
+  ~1
+  ~2
+  =3
+  ~10
+  ####Każdy z trzech rzędów dziesiętnych, jedności, dziesiątki i setki, wymaga jednego stabilnego przebiegu.
 }
 
 ::AISD-19-Q15::Podczas sortowania quicksort z przypadkowo wybieranym pivotem jaki jest oczekiwany koszt dla n różnych kluczy? {
@@ -146,19 +146,19 @@
   ####Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
 }
 
-::AISD-19-Q19::DP oblicza F[i]\=min(F[i-1]+1, F[i-3]+1) dla i>\=3, z F[0]\=0, F[1]\=1, F[2]\=2. Ile wynosi F[5]? {
-  ~2
-  =3
-  ~4
-  ~5
-  ####F[3]\=1, F[4]\=2, F[5]\=min(F[4]+1,F[2]+1)\=3.
+::AISD-19-Q19::Quicksort przetwarza pięć elementów [3,3,3,3,3] z trójdzielnym podziałem na wartości mniejsze, równe i większe od pivota. Jakie rozmiary mają dwa podproblemy po pierwszym podziale? {
+  ~0 i 4
+  =0 i 0
+  ~2 i 2
+  ~4 i 0
+  ####Wszystkie wartości są równe pivotowi, dlatego trafiają do grupy środkowej, a oba rekurencyjne podproblemy są puste.
 }
 
-::AISD-19-Q20::Dla funkcji T(n)\=T(n-1)+n i T(0)\=0 jaka jest klasa złożoności całkowitego kosztu? {
+::AISD-19-Q20::Quicksort w każdym podziale pozostawia jeden podproblem o rozmiarze n-1, a partycjonowanie kosztuje Θ(n). Jaka jest klasa czasu w najgorszym przypadku? {
   =Θ(n²)
   ~Θ(n)
   ~Θ(n log n)
   ~Θ(2^n)
-  ####Suma kolejnych liczb od 1 do n ma wzrost kwadratowy.
+  ####Rekurencja T(n)\=T(n-1)+Θ(n) daje sumę kosztów liniowych od 1 do n, a więc Θ(n²).
 }
 
