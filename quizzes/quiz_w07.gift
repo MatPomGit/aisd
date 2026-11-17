@@ -3,26 +3,26 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-07-Q01::Macierz 3×4 jest przechowywana wierszowo w ciągłym buforze. Jaki jest indeks liniowy elementu A[2][1] przy indeksowaniu od 0? {
-  ~7, ponieważ numer wiersza mnoży się przez liczbę wierszy.
-  ~10, ponieważ stosuje się numer kolumny razy liczbę kolumn.
-  ~8, ponieważ od pozycji początkowej odejmuje się jeden element.
+  ~7
+  ~10
+  ~8
   =9
   ####Przy czterech kolumnach indeks to 2·4+1\=9.
 }
 
 ::AISD-07-Q02::Jakie wymiary ma transpozycja macierzy 3×5? {
-  ~3×5, ponieważ zamiana wierszy na kolumny nie zmienia wymiarów.
-  ~3×3, ponieważ liczba wierszy wyznacza oba wymiary wyniku.
+  ~3×5
+  ~3×3
   =5×3
-  ~5×5, ponieważ liczba kolumn wyznacza rozmiar macierzy kwadratowej.
+  ~5×5
   ####Transpozycja zamienia rolę wierszy i kolumn.
 }
 
 ::AISD-07-Q03::Wierszowo przechowywana macierz ma m wierszy i n kolumn. Która kolejność przejścia zwykle lepiej wykorzystuje lokalność pamięci? {
-  ~Przejście kolumnami, gdyż kolejno odwiedza się te same indeksy wiersza.
+  ~Przejście kolumnami
   =Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach.
   ~Przejście wierszami, ale od ostatniej kolumny do pierwszej, niezależnie od ułożenia danych.
-  ~Przejście po przekątnych, gdyż minimalizuje długość skoków w układzie row-major.
+  ~Przejście po przekątnych
   ####W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
 }
 
@@ -35,18 +35,18 @@
 }
 
 ::AISD-07-Q05::Dla grafu o V wierzchołkach reprezentowanego przez macierz sąsiedztwa, jaki jest asymptotyczny koszt pamięci macierzy? {
-  ~Θ(V+E), ponieważ każdy wpis macierzy odpowiada jednej istniejącej krawędzi.
-  ~Θ(V), ponieważ liczba wierszy macierzy równa jest liczbie wierzchołków.
-  ~Θ(E), ponieważ macierz można przydzielić jedynie dla występujących łuków.
+  ~Θ(V+E)
+  ~Θ(V)
+  ~Θ(E)
   =Θ(V²)
   ####Macierz zawiera V² pól niezależnie od liczby krawędzi.
 }
 
 ::AISD-07-Q06::Obraz szary ma H wierszy i W kolumn. Filtr 3×3 z dopełnieniem brzegu oblicza jeden wynik na piksel. Ile wyników powstanie? {
-  ~(H-2)(W-2), ponieważ piksele brzegowe wymagają dopełnienia.
-  ~(H+2)(W+2), ponieważ dopełnienie tworzy dodatkowe wyniki brzegowe.
+  ~(H-2)(W-2)
+  ~(H+2)(W+2)
   =H·W
-  ~9HW, ponieważ każde okno 3×3 wytwarza osobny wynik dla każdej próbki.
+  ~9HW
   ####Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
 }
 
@@ -60,9 +60,9 @@
 
 ::AISD-07-Q08::Macierz DP F[i][j] zależy wyłącznie od F[i-1][j] i F[i][j-1]. Które przejście od (0,0) zapewnia dostępność obu poprzedników? {
   =Rosnące i, a wewnątrz każdego wiersza rosnące j.
-  ~Malejące i, ale rosnące j, ponieważ poprzedni wiersz jest jeszcze w pamięci.
-  ~Rosnące i i malejące j, ponieważ poprzednia kolumna jest już przetworzona.
-  ~Rosnące j oraz malejące i, ponieważ oba zależne indeksy zostaną kiedyś obliczone.
+  ~Malejące i, ale rosnące j
+  ~Rosnące i i malejące j
+  ~Rosnące j oraz malejące i
   ####Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
 }
 
@@ -75,26 +75,26 @@
 }
 
 ::AISD-07-Q10::Dla macierzy 4×6 w układzie row-major przy indeksowaniu od 0 jaki jest indeks liniowy A[3][4]? {
-  ~18, ponieważ mnoży się indeks wiersza przez liczbę wierszy.
-  ~19, ponieważ do początku ostatniego wiersza dodaje się numer indeksu 1.
+  ~18
+  ~19
   =22
-  ~24, ponieważ oblicza się (i+1) razy liczbę kolumn.
+  ~24
   ####Indeks liniowy oblicza się jako 3·6+4\=22.
 }
 
 ::AISD-07-Q11::Macierz A ma rozmiar 2×3, B ma rozmiar 3×4. Jaki jest rozmiar iloczynu AB? {
-  ~3×2, ponieważ wymiar wyniku bierze się z wymiarów wewnętrznych.
+  ~3×2
   =2×4
-  ~2×3, ponieważ liczba wierszy A i liczba kolumn A pozostają bez zmian.
-  ~3×4, ponieważ liczba wierszy B wyznacza liczbę wierszy wyniku.
+  ~2×3
+  ~3×4
   ####Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
 }
 
 ::AISD-07-Q12::Dla kwadratowej macierzy A 3×3 o indeksach od 0 jak można policzyć sumę przekątnej pobocznej? {
   =A[0][2]+A[1][1]+A[2][0]
-  ~A[0][0]+A[1][1]+A[2][2], ponieważ indeksy przekątnej muszą być równe.
-  ~A[0][1]+A[1][1]+A[2][1], ponieważ pobiera się środkową kolumnę.
-  ~A[0][2]+A[1][2]+A[2][2], ponieważ używa się ostatniej kolumny.
+  ~A[0][0]+A[1][1]+A[2][2]
+  ~A[0][1]+A[1][1]+A[2][1]
+  ~A[0][2]+A[1][2]+A[2][2]
   ####Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
 }
 
@@ -107,10 +107,10 @@
 }
 
 ::AISD-07-Q14::W klasycznym mnożeniu macierzy A o rozmiarze m×k i B o k×n ile mnożeń skalarnych jest wykonywanych? {
-  ~mn mnożeń, ponieważ każde pole wyniku wymaga tylko jednego iloczynu.
-  ~mk+kn mnożeń, ponieważ liczy się liczbę elementów macierzy wejściowych.
+  ~mn mnożeń
+  ~mk+kn mnożeń
   =mkn
-  ~mkn² mnożeń, ponieważ wynik ma dodatkowo n kolumn do przemnożenia.
+  ~mkn² mnożeń
   ####Każdy z mn elementów wyniku powstaje jako suma k iloczynów.
 }
 
@@ -124,25 +124,25 @@
 
 ::AISD-07-Q16::Obraz RGB o H×W pikselach zawiera trzy kanały bajtowe na piksel bez dodatkowych nagłówków. Ile bajtów zajmują same dane pikseli? {
   =3HW
-  ~HW bajtów, gdyż zapis RGB pozwala użyć jednego bajtu na wszystkie kanały.
-  ~3HW bitów, bo pojedynczy kanał jest reprezentowany jednym bitem.
-  ~24HW bajtów, gdyż 24-bitowa głębia koloru oznacza 24 bajty na piksel.
+  ~HW bajtów
+  ~3HW bitów
+  ~24HW bajtów
   ####Każdy piksel ma trzy wartości jednobajtowe, więc suma wynosi 3 razy liczba pikseli.
 }
 
 ::AISD-07-Q17::W macierzy sąsiedztwa grafu nieskierowanego bez pętli o 4 wierzchołkach ilu elementów spoza przekątnej może odpowiadać jednej krawędzi? {
-  ~1 wpis, ponieważ krawędź nieskierowana nie ma wyróżnionego kierunku.
-  ~4 wpisy, ponieważ każda krawędź jest zapisywana dwukrotnie w każdym wierszu.
+  ~1 wpis
+  ~4 wpisy
   ~2 wpisy na przekątnej macierzy, niezależnie od końców krawędzi.
   =2
   ####Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
 }
 
 ::AISD-07-Q18::Dla DP wyznaczającego liczbę ścieżek w siatce 3×3 od (0,0) do (2,2), z ruchami wyłącznie w prawo i w dół, ile jest ścieżek? {
-  ~4 ścieżki, ponieważ są dwa możliwe kierunki w dwóch etapach.
-  ~8 ścieżek, ponieważ każdy z trzech kroków ma dwa możliwe kierunki.
+  ~4 ścieżki
+  ~8 ścieżek
   =6
-  ~9 ścieżek, ponieważ siatka ma dziewięć pól, a każde opisuje jedną trasę.
+  ~9 ścieżek
   ####Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
 }
 
