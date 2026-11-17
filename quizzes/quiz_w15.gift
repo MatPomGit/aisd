@@ -1,68 +1,68 @@
 // AIiSD 15: Grafy
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-15-Q01::Nieskierowany graf prosty ma 6 wierzchołków i 7 krawędzi. Jaka jest suma stopni wszystkich wierzchołków? {
-  ~7
-  ~12
-  ~21
+  ~7, ponieważ każda krawędź jest liczona tylko raz.
+  ~12, ponieważ po odjęciu korzenia liczba stopni maleje o dwa.
+  ~21, ponieważ każda krawędź jest liczona trzy razy w grafie sześciowierzchołkowym.
   =14
   ####Każda krawędź jest liczona w stopniu obu końców, stąd suma stopni wynosi 2E.
 }
 
 ::AISD-15-Q02::W skierowanym grafie istnieje łuk A→B, ale nie ma B→A. Jaki wpis w macierzy sąsiedztwa jest prawidłowy przy A jako pierwszym indeksie? {
-  ~M[A,B]\=0 oraz M[B,A]\=1.
-  ~M[A,B]\=1 oraz M[B,A]\=1.
+  ~M[A,B]\=0 i M[B,A]\=1, bo macierz przechowuje łuki w odwrotnej kolejności.
+  ~M[A,B]\=1 i M[B,A]\=1, ponieważ graf ma dwa końce łuku.
   =M[A,B]\=1 oraz M[B,A]\=0.
-  ~M[A,B]\=0 oraz M[B,A]\=0.
+  ~M[A,B]\=0 i M[B,A]\=0, ponieważ nie ma dwukierunkowej krawędzi.
   ####Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
 }
 
 ::AISD-15-Q03::Graf nieskierowany o V wierzchołkach i E krawędziach przechowujemy listami sąsiedztwa. Jaki jest koszt pamięci reprezentacji? {
-  ~Θ(V²) niezależnie od E.
+  ~Θ(V²), ponieważ każda lista musi mieć miejsce na wszystkie możliwe sąsiedztwa.
   =Θ(V+E)
-  ~Θ(E²)
-  ~Θ(log V+E)
+  ~Θ(E), ponieważ wierzchołki bez krawędzi nie wymagają pozycji na liście.
+  ~Θ(V log V+E), ponieważ indeks każdego wierzchołka wymaga logarytmicznej liczby słów RAM.
   ####Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
 }
 
 ::AISD-15-Q04::Jaka jest liczba maksymalnie możliwych krawędzi w prostym grafie nieskierowanym o V wierzchołkach? {
   =V(V-1)/2
-  ~V²
-  ~V(V+1)/2
-  ~2V-1
+  ~V², ponieważ każda para wierzchołków może połączyć się w dwóch kierunkach.
+  ~V(V+1)/2, ponieważ dopuszcza się również krawędzie własne.
+  ~V(V-1), ponieważ krawędź skierowaną liczy się raz dla każdej uporządkowanej pary.
   ####Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
 }
 
 ::AISD-15-Q05::Dla nieskierowanego grafu spójnego o 8 wierzchołkach, który warunek musi zachodzić? {
-  ~Ma dokładnie 8 krawędzi.
-  ~Każdy wierzchołek ma stopień co najmniej 2.
-  ~Jego macierz sąsiedztwa ma wyłącznie jedynki poza przekątną.
+  ~Dokładnie V-1 krawędzi, ponieważ każdy graf spójny jest drzewem.
+  ~Co najmniej V krawędzi, ponieważ każdy wierzchołek ma sąsiada.
+  ~Co najmniej 2(V-1) krawędzi, ponieważ każdą krawędź liczy się dwukrotnie.
   =Ma co najmniej 7 krawędzi.
   ####Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
 }
 
 ::AISD-15-Q06::W grafie skierowanym ścieżka A→B→C istnieje, a łuk C→A nie istnieje. Co z tego wynika? {
-  ~A i C muszą należeć do tego samego silnie spójnego składnika.
-  ~Graf musi być acykliczny.
+  ~A i C są silnie spójne, ponieważ istnieje skierowana ścieżka w jedną stronę.
+  ~W grafie nie istnieje żadna ścieżka prowadząca od C do A.
   =Z A do C jest osiągalność, ale nie wynika osiągalność z C do A.
-  ~Łuk A→C musi występować bezpośrednio w grafie.
+  ~A musi być bezpośrednim poprzednikiem C w macierzy sąsiedztwa.
   ####Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
 }
 
 ::AISD-15-Q07::W reprezentacji grafu macierzą sąsiedztwa jaki jest koszt sprawdzenia, czy krawędź (u,v) istnieje, przy poprawnych indeksach? {
-  ~Θ(deg(u))
+  ~Θ(deg(u)), ponieważ wpis trzeba znaleźć przez przejście listy sąsiedztwa.
   =Θ(1)
-  ~Θ(V)
-  ~Θ(V+E)
+  ~Θ(log V), ponieważ indeksy macierzy wymagają wyszukiwania binarnego.
+  ~Θ(V), ponieważ odczyt M[u,v] sprawdza cały wiersz macierzy.
   ####Wystarcza bezpośredni odczyt jednego pola M[u,v].
 }
 
 ::AISD-15-Q08::Podczas BFS w grafie z cyklami w którym momencie najbezpieczniej oznaczać nowo odkryty wierzchołek jako odwiedzony? {
   =Przy dodawaniu go do kolejki.
-  ~Dopiero po jego usunięciu z kolejki.
-  ~Po zakończeniu przetwarzania całego grafu.
-  ~Tylko wtedy, gdy jest liściem drzewa BFS.
+  ~Po zdjęciu wierzchołka z kolejki, ale jeszcze przed przetworzeniem sąsiadów.
+  ~Po rozpatrzeniu wszystkich sąsiadów wierzchołka, podczas zamykania jego wizyty.
+  ~Dopiero przy drugim odkryciu, aby rozpoznać wierzchołki z wieloma poprzednikami.
   ####Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
 }
 
@@ -107,10 +107,10 @@
 }
 
 ::AISD-15-Q14::Graf ma V\=5 wierzchołków i E\=4 krawędzie. Który z poniższych wariantów może być drzewem? {
-  ~Spójny graf zawierający dokładnie jeden cykl.
-  ~Graf niespójny z dodatkową krawędzią wielokrotną.
+  ~Spójny graf z jednym cyklem, bo V\=E+1.
+  ~Graf złożony z dwóch spójnych składowych, każda bez cykli.
   =Spójny graf bez cykli.
-  ~Graf z pętlą własną i bez izolowanych wierzchołków.
+  ~Graf zawierający jedną pętlę, ale mający V-1 krawędzi i spójność.
   ####Drzewo musi być spójne i acykliczne, a wtedy E\=V-1.
 }
 
@@ -131,9 +131,9 @@
 }
 
 ::AISD-15-Q17::W grafie nieskierowanym prostym, którego każdy wierzchołek ma stopień 2, a graf jest spójny, jaka jest struktura? {
-  ~Drzewo gwiaździste.
-  ~Graf pełny K4.
-  ~Zbiór rozłącznych ścieżek.
+  ~Suma rozłącznych cykli, ponieważ spójność nie wyklucza wielu cykli.
+  ~Ścieżka Hamiltona, ponieważ każdy wierzchołek ma stopień dwa.
+  ~Drzewo, ponieważ liczba stopni jest dwukrotnością liczby wierzchołków.
   =Pojedynczy cykl.
   ####Skończony spójny graf 2-regularny jest cyklem.
 }
@@ -147,10 +147,10 @@
 }
 
 ::AISD-15-Q19::Macierz sąsiedztwa prostego grafu nieskierowanego bez pętli ma jaką własność? {
-  ~Jest antysymetryczna i ma jedynki na przekątnej.
+  ~Jest symetryczna, ale elementy na przekątnej są zawsze jedynkami.
   =Jest symetryczna i ma zera na przekątnej.
-  ~Jest trójkątna górna niezależnie od indeksowania.
-  ~Każdy jej wiersz ma dokładnie jedną jedynkę.
+  ~Jest antysymetryczna z zerami na przekątnej.
+  ~Jest symetryczna i ma zera poza przekątną niezależnie od krawędzi.
   ####Krawędź \{u,v\} daje równe wpisy M[u,v] i M[v,u], a brak pętli zeruje M[u,u].
 }
 
