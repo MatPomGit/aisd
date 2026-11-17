@@ -19,9 +19,9 @@
 }
 
 ::AISD-13-Q03::Jaką kolejność kluczy zwraca inorder dla BST bez duplikatów? {
-  ~Kolejność nie malejącą, również wtedy gdy dopuszcza się powtórzenia.
-  ~Kolejność zgodną z poziomami drzewa, od najmniejszej głębokości.
-  ~Kolejność zależną od chronologii wstawiania, nawet bez rotacji.
+  ~Malejącą.
+  ~Według poziomów.
+  ~Według kolejności wstawienia.
   =Ściśle rosnącą.
   ####Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
 }
@@ -34,12 +34,12 @@
   ####Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
 }
 
-::AISD-13-Q05::Jaka jest asymptotyczna liczba porównań przy wyszukiwaniu klucza w BST o wysokości h? {
-  ~O(log h)
-  =O(h+1)
-  ~O(h), nawet dla drzewa składającego się tylko z korzenia h\=0.
-  ~O(n), które jest zawsze najściślejszym ograniczeniem niezależnie od h.
-  ####Wyszukiwanie porównuje klucz z węzłami jednej ścieżki od korzenia.
+::AISD-13-Q05::W BST o wysokości h (mierzonej krawędziami) jaka jest asymptotycznie ścisła liczba porównań przy wyszukiwaniu w najgorszym przypadku? {
+  ~Θ(log(h+1))
+  =Θ(h+1)
+  ~Θ((h+1)²)
+  ~Θ(1)
+  ####W najgorszym przypadku trzeba przejść ścieżkę od korzenia do najgłębszego węzła i porównać klucz na każdym z h+1 poziomów.
 }
 
 ::AISD-13-Q06::W BST bez duplikatów węzeł 12 ma lewe poddrzewo o korzeniu 7 i prawe o korzeniu 18. Gdzie poprawnie może leżeć klucz 15? {
@@ -102,7 +102,7 @@
   ~10
   =12
   ~8
-  ~Brak korzenia
+  ~6
   ####Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
 }
 
