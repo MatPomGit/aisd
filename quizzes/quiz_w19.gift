@@ -67,26 +67,26 @@
 }
 
 ::AISD-19-Q09::Quicksort z pivotem jako ostatnim elementem partycjonuje [4,2,7,1,5]. Ile elementów jest mniejszych od pivota 5? {
-  ~2
-  ~4
-  ~1
+  ~2, ponieważ liczymy tylko klucze większe od pivota.
+  ~4, ponieważ pivot porównuje się również sam ze sobą.
+  ~1, ponieważ wśród elementów znajduje się tylko jedna wartość mniejsza od mediany.
   =3
   ####Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
 }
 
 ::AISD-19-Q10::Dla counting sort kluczy [2,0,2,1,0,2] z dziedziny \{0,1,2\}, jaka jest tablica liczników? {
-  ~[2,2,2]
-  ~[3,1,2]
+  ~[2,2,2], ponieważ na wejściu jest sześć liczb i trzy klucze.
+  ~[3,1,2], ponieważ licznik zera i dwójki są zamienione.
   =[2,1,3]
-  ~[1,2,3]
+  ~[1,2,3], ponieważ liczniki odpowiadają kolejności pierwszych wystąpień kluczy.
   ####Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
 }
 
 ::AISD-19-Q11::W stabilnym LSD radix sort dla liczb 21,13,12,24 jaki jest wynik po pierwszym sortowaniu według cyfry jedności? {
-  ~12,21,13,24
+  ~12,21,13,24, ponieważ pod uwagę bierze się całe wartości kluczy.
   =21,12,13,24
-  ~13,12,24,21
-  ~24,13,12,21
+  ~13,12,24,21, ponieważ najwyższa cyfra ma pierwszeństwo w LSD.
+  ~24,13,12,21, ponieważ w pierwszym przebiegu sortuje się malejąco po jedności.
   ####Cyfry jedności wynoszą 1,3,2,4, więc kolejność po pierwszym etapie to 21,12,13,24.
 }
 
@@ -107,10 +107,10 @@
 }
 
 ::AISD-19-Q14::Dla DP minimalnej liczby monet z nominałami \{1,3,4\} i kwotą 6 jaka jest wartość optimum? {
-  ~3
-  ~4
+  ~Θ(n²), ponieważ każdy losowy wybór pivota daje nierówny podział.
+  ~Θ(n), ponieważ losowy pivot gwarantuje podziały na dwie równe części.
   =2
-  ~6
+  ~Θ(log n), ponieważ koszt pojedynczego podziału jest logarytmiczny.
   ####Dwie monety o nominale 3 wystarczają, więc wynik to 2.
 }
 
@@ -131,9 +131,9 @@
 }
 
 ::AISD-19-Q17::Dane są wartości [0.15,0.35,0.85], a bucket sort używa 5 koszyków o szerokości 0.2 z indeksami floor(5x). Do jakich koszyków trafią kolejno liczby? {
-  ~0,2,4
-  ~1,2,4
-  ~0,1,3
+  ~0,2,4, ponieważ 0.35 trafia do trzeciego koszyka.
+  ~1,2,4, ponieważ indeksy oblicza się zaokrągleniem w górę.
+  ~0,1,3, ponieważ ostatnia wartość 0.85 trafia do koszyka 3.
   =0,1,4
   ####Indeksy wynoszą floor(0.75)\=0, floor(1.75)\=1, floor(4.25)\=4.
 }
