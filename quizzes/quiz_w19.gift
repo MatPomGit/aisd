@@ -1,52 +1,52 @@
 // AIiSD 19: Zaawansowane algorytmy sortowania i optymalizacji
-// Wersja 1.1.0 | 2026-11-15 | 20 pytan jednokrotnego wyboru
+// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-19-Q01::Quicksort zawsze wybiera pierwszy element jako pivot. Co grozi przy już posortowanym rosnąco wejściu bez dalszych zabezpieczeń? {
-  ~Dwa równe podziały, prowadzące do Θ(n log n).
-  ~Liniowy czas dzięki braku zamian w każdym wariancie.
-  ~Gwarantowane stałe zużycie stosu niezależnie od n.
+  ~Podziały o rozmiarach bliskich n/2, bo pierwszy element jest najmniejszy.
+  ~Podziały 1 i n-2, ponieważ pivot zawsze pozostaje w lewym podproblemie.
+  ~Koszt Θ(n log n), ponieważ brak zamian oznacza bezkosztowe partycjonowanie.
   =Podziały o rozmiarach 0 i n-1, prowadzące do Θ(n²) w typowym schemacie.
   ####Skrajny pivot wywołuje maksymalnie nierównoważne podproblemy.
 }
 
 ::AISD-19-Q02::Dla counting sort z n kluczami całkowitymi w zakresie od 0 do k-1 jaki jest typowy koszt czasowy i pamięciowy? {
-  ~Czas O(n log n), pamięć O(1) niezależnie od k.
-  ~Czas O(k²), pamięć O(log n).
+  ~Czas O(n+k), pamięć O(k), również w stabilnej wersji zapisującej n wyników.
+  ~Czas O(n log k), pamięć O(n), ponieważ liczniki wymagają wyszukiwania binarnego.
   =Czas O(n+k), pamięć dodatkowa O(n+k) w stabilnej wersji.
-  ~Czas O(n²), pamięć O(n) dla każdego rozkładu.
+  ~Czas O(n²), pamięć O(k), ponieważ wszystkie klucze porównuje się parami.
   ####Stabilny counting sort korzysta z liczników zakresu k i tablicy wynikowej długości n.
 }
 
 ::AISD-19-Q03::Dlaczego stabilność sortowania pojedynczej cyfry jest istotna w LSD radix sort? {
-  ~Zapewnia malejącą kolejność liczb bez dodatkowych przejść.
+  ~Kolejne przebiegi muszą odwracać porządek równych cyfr, aby nadać większy priorytet nowej.
   =Zachowuje kolejność ustaloną przez wcześniej przetworzone mniej znaczące cyfry.
-  ~Umożliwia pominięcie przetwarzania najbardziej znaczącej cyfry.
-  ~Powoduje, że klucze nie muszą mieć ustalonej reprezentacji.
+  ~Stabilność ma znaczenie tylko podczas pierwszego przebiegu po najmniej znaczącej cyfrze.
+  ~Stabilność zapewnia eliminację powtarzających się kluczy bez dodatkowych testów.
   ####Przy kolejnych cyfrach remis nie może niszczyć wcześniejszego uporządkowania według niższych pozycji.
 }
 
 ::AISD-19-Q04::Trójdzielny podział quicksort (mniejsze, równe, większe od pivota) jest szczególnie użyteczny, gdy: {
   =dane zawierają wiele powtórzeń tych samych kluczy.
-  ~wszystkie klucze są unikatowe i równomiernie rozłożone.
-  ~liczba elementów jest zawsze potęgą dwójki.
-  ~klucze nie mają zdefiniowanej relacji porządku.
+  ~Gdy powtarza się wiele kluczy, ale wszystkie równe pivotowi nadal poddaje się rekurencji.
+  ~Gdy wszystkie klucze są unikatowe, ponieważ środkowa część wtedy jest największa.
+  ~Gdy wejście jest już posortowane i trójdzielny podział zawsze daje idealnie równe części.
   ####Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
 }
 
 ::AISD-19-Q05::Bucket sort dzieli n wartości z przedziału [0,1) na koszyki. Przy jakim założeniu może uzyskać oczekiwany koszt liniowy z odpowiednią liczbą koszyków? {
-  ~Wszystkie wartości trafiają do jednego koszyka.
-  ~Klucze są wejściowo ułożone malejąco.
-  ~Zakres wartości jest nieznany, a koszyków jest stale jeden.
+  ~Gdy wartości są rozłożone równomiernie, ale liczba koszyków wynosi stale jeden.
+  ~Gdy każda wartość trafia do osobnego koszyka, bez uwzględnienia kosztu ich przygotowania.
+  ~Gdy rozkład skupia większość elementów w jednym koszyku sortowanym kwadratowo.
   =Wartości są niezależne i w przybliżeniu równomiernie rozmieszczone.
   ####Równomierny rozkład ogranicza oczekiwaną liczbę elementów w koszykach.
 }
 
 ::AISD-19-Q06::Kiedy counting sort może być niepraktyczny pomimo liniowej zależności od n w pierwszym składniku kosztu? {
-  ~Gdy n jest parzyste.
-  ~Gdy klucze mogą występować wielokrotnie.
+  ~Gdy klucze są już posortowane rosnąco, bo counting sort nie działa wtedy liniowo.
+  ~Gdy wiele kluczy się powtarza, bo każdy duplikat wymaga własnego licznika.
   =Gdy zakres k jest ogromny w stosunku do n.
-  ~Gdy potrzebujemy wyniku w porządku rosnącym.
+  ~Gdy wymagane jest sortowanie stabilne, ponieważ stabilny counting sort musi być kwadratowy.
   ####Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
 }
 
@@ -60,9 +60,9 @@
 
 ::AISD-19-Q08::Która własność uzasadnia pamiętanie wyników podproblemów w programowaniu dynamicznym? {
   =Te same podproblemy powtarzają się, a rozwiązanie większego zależy od ich rozwiązań.
-  ~Każdy podproblem jest rozwiązywany tylko raz już bez zapamiętywania.
-  ~Liczba wszystkich możliwych stanów jest zawsze stała.
-  ~Każdy lokalnie najtańszy wybór prowadzi do optimum globalnego.
+  ~Podproblemy muszą być rozłączne, a ich wyniki nie mogą być ponownie używane.
+  ~Każdy stan musi mieć jednakowy koszt, niezależnie od wartości danych.
+  ~Optymalność rozwiązania wynika wyłącznie z wyboru najmniejszego lokalnego kosztu.
   ####Memoizacja eliminuje powtarzanie obliczeń, gdy podproblemy nakładają się.
 }
 
@@ -92,9 +92,9 @@
 
 ::AISD-19-Q12::W counting sort kluczy 0..4 występuje 6 elementów. Która pamięć zależy od zakresu kluczy, a nie liczby elementów? {
   =Tablica pięciu liczników.
-  ~Tablica sześciu wyników.
-  ~Oryginalna tablica sześciu kluczy.
-  ~Lista sześciu rekordów wejściowych.
+  ~Tablica wyników zawierająca n rekordów, bo jej pamięć zależy od wielkości dziedziny.
+  ~Kopia tablicy wejściowej n liczb, bo jej pamięć zależy tylko od liczby różnych kluczy.
+  ~Tablica indeksów dla n pozycji, bo ma zawsze tyle samo komórek co zakres wartości.
   ####Licznik jest potrzebny dla każdej z pięciu dopuszczalnych wartości klucza.
 }
 
@@ -115,18 +115,18 @@
 }
 
 ::AISD-19-Q15::Podczas sortowania quicksort z przypadkowo wybieranym pivotem jaki jest oczekiwany koszt dla n różnych kluczy? {
-  ~Θ(n²)
+  ~Θ(n²) oczekiwane, ponieważ czas zależy od każdego losowego wyboru pivota.
   =Θ(n log n)
-  ~Θ(n)
-  ~Θ(log n)
+  ~Θ(n), ponieważ losowy pivot zapewnia idealny podział w każdej iteracji.
+  ~Θ(log n), ponieważ głębokość drzewa rekurencji ogranicza pełny koszt.
   ####Losowy pivot zapewnia oczekiwany logarytmiczny balans rekurencji, choć najgorszy przypadek pozostaje kwadratowy.
 }
 
 ::AISD-19-Q16::Dlaczego LSD radix sort musi utrzymywać stabilność kolejnych przebiegów po cyfrze? {
   =Aby nie zniszczyć porządku ustanowionego dla mniej znaczących cyfr.
-  ~Aby usunąć wszystkie klucze z powtarzającymi się cyframi.
-  ~Aby umożliwić sortowanie porównawcze w O(n²).
-  ~Aby w każdym przebiegu zawsze zmieniać pozycję każdego elementu.
+  ~Aby każdy przebieg usuwał duplikaty, zanim rozważy kolejną cyfrę.
+  ~Aby wcześniejszy porządek ważniejszych cyfr miał pierwszeństwo przed mniej znaczącymi.
+  ~Aby liczba koszyków nie zależała od podstawy reprezentacji kluczy.
   ####Stabilny przebieg po ważniejszej cyfrze zachowuje rozstrzygnięcia wcześniejszych remisów.
 }
 
@@ -139,18 +139,18 @@
 }
 
 ::AISD-19-Q18::Dla quicksort z podziałem trójdzielnym na klucze <,\=,> pivota, co dzieje się z grupą kluczy równych pivotowi? {
-  ~Jest dzielona zawsze dokładnie na dwie połowy.
-  ~Trafia zawsze do lewego podproblemu.
+  ~Grupa równa pivotowi jest ponownie dzielona, ale bez porównań.
+  ~Grupa równa pivotowi trafia zawsze do lewej rekurencji, aby zakończyć podział.
   =Nie wymaga ponownego sortowania rekurencyjnego.
-  ~Trafia zawsze do prawego podproblemu.
+  ~Grupa równa pivotowi jest sortowana jeszcze raz, aby przywrócić stabilność.
   ####Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
 }
 
 ::AISD-19-Q19::DP oblicza F[i]\=min(F[i-1]+1, F[i-3]+1) dla i>\=3, z F[0]\=0, F[1]\=1, F[2]\=2. Ile wynosi F[5]? {
-  ~2
+  ~2, ponieważ dwa skoki długości 3 i 1 dają koszt dwa.
   =3
-  ~4
-  ~5
+  ~4, ponieważ bazowe F[2] i skoki o jeden wymagają czterech etapów.
+  ~5, ponieważ każdy stan F[i] zwiększa wynik o jeden.
   ####F[3]\=1, F[4]\=2, F[5]\=min(F[4]+1,F[2]+1)\=3.
 }
 
