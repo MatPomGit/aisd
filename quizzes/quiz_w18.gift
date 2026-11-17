@@ -108,7 +108,7 @@
 
 ::AISD-18-Q14::W standardowym selection sort na n\=6 elementach ile zamian najwyżej wykona implementacja, która wykonuje zamianę po każdym z pierwszych n-1 przebiegów, także gdy minIndex\=i? {
   ~6 zamian
-  =5
+  =5 zamian
   ~15 zamian
   ~4 zamiany
   ####Algorytm ma n-1\=5 przebiegów wybierania minimum i co najwyżej jedną zamianę na przebieg.
@@ -158,7 +158,7 @@
   ~6 porównań
   ~4 porównania
   ~9 porównań
-  =5
+  =5 porównań
   ####Po 5 porównaniach jedna z list może zostać wyczerpana, a resztę dopisuje się bez porównań.
 }
 
