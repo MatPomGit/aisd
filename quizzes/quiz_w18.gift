@@ -1,8 +1,8 @@
 // AIiSD 18: Sortowanie porównawcze w praktyce
-// Wersja 1.2.0 | 2026-11-17 | 20 pytan jednokrotnego wyboru
-// Import: Moodle > Baza pytan > Import > GIFT
+// Wersja 1.2.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-18-Q01::Sortowanie przez wybieranie rosnące przetwarza tablicę [4,1,3,2]. Jaki jest stan po pierwszej zamianie minimum z pozycją 0? {
+::AISD-18-Q01::[plain]Algorytm sortowania przez wybieranie rosnąco przetwarza tablicę [4,1,3,2]. Jaki jest jej stan po pierwszej zamianie minimum z elementem o indeksie 0? {
   ~[1,2,3,4]
   ~[2,1,3,4]
   =[1,4,3,2]
@@ -10,7 +10,7 @@
   ####Minimum całej nieuporządkowanej części to 1 na indeksie 1, więc zostaje zamienione z 4.
 }
 
-::AISD-18-Q02::Dla standardowego selection sort bez wcześniejszego przerywania jaka jest dokładna liczba porównań elementów dla n>\=1? {
+::AISD-18-Q02::[plain]Dla standardowego selection sort bez wcześniejszego przerywania jaka jest dokładna liczba porównań elementów dla n>\=1? {
   ~n(n+1)/2
   =n(n-1)/2
   ~n(n-1)
@@ -18,7 +18,7 @@
   ####Algorytm porównuje n-1,n-2,...,1 elementów w kolejnych przebiegach.
 }
 
-::AISD-18-Q03::Standardowy insertion sort przetwarza rosnąco [2,4,3,5]. Jaki wynik otrzymamy po wstawieniu trzeciego elementu 3 do uporządkowanego prefiksu? {
+::AISD-18-Q03::[plain]Algorytm sortowania przez wstawianie porządkuje rosnąco tablicę [2,4,3,5]. Jak wygląda tablica po wstawieniu trzeciego elementu do uporządkowanego prefiksu? {
   =[2,3,4,5]
   ~[2,4,5,3]
   ~[3,2,4,5]
@@ -26,7 +26,7 @@
   ####Trójka zostaje wstawiona między 2 i 4, co wymaga przesunięcia czwórki.
 }
 
-::AISD-18-Q04::Podczas scalania stabilnego merge sort oba aktualnie porównywane klucze są równe. Który element należy wybrać jako pierwszy? {
+::AISD-18-Q04::[plain]Podczas stabilnego sortowania przez scalanie dwa aktualnie porównywane klucze są równe. Który element należy wybrać jako pierwszy? {
   ~Element z prawego podciągu
   ~Element o największym pierwotnym indeksie, aby utrzymać kolejność scalania.
   ~Element z krótszego podciągu
@@ -34,7 +34,7 @@
   ####Wybór z lewej przy remisie zachowuje względną kolejność równych elementów.
 }
 
-::AISD-18-Q05::Jaki jest najgorszy koszt czasowy standardowego heapsort opartego na kopcu binarnym? {
+::AISD-18-Q05::[plain]Jaki jest najgorszy koszt czasowy standardowego heapsort opartego na kopcu binarnym? {
   ~Θ(n²)
   ~Θ(n)
   =Θ(n log n)
@@ -42,7 +42,7 @@
   ####Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
 }
 
-::AISD-18-Q06::Dla klasycznego merge sort na tablicy, który zasób ma typowo dodatkowy koszt Θ(n), poza stosem rekurencji? {
+::AISD-18-Q06::[plain]Dla klasycznego merge sort na tablicy, który zasób ma typowo dodatkowy koszt Θ(n), poza stosem rekurencji? {
   ~Pomocniczy stos wywołań głębokości Θ(n) dla zrównoważonych podziałów.
   =Pomocniczy bufor do scalania.
   ~Tablica wskaźników do każdego porównania, po jednym na poziom drzewa rekurencji.
@@ -50,7 +50,7 @@
   ####Standardowe scalanie tablic potrzebuje miejsca na tymczasowo łączone podciągi.
 }
 
-::AISD-18-Q07::Który algorytm zwykle najlepiej wykorzystuje tablicę prawie posortowaną z małą liczbą inwersji? {
+::AISD-18-Q07::[plain]Który algorytm zwykle najlepiej wykorzystuje tablicę prawie posortowaną z małą liczbą inwersji? {
   =Insertion sort.
   ~Selection sort
   ~Heapsort
@@ -58,7 +58,7 @@
   ####Liczba przesunięć insertion sort zależy od liczby inwersji, a pozostałe metody nie korzystają z tej cechy w klasycznej postaci.
 }
 
-::AISD-18-Q08::Standardowy selection sort wybiera minimum i zamienia je z elementem na początku nieuporządkowanej części. Dlaczego nie jest ogólnie stabilny? {
+::AISD-18-Q08::[plain]Standardowy selection sort wybiera minimum i zamienia je z elementem na początku nieuporządkowanej części. Dlaczego nie jest ogólnie stabilny? {
   ~Wybór minimum może pominąć element o najmniejszym kluczu.
   ~Wymiana minimum z A[i] zawsze odwraca wszystkie rekordy o równych kluczach.
   ~Niestabilność występuje tylko wtedy, gdy minimum jest w ostatniej komórce.
@@ -66,7 +66,7 @@
   ####Przeniesienie rekordu z początku na odległą pozycję może odwrócić kolejność równych kluczy.
 }
 
-::AISD-18-Q09::W selection sort na tablicy [5,2,4,1,3] jaki jest stan po pierwszym pełnym przebiegu? {
+::AISD-18-Q09::[plain]W selection sort na tablicy [5,2,4,1,3] jaki jest stan po pierwszym pełnym przebiegu? {
   ~[1,2,3,4,5]
   ~[2,5,4,1,3]
   =[1,2,4,5,3]
@@ -74,7 +74,7 @@
   ####Najmniejszy element 1 z indeksu 3 jest zamieniany z początkowym 5.
 }
 
-::AISD-18-Q10::W insertion sort na [4,2,5,1,3] jaki jest stan po wstawieniu elementu z początkowego indeksu 3 do posortowanego prefiksu? {
+::AISD-18-Q10::[plain]W insertion sort na [4,2,5,1,3] jaki jest stan po wstawieniu elementu z początkowego indeksu 3 do posortowanego prefiksu? {
   ~[2,4,5,1,3]
   =[1,2,4,5,3]
   ~[1,4,2,5,3]
@@ -82,7 +82,7 @@
   ####Po uporządkowaniu 4,2,5 mamy [2,4,5], a następnie wstawienie 1 przesuwa trzy elementy.
 }
 
-::AISD-18-Q11::Podczas scalania dwóch uporządkowanych list [1,4,7] i [2,3,8], jakie są pierwsze cztery wartości wyniku? {
+::AISD-18-Q11::[plain]Podczas scalania dwóch uporządkowanych list [1,4,7] i [2,3,8], jakie są pierwsze cztery wartości wyniku? {
   =1,2,3,4
   ~1,2,4,3
   ~2,1,3,4
@@ -90,7 +90,7 @@
   ####Scalanie zawsze pobiera mniejszy z dwóch dostępnych elementów czołowych.
 }
 
-::AISD-18-Q12::W merge sort dzielimy tablicę ośmiu elementów na połowy aż do pojedynczych elementów. Ile poziomów scalania wykonamy? {
+::AISD-18-Q12::[plain]Tablicę ośmiu elementów dzielimy na połowy aż do pojedynczych elementów, a następnie scalamy. Ile poziomów scalania wykona sortowanie przez scalanie? {
   ~2
   ~4
   ~8
@@ -98,7 +98,7 @@
   ####Na powrocie scalane są podciągi rozmiaru 1→2, 2→4 oraz 4→8.
 }
 
-::AISD-18-Q13::Dla wejścia [1,2,3,4,5] ile przesunięć elementów wykona standardowy insertion sort, jeśli porównuje klucz przez > i nie przesuwa równych? {
+::AISD-18-Q13::[plain]Dla wejścia [1,2,3,4,5] ile przesunięć elementów wykona standardowy insertion sort, jeśli porównuje klucz przez > i nie przesuwa równych? {
   ~4
   ~5
   =0
@@ -106,7 +106,7 @@
   ####Każdy nowy klucz jest nie mniejszy od poprzedniego, więc nie ma potrzeby przesuwania.
 }
 
-::AISD-18-Q14::W standardowym selection sort na n\=6 elementach ile zamian najwyżej wykona implementacja, która wykonuje zamianę po każdym z pierwszych n-1 przebiegów, także gdy minIndex\=i? {
+::AISD-18-Q14::[plain]W standardowym selection sort na n\=6 elementach ile zamian najwyżej wykona implementacja, która wykonuje zamianę po każdym z pierwszych n-1 przebiegów, także gdy minIndex\=i? {
   ~6 zamian
   =5 zamian
   ~15 zamian
@@ -114,7 +114,7 @@
   ####Algorytm ma n-1\=5 przebiegów wybierania minimum i co najwyżej jedną zamianę na przebieg.
 }
 
-::AISD-18-Q15::W heapsort rosnącym z kopcem maksymalnym po przeniesieniu maksimum na koniec tablicy jaki jest kolejny krok? {
+::AISD-18-Q15::[plain]W heapsort rosnącym z kopcem maksymalnym po przeniesieniu maksimum na koniec tablicy jaki jest kolejny krok? {
   =Zmniejszenie zakresu kopca i przywrócenie własności max-heap.
   ~Po zamianie maksimum z końcem trzeba powiększyć kopiec, aby odzyskać utracony element.
   ~Po zamianie maksimum z końcem wystarczy przeprowadzić sift-up od ostatniego indeksu.
@@ -122,7 +122,7 @@
   ####Końcowy element jest już na miejscu; pozostały prefiks trzeba naprawić jako kopiec.
 }
 
-::AISD-18-Q16::Dla tablicy [3,1,2] ile inwersji występuje względem sortowania rosnącego? {
+::AISD-18-Q16::[plain]Dla tablicy [3,1,2] ile inwersji występuje względem sortowania rosnącego? {
   ~1
   ~3
   ~0
@@ -130,7 +130,7 @@
   ####Inwersjami są pary (3,1) i (3,2).
 }
 
-::AISD-18-Q17::Dla standardowego insertion sort z przesuwaniem większych elementów ile przesunięć wymaga [4,3,2,1]? {
+::AISD-18-Q17::[plain]Dla standardowego insertion sort z przesuwaniem większych elementów ile przesunięć wymaga [4,3,2,1]? {
   ~4
   ~3
   =6
@@ -138,7 +138,7 @@
   ####Każda z sześciu inwersji odpowiada jednemu przesunięciu większego elementu.
 }
 
-::AISD-18-Q18::Jaką klasę porównań ma standardowy selection sort dla wejścia już posortowanego rosnąco? {
+::AISD-18-Q18::[plain]Jaką klasę porównań ma standardowy selection sort dla wejścia już posortowanego rosnąco? {
   ~Θ(n)
   =Θ(n²)
   ~Θ(n log n)
@@ -146,7 +146,7 @@
   ####Mimo uporządkowania algorytm porównuje wszystkie pozostałe pozycje w każdym przebiegu.
 }
 
-::AISD-18-Q19::Podczas stabilnego merge sort scalamy [(2,A),(4,B)] oraz [(2,C),(3,D)] po kluczu. Który rekord z kluczem 2 trafi pierwszy? {
+::AISD-18-Q19::[plain]Podczas stabilnego sortowania przez scalanie łączymy [(2,A),(4,B)] i [(2,C),(3,D)] według rosnącego klucza. Który rekord z kluczem 2 trafi do wyniku jako pierwszy? {
   =(2,A)
   ~(2,C)
   ~(4,B)
@@ -154,7 +154,7 @@
   ####Przy remisie stabilny merge pobiera rekord z lewej połowy, zachowując porządek pierwotny.
 }
 
-::AISD-18-Q20::Jaką liczbę porównań wykonuje standardowy merge dwóch list o rozmiarach 3 i 3 w najgorszym przypadku? {
+::AISD-18-Q20::[plain]Jaką liczbę porównań wykonuje standardowy merge dwóch list o rozmiarach 3 i 3 w najgorszym przypadku? {
   ~6 porównań
   ~4 porównania
   ~9 porównań
