@@ -147,9 +147,9 @@
 }
 
 ::AISD-01-Q19::Dla tablicy A\=[2,4,6] algorytm inicjuje s\=1 i dodaje każdy element. Jaka poprawka prowadzi do sumy właściwej dla wszystkich tablic całkowitoliczbowych? {
-  ~Zainicjowanie s\=-1, aby anulować późniejsze dodanie pierwszego elementu.
-  ~Zainicjowanie s wartością A[0] i dodawanie całego zakresu od indeksu 0.
-  ~Zainicjowanie s\=1, lecz rozpoczęcie pętli od indeksu 1.
+  ~Zainicjowanie s\=-1.
+  ~Zainicjowanie s\=A[0] przy niezmienionej pętli.
+  ~Zainicjowanie s\=1 i pominięcie A[0].
   =Zainicjowanie s\=0.
   ####Wartość początkowa powinna być neutralna względem dodawania, a nie powodować stałe przesunięcie wyniku.
 }
