@@ -46,14 +46,14 @@
   =f(n) należy do O(g(n)) i do Ω(g(n)).
   ~f(n) jest tylko O(g(n)), lecz nie Ω(g(n)).
   ~f(n) jest Ω(g(n)), ale nie O(g(n)).
-  ~f(n) jest Θ(n), jeśli współczynnik przy n² jest identyczny w obu funkcjach.
+  ~f(n) jest Θ(n)
   ####Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
 }
 
 ::AISD-05-Q07::Jaką klasę Θ ma suma 1+2+...+n? {
-  ~Θ(n log n), ponieważ ostatni składnik sumy jest liniowy.
-  ~Θ(n), ponieważ koszt pojedynczego dodawania jest stały.
-  ~Θ(log n), ponieważ suma ma zamknięty wzór i można ją obliczyć bez pętli.
+  ~Θ(n log n)
+  ~Θ(n)
+  ~Θ(log n)
   =Θ(n²)
   ####Dokładna suma to n(n+1)/2, jej dominujący składnik jest kwadratowy.
 }
@@ -76,25 +76,25 @@
 
 ::AISD-05-Q10::Dla f(n)\=4n³+2n i g(n)\=n³+100 jaka jest granica ilorazu f(n)/g(n) przy n→∞? {
   =4
-  ~0, ponieważ n³ w obu wielomianach skraca się całkowicie.
-  ~1, ponieważ najwyższe potęgi n są jednakowe.
-  ~Nieskończoność, ponieważ licznik ma dodatkowy składnik 2n.
+  ~0
+  ~1
+  ~Nieskończoność
   ####Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
 }
 
 ::AISD-05-Q11::Jaka jest najściślejsza klasa spośród podanych dla funkcji f(n)\=n²/log₂ n, n>\=2? {
-  ~f(n) należy do Θ(n²), bo czynnik logarytmiczny jest wolniejszy od n.
-  ~f(n) należy do Θ(n log₂ n), ponieważ licznik zawiera n².
-  ~f(n) należy do O(n), ponieważ logarytm w mianowniku obniża stopień wielomianu.
+  ~f(n) należy do Θ(n²)
+  ~f(n) należy do Θ(n log₂ n)
+  ~f(n) należy do O(n)
   =o(n²)
   ####Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
 }
 
 ::AISD-05-Q12::Które stwierdzenie jest prawdziwe dla f(n)\=n i g(n)\=n log₂ n, n>\=2? {
-  ~f jest Θ(g), bo stosunek f/g jest ograniczony z góry przez 1.
-  ~f jest Ω(g), ponieważ rośnie co najmniej liniowo.
+  ~f jest Θ(g)
+  ~f jest Ω(g)
   =f(n) należy do O(g(n)), ale nie do Θ(g(n)).
-  ~f jest o(g), ale nie O(g), bo zapis ma różne definicje.
+  ~f jest o(g), ale nie O(g)
   ####Stosunek f/g\=1/log₂ n zmierza do zera.
 }
 
@@ -108,16 +108,16 @@
 
 ::AISD-05-Q14::Dla n będącego potęgą 2 porównaj funkcje f(n)\=log₂(n²) i g(n)\=log₂ n. Jaka relacja zachodzi? {
   =f(n) należy do Θ(g(n)).
-  ~f należy do o(g), ponieważ log₂(n²) rośnie wolniej niż log₂ n.
-  ~f należy do Θ(g²), ponieważ argument logarytmu jest podnoszony do kwadratu.
-  ~g należy do o(f), ponieważ f ma dwukrotnie większy współczynnik.
+  ~f należy do o(g)
+  ~f należy do Θ(g²)
+  ~g należy do o(f)
   ####log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
 }
 
 ::AISD-05-Q15::Dla f(n)\=n log n i g(n)\=n² która relacja nie jest prawdziwa? {
-  ~f należy do ω(g), skoro n² jest większe od n log n.
-  ~g należy do o(f), bo n² rośnie szybciej od n log n.
-  ~f należy do Θ(g), jeśli ograniczamy n do potęg dwójki.
+  ~f należy do ω(g)
+  ~g należy do o(f)
+  ~f należy do Θ(g)
   =f(n) należy do Ω(g(n)).
   ####f(n)/g(n) dąży do zera, zatem nie istnieje dodatnie asymptotyczne dolne ograniczenie przez n².
 }
@@ -147,18 +147,18 @@
 }
 
 ::AISD-05-Q19::Jaką relację spełniają funkcje f(n)\=n² i g(n)\=3n²+4n dla n>\=1? {
-  ~f należy do o(g), bo g zawiera dodatkowy składnik 4n.
-  ~g należy do ω(f), bo współczynnik przy n² jest większy.
-  ~f należy do Θ(n), bo licznik f jest pojedynczą potęgą n.
+  ~f należy do o(g)
+  ~g należy do ω(f)
+  ~f należy do Θ(n)
   =Obie należą do tej samej klasy Θ.
   ####Iloraz f/g dąży do 1/3, dodatniej skończonej stałej.
 }
 
 ::AISD-05-Q20::Dla dwóch dodatnich funkcji f,g gdzie lim f(n)/g(n)\=0, która konsekwencja jest prawdziwa? {
-  ~f należy do O(g), ale nie do Ω(g), bo jest mniejsza dla każdego n.
+  ~f należy do O(g), ale nie do Ω(g)
   ~f należy do Θ(g) tylko przy pominięciu składnika 4n.
   =f należy do o(g).
-  ~g należy do o(f), ponieważ współczynnik przy n² wynosi 3.
+  ~g należy do o(f)
   ####Definicja małego o odpowiada granicy ilorazu równej zeru.
 }
 
