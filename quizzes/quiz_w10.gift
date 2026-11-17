@@ -4,9 +4,9 @@
 
 ::AISD-10-Q01::[plain]Stos pusty na początku przetwarza ciąg działań push(3), push(7), pop(), push(4). Następnie wykonuje dwa razy pop(). Która para wyników jest zgodna z zasadą LIFO? {
   ~7,3.
+  =4,7.
   ~4,3.
   ~3,4.
-  =4,7.
   ####Po pierwszym pop znika 7, więc przed dwoma ostatnimi pop stos zawiera 3,4. Otrzymujemy kolejno 4 i 3.
 }
 
@@ -28,15 +28,15 @@
 
 ::AISD-10-Q04::[plain]W notacji postfiksowej wyrażenie '4 2 - 3 *' ma jaką wartość? {
   ~-6
-  =6
   ~18
+  =6
   ~-2
   ####Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
 }
 
 ::AISD-10-Q05::[plain]Stos tablicowy ma pojemność c, a top wskazuje indeks ostatniego elementu. Dla pustego stosu top\=-1. Kiedy wywołanie push spowoduje przepełnienie? {
-  ~Gdy top\=c
   =Gdy top\=c-1.
+  ~Gdy top\=c
   ~Gdy top\=c-2
   ~Gdy top\=0
   ####Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
@@ -44,17 +44,17 @@
 
 ::AISD-10-Q06::[plain]Implementacja stosu tablicowego ma top\=-1 dla pustki. Funkcja peek odczytuje A[top] bez sprawdzenia top. Co jest błędem przy pustym stosie? {
   ~Odczyt A[-1] zawsze zwraca zero, niezależnie od języka.
+  =Odczyt A[-1] jest poza przyjętym kontraktem, więc najpierw należy sprawdzić top>\=0.
   ~Należy zmniejszyć top o 1 przed odczytem, aby przywrócić indeksowanie.
   ~Należy odczytać A[0], bo pierwszy element jest zawsze dostępny.
-  =Odczyt A[-1] jest poza przyjętym kontraktem, więc najpierw należy sprawdzić top>\=0.
   ####Gdy top\=-1 nie ma elementu do odczytania. Procedura musi najpierw obsłużyć pusty stos.
 }
 
 ::AISD-10-Q07::[plain]Dlaczego iteracyjny DFS często wykorzystuje stos, a BFS kolejkę? {
-  =DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania.
   ~DFS i BFS różnią się wyłącznie porządkiem sąsiadów, ale oba używają LIFO.
   ~BFS pobiera najnowszy element, a DFS najstarszy element granicy.
   ~DFS wymaga kolejki tylko przy braku cykli; BFS stosu przy obecności cykli.
+  =DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania.
   ####LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
 }
 
@@ -77,48 +77,48 @@
 ::AISD-10-Q10::[plain]Jaki wynik da postfiksowe wyrażenie '7 2 3 * -'? {
   ~15
   ~-15
-  ~-1
   =1
+  ~-1
   ####Najpierw 2·3\=6, a następnie 7-6\=1.
 }
 
 ::AISD-10-Q11::[plain]Jaki jest maksymalny rozmiar stosu podczas sprawdzania poprawności ciągu nawiasów '([\{\}])'? {
-  =3
   ~2
   ~4
   ~6
+  =3
   ####Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
 }
 
 ::AISD-10-Q12::[plain]Którą parę nawiasów jako pierwszą uzna za niezgodną analizator stosowy sprawdzający ciąg '([)]'? {
+  =[ oraz )
   ~( oraz )
   ~[ oraz ]
-  =[ oraz )
   ~( oraz ]
   ####Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
 }
 
 ::AISD-10-Q13::[plain]Stos o pojemności 4 posiada top\=2, gdzie top to indeks ostatniego elementu. Ile kolejnych wywołań push może wykonać bez przepełnienia? {
+  =1
   ~2
   ~3
-  =1
   ~0
   ####Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
 }
 
 ::AISD-10-Q14::[plain]W tablicowym stosie top\=-1 oznacza pustkę. Jaką wartość będzie mieć top po trzech push i jednym pop? {
-  =1
   ~2
   ~0
   ~3
+  =1
   ####Po kolejnych push indeks szczytu to 0,1,2; po pop zmniejsza się do 1.
 }
 
 ::AISD-10-Q15::[plain]W odwracaniu ciągu 'KOT' przez stos znaków, jaka będzie kolejność trzech wywołań pop? {
-  =T,O,K
   ~K,O,T
   ~O,T,K
   ~T,K,O
+  =T,O,K
   ####Ostatnio wstawiona litera T jest zdejmowana jako pierwsza.
 }
 
@@ -132,8 +132,8 @@
 
 ::AISD-10-Q17::[plain]Przekształcamy wyrażenie infiksowe '2 * 3 + 4' na postfiksowe. Po odczytaniu '2 * 3' na stosie operatorów jest tylko '*', a bieżącym operatorem jest '+'. Co zrobić przed odłożeniem '+'? {
   ~Pozostawić '*', bo stos może przechowywać wszystkie operatory do końca.
-  =Najpierw zdjąć '*', ponieważ ma wyższy priorytet niż '+'.
   ~Zdjąć dopiero '+' po odczytaniu kolejnej liczby.
+  =Najpierw zdjąć '*', ponieważ ma wyższy priorytet niż '+'.
   ~Zamienić '*' na '+', ponieważ mnożenie zostało już wykonane.
   ####Operator '*' ma wyższy priorytet i powinien trafić do wyjścia przed odłożeniem '+'.
 }
@@ -147,18 +147,18 @@
 }
 
 ::AISD-10-Q19::[plain]Stos wykorzystuje tablicę i top oznaczający indeks ostatniego elementu. Które operacje w standardowej implementacji działają bez przesuwania pozostałych elementów? {
+  =push i pop.
   ~push i usuwanie z dna.
   ~pop i wstawienie na dno.
-  =push i pop.
   ~wstawienie na dno i pop.
   ####Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
 }
 
 ::AISD-10-Q20::[plain]Program próbuje odwrócić napis 'KOT' za pomocą stosu znaków. Po odłożeniu K,O,T wykonuje dwa pop i dopisuje ich wyniki do wyjścia, po czym kończy. Na czym polega błąd? {
   ~Wyjście będzie 'OK', ponieważ stos działa FIFO.
+  =Wyjście będzie 'TO', ponieważ pominięto trzecie pop zdejmujące K.
   ~Wyjście będzie 'TOK', ponieważ pop usuwa wszystkie znaki naraz.
   ~Wyjście będzie 'T', ponieważ drugie pop nie działa na niepustym stosie.
-  =Wyjście będzie 'TO', ponieważ pominięto trzecie pop zdejmujące K.
   ####Trzy odkładane znaki wymagają trzech pop. Zakończenie po dwóch pomija ostatni znak.
 }
 
