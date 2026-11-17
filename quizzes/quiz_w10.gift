@@ -6,7 +6,7 @@
   ~3
   ~7
   =4
-  ~Brak elementu.
+  ~2
   ####Po usunięciu 7 na szczycie znalazło się 3; push(4) umieszcza 4 ponad nim.
 }
 
@@ -43,10 +43,10 @@
 }
 
 ::AISD-10-Q06::W tablicowej implementacji stosu peek() odczytuje szczyt. Który warunek musi zostać sprawdzony przed odczytem A[top]? {
-  ~Czy top jest mniejsze od c, bez sprawdzenia dolnej granicy.
-  =Czy stos jest niepusty.
-  ~Czy stos ma wolną komórkę na kolejny element, nawet jeśli jest pusty.
-  ~Czy top wskazuje co najmniej drugą pozycję tablicy.
+  ~Czy top<c-1.
+  =Czy top>\=0.
+  ~Czy top>0.
+  ~Czy top\=-1.
   ####Przy pustym stosie top może być poza prawidłowym zakresem tablicy.
 }
 
@@ -148,9 +148,9 @@
 
 ::AISD-10-Q19::Stos wykorzystuje tablicę i top oznaczający indeks ostatniego elementu. Które operacje w standardowej implementacji działają bez przesuwania pozostałych elementów? {
   =push i pop.
-  ~push oraz usunięcie elementu z dna
-  ~pop oraz wstawienie elementu na dno
-  ~push oraz wyszukiwanie dowolnego elementu po indeksie
+  ~push i usuwanie z dna.
+  ~pop i wstawienie na dno.
+  ~wstawienie na dno i pop.
   ####Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
 }
 
