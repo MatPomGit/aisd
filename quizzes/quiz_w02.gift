@@ -3,10 +3,10 @@
 // Import: Moodle > Baza pytan > Import > GIFT
 
 ::AISD-02-Q01::W maszynie RAM przyjmujemy: LOAD r ustawia akumulator na R[r], ADD r dodaje R[r] do akumulatora, STORE r zapisuje akumulator do R[r]. Dla R[2]\=7 i R[3]\=5 wykonano LOAD 2; ADD 3; STORE 4. Ile wynosi R[4]? {
-  ~7
-  ~5
+  ~7, ponieważ LOAD nie zmienia rejestru R[2].
+  ~5, ponieważ ADD przyjmuje wartość drugiego argumentu zamiast sumy.
   =12
-  ~19
+  ~19, ponieważ adres STORE zostaje dodany do akumulatora.
   ####Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
 }
 
@@ -75,10 +75,10 @@
 }
 
 ::AISD-02-Q10::Dla programu LOAD 1; ADD 1; STORE 1 przy początkowym R[1]\=6 jaka jest końcowa wartość R[1]? {
-  ~6
+  ~18, ponieważ ADD 1 używa wartości rejestru po STORE.
   =12
-  ~18
-  ~0
+  ~6, ponieważ ADD 1 nie może modyfikować rejestru źródłowego.
+  ~0, ponieważ STORE 1 zeruje akumulator przed zapisem.
   ####LOAD pobiera 6, ADD dodaje pierwotne R[1]\=6, a STORE zapisuje 12.
 }
 
@@ -99,10 +99,10 @@
 }
 
 ::AISD-02-Q13::W modelu bitowym liczba 2^100 wymaga w reprezentacji binarnej bez znaku ilu bitów? {
-  ~100
-  ~102
+  ~100, ponieważ wykładnik potęgi dwójki jest długością zapisu.
+  ~102, ponieważ potrzebne są dwa bity znacznika potęgi.
   =101
-  ~200
+  ~200, ponieważ na każdy bit wartości przypada jeden dodatkowy bit.
   ####Zapis potęgi dwójki ma 1 i sto zer, czyli 101 bitów.
 }
 
@@ -123,9 +123,9 @@
 }
 
 ::AISD-02-Q16::Dla ustalonej semantyki READ 1 zapisuje kolejną liczbę wejściową wyłącznie do R[1]. Przy A\=7, R[1]\=2 i wejściu 9 jaki stan otrzymamy po READ 1? {
-  ~A\=9 i R[1]\=9.
-  ~A\=2 i R[1]\=9.
-  ~A\=7 i R[1]\=2.
+  ~Akumulator A\=9 i R[1]\=9, ponieważ READ zmienia oba miejsca.
+  ~Akumulator A\=2 i R[1]\=9, ponieważ READ pobiera wcześniejszą zawartość rejestru.
+  ~Akumulator A\=7 i R[1]\=2, ponieważ READ modyfikuje tylko strumień wejścia.
   =A\=7 i R[1]\=9.
   ####READ modyfikuje wskazany rejestr bez zmiany akumulatora w przyjętym wariancie.
 }
@@ -155,9 +155,9 @@
 }
 
 ::AISD-02-Q20::Która sekwencja wyznacza R[3]\=R[1]-R[2] przy instrukcjach LOAD r, SUB r i STORE r oraz bez skutków ubocznych? {
-  ~LOAD 2; SUB 1; STORE 3.
-  ~LOAD 1; STORE 3; SUB 2.
-  ~SUB 2; LOAD 1; STORE 3.
+  ~LOAD 2; SUB 1; STORE 3, bo odejmowanie wykonuje się od drugiego argumentu.
+  ~LOAD 1; STORE 3; SUB 2, bo STORE zapisuje ostateczny wynik.
+  ~SUB 2; LOAD 1; STORE 3, bo LOAD zachowuje wynik poprzedniej operacji.
   =LOAD 1; SUB 2; STORE 3.
   ####Najpierw należy wczytać pierwszy argument, odjąć drugi, a dopiero potem zapisać wynik.
 }
