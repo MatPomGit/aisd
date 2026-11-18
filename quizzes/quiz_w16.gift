@@ -1,5 +1,5 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-16-Q01::[plain]W nieważonym grafie istnieją ścieżki A→B→D oraz A→C→E→D. BFS startuje w A. Dlaczego pierwsze odkrycie D daje odległość 2? {
@@ -34,12 +34,12 @@
   ####Poprawna odpowiedź to „Best-first wybierze C, a A* wybierze B, ponieważ uwzględnia koszt dotarcia g”. Best-first porównuje h(B) \= 2 z h(C) \= 1 i wybiera C. A* porównuje f(B) \= 2+2 \= 4 oraz f(C) \= 6+1 \= 7, dlatego wybiera B.
 }
 
-::AISD-16-Q05::[plain]Które stwierdzenia dotyczące wyznaczania najkrótszej ścieżki w grafie nieważonym są prawdziwe? Zaznacz wszystkie poprawne odpowiedzi. {
-  ~%50%DFS może odnaleźć dłuższą ścieżkę do celu przed krótszą.#Tak. DFS może najpierw przejść dłuższą gałęzią, ponieważ wybór ścieżki zależy od kolejności sąsiadów.
-  ~%50%BFS znajduje ścieżkę o minimalnej liczbie krawędzi.#Tak. BFS odwiedza wierzchołki według rosnącej liczby krawędzi od źródła.
-  ~%-50%DFS zawsze znajduje ścieżkę o minimalnej liczbie krawędzi.#Nie. DFS nie porównuje wszystkich długości dróg, dlatego pierwsza odnaleziona ścieżka nie musi być najkrótsza.
-  ~%-50%W skierowanym grafie acyklicznym DFS zawsze znajduje najkrótszą ścieżkę do celu.#Nie. Graf skierowany bez cykli może mieć kilka dróg do celu o różnej długości, a DFS może znaleźć dłuższą jako pierwszą.
-  ####Poprawne odpowiedzi to „DFS może odnaleźć dłuższą ścieżkę do celu przed krótszą.” oraz „BFS znajduje ścieżkę o minimalnej liczbie krawędzi”. DFS zależy od kolejności rozwijania gałęzi i nie gwarantuje najkrótszej ścieżki nawet w skierowanym grafie acyklicznym. BFS w grafie nieważonym przegląda kolejne odległości, dlatego znajduje ścieżkę o najmniejszej liczbie krawędzi.
+::AISD-16-Q05::[plain]W nieważonym grafie z wierzchołka A do celu T istnieją ścieżki o różnej liczbie krawędzi. Które stwierdzenie o pierwszej ścieżce odnalezionej przez BFS i DFS jest poprawne? {
+  =BFS gwarantuje najmniejszą liczbę krawędzi, natomiast DFS nie zapewnia takiej gwarancji.#Poprawnie. BFS przetwarza wierzchołki warstwami od źródła, a DFS zależy od kolejności przeszukiwania gałęzi.
+  ~DFS gwarantuje najmniejszą liczbę krawędzi, natomiast BFS nie zapewnia takiej gwarancji.#Nie. To BFS, dzięki kolejce FIFO, przeszukuje graf według rosnącej odległości od źródła.
+  ~Oba algorytmy zawsze znajdują ścieżkę o najmniejszej liczbie krawędzi.#Nie. DFS może najpierw wejść w dłuższą gałąź i odnaleźć dłuższą ścieżkę.
+  ~Żaden z tych algorytmów nie gwarantuje ścieżki o najmniejszej liczbie krawędzi.#Nie. BFS zapewnia takie rozwiązanie w grafie nieważonym, gdy liczba krawędzi jest miarą długości.
+  ####Poprawna odpowiedź to „BFS gwarantuje najmniejszą liczbę krawędzi, natomiast DFS nie zapewnia takiej gwarancji”. BFS odwiedza kolejne warstwy odległości w grafie nieważonym. DFS rozwija gałęzie w zależności od kolejności sąsiadów i może odnaleźć dłuższą ścieżkę przed krótszą.
 }
 
 ::AISD-16-Q06::[plain]W grafie A→B, A→C, B→D, C→D BFS dodaje odkryte wierzchołki do kolejki. Co może się stać, jeśli D oznaczymy jako odwiedzony dopiero przy zdejmowaniu z kolejki? {
@@ -50,12 +50,12 @@
   ####Poprawna odpowiedź to „D może zostać dodany do kolejki z B i ponownie z C”. Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
 }
 
-::AISD-16-Q07::[plain]W pełnym drzewie o stałym współczynniku rozgałęzień b > 1 i głębokości d każdy węzeł wewnętrzny ma b dzieci. Które oszacowania liczby węzłów na poziomie d są prawdziwe? Zaznacz wszystkie poprawne odpowiedzi. {
-  ~%50%Θ(b^d).#Tak. Liczba węzłów wynosi dokładnie b^d, zatem jest rzędu Θ(b^d).
-  ~%-50%Θ(d·b).#Nie. Przy ustalonym b większym od 1 liczba b^d rośnie wykładniczo, a d·b tylko liniowo względem d.
-  ~%-50%O(d).#Nie. Wraz ze wzrostem d liczba b^d przekracza każde liniowe ograniczenie O(d).
-  ~%50%O(b^d).#Tak. Skoro liczba węzłów jest dokładnie b^d, to spełnia również ograniczenie górne O(b^d).
-  ####Poprawne odpowiedzi to „Θ(b^d).” oraz „O(b^d)”. Każdy kolejny poziom zwiększa liczbę węzłów b-krotnie, więc na poziomie d jest dokładnie b^d węzłów. Wynik ma rząd Θ(b^d) i tym samym spełnia ograniczenie O(b^d).
+::AISD-16-Q07::[plain]W pełnym drzewie b-arnym o głębokości d ≥ 1 każdy węzeł poza ostatnim poziomem ma dokładnie b ≥ 2 dzieci, a korzeń należy do poziomu 0. Ile dokładnie węzłów znajduje się na poziomie d? {
+  =b^d#Poprawnie. Na każdym kolejnym poziomie liczba węzłów zwiększa się b-krotnie, więc na poziomie d wynosi b^d.
+  ~b^(d-1)#Nie. Ten wzór podaje liczbę węzłów na poprzednim poziomie d-1.
+  ~1+b+...+b^d#Nie. Ten wzór opisuje łączną liczbę węzłów od korzenia aż do poziomu d, a nie liczbę węzłów tylko na poziomie d.
+  ~b^(d+1)#Nie. Ta wartość opisuje hipotetyczną liczebność następnego poziomu, a nie poziomu d.
+  ####Poprawna odpowiedź to „b^d”. Korzeń tworzy poziom 0 z jednym węzłem. Na każdym dalszym poziomie liczba węzłów jest b razy większa niż na poprzednim. Po d takich krokach na poziomie d znajduje się dokładnie b^d węzłów.
 }
 
 ::AISD-16-Q08::[plain]Kiedy BFS zwykle zużywa więcej pamięci granicy przeszukiwania niż DFS w bardzo szerokim, płytkim drzewie? {
