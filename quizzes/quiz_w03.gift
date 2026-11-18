@@ -1,164 +1,164 @@
 // AIiSD 03: Pseudokod i schematy blokowe
-// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.2 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-03-Q01::[plain]Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli obejmuje wszystkie elementy, gdy i\=0 na początku i zwiększa się o 1 po każdej iteracji? {
-  ~i<\=n#Ta odpowiedź jest niepoprawna. Właściwy wariant to „i<n”. Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
-  ~i<n-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „i<n”. Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
+  ~i<\=n#i≤n dopuszcza indeks n, który leży poza ostatnim elementem A[n-1].
+  ~i<n-1#i<n-1 kończy pętlę przed ostatnim elementem A[n-1].
   =i<n#Prawidłowo. Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
-  ~i<\=n+1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „i<n”. Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
+  ~i<\=n+1#i≤n+1 dopuszcza niedozwolone indeksy n oraz n+1.
   ####Poprawna odpowiedź to „i<n”. Ostatni prawidłowy indeks to n-1, a przy n\=0 pętla nie powinna wykonać ani jednej iteracji.
 }
 
 ::AISD-03-Q02::[plain]Schemat blokowy ma wykonać dodatkową instrukcję tylko dla x>0, a następnie niezależnie od znaku x wypisać wynik. Gdzie należy połączyć obie gałęzie decyzji? {
-  ~Za blokiem wypisania, aby każda ścieżka powtórzyła instrukcję.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przed wspólnym blokiem wypisania, poza obiema gałęziami”. Wspólne wypisanie musi być osiągalne po obu wynikach testu. Połączenie gałęzi następuje więc przed wspólną instrukcją.
+  ~Za blokiem wypisania, aby każda ścieżka powtórzyła instrukcję.#Połączenie za wypisaniem może ominąć wspólny blok, zamiast wykonać go na obu ścieżkach.
   =Przed wspólnym blokiem wypisania, poza obiema gałęziami.#Prawidłowo. Wspólne wypisanie musi być osiągalne po obu wynikach testu. Połączenie gałęzi następuje więc przed wspólną instrukcją.
-  ~Wewnątrz gałęzi prawda, bo gałąź fałsz omija dalsze obliczenia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przed wspólnym blokiem wypisania, poza obiema gałęziami”. Wspólne wypisanie musi być osiągalne po obu wynikach testu. Połączenie gałęzi następuje więc przed wspólną instrukcją.
-  ~Przed testem x>0, aby wymusić ponowne sprawdzenie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przed wspólnym blokiem wypisania, poza obiema gałęziami”. Wspólne wypisanie musi być osiągalne po obu wynikach testu. Połączenie gałęzi następuje więc przed wspólną instrukcją.
+  ~Wewnątrz gałęzi prawda, bo gałąź fałsz omija dalsze obliczenia.#Fałszywa gałąź również musi prowadzić do wypisania, a połączenie tylko po stronie prawdy ją wyklucza.
+  ~Przed testem x>0, aby wymusić ponowne sprawdzenie.#Powrót przed test warunku wprowadzałby zbędne ponowne sprawdzanie.
   ####Poprawna odpowiedź to „Przed wspólnym blokiem wypisania, poza obiema gałęziami”. Wspólne wypisanie musi być osiągalne po obu wynikach testu. Połączenie gałęzi następuje więc przed wspólną instrukcją.
 }
 
 ::AISD-03-Q03::[plain]Pseudokod: jeśli x>0, ustaw y\=x; następnie zwróć y. Jaki jest istotny błąd kontraktu? {
-  ~Dla x równego zero y ma wartość domyślną#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla x<\=0 zmienna y nie ma zdefiniowanej wartości”. Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
-  ~Dla x mniejszego od zera instrukcja return zwróci ostatnią wartość x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla x<\=0 zmienna y nie ma zdefiniowanej wartości”. Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
+  ~Dla x równego zero y ma wartość domyślną#Nie można zakładać domyślnej wartości y, gdy dla x równego zero przypisanie nie występuje.
+  ~Dla x mniejszego od zera instrukcja return zwróci ostatnią wartość x.#Zwracana jest zmienna y, a nie x; przy ujemnym x y pozostaje niezdefiniowane.
   =Dla x<\=0 zmienna y nie ma zdefiniowanej wartości.#Prawidłowo. Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
-  ~Dla x dodatniego y nie jest zainicjalizowane, jeśli funkcja ma wynik.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla x<\=0 zmienna y nie ma zdefiniowanej wartości”. Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
+  ~Dla x dodatniego y nie jest zainicjalizowane, jeśli funkcja ma wynik.#Przy dodatnim x przypisanie y\=x wykonuje się prawidłowo.
   ####Poprawna odpowiedź to „Dla x<\=0 zmienna y nie ma zdefiniowanej wartości”. Bez gałęzi alternatywnej lub wcześniejszej inicjalizacji wynik nie jest określony.
 }
 
 ::AISD-03-Q04::[plain]W schemacie blokowym po zakończeniu obu gałęzi warunku wykonywana jest ta sama instrukcja. Jaka struktura przepływu jest właściwa? {
   =Dwie gałęzie łączą się przed wspólną instrukcją.#Prawidłowo. Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
-  ~Połączenie następuje dopiero za wspólną instrukcją, do której dochodzą osobne strzałki.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dwie gałęzie łączą się przed wspólną instrukcją”. Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
-  ~Obie gałęzie wracają do warunku i dopiero potem dochodzą do wspólnego kroku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dwie gałęzie łączą się przed wspólną instrukcją”. Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
-  ~Wspólną instrukcję trzeba umieścić w jednej gałęzi, aby druga ją ominęła.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dwie gałęzie łączą się przed wspólną instrukcją”. Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
+  ~Obie gałęzie omijają wspólną instrukcję i łączą się dopiero za nią.#Obie gałęzie omijające wspólny krok nie wykonują wymaganej instrukcji.
+  ~Obie gałęzie wracają do warunku i dopiero potem dochodzą do wspólnego kroku.#Powrót obu gałęzi do warunku tworzyłby pętlę zamiast pojedynczego wyboru.
+  ~Wspólną instrukcję trzeba umieścić w jednej gałęzi, aby druga ją ominęła.#Wspólna instrukcja umieszczona tylko w jednej gałęzi nie zostanie wykonana na drugiej ścieżce.
   ####Poprawna odpowiedź to „Dwie gałęzie łączą się przed wspólną instrukcją”. Scalenie przepływu pokazuje, że dalsze instrukcje są wspólne niezależnie od wyniku testu.
 }
 
 ::AISD-03-Q05::[plain]Tablica ma n elementów i indeksy 0,...,n-1. Pętla wypisuje A[i], po czym zmniejsza i o 1. Jak ustawić początek i warunek pętli, aby wypisać wszystkie elementy w odwrotnej kolejności, także dla n\=0? {
   =i\=n-1; dopóki i>\=0.#Prawidłowo. Dla n>0 pierwszy poprawny indeks to n-1, a ostatni to 0. Dla n\=0 początek i\=-1 powoduje pominięcie ciała.
-  ~i\=n; dopóki i>\=0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „i\=n-1; dopóki i>\=0”. Dla n>0 pierwszy poprawny indeks to n-1, a ostatni to 0. Dla n\=0 początek i\=-1 powoduje pominięcie ciała.
-  ~i\=n-1; dopóki i>0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „i\=n-1; dopóki i>\=0”. Dla n>0 pierwszy poprawny indeks to n-1, a ostatni to 0. Dla n\=0 początek i\=-1 powoduje pominięcie ciała.
-  ~i\=n; dopóki i>0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „i\=n-1; dopóki i>\=0”. Dla n>0 pierwszy poprawny indeks to n-1, a ostatni to 0. Dla n\=0 początek i\=-1 powoduje pominięcie ciała.
+  ~i\=n; dopóki i>\=0.#Start i\=n odczytywałby A[n], poza tablicą o maksymalnym indeksie n-1.
+  ~i\=n-1; dopóki i>0.#Warunek i>0 pomija A[0], choć należy wypisać wszystkie elementy.
+  ~i\=n; dopóki i>0.#Start i\=n prowadzi do niedozwolonego A[n], a warunek i>0 pomija także A[0].
   ####Poprawna odpowiedź to „i\=n-1; dopóki i>\=0”. Dla n>0 pierwszy poprawny indeks to n-1, a ostatni to 0. Dla n\=0 początek i\=-1 powoduje pominięcie ciała.
 }
 
 ::AISD-03-Q06::[plain]Dlaczego opis 'powtarzaj, aż wynik będzie dobry' jest niewystarczającym pseudokodem? {
-  ~Brakuje jawnego limitu iteracji, nawet gdy predykat zakończenia byłby ścisły.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie definiuje sprawdzalnego predykatu zakończenia”. Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
+  ~Brakuje jawnego limitu iteracji, nawet gdy predykat zakończenia byłby ścisły.#Sztywny limit iteracji nie zawsze jest potrzebny, jeśli podano ścisły predykat zakończenia.
   =Nie definiuje sprawdzalnego predykatu zakończenia.#Prawidłowo. Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
-  ~Opis nie rozstrzyga, czy kryterium ocenia się przed ciałem, czy po nim, choć jest formalne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie definiuje sprawdzalnego predykatu zakończenia”. Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
-  ~Opis nie podaje wartości liczbowej wyniku, mimo że predykat jest poprawnie zdefiniowany.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie definiuje sprawdzalnego predykatu zakończenia”. Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
+  ~Opis nie rozstrzyga, czy kryterium ocenia się przed ciałem, czy po nim, choć jest formalne.#Nie ma zdefiniowanego predykatu „wynik dobry”, zatem sama chwila sprawdzania nie usuwa błędu.
+  ~Opis nie podaje wartości liczbowej wyniku, mimo że predykat jest poprawnie zdefiniowany.#Wartości wyniku nie trzeba znać przed obliczeniem; trzeba określić warunek jego akceptacji.
   ####Poprawna odpowiedź to „Nie definiuje sprawdzalnego predykatu zakończenia”. Warunek zakończenia musi być jednoznacznie wyznaczalny ze stanu algorytmu.
 }
 
 ::AISD-03-Q07::[plain]W pseudokodzie funkcji suma(A, n) zmienną s inicjalizuje się wartością 0, a następnie dodaje się A[i] dla i\=1,...,n. Jakiej informacji potrzeba, aby ocenić poprawność indeksowania? {
   =Konwencji indeksowania tablicy i dopuszczalnego zakresu i.#Prawidłowo. Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
-  ~Czy wartość n oznacza rozmiar tablicy, czy największy jej element.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Konwencji indeksowania tablicy i dopuszczalnego zakresu i”. Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
-  ~Czy pętla for ma granice domknięte, nie określając indeksu pierwszego elementu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Konwencji indeksowania tablicy i dopuszczalnego zakresu i”. Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
-  ~Czy wynik sumowania jest liczbą całkowitą, niezależnie od sposobu indeksowania.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Konwencji indeksowania tablicy i dopuszczalnego zakresu i”. Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
+  ~Czy wartość n oznacza rozmiar tablicy, czy największy jej element.#Znaczenie parametru n nie wystarcza bez wskazania poprawnych indeksów A.
+  ~Czy pętla for ma granice domknięte, nie określając indeksu pierwszego elementu.#Domknięcie granic pętli nie rozstrzyga, czy tablicę indeksujemy od zera czy od jedynki.
+  ~Czy wynik sumowania jest liczbą całkowitą, niezależnie od sposobu indeksowania.#Typ sumy nie odpowiada na pytanie, czy indeksy od 1 do n należą do tablicy.
   ####Poprawna odpowiedź to „Konwencji indeksowania tablicy i dopuszczalnego zakresu i”. Przy indeksowaniu od 1 zakres może być właściwy; przy indeksowaniu od 0 odwołanie A[n] jest błędne.
 }
 
 ::AISD-03-Q08::[plain]Schemat blokowy testuje x>0, po czym przy prawdzie wykonuje y\=x, a przy fałszu y\=-x. Program źródłowy wykonuje if x>0: y\=x; if x<\=0: y\=-x. Przy jakim założeniu oba zapisy są równoważne? {
-  ~Tylko gdy drugi test jest wykonywany przed pierwszym.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy instrukcje przypisania nie zmieniają x i oba warunki są oceniane w tym samym stanie x”. Dwa rozłączne, dopełniające się warunki if realizują ten sam wybór co if-else, o ile pierwszy blok nie zmienia zmiennej testowanej ponownie.
-  ~Tylko gdy x jest dodatnie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy instrukcje przypisania nie zmieniają x i oba warunki są oceniane w tym samym stanie x”. Dwa rozłączne, dopełniające się warunki if realizują ten sam wybór co if-else, o ile pierwszy blok nie zmienia zmiennej testowanej ponownie.
-  ~Nie są równoważne nawet dla niezmienianej wartości x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy instrukcje przypisania nie zmieniają x i oba warunki są oceniane w tym samym stanie x”. Dwa rozłączne, dopełniające się warunki if realizują ten sam wybór co if-else, o ile pierwszy blok nie zmienia zmiennej testowanej ponownie.
+  ~Tylko gdy drugi test jest wykonywany przed pierwszym.#Odwrócenie kolejności testów nie jest wymagane, jeżeli x nie ulega zmianie.
+  ~Tylko gdy x jest dodatnie.#Oba zapisy są równoważne również dla x niedodatniego.
+  ~Nie są równoważne nawet dla niezmienianej wartości x.#Niezmieniane x sprawia, że x>0 i x≤0 pozostają dopełniającymi się warunkami.
   =Gdy instrukcje przypisania nie zmieniają x i oba warunki są oceniane w tym samym stanie x.#Prawidłowo. Dwa rozłączne, dopełniające się warunki if realizują ten sam wybór co if-else, o ile pierwszy blok nie zmienia zmiennej testowanej ponownie.
   ####Poprawna odpowiedź to „Gdy instrukcje przypisania nie zmieniają x i oba warunki są oceniane w tym samym stanie x”. Dwa rozłączne, dopełniające się warunki if realizują ten sam wybór co if-else, o ile pierwszy blok nie zmienia zmiennej testowanej ponownie.
 }
 
 ::AISD-03-Q09::[plain]Dany jest pseudokod: i\=0; while i<5: i\=i+2. Jaką wartość ma zmienna i po zakończeniu pętli? {
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
+  ~4#Wartość 4 jeszcze spełnia warunek i<5, więc następuje kolejne zwiększenie.
+  ~5#Zwiększanie o dwa prowadzi z 4 do 6, nie do 5.
   =6#Prawidłowo. Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
+  ~8#Po osiągnięciu 6 pętla kończy się; kolejny krok do 8 nie następuje.
   ####Poprawna odpowiedź to „6”. Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
 }
 
 ::AISD-03-Q10::[plain]Pętla sumuje liczby całkowite od 1 do n włącznie (n ≥ 1), zaczynając od i \= 1 i zwiększając i o 1 po każdej iteracji. Który warunek kontynuowania pętli pozwala dodać wszystkie liczby bez wykonywania dodatkowej iteracji? {
-  ~i < n#Ten warunek kończy pętlę przed iteracją z i równym n, dlatego pomija ostatni składnik.
+  ~i < n#i<n nie dodaje ostatniej liczby n.
   =i ≤ n#Poprawnie. Warunek obejmuje iterację z i równym n i nie dopuszcza kolejnej iteracji po osiągnięciu n+1.
-  ~i ≤ n+1#Ten warunek dopuszcza również iterację z i równym n+1, co powoduje dodanie niepożądanej liczby.
-  ~i ≤ n-1#Ten warunek powoduje zakończenie pętli przed dodaniem ostatniego składnika n.
+  ~i ≤ n+1#i≤n+1 wprowadza dodatkowe dodanie n+1.
+  ~i ≤ n-1#i≤n-1 pomija n, mimo że koniec zakresu jest włączony.
   ####Poprawna odpowiedź to „i ≤ n”. Pętla rozpoczyna obliczenia od i równego 1 i zwiększa licznik o jeden. Warunek i ≤ n obejmuje wszystkie liczby do n włącznie, ale nie dopuszcza iteracji z i równym n+1.
 }
 
 ::AISD-03-Q11::[plain]Funkcja ma zwracać minimum a i b także przy a\=b. Który zapis nie spełni kontraktu przy równości? {
-  ~Jeśli a<\=b: zwróć a; w przeciwnym razie zwróć b.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku”. Dwa ostre porównania nie obejmują przypadku a \= b, dlatego trzeci wariant nie zwraca wtedy wyniku.
-  ~Jeśli a<b: zwróć a; w przeciwnym razie zwróć b.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku”. Dwa ostre porównania nie obejmują przypadku a \= b, dlatego trzeci wariant nie zwraca wtedy wyniku.
+  ~Jeśli a<\=b: zwróć a; w przeciwnym razie zwróć b.#Dla a\=b pierwsza gałąź a≤b zwróci a, czyli prawidłowe minimum.
+  ~Jeśli a<b: zwróć a; w przeciwnym razie zwróć b.#Dla a\=b gałąź w przeciwnym razie zwraca b, więc kontrakt jest spełniony.
   =Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku.#Prawidłowo. Dwa ostre porównania nie obejmują przypadku a \= b, dlatego trzeci wariant nie zwraca wtedy wyniku.
-  ~Jeśli a>b: zwróć b; w przeciwnym razie zwróć a.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku”. Dwa ostre porównania nie obejmują przypadku a \= b, dlatego trzeci wariant nie zwraca wtedy wyniku.
+  ~Jeśli a>b: zwróć b; w przeciwnym razie zwróć a.#Dla a\=b gałąź w przeciwnym razie zwraca a, więc wynik jest prawidłowy.
   ####Poprawna odpowiedź to „Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku”. Dwa ostre porównania nie obejmują przypadku a \= b, dlatego trzeci wariant nie zwraca wtedy wyniku. Pozostałe rozwiązania zwracają jedną z równych wartości.
 }
 
 ::AISD-03-Q12::[plain]Pętla for i\=0..n-1 zawiera instrukcję return po sprawdzeniu A[i]. Jaki jest skutek wykonania tej instrukcji? {
   =Zakończenie całej funkcji, a nie tylko bieżącej iteracji.#Prawidłowo. Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
-  ~Zakończenie pętli, lecz wykonanie dalszych instrukcji funkcji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zakończenie całej funkcji, a nie tylko bieżącej iteracji”. Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
-  ~Wyjście z gałęzi if i sprawdzenie następnego elementu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zakończenie całej funkcji, a nie tylko bieżącej iteracji”. Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
-  ~Przerwanie tylko bieżącego wywołania pętli bez zwracania wartości.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zakończenie całej funkcji, a nie tylko bieżącej iteracji”. Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
+  ~Zakończenie pętli, lecz wykonanie dalszych instrukcji funkcji.#Return kończy funkcję, a nie tylko pętlę.
+  ~Wyjście z gałęzi if i sprawdzenie następnego elementu.#Return nie wyprowadza wyłącznie z bloku if i nie przechodzi do następnej iteracji.
+  ~Przerwanie tylko bieżącego wywołania pętli bez zwracania wartości.#Return nie jest odpowiednikiem continue ani break, bo opuszcza funkcję.
   ####Poprawna odpowiedź to „Zakończenie całej funkcji, a nie tylko bieżącej iteracji”. Return kończy działanie funkcji; continue przechodzi do kolejnej iteracji.
 }
 
 ::AISD-03-Q13::[plain]Kod: if x>0: x\=x-1; if x<\=0: y\=1 else: y\=2. Dla x\=1 jakie y zostanie wybrane i dlaczego nie jest to równoważne jednemu if-else opartemu na pierwotnym x? {
-  ~y\=2, ponieważ oba testy używają początkowego x\=1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem”. Po pierwszym if wartość x zmienia się z 1 na 0; drugi test jest prawdziwy.
-  ~y\=1, ponieważ oba testy są zawsze wykonywane równocześnie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem”. Po pierwszym if wartość x zmienia się z 1 na 0; drugi test jest prawdziwy.
-  ~y\=2, ponieważ warunek x<\=0 jest negacją x>0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem”. Po pierwszym if wartość x zmienia się z 1 na 0; drugi test jest prawdziwy.
+  ~y\=2, ponieważ oba testy używają początkowego x\=1.#Pierwszy test zmienia x z 1 na 0, więc drugi widzi już inną wartość.
+  ~y\=1, ponieważ oba testy są zawsze wykonywane równocześnie.#Testy wykonywane są kolejno, nie jednocześnie; drugi używa zaktualizowanego x.
+  ~y\=2, ponieważ warunek x<\=0 jest negacją x>0.#Choć x≤0 neguje x>0, obydwa testy odnoszą się do różnych chwil programu.
   =y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem.#Prawidłowo. Po pierwszym if wartość x zmienia się z 1 na 0; drugi test jest prawdziwy.
   ####Poprawna odpowiedź to „y\=1, ponieważ pierwszy blok zmienia x na 0 przed drugim testem”. Po pierwszym if wartość x zmienia się z 1 na 0; drugi test jest prawdziwy. Należy uwzględniać zmianę stanu pomiędzy testami.
 }
 
 ::AISD-03-Q14::[plain]Pseudokod: s\=0; dla i od 1 do 4: jeśli i mod 2\=0, s\=s+i. Ile wynosi s po pętli? {
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Dodane zostają tylko liczby parzyste 2 i 4.
+  ~4#Wartość 4 uwzględnia tylko i\=4, lecz w pętli dodaje się także i\=2.
   =6#Prawidłowo. Dodane zostają tylko liczby parzyste 2 i 4.
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Dodane zostają tylko liczby parzyste 2 i 4.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Dodane zostają tylko liczby parzyste 2 i 4.
+  ~10#Wartość 10 jest sumą wszystkich indeksów 1,2,3,4; warunek wybiera tylko parzyste.
+  ~2#Wartość 2 pomija drugi parzysty indeks, równy 4.
   ####Poprawna odpowiedź to „6”. Dodane zostają tylko liczby parzyste 2 i 4.
 }
 
 ::AISD-03-Q15::[plain]Algorytm ma pętlę repeat ... until x>\=10; początkowo x\=12, a ciało zwiększa x o 1. Jaka wartość x jest po zakończeniu? {
-  ~12#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
-  ~11#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
+  ~12#Repeat wykonuje ciało co najmniej raz, więc x nie pozostanie równe 12.
+  ~11#Ciało zwiększa x, dlatego nie uzyska się wartości 11.
   =13#Prawidłowo. Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
-  ~14#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
+  ~14#Już po pierwszej iteracji x\=13 spełnia warunek zakończenia, więc nie osiągnie 14.
   ####Poprawna odpowiedź to „13”. Ciało pętli repeat wykonuje się co najmniej raz, zanim zostanie sprawdzony warunek.
 }
 
-::AISD-03-Q16::[plain]Na schemacie blokowym dwa warunki są testowane szeregowo: x>0, potem x<10. Które przypadki trafiają do gałęzi akceptacji? {
-  ~x>\=0 i x<\=10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0<x<10”. Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
-  ~x>0 lub x<10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0<x<10”. Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
-  ~x<\=0 lub x>\=10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0<x<10”. Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
+::AISD-03-Q16::[plain]Na schemacie blokowym dwa warunki są testowane szeregowo: x>0, potem x<10. Akceptacja następuje wyłącznie wtedy, gdy oba testy mają wynik prawda. Które wartości x są akceptowane? {
+  ~x>\=0 i x<\=10#Granice 0 i 10 nie spełniają nierówności ostrych x>0 i x<10.
+  ~x>0 lub x<10#Spójnik lub akceptowałby także wartości niespełniające jednego z wymaganych testów.
+  ~x<\=0 lub x>\=10#To warunek odpowiadający odrzuceniu, a nie przecięciu dwóch przedziałów akceptacji.
   =0<x<10#Prawidłowo. Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
   ####Poprawna odpowiedź to „0<x<10”. Przyjęcie wymaga spełnienia obu testów, czyli koniunkcji nierówności ostrych.
 }
 
 ::AISD-03-Q17::[plain]Pseudokod binarnego wyszukiwania w przedziale domkniętym [l,r] przy A[m]<x powinien zmienić którą granicę? {
-  ~r\=m-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „l\=m+1”. Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
-  ~l\=m#Ta odpowiedź jest niepoprawna. Właściwy wariant to „l\=m+1”. Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
-  ~r\=m#Ta odpowiedź jest niepoprawna. Właściwy wariant to „l\=m+1”. Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
+  ~r\=m-1#Przy A[m]<x należy przesunąć lewą granicę, a nie zmniejszać r.
+  ~l\=m#l\=m może pozostawić ten sam punkt środkowy i uniemożliwić postęp.
+  ~r\=m#Zmiana r\=m zachowuje niewłaściwą część przedziału i może zgubić szukany klucz.
   =l\=m+1#Prawidłowo. Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
   ####Poprawna odpowiedź to „l\=m+1”. Jeżeli klucz środkowy jest mniejszy od celu, m i pozycje po lewej można wykluczyć.
 }
 
 ::AISD-03-Q18::[plain]Schemat pętli while i<n ma test na wejściu i blok i\=i+1 w ciele. Strzałka po zwiększeniu i została błędnie skierowana do bloku wypisania wyniku zamiast do testu. Jaki skutek może to mieć dla n\=5 i początkowego i\=0? {
   =Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5.#Prawidłowo. Po jednym zwiększeniu i sterowanie omija ponowny test, więc nie wykonuje się pozostałych iteracji.
-  ~Pętla wykona pięć iteracji mimo błędnego połączenia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5”. Po jednym zwiększeniu i sterowanie omija ponowny test, więc nie wykonuje się pozostałych iteracji.
-  ~Przy każdej iteracji nastąpi podwójne sprawdzenie warunku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5”. Po jednym zwiększeniu i sterowanie omija ponowny test, więc nie wykonuje się pozostałych iteracji.
-  ~Dojdzie do nieskończonej pętli, ponieważ i przestanie rosnąć.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5”. Po jednym zwiększeniu i sterowanie omija ponowny test, więc nie wykonuje się pozostałych iteracji.
+  ~Pętla wykona pięć iteracji mimo błędnego połączenia.#Błędna strzałka omija powrót do warunku, więc pętla nie wykonuje pięciu iteracji.
+  ~Przy każdej iteracji nastąpi podwójne sprawdzenie warunku.#Ponowne sprawdzenie warunku zostaje pominięte, a nie podwojone.
+  ~Dojdzie do nieskończonej pętli, ponieważ i przestanie rosnąć.#Po pierwszym zwiększeniu i program wypisuje wynik i kończy, a nie zapętla się.
   ####Poprawna odpowiedź to „Ciało wykona się raz i program zakończy pętlę przed osiągnięciem i\=5”. Po jednym zwiększeniu i sterowanie omija ponowny test, więc nie wykonuje się pozostałych iteracji.
 }
 
 ::AISD-03-Q19::[plain]Kod ma zamienić wartości a\=2 oraz b\=3, ale wykonuje a\=b; b\=a. Jaka zmiana naprawia kod dla dowolnych początkowych a i b? {
-  ~Usunąć drugie przypisanie b\=a.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Użyć zmiennej pomocniczej t\=a; a\=b; b\=t”. Po a\=b wartość pierwotnego a ginie. Zmienna pomocnicza zachowuje ją do ostatniego przypisania.
-  ~Wykonać b\=a; a\=b zamiast dotychczasowej kolejności.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Użyć zmiennej pomocniczej t\=a; a\=b; b\=t”. Po a\=b wartość pierwotnego a ginie. Zmienna pomocnicza zachowuje ją do ostatniego przypisania.
-  ~Wstawić a\=a+1 po obu przypisaniach.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Użyć zmiennej pomocniczej t\=a; a\=b; b\=t”. Po a\=b wartość pierwotnego a ginie. Zmienna pomocnicza zachowuje ją do ostatniego przypisania.
+  ~Usunąć drugie przypisanie b\=a.#Usunięcie b\=a zostawia b bez zamiany na dawne a.
+  ~Wykonać b\=a; a\=b zamiast dotychczasowej kolejności.#Odwrócenie przypisań nadal nadpisuje jedną wartość przed jej zapamiętaniem.
+  ~Wstawić a\=a+1 po obu przypisaniach.#Dodanie jedynki nie pozwala zachować dwóch początkowych wartości a i b.
   =Użyć zmiennej pomocniczej t\=a; a\=b; b\=t.#Prawidłowo. Po a\=b wartość pierwotnego a ginie. Zmienna pomocnicza zachowuje ją do ostatniego przypisania.
   ####Poprawna odpowiedź to „Użyć zmiennej pomocniczej t\=a; a\=b; b\=t”. Po a\=b wartość pierwotnego a ginie. Zmienna pomocnicza zachowuje ją do ostatniego przypisania.
 }
 
 ::AISD-03-Q20::[plain]Który warunek bez operatora not jest równoważny zapisowi while not (a>0 and b>0)? {
-  ~while a<\=0 and b<\=0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „while a<\=0 or b<\=0”. Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
+  ~while a<\=0 and b<\=0#Prawo de Morgana zamienia negację koniunkcji na alternatywę negacji.
   =while a<\=0 or b<\=0#Prawidłowo. Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
-  ~while a>0 or b>0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „while a<\=0 or b<\=0”. Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
-  ~while a<0 or b<0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „while a<\=0 or b<\=0”. Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
+  ~while a>0 or b>0#a>0 lub b>0 nie jest negacją warunku, że obie liczby są dodatnie.
+  ~while a<0 or b<0#a<0 lub b<0 pomija zero, które także spełnia negację dodatniości.
   ####Poprawna odpowiedź to „while a<\=0 or b<\=0”. Prawo de Morgana zamienia negację koniunkcji w alternatywę zanegowanych warunków.
 }
 

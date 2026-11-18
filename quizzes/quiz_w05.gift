@@ -1,164 +1,164 @@
 // AIiSD 05: Notacje asymptotyczne i kryteria wagowe
-// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.2 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-05-Q01::[plain]Dla f(n) \= 3n²+7n+5 i g(n) \= n², przy n >\= 1, student chce wykazać, że f należy do klasy Θ(g). Które dwie nierówności wystarczą do przeprowadzenia dowodu? {
-  ~f(n)<\=3g(n) oraz f(n)>\=15g(n) dla wszystkich n>\=1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3g(n)<\=f(n)<\=15g(n) dla wszystkich n>\=1”. Dla n>\=1 zachodzi 7n<\=7n² oraz 5<\=5n², stąd f<\=15n². Zarazem f>\=3n².
+  ~f(n)<\=3g(n) oraz f(n)>\=15g(n) dla wszystkich n>\=1.#Nierówność f≤3g nie zachodzi, bo funkcja f zawiera dodatkowo dodatnie składniki 7n i 5.
   =3g(n)<\=f(n)<\=15g(n) dla wszystkich n>\=1.#Prawidłowo. Dla n>\=1 zachodzi 7n<\=7n² oraz 5<\=5n², stąd f<\=15n². Zarazem f>\=3n².
-  ~f(n)<\=15g(n) tylko dla n\=1 i f(n)>\=3g(n) tylko dla n\=2.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3g(n)<\=f(n)<\=15g(n) dla wszystkich n>\=1”. Dla n>\=1 zachodzi 7n<\=7n² oraz 5<\=5n², stąd f<\=15n². Zarazem f>\=3n².
-  ~f(n)\=3g(n) dla dostatecznie dużych n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3g(n)<\=f(n)<\=15g(n) dla wszystkich n>\=1”. Dla n>\=1 zachodzi 7n<\=7n² oraz 5<\=5n², stąd f<\=15n². Zarazem f>\=3n².
+  ~f(n)<\=15g(n) tylko dla n\=1 i f(n)>\=3g(n) tylko dla n\=2.#Sprawdzenie granic tylko w dwóch pojedynczych punktach nie wystarcza do dowodu asymptotycznego dla wszystkich dużych n.
+  ~f(n)\=3g(n) dla dostatecznie dużych n.#Równość f\=3g nie występuje, ponieważ 7n+5 pozostaje dodatnie; klasy Θ nie wymagają równości.
   ####Poprawna odpowiedź to „3g(n)<\=f(n)<\=15g(n) dla wszystkich n>\=1”. Dla n>\=1 zachodzi 7n<\=7n² oraz 5<\=5n², stąd f<\=15n². Zarazem f>\=3n². To dwustronne stałe ograniczenie wykazuje Θ(n²).
 }
 
 ::AISD-05-Q02::[plain]Która relacja dla n dążącego do nieskończoności jest prawdziwa? {
-  ~n² należy do o(n log₂ n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n log₂ n należy do o(n²)”. Iloraz (n log₂ n)/n² \= (log₂ n)/n zmierza do zera.
+  ~n² należy do o(n log₂ n).#Iloraz n²/(n log₂ n)\=n/log₂ n rośnie bez ograniczeń, więc n² nie jest małe-o od n log₂ n.
   =n log₂ n należy do o(n²).#Prawidłowo. Iloraz (n log₂ n)/n² \= (log₂ n)/n zmierza do zera.
-  ~n log₂ n należy do Θ(n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n log₂ n należy do o(n²)”. Iloraz (n log₂ n)/n² \= (log₂ n)/n zmierza do zera.
-  ~n² należy do O(n log₂ n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n log₂ n należy do o(n²)”. Iloraz (n log₂ n)/n² \= (log₂ n)/n zmierza do zera.
+  ~n log₂ n należy do Θ(n).#Iloraz (n log₂ n)/n\=log₂ n rośnie bez ograniczeń, więc nie zachodzi Θ(n).
+  ~n² należy do O(n log₂ n).#Funkcja n² rośnie szybciej niż n log₂ n, więc nie należy do O(n log₂ n).
   ####Poprawna odpowiedź to „n log₂ n należy do o(n²)”. Iloraz (n log₂ n)/n² \= (log₂ n)/n zmierza do zera.
 }
 
 ::AISD-05-Q03::[plain]Dla f(n)\=4n+8 i g(n)\=n, student chce dowieść f należy do O(g). Który krok rzeczywiście stanowi poprawny dowód dla wszystkich n>\=1? {
-  ~Przyjąć C\=4 i n0\=1, ponieważ f zawiera składnik 4n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przyjąć C\=12 i n0\=1, ponieważ 4n+8<\=12n dla n>\=1”. Dla n>\=1 zachodzi 8<\=8n, zatem f(n)<\=12n. Pojedynczy punkt lub dolne ograniczenie nie dowodzą O(n).
-  ~Wykazać f(n)>\=n, ponieważ to oznacza ograniczenie z góry.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przyjąć C\=12 i n0\=1, ponieważ 4n+8<\=12n dla n>\=1”. Dla n>\=1 zachodzi 8<\=8n, zatem f(n)<\=12n. Pojedynczy punkt lub dolne ograniczenie nie dowodzą O(n).
-  =Przyjąć C\=12 i n0\=1, ponieważ 4n+8<\=12n dla n>\=1.#Prawidłowo. Dla n>\=1 zachodzi 8<\=8n, zatem f(n)<\=12n. Pojedynczy punkt lub dolne ograniczenie nie dowodzą O(n).
-  ~Sprawdzić nierówność f(n)<\=5n tylko dla n\=10.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przyjąć C\=12 i n0\=1, ponieważ 4n+8<\=12n dla n>\=1”. Dla n>\=1 zachodzi 8<\=8n, zatem f(n)<\=12n. Pojedynczy punkt lub dolne ograniczenie nie dowodzą O(n).
-  ####Poprawna odpowiedź to „Przyjąć C\=12 i n0\=1, ponieważ 4n+8<\=12n dla n>\=1”. Dla n>\=1 zachodzi 8<\=8n, zatem f(n)<\=12n. Pojedynczy punkt lub dolne ograniczenie nie dowodzą O(n).
+  ~Przyjąć C\=4 i n₀\=1, ponieważ f zawiera składnik 4n.#Stała C\=4 nie ogranicza z góry 4n+8, ponieważ dla dodatniego n występuje dodatkowy składnik 8.
+  ~Wykazać f(n)>\=n, ponieważ to oznacza ograniczenie z góry.#Nierówność f≥g stanowi ograniczenie dolne, natomiast definicja O(g) wymaga ograniczenia górnego.
+  =Przyjąć C\=12 i n₀\=1, ponieważ 4n+8<\=12n dla n>\=1.#Prawidłowo. Dla n>\=1 zachodzi 8<\=8n, zatem f(n)<\=12n. Pojedynczy punkt lub dolne ograniczenie nie dowodzą O(n).
+  ~Sprawdzić nierówność f(n)<\=5n tylko dla n\=10.#Sprawdzenie jednej wartości n\=10 nie dowodzi nierówności dla wszystkich n≥1; na przykład dla n\=1 jest fałszywa.
+  ####Poprawna odpowiedź to „Przyjąć C\=12 i n₀\=1, ponieważ 4n+8<\=12n dla n>\=1”. Dla n>\=1 zachodzi 8<\=8n, zatem f(n)<\=12n. Pojedynczy punkt lub dolne ograniczenie nie dowodzą O(n).
 }
 
 ::AISD-05-Q04::[plain]Dla f(n)\=5n+3 i g(n)\=n+1, przy n>\=1, jaka relacja zachodzi? {
   =f(n) należy do Θ(g(n)).#Prawidłowo. Iloraz funkcji zmierza do 5, czyli dodatniej skończonej stałej.
-  ~f(n) należy do o(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do Θ(g(n))”. Iloraz funkcji zmierza do 5, czyli dodatniej skończonej stałej.
-  ~f(n) należy do ω(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do Θ(g(n))”. Iloraz funkcji zmierza do 5, czyli dodatniej skończonej stałej.
-  ~g(n) należy do o(f(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do Θ(g(n))”. Iloraz funkcji zmierza do 5, czyli dodatniej skończonej stałej.
+  ~f(n) należy do o(g(n)).#Stosunek (5n+3)/(n+1) zmierza do 5, a nie do zera, więc nie zachodzi małe-o.
+  ~f(n) należy do ω(g(n)).#Stosunek f/g ma skończoną dodatnią granicę, więc f nie dominuje g w sensie małego-omega.
+  ~g(n) należy do o(f(n)).#Także g/f zmierza do 1/5, a nie do zera, więc g nie należy do o(f).
   ####Poprawna odpowiedź to „f(n) należy do Θ(g(n))”. Iloraz funkcji zmierza do 5, czyli dodatniej skończonej stałej.
 }
 
 ::AISD-05-Q05::[plain]W modelu bitowym mnożenie liczb o rosnącej długości nie musi mieć stałego kosztu. Czego nie wolno bez uzasadnienia przenieść z analizy jednostkowej RAM? {
-  ~Liczby wykonanych instrukcji mnożenia, jeśli każda instrukcja ma identyczny kod.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wniosku o stałym koszcie pojedynczego mnożenia niezależnym od wielkości operandów”. Koszt instrukcji i liczba jej wykonań to dwie różne składowe analizy.
+  ~Liczby wykonanych instrukcji mnożenia, jeśli każda instrukcja ma identyczny kod.#Liczba wykonanych instrukcji mnożenia może zostać zachowana, jeśli analizujemy ten sam kod; zmienia się ich koszt bitowy.
   =Wniosku o stałym koszcie pojedynczego mnożenia niezależnym od wielkości operandów.#Prawidłowo. Koszt instrukcji i liczba jej wykonań to dwie różne składowe analizy.
-  ~Liniowego ograniczenia liczby iteracji, nawet gdy warunek pętli zależy wyłącznie od n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wniosku o stałym koszcie pojedynczego mnożenia niezależnym od wielkości operandów”. Koszt instrukcji i liczba jej wykonań to dwie różne składowe analizy.
-  ~Poprawności wyniku w arytmetyce o nieograniczonej precyzji, jeśli kod jest taki sam.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wniosku o stałym koszcie pojedynczego mnożenia niezależnym od wielkości operandów”. Koszt instrukcji i liczba jej wykonań to dwie różne składowe analizy.
+  ~Liniowego ograniczenia liczby iteracji, nawet gdy warunek pętli zależy wyłącznie od n.#Liczba iteracji zależąca wyłącznie od n może pozostać liniowa w obu modelach, choć koszt operacji rośnie.
+  ~Poprawności wyniku w arytmetyce o nieograniczonej precyzji, jeśli kod jest taki sam.#Identyczny kod na dokładnych liczbach całkowitych może zachować poprawność wyniku; chodzi tu o koszt, nie o zmianę semantyki.
   ####Poprawna odpowiedź to „Wniosku o stałym koszcie pojedynczego mnożenia niezależnym od wielkości operandów”. Koszt instrukcji i liczba jej wykonań to dwie różne składowe analizy.
 }
 
 ::AISD-05-Q06::[plain]Która relacja jest prawdziwa dla f(n)\=n²+n i g(n)\=n²? {
-  ~f(n) jest tylko O(g(n)), lecz nie Ω(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do O(g(n)) i do Ω(g(n))”. Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
-  ~f(n) jest Ω(g(n)), ale nie O(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do O(g(n)) i do Ω(g(n))”. Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
-  ~f(n) jest Θ(n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do O(g(n)) i do Ω(g(n))”. Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
+  ~f(n) jest tylko O(g(n)), lecz nie Ω(g(n)).#Iloraz f(n)/g(n)\=1+1/n jest od dołu ograniczony dodatnią stałą, więc zachodzi również Ω(g).
+  ~f(n) jest Ω(g(n)), ale nie O(g(n)).#Ten sam iloraz jest także ograniczony z góry, więc f należy nie tylko do Ω(g), lecz również do O(g).
+  ~f(n) jest Θ(n)#Składnik n² dominuje nad liniowym n i sprawia, że funkcja ma rząd Θ(n²), nie Θ(n).
   =f(n) należy do O(g(n)) i do Ω(g(n)).#Prawidłowo. Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
   ####Poprawna odpowiedź to „f(n) należy do O(g(n)) i do Ω(g(n))”. Granica ilorazu f(n)/g(n) wynosi 1, więc zachodzi ścisła asymptotyczna zgodność rzędu.
 }
 
 ::AISD-05-Q07::[plain]Kod wykonuje dla i od 1 do n dokładnie i operacji. Student szacuje koszt jako Θ(n), bo pętla zewnętrzna ma n iteracji. Co przeoczył? {
   =Łączna liczba operacji wynosi n(n+1)/2, więc rząd kosztu to Θ(n²).#Prawidłowo. Koszt iteracji zależy od i. Sumowanie 1+...+n daje Θ(n²), a nie Θ(n).
-  ~Koszt n iteracji nie może być mniejszy niż Θ(n³).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Łączna liczba operacji wynosi n(n+1)/2, więc rząd kosztu to Θ(n²)”. Koszt iteracji zależy od i. Sumowanie 1+...+n daje Θ(n²), a nie Θ(n).
-  ~Każda iteracja ma ten sam koszt niezależnie od i.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Łączna liczba operacji wynosi n(n+1)/2, więc rząd kosztu to Θ(n²)”. Koszt iteracji zależy od i. Sumowanie 1+...+n daje Θ(n²), a nie Θ(n).
-  ~Notacja Θ(n) dotyczy wyłącznie programu rekurencyjnego.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Łączna liczba operacji wynosi n(n+1)/2, więc rząd kosztu to Θ(n²)”. Koszt iteracji zależy od i. Sumowanie 1+...+n daje Θ(n²), a nie Θ(n).
+  ~Koszt n iteracji nie może być mniejszy niż Θ(n³).#Suma 1+2+...+n rośnie kwadratowo, a nie sześciennie.
+  ~Każda iteracja ma ten sam koszt niezależnie od i.#Koszt iteracji zależy od i; późniejsze iteracje wykonują więcej operacji niż wcześniejsze.
+  ~Notacja Θ(n) dotyczy wyłącznie programu rekurencyjnego.#Notacja Θ opisuje wzrost kosztu dowolnego algorytmu, zarówno iteracyjnego, jak i rekurencyjnego.
   ####Poprawna odpowiedź to „Łączna liczba operacji wynosi n(n+1)/2, więc rząd kosztu to Θ(n²)”. Koszt iteracji zależy od i. Sumowanie 1+...+n daje Θ(n²), a nie Θ(n).
 }
 
 ::AISD-05-Q08::[plain]Koszt algorytmu wynosi f(n)\=3n²+n dla n>\=1. Która nierówność wystarcza do wykazania f należy do Ω(n²)? {
-  ~f(n)<\=3n² dla wszystkich n>\=1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n)>\=3n² dla wszystkich n>\=1”. Wybieramy c\=3 i n0\=1. Dolne ograniczenie f(n)>\=3n² dowodzi Ω(n²).
-  ~f(n)<\=4n² dla wszystkich n>\=1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n)>\=3n² dla wszystkich n>\=1”. Wybieramy c\=3 i n0\=1. Dolne ograniczenie f(n)>\=3n² dowodzi Ω(n²).
-  ~f(n)>\=n³ dla wszystkich n>\=1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n)>\=3n² dla wszystkich n>\=1”. Wybieramy c\=3 i n0\=1. Dolne ograniczenie f(n)>\=3n² dowodzi Ω(n²).
-  =f(n)>\=3n² dla wszystkich n>\=1.#Prawidłowo. Wybieramy c\=3 i n0\=1. Dolne ograniczenie f(n)>\=3n² dowodzi Ω(n²).
-  ####Poprawna odpowiedź to „f(n)>\=3n² dla wszystkich n>\=1”. Wybieramy c\=3 i n0\=1. Dolne ograniczenie f(n)>\=3n² dowodzi Ω(n²).
+  ~f(n)<\=3n² dla wszystkich n>\=1.#f(n)\=3n²+n jest większa od 3n² dla dodatniego n, więc wskazana nierówność górna jest fałszywa.
+  ~f(n)<\=4n² dla wszystkich n>\=1.#Nierówność f≤4n² jest prawdziwa, ale dowodzi O(n²), czyli ograniczenia górnego, a nie dolnego Ω(n²).
+  ~f(n)>\=n³ dla wszystkich n>\=1.#f(n) nie jest ograniczona od dołu przez n³ dla wszystkich n; składnik sześcienny rośnie znacznie szybciej.
+  =f(n)>\=3n² dla wszystkich n>\=1.#Prawidłowo. Wybieramy c\=3 i n₀\=1. Dolne ograniczenie f(n)>\=3n² dowodzi Ω(n²).
+  ####Poprawna odpowiedź to „f(n)>\=3n² dla wszystkich n>\=1”. Wybieramy c\=3 i n₀\=1. Dolne ograniczenie f(n)>\=3n² dowodzi Ω(n²).
 }
 
 ::AISD-05-Q09::[plain]Dla f(n)\=n log₂ n i g(n)\=n^(3/2), która relacja zachodzi, gdy n dąży do nieskończoności? {
-  ~f(n) należy do Θ(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do o(g(n))”. Iloraz f/g\=(log₂ n)/sqrt(n) dąży do zera.
-  ~g(n) należy do O(f(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do o(g(n))”. Iloraz f/g\=(log₂ n)/sqrt(n) dąży do zera.
+  ~f(n) należy do Θ(g(n)).#Iloraz f/g\=log₂ n/√n dąży do zera, więc funkcje nie mają tej samej klasy Θ.
+  ~g(n) należy do O(f(n)).#g rośnie szybciej niż f, zatem nie można ograniczyć g od góry stałą wielokrotnością f.
   =f(n) należy do o(g(n)).#Prawidłowo. Iloraz f/g\=(log₂ n)/sqrt(n) dąży do zera.
-  ~f(n) należy do ω(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do o(g(n))”. Iloraz f/g\=(log₂ n)/sqrt(n) dąży do zera.
+  ~f(n) należy do ω(g(n)).#Małe-omega oznaczałoby, że f/g dąży do nieskończoności, lecz tutaj granica wynosi zero.
   ####Poprawna odpowiedź to „f(n) należy do o(g(n))”. Iloraz f/g\=(log₂ n)/sqrt(n) dąży do zera.
 }
 
 ::AISD-05-Q10::[plain]Dla f(n)\=4n³+2n i g(n)\=n³+100 jaka jest granica ilorazu f(n)/g(n) przy n→∞? {
   =4#Prawidłowo. Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
-  ~+∞#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
+  ~0#Składniki sześcienne 4n³ i n³ dominują, więc iloraz nie zmierza do zera.
+  ~1#Iloraz współczynników przy dominujących składnikach wynosi 4/1, nie 1.
+  ~+∞#Stopnie wielomianów w liczniku i mianowniku są równe, więc granica nie jest nieskończona.
   ####Poprawna odpowiedź to „4”. Po podzieleniu licznika i mianownika przez n³ pozostaje granica równa 4.
 }
 
 ::AISD-05-Q11::[plain]Jaka jest najściślejsza klasa spośród podanych dla funkcji f(n)\=n²/log₂ n, n>\=2? {
-  ~Θ(n²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „o(n²)”. Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
-  ~Θ(n log₂ n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „o(n²)”. Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
-  ~O(n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „o(n²)”. Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
+  ~Θ(n²)#Iloraz f(n)/n²\=1/log₂ n dąży do zera, więc nie zachodzi Θ(n²).
+  ~Θ(n log₂ n)#Iloraz f(n)/(n log₂ n)\=n/(log₂ n)² rośnie bez ograniczeń, zatem nie zachodzi Θ(n log₂ n).
+  ~O(n)#Funkcja n²/log₂ n rośnie szybciej niż liniowo, dlatego nie należy do O(n).
   =o(n²)#Prawidłowo. Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
   ####Poprawna odpowiedź to „o(n²)”. Iloraz f(n)/n²\=1/log₂ n zmierza do zera.
 }
 
 ::AISD-05-Q12::[plain]Które stwierdzenie jest prawdziwe dla f(n)\=n i g(n)\=n log₂ n, n>\=2? {
-  ~f(n) należy do Θ(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do O(g(n)), ale nie do Θ(g(n))”. Stosunek f/g\=1/log₂ n zmierza do zera.
-  ~f(n) należy do Ω(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do O(g(n)), ale nie do Θ(g(n))”. Stosunek f/g\=1/log₂ n zmierza do zera.
+  ~f(n) należy do Θ(g(n)).#Iloraz f/g\=1/log₂ n dąży do zera, co wyklucza relację Θ(g).
+  ~f(n) należy do Ω(g(n)).#Funkcja f rośnie wolniej niż g, dlatego nie daje dolnego ograniczenia Ω(g).
   =f(n) należy do O(g(n)), ale nie do Θ(g(n)).#Prawidłowo. Stosunek f/g\=1/log₂ n zmierza do zera.
-  ~f(n) należy do o(g(n)), ale nie do O(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do O(g(n)), ale nie do Θ(g(n))”. Stosunek f/g\=1/log₂ n zmierza do zera.
+  ~f(n) należy do o(g(n)), ale nie do O(g(n)).#Każda funkcja należąca do o(g) należy też do O(g); tych dwóch własności nie można tu rozdzielać.
   ####Poprawna odpowiedź to „f(n) należy do O(g(n)), ale nie do Θ(g(n))”. Stosunek f/g\=1/log₂ n zmierza do zera.
 }
 
-::AISD-05-Q13::[plain]Dla f(n)\=5n²+2 wybrano n0\=1. Jaka jest najmniejsza liczba całkowita C, dla której f(n)<\=Cn² dla wszystkich n>\=1? {
-  ~5.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Iloraz f(n)/n²\=5+2/n² przy n>\=1 jest największy dla n\=1 i wynosi 7.
-  ~6.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Iloraz f(n)/n²\=5+2/n² przy n>\=1 jest największy dla n\=1 i wynosi 7.
-  ~8.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Iloraz f(n)/n²\=5+2/n² przy n>\=1 jest największy dla n\=1 i wynosi 7.
+::AISD-05-Q13::[plain]Dla f(n)\=5n²+2 wybrano n₀\=1. Jaka jest najmniejsza liczba całkowita C, dla której f(n)<\=Cn² dla wszystkich n>\=1? {
+  ~5.#Stała 5 jest zbyt mała, ponieważ dla n\=1 iloraz f(n)/n² wynosi 7.
+  ~6.#Stała 6 nie wystarcza dla n\=1, gdzie 5n²+2\=7, a 6n²\=6.
+  ~8.#Stała 8 spełnia ograniczenie, ale nie jest najmniejszą liczbą całkowitą: wystarcza 7.
   =7.#Prawidłowo. Iloraz f(n)/n²\=5+2/n² przy n>\=1 jest największy dla n\=1 i wynosi 7.
   ####Poprawna odpowiedź to „7”. Iloraz f(n)/n²\=5+2/n² przy n>\=1 jest największy dla n\=1 i wynosi 7.
 }
 
-::AISD-05-Q14::[plain]Dla n będącego potęgą 2 porównaj funkcje f(n)\=log₂(n²) i g(n)\=log₂ n. Jaka relacja zachodzi? {
+::AISD-05-Q14::[plain]Dla n ≥ 2 będącego potęgą 2 porównaj funkcje f(n)\=log₂(n²) i g(n)\=log₂ n. Jaka relacja zachodzi? {
   =f(n) należy do Θ(g(n)).#Prawidłowo. log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
-  ~f należy do o(g)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do Θ(g(n))”. log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
-  ~f należy do Θ(g²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do Θ(g(n))”. log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
-  ~g należy do o(f)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f(n) należy do Θ(g(n))”. log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
+  ~f należy do o(g)#Ponieważ log₂(n²)\=2log₂ n, iloraz f/g wynosi 2, więc f nie należy do o(g).
+  ~f należy do Θ(g²)#Funkcja f rośnie liniowo względem g, a nie względem g²; iloraz f/g² dąży do zera.
+  ~g należy do o(f)#Stosunek g/f jest stały i równy 1/2, a nie zbieżny do zera.
   ####Poprawna odpowiedź to „f(n) należy do Θ(g(n))”. log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
 }
 
 ::AISD-05-Q15::[plain]Dla f(n) \= n log₂(n) oraz g(n) \= n² przy n ≥ 2, która relacja asymptotyczna wyraża, że f rośnie ściśle wolniej niż g? {
-  ~f należy do Ω(g).#Nie. Relacja Ω(g) oznacza asymptotyczne ograniczenie od dołu, którego tu nie ma, ponieważ f(n)/g(n) dąży do zera.
+  ~f należy do Ω(g).#Relacja Ω(g) wymaga dolnego ograniczenia f przez g, a iloraz f/g\=log₂ n/n zmierza do zera.
   =f należy do o(g).#Poprawnie. Granica ilorazu f(n)/g(n) wynosi zero, co definiuje relację małego o.
-  ~f należy do Θ(g).#Nie. Relacja Θ(g) wymaga tego samego rzędu wzrostu, a iloraz rozważanych funkcji dąży do zera.
-  ~g należy do o(f).#Nie. Funkcja g rośnie szybciej od f, zatem iloraz g(n)/f(n) nie dąży do zera.
+  ~f należy do Θ(g).#Funkcje nie mają tego samego rzędu Θ, ponieważ n log₂ n rośnie wolniej niż n².
+  ~g należy do o(f).#To f jest asymptotycznie mniejsze od g; wyrażenie g∈o(f) odwraca kierunek relacji.
   ####Poprawna odpowiedź to „f należy do o(g)”. Iloraz f(n)/g(n) \= (log₂ n)/n dąży do zera, zatem f ma ściśle mniejszy rząd wzrostu niż g. Nie zachodzi ani równoważność rzędów Θ(g), ani dolne ograniczenie Ω(g).
 }
 
 ::AISD-05-Q16::[plain]W modelu jednostkowym RAM jedna instrukcja dodaje dwie dowolnie duże liczby i kosztuje 1. W modelu bitowym sumujemy dwie liczby o długości n bitów. Dlaczego oszacowania mogą się różnić? {
-  ~Model jednostkowy nie dopuszcza dodawania liczb wielocyfrowych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Model bitowy nalicza koszt operacji proporcjonalny do długości operandów, podczas gdy jednostkowy zakłada stały koszt instrukcji”. Dodawanie n-bitowe może wymagać przetworzenia wielu pozycji i przeniesień.
+  ~Model jednostkowy nie dopuszcza dodawania liczb wielocyfrowych.#Model jednostkowy dopuszcza dodawanie liczb dowolnej długości jako jedną instrukcję o stałym koszcie.
   =Model bitowy nalicza koszt operacji proporcjonalny do długości operandów, podczas gdy jednostkowy zakłada stały koszt instrukcji.#Prawidłowo. Dodawanie n-bitowe może wymagać przetworzenia wielu pozycji i przeniesień.
-  ~Model bitowy eliminuje koszt przeniesienia podczas dodawania.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Model bitowy nalicza koszt operacji proporcjonalny do długości operandów, podczas gdy jednostkowy zakłada stały koszt instrukcji”. Dodawanie n-bitowe może wymagać przetworzenia wielu pozycji i przeniesień.
-  ~W modelu jednostkowym każde dodawanie wykonuje n instrukcji niezależnie od zapisu programu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Model bitowy nalicza koszt operacji proporcjonalny do długości operandów, podczas gdy jednostkowy zakłada stały koszt instrukcji”. Dodawanie n-bitowe może wymagać przetworzenia wielu pozycji i przeniesień.
+  ~Model bitowy eliminuje koszt przeniesienia podczas dodawania.#Model bitowy musi uwzględnić propagację przeniesień, a nie pomijać jej koszt.
+  ~W modelu jednostkowym każde dodawanie wykonuje n instrukcji niezależnie od zapisu programu.#Jedna instrukcja RAM kosztuje jednostkę niezależnie od n, nie wymaga n osobnych instrukcji.
   ####Poprawna odpowiedź to „Model bitowy nalicza koszt operacji proporcjonalny do długości operandów, podczas gdy jednostkowy zakłada stały koszt instrukcji”. Dodawanie n-bitowe może wymagać przetworzenia wielu pozycji i przeniesień. Zmiana modelu kosztu zmienia wnioski.
 }
 
 ::AISD-05-Q17::[plain]Dla f(n)\=2^n i g(n)\=n^10 która relacja zachodzi asymptotycznie? {
-  ~f(n) należy do O(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „g(n) należy do o(f(n))”. Każda stała potęga n jest asymptotycznie zdominowana przez wykładniczą 2^n.
-  ~f(n) należy do Θ(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „g(n) należy do o(f(n))”. Każda stała potęga n jest asymptotycznie zdominowana przez wykładniczą 2^n.
+  ~f(n) należy do O(g(n)).#Wykładnicza funkcja 2^n ostatecznie rośnie szybciej niż n^10, więc nie należy do O(n^10).
+  ~f(n) należy do Θ(g(n)).#Iloraz 2^n/n^10 rośnie bez ograniczeń; funkcje nie są tego samego rzędu Θ.
   =g(n) należy do o(f(n)).#Prawidłowo. Każda stała potęga n jest asymptotycznie zdominowana przez wykładniczą 2^n.
-  ~f(n) należy do o(g(n)).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „g(n) należy do o(f(n))”. Każda stała potęga n jest asymptotycznie zdominowana przez wykładniczą 2^n.
+  ~f(n) należy do o(g(n)).#Nie zachodzi 2^n∈o(n^10), ponieważ kierunek dominacji jest odwrotny.
   ####Poprawna odpowiedź to „g(n) należy do o(f(n))”. Każda stała potęga n jest asymptotycznie zdominowana przez wykładniczą 2^n.
 }
 
 ::AISD-05-Q18::[plain]Czy f(n)\=n²+(-1)^n n należy do Θ(n²) dla naturalnych n? {
-  ~Nie; dla nieparzystych n funkcja ma rząd Θ(n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tak; składnik liniowy nie zmienia rzędu Θ(n²)”. Dla dużego n funkcja mieści się pomiędzy stałymi dodatnimi wielokrotnościami n².
-  ~Nie; naprzemienność uniemożliwia dolne ograniczenie Θ(n²).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tak; składnik liniowy nie zmienia rzędu Θ(n²)”. Dla dużego n funkcja mieści się pomiędzy stałymi dodatnimi wielokrotnościami n².
-  ~Tak, ale wyłącznie dla parzystych n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tak; składnik liniowy nie zmienia rzędu Θ(n²)”. Dla dużego n funkcja mieści się pomiędzy stałymi dodatnimi wielokrotnościami n².
+  ~Nie; dla nieparzystych n funkcja ma rząd Θ(n).#Dla nieparzystych n mamy n²-n, co nadal rośnie kwadratowo dla dostatecznie dużych n.
+  ~Nie; naprzemienność uniemożliwia dolne ograniczenie Θ(n²).#Naprzemienny składnik ±n jest niższego rzędu niż n² i nie usuwa dodatniego ograniczenia dolnego dla dużych n.
+  ~Tak, ale wyłącznie dla parzystych n.#Także dla nieparzystych n iloraz f(n)/n² dąży do 1, więc Θ(n²) zachodzi dla całego ciągu.
   =Tak; składnik liniowy nie zmienia rzędu Θ(n²).#Prawidłowo. Dla dużego n funkcja mieści się pomiędzy stałymi dodatnimi wielokrotnościami n².
   ####Poprawna odpowiedź to „Tak; składnik liniowy nie zmienia rzędu Θ(n²)”. Dla dużego n funkcja mieści się pomiędzy stałymi dodatnimi wielokrotnościami n².
 }
 
 ::AISD-05-Q19::[plain]Koszty programów to f(n)\=n² i g(n)\=3n²+4n dla n>\=1. Jak uzasadnić, że oba mają tę samą klasę Θ? {
   =Dla n>\=1 zachodzi 3f(n)<\=g(n)<\=7f(n).#Prawidłowo. g/f\=3+4/n i dla n>\=1 jest pomiędzy 3 a 7, co daje dwustronne stałe ograniczenie.
-  ~Dla wszystkich n stosunek g(n)/f(n) jest dokładnie równy 3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n>\=1 zachodzi 3f(n)<\=g(n)<\=7f(n)”. g/f\=3+4/n i dla n>\=1 jest pomiędzy 3 a 7, co daje dwustronne stałe ograniczenie.
-  ~Ponieważ oba programy wykonują dokładnie tyle samo operacji dla n\=1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n>\=1 zachodzi 3f(n)<\=g(n)<\=7f(n)”. g/f\=3+4/n i dla n>\=1 jest pomiędzy 3 a 7, co daje dwustronne stałe ograniczenie.
-  ~Ponieważ w notacji Θ wolno pominąć dowolne wykładniki potęg.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n>\=1 zachodzi 3f(n)<\=g(n)<\=7f(n)”. g/f\=3+4/n i dla n>\=1 jest pomiędzy 3 a 7, co daje dwustronne stałe ograniczenie.
+  ~Dla wszystkich n stosunek g(n)/f(n) jest dokładnie równy 3.#Stosunek g(n)/f(n)\=3+4/n nie jest stale równy 3; jedynie zbiega do 3.
+  ~Ponieważ oba programy wykonują dokładnie tyle samo operacji dla n\=1.#Już dla n\=1 koszty wynoszą odpowiednio 1 i 7, więc nie są identyczne.
+  ~Ponieważ w notacji Θ wolno pominąć dowolne wykładniki potęg.#W notacji Θ można pomijać współczynniki i składniki niższego rzędu, lecz nie dowolnie zmieniać wykładników potęg.
   ####Poprawna odpowiedź to „Dla n>\=1 zachodzi 3f(n)<\=g(n)<\=7f(n)”. g/f\=3+4/n i dla n>\=1 jest pomiędzy 3 a 7, co daje dwustronne stałe ograniczenie.
 }
 
 ::AISD-05-Q20::[plain]Dla dodatnich funkcji f i g granica f(n)/g(n) przy n dążącym do nieskończoności wynosi 0. Która relacja jest najściślejszą z podanych? {
-  ~f należy do Θ(g).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f należy do o(g)”. Granica ilorazu równa zeru dowodzi f należy do o(g), a zatem również f należy do O(g), ale nie do Θ(g) ani Ω(g).
-  ~g należy do o(f).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f należy do o(g)”. Granica ilorazu równa zeru dowodzi f należy do o(g), a zatem również f należy do O(g), ale nie do Θ(g) ani Ω(g).
+  ~f należy do Θ(g).#Granica f/g\=0 wyklucza Θ(g), które wymaga porównywalności obu funkcji z dokładnością do stałych.
+  ~g należy do o(f).#To f jest asymptotycznie mniejsze od g, więc odwrotna relacja g∈o(f) jest fałszywa.
   =f należy do o(g).#Prawidłowo. Granica ilorazu równa zeru dowodzi f należy do o(g), a zatem również f należy do O(g), ale nie do Θ(g) ani Ω(g).
-  ~f należy do Ω(g).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „f należy do o(g)”. Granica ilorazu równa zeru dowodzi f należy do o(g), a zatem również f należy do O(g), ale nie do Θ(g) ani Ω(g).
+  ~f należy do Ω(g).#Przy f/g zmierzającym do zera nie istnieje dodatnie asymptotyczne ograniczenie dolne f przez g.
   ####Poprawna odpowiedź to „f należy do o(g)”. Granica ilorazu równa zeru dowodzi f należy do o(g), a zatem również f należy do O(g), ale nie do Θ(g) ani Ω(g).
 }
 
