@@ -127,7 +127,7 @@
   ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Inwersjami są pary (3,1) i (3,2).
   ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Inwersjami są pary (3,1) i (3,2).
   =2#Prawidłowo. Inwersjami są pary (3,1) i (3,2).
-  ####Poprawna odpowiedź to „2”. Inwersjami są pary (3,1) i (3,2).
+  ####Poprawna odpowiedź to „2”. Inwersja to para pozycji i<j, dla której wcześniejszy element jest większy od późniejszego. W tablicy [3,1,2] są dwie takie pary: (3,1) oraz (3,2).
 }
 
 ::AISD-18-Q17::[plain]Dla standardowego insertion sort z przesuwaniem większych elementów ile przesunięć wymaga [4,3,2,1]? {
