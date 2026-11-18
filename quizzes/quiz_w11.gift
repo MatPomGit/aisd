@@ -15,7 +15,7 @@
   ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Nowy indeks wynosi (4+1) mod 5, czyli 0.
   ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Nowy indeks wynosi (4+1) mod 5, czyli 0.
   =0#Prawidłowo. Nowy indeks wynosi (4+1) mod 5, czyli 0.
-  ####Poprawna odpowiedź to „0”. Nowy indeks wynosi (4+1) mod 5, czyli 0.
+  ####Poprawna odpowiedź to „0”. W kolejce cyklicznej po ostatnim indeksie 4 następuje ponownie indeks 0. Nową pozycję wyznacza (rear+1) mod 5, czyli (4+1) mod 5\=0.
 }
 
 ::AISD-11-Q03::[plain]W kolejce tablicowej rozmiar bufora wynosi c, a front i rear mogą przyjmować tę samą wartość dla stanu pustego i pełnego. Która informacja usuwa niejednoznaczność? {
@@ -135,7 +135,7 @@
   ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. (5+3) mod 7 \= 1.
   ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. (5+3) mod 7 \= 1.
   ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. (5+3) mod 7 \= 1.
-  ####Poprawna odpowiedź to „1”. (5+3) mod 7 \= 1.
+  ####Poprawna odpowiedź to „1”. Wstawianie następuje na indeksie (front+size) mod pojemność. Przy front\=5, size\=3 i pojemności 7 otrzymujemy (5+3) mod 7\=1.
 }
 
 ::AISD-11-Q18::[plain]Przy realizacji kolejki FIFO zwykłą tablicą i przesuwaniu wszystkich elementów w lewo przy dequeue, jaki jest najgorszy koszt usunięcia pierwszego elementu? {
