@@ -1,5 +1,5 @@
 // AIiSD 02: Maszyna RAM
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-02-Q01::[plain]W maszynie RAM przyjmujemy: LOAD r ustawia akumulator na R[r], ADD r dodaje R[r] do akumulatora, STORE r zapisuje akumulator do R[r]. Dla R[2]\=7 i R[3]\=5 wykonano LOAD 2; ADD 3; STORE 4. Ile wynosi R[4]? {
@@ -50,12 +50,12 @@
   ####Dla c\=0 program kończy się od razu, a każda dodatnia wartość całkowita dochodzi do zera. Wartość ujemna przy dalszym zmniejszaniu nie osiąga zera.
 }
 
-::AISD-02-Q07::[plain]Który wynik testu najlepiej ujawnia błąd przesunięcia indeksów o jedną pozycję w programie sumującym n danych wejściowych? {
-  ~Dla n równego 1 suma zawiera dokładnie dwukrotność jedynego elementu.
-  =Dla n\=1 suma jest zaniżona o jedyny element.
-  ~Dla n równego 2 program oblicza sumę pierwszego elementu zamiast obu.
-  ~Dla n równego 0 emulator nie zgłasza błędu przy pustym wejściu.
-  ####Pojedynczy element pozwala odróżnić brak wykonania od prawidłowego jednego wykonania pętli.
+::AISD-02-Q07::[plain]Tablica A jest indeksowana od 0. Program sumujący ma postać: s :\= 0; dla i od 1 do n-1 wykonuj s :\= s + A[i]. Który test ujawnia błąd polegający na pominięciu pierwszego elementu? {
+  ~Dla A \= [7] program zwraca 14 zamiast 7.
+  =Dla A \= [7] program zwraca 0 zamiast 7.
+  ~Dla A \= [7, 2] program zwraca 9, czyli prawidłową sumę.
+  ~Dla A \= [] program odczytuje A[0], mimo że pętla się nie wykonuje.
+  ####Pętla rozpoczyna sumowanie od indeksu 1, dlatego dla tablicy jednoelementowej nie wykona się ani razu. Program zwróci 0, chociaż oczekiwana suma wynosi 7.
 }
 
 ::AISD-02-Q08::[plain]Program RAM wykonuje n dodawań liczb, których długość może wzrastać aż do n bitów. Co można stwierdzić bez dodatkowych założeń? {
