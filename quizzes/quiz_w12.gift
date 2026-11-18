@@ -135,7 +135,7 @@
   ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Liśćmi są C,D,B; R i A mają dzieci.
   ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Liśćmi są C,D,B; R i A mają dzieci.
   ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Liśćmi są C,D,B; R i A mają dzieci.
-  ####Poprawna odpowiedź to „3”. Liśćmi są C,D,B; R i A mają dzieci.
+  ####Poprawna odpowiedź to „3”. Liść to węzeł niemający dzieci. R oraz A mają potomków, natomiast B, C i D nie mają dzieci, więc w drzewie występują trzy liście.
 }
 
 ::AISD-12-Q18::[plain]Rekurencyjne przejście inorder drzewa o wysokości h mierzonej w krawędziach przechowuje po jednej ramce na poziom. Które drzewo o n\=15 węzłach może wymagać najgłębszego stosu? {
