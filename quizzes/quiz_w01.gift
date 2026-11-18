@@ -1,164 +1,164 @@
 // AIiSD 01: Podstawy algorytmów
-// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
+// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-01-Q01::[plain]Która własność miary postępu wystarcza do wykazania, że pętla nie będzie wykonywana w nieskończoność? {
-  ~Miara jest całkowitoliczbowa i ściśle maleje, lecz pozostaje ograniczona jedynie z góry.
-  =Miara jest całkowitoliczbowa, nieujemna podczas każdej iteracji i ściśle maleje po wykonaniu jej ciała.
-  ~Miara jest całkowitoliczbowa, nieujemna i nierosnąca, lecz może pozostawać stała przez dowolnie wiele iteracji.
-  ~Miara jest rzeczywista, dodatnia i ściśle maleje, lecz może dowolnie zbliżać się do zera.
-  ####W nieujemnych liczbach całkowitych nie istnieje nieskończony ściśle malejący ciąg. Samo ograniczenie z góry, nierosnąca miara lub malejąca miara rzeczywista nie zapewniają zakończenia.
+  ~Miara jest całkowitoliczbowa i ściśle maleje, lecz pozostaje ograniczona jedynie z góry.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Miara jest całkowitoliczbowa, nieujemna podczas każdej iteracji i ściśle maleje po wykonaniu jej ciała.”. W nieujemnych liczbach całkowitych nie istnieje nieskończony ściśle malejący ciąg.
+  =Miara jest całkowitoliczbowa, nieujemna podczas każdej iteracji i ściśle maleje po wykonaniu jej ciała.#Prawidłowo. W nieujemnych liczbach całkowitych nie istnieje nieskończony ściśle malejący ciąg.
+  ~Miara jest całkowitoliczbowa, nieujemna i nierosnąca, lecz może pozostawać stała przez dowolnie wiele iteracji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Miara jest całkowitoliczbowa, nieujemna podczas każdej iteracji i ściśle maleje po wykonaniu jej ciała.”. W nieujemnych liczbach całkowitych nie istnieje nieskończony ściśle malejący ciąg.
+  ~Miara jest rzeczywista, dodatnia i ściśle maleje, lecz może dowolnie zbliżać się do zera.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Miara jest całkowitoliczbowa, nieujemna podczas każdej iteracji i ściśle maleje po wykonaniu jej ciała.”. W nieujemnych liczbach całkowitych nie istnieje nieskończony ściśle malejący ciąg.
+  ####Poprawna odpowiedź to „Miara jest całkowitoliczbowa, nieujemna podczas każdej iteracji i ściśle maleje po wykonaniu jej ciała.”. W nieujemnych liczbach całkowitych nie istnieje nieskończony ściśle malejący ciąg. Samo ograniczenie z góry, nierosnąca miara lub malejąca miara rzeczywista nie zapewniają zakończenia.
 }
 
 ::AISD-01-Q02::[plain]Procedura przegląda tablicę A od indeksu 0. Zwraca indeks i po znalezieniu elementu równego x, a jeśli x nie występuje, zwraca -1. Co wiadomo bezpośrednio przed sprawdzeniem A[i], jeżeli procedura jeszcze się nie zakończyła? {
-  ~Wśród pierwszych i elementów występuje co najmniej jedno dopasowanie do x.
-  ~Element A[i] jest różny od x, mimo że nie został jeszcze sprawdzony.
-  ~Wszystkie elementy od A[i] do końca tablicy są różne od x.
-  =W przetworzonym prefiksie A[0..i-1] nie ma elementu równego x.
-  ####Dalsze wykonywanie procedury oznacza, że we wszystkich wcześniejszych porównaniach nie wykryto x. Nie wynika z tego nic o elementach, których jeszcze nie sprawdzono.
+  ~Wśród pierwszych i elementów występuje co najmniej jedno dopasowanie do x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W przetworzonym prefiksie A[0..i-1] nie ma elementu równego x.”. Dalsze wykonywanie procedury oznacza, że we wszystkich wcześniejszych porównaniach nie wykryto x.
+  ~Element A[i] jest różny od x, mimo że nie został jeszcze sprawdzony.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W przetworzonym prefiksie A[0..i-1] nie ma elementu równego x.”. Dalsze wykonywanie procedury oznacza, że we wszystkich wcześniejszych porównaniach nie wykryto x.
+  ~Wszystkie elementy od A[i] do końca tablicy są różne od x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W przetworzonym prefiksie A[0..i-1] nie ma elementu równego x.”. Dalsze wykonywanie procedury oznacza, że we wszystkich wcześniejszych porównaniach nie wykryto x.
+  =W przetworzonym prefiksie A[0..i-1] nie ma elementu równego x.#Prawidłowo. Dalsze wykonywanie procedury oznacza, że we wszystkich wcześniejszych porównaniach nie wykryto x.
+  ####Poprawna odpowiedź to „W przetworzonym prefiksie A[0..i-1] nie ma elementu równego x.”. Dalsze wykonywanie procedury oznacza, że we wszystkich wcześniejszych porównaniach nie wykryto x. Nie wynika z tego nic o elementach, których jeszcze nie sprawdzono.
 }
 
 ::AISD-01-Q03::[plain]Funkcja ma zwracać maksimum niepustej tablicy i zgłaszać błąd dla pustej. Jej dotychczasowe obliczenia zaczynają się od m\=A[0]. Jak zachować ten kontrakt? {
-  =Najpierw sprawdzić n\=0 i zgłosić błąd, a dla n>0 zainicjować m\=A[0].
-  ~Dla n\=0 zwrócić 0, a dla n>0 zainicjować m\=A[0].
-  ~Dla n\=0 zwrócić najmniejszą wartość typu, a dla n>0 zainicjować m\=A[0].
-  ~Najpierw zainicjować m\=A[0], a dopiero potem sprawdzić n\=0 i zgłosić błąd.
-  ####Odczyt A[0] nie jest poprawny dla pustej tablicy. Specyfikacja wymaga zgłoszenia błędu, a nie zwrócenia wartości zastępczej.
+  =Najpierw sprawdzić n\=0 i zgłosić błąd, a dla n>0 zainicjować m\=A[0].#Prawidłowo. Odczyt A[0] nie jest poprawny dla pustej tablicy. Specyfikacja wymaga zgłoszenia błędu, a nie zwrócenia wartości zastępczej.
+  ~Dla n\=0 zwrócić 0, a dla n>0 zainicjować m\=A[0].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najpierw sprawdzić n\=0 i zgłosić błąd, a dla n>0 zainicjować m\=A[0].”. Odczyt A[0] nie jest poprawny dla pustej tablicy. Specyfikacja wymaga zgłoszenia błędu, a nie zwrócenia wartości zastępczej.
+  ~Dla n\=0 zwrócić najmniejszą wartość typu, a dla n>0 zainicjować m\=A[0].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najpierw sprawdzić n\=0 i zgłosić błąd, a dla n>0 zainicjować m\=A[0].”. Odczyt A[0] nie jest poprawny dla pustej tablicy. Specyfikacja wymaga zgłoszenia błędu, a nie zwrócenia wartości zastępczej.
+  ~Najpierw zainicjować m\=A[0], a dopiero potem sprawdzić n\=0 i zgłosić błąd.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najpierw sprawdzić n\=0 i zgłosić błąd, a dla n>0 zainicjować m\=A[0].”. Odczyt A[0] nie jest poprawny dla pustej tablicy. Specyfikacja wymaga zgłoszenia błędu, a nie zwrócenia wartości zastępczej.
+  ####Poprawna odpowiedź to „Najpierw sprawdzić n\=0 i zgłosić błąd, a dla n>0 zainicjować m\=A[0].”. Odczyt A[0] nie jest poprawny dla pustej tablicy. Specyfikacja wymaga zgłoszenia błędu, a nie zwrócenia wartości zastępczej.
 }
 
 ::AISD-01-Q04::[plain]Dwa programy zwróciły te same wyniki dla 1000 wybranych wejść. Co wynika bez dodatkowych założeń? {
-  ~Programy są równoważne na całej dziedzinie, jeżeli przetestowano każdą instrukcję.
-  ~Programy są równoważne dla wszystkich wejść nie większych od największego przetestowanego.
-  =Na przetestowanych wejściach wyniki były zgodne, lecz nie dowiedziono zgodności na pozostałych.
-  ~Programy są równoważne na całej dziedzinie, jeżeli każdą gałąź wykonano przynajmniej raz.
-  ####Testy dostarczają obserwacji dla konkretnych danych. Pokrycie instrukcji lub gałęzi nie dowodzi równoważności zachowania dla wszystkich możliwych wejść.
+  ~Programy są równoważne na całej dziedzinie, jeżeli przetestowano każdą instrukcję.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na przetestowanych wejściach wyniki były zgodne, lecz nie dowiedziono zgodności na pozostałych.”. Testy dostarczają obserwacji dla konkretnych danych. Pokrycie instrukcji lub gałęzi nie dowodzi równoważności zachowania dla wszystkich możliwych wejść.
+  ~Programy są równoważne dla wszystkich wejść nie większych od największego przetestowanego.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na przetestowanych wejściach wyniki były zgodne, lecz nie dowiedziono zgodności na pozostałych.”. Testy dostarczają obserwacji dla konkretnych danych. Pokrycie instrukcji lub gałęzi nie dowodzi równoważności zachowania dla wszystkich możliwych wejść.
+  =Na przetestowanych wejściach wyniki były zgodne, lecz nie dowiedziono zgodności na pozostałych.#Prawidłowo. Testy dostarczają obserwacji dla konkretnych danych. Pokrycie instrukcji lub gałęzi nie dowodzi równoważności zachowania dla wszystkich możliwych wejść.
+  ~Programy są równoważne na całej dziedzinie, jeżeli każdą gałąź wykonano przynajmniej raz.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na przetestowanych wejściach wyniki były zgodne, lecz nie dowiedziono zgodności na pozostałych.”. Testy dostarczają obserwacji dla konkretnych danych. Pokrycie instrukcji lub gałęzi nie dowodzi równoważności zachowania dla wszystkich możliwych wejść.
+  ####Poprawna odpowiedź to „Na przetestowanych wejściach wyniki były zgodne, lecz nie dowiedziono zgodności na pozostałych.”. Testy dostarczają obserwacji dla konkretnych danych. Pokrycie instrukcji lub gałęzi nie dowodzi równoważności zachowania dla wszystkich możliwych wejść.
 }
 
 ::AISD-01-Q05::[plain]Program P sumuje n liczb jednym przejściem. Program Q najpierw odczytuje n liczb, aby policzyć ich liczbę, a potem odczytuje je ponownie i sumuje. Dane są dostępne do ponownego odczytu, a arytmetyka nie przepełnia się. Co jest prawdą? {
-  =Oba zwracają tę samą sumę, lecz Q wykonuje 2n odczytów, a P wykonuje n odczytów.
-  ~Oba zwracają tę samą sumę i wykonują po n odczytów, ponieważ pierwsze przejście Q nie zmienia wyniku.
-  ~Q zwraca sumę powiększoną o n, ponieważ podczas pierwszego przejścia zlicza elementy.
-  ~P wykonuje 2n odczytów, ponieważ dodawanie wymaga ponownego odczytania elementu.
-  ####Zliczanie nie zmienia wartości elementów, więc suma pozostaje taka sama. Pierwszy pełny przebieg Q generuje dodatkowe n odczytów.
+  =Oba zwracają tę samą sumę, lecz Q wykonuje 2n odczytów, a P wykonuje n odczytów.#Prawidłowo. Zliczanie nie zmienia wartości elementów, więc suma pozostaje taka sama.
+  ~Oba zwracają tę samą sumę i wykonują po n odczytów, ponieważ pierwsze przejście Q nie zmienia wyniku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oba zwracają tę samą sumę, lecz Q wykonuje 2n odczytów, a P wykonuje n odczytów.”. Zliczanie nie zmienia wartości elementów, więc suma pozostaje taka sama.
+  ~Q zwraca sumę powiększoną o n, ponieważ podczas pierwszego przejścia zlicza elementy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oba zwracają tę samą sumę, lecz Q wykonuje 2n odczytów, a P wykonuje n odczytów.”. Zliczanie nie zmienia wartości elementów, więc suma pozostaje taka sama.
+  ~P wykonuje 2n odczytów, ponieważ dodawanie wymaga ponownego odczytania elementu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oba zwracają tę samą sumę, lecz Q wykonuje 2n odczytów, a P wykonuje n odczytów.”. Zliczanie nie zmienia wartości elementów, więc suma pozostaje taka sama.
+  ####Poprawna odpowiedź to „Oba zwracają tę samą sumę, lecz Q wykonuje 2n odczytów, a P wykonuje n odczytów.”. Zliczanie nie zmienia wartości elementów, więc suma pozostaje taka sama. Pierwszy pełny przebieg Q generuje dodatkowe n odczytów.
 }
 
 ::AISD-01-Q06::[plain]Dla A\=[3,5,7,11] wykonano s\=0, a następnie dla i\=0,1,2 przypisanie s\=s+A[i+1]. Jaki jest wynik i którego elementu nie uwzględniono? {
-  ~s\=15; pominięto A[3].
-  ~s\=21; pominięto A[1].
-  =s\=23; pominięto A[0].
-  ~s\=26; uwzględniono wszystkie elementy.
-  ####Pętla dodaje A[1], A[2] i A[3], czyli 5+7+11\=23. Element A[0]\=3 zostaje pominięty.
+  ~s\=15; pominięto A[3].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „s\=23; pominięto A[0].”. Pętla dodaje A[1], A[2] i A[3], czyli 5+7+11\=23. Element A[0]\=3 zostaje pominięty.
+  ~s\=21; pominięto A[1].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „s\=23; pominięto A[0].”. Pętla dodaje A[1], A[2] i A[3], czyli 5+7+11\=23. Element A[0]\=3 zostaje pominięty.
+  =s\=23; pominięto A[0].#Prawidłowo. Pętla dodaje A[1], A[2] i A[3], czyli 5+7+11\=23. Element A[0]\=3 zostaje pominięty.
+  ~s\=26; uwzględniono wszystkie elementy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „s\=23; pominięto A[0].”. Pętla dodaje A[1], A[2] i A[3], czyli 5+7+11\=23. Element A[0]\=3 zostaje pominięty.
+  ####Poprawna odpowiedź to „s\=23; pominięto A[0].”. Pętla dodaje A[1], A[2] i A[3], czyli 5+7+11\=23. Element A[0]\=3 zostaje pominięty.
 }
 
 ::AISD-01-Q07::[plain]Który opis określa specyfikację wyszukiwania pierwszego wystąpienia x, zamiast konkretnej metody realizacji? {
-  ~Przeglądaj A od początku i kończ działanie po pierwszym porównaniu z wynikiem prawda.
-  ~Przechowuj bieżący indeks trafienia i aktualizuj go przy każdym napotkaniu x.
-  ~Utwórz posortowaną kopię A i zastosuj w niej wyszukiwanie binarne.
-  =Zwróć najmniejszy indeks i, dla którego A[i]\=x, albo -1, jeśli taki indeks nie istnieje.
-  ####Specyfikacja opisuje dopuszczalne wejścia i wymagany wynik. Przeglądanie, utrzymywanie zmiennej i sortowanie są wyborami implementacyjnymi.
+  ~Przeglądaj A od początku i kończ działanie po pierwszym porównaniu z wynikiem prawda.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zwróć najmniejszy indeks i, dla którego A[i]\=x, albo -1, jeśli taki indeks nie istnieje.”. Specyfikacja opisuje dopuszczalne wejścia i wymagany wynik. Przeglądanie, utrzymywanie zmiennej i sortowanie są wyborami implementacyjnymi.
+  ~Przechowuj bieżący indeks trafienia i aktualizuj go przy każdym napotkaniu x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zwróć najmniejszy indeks i, dla którego A[i]\=x, albo -1, jeśli taki indeks nie istnieje.”. Specyfikacja opisuje dopuszczalne wejścia i wymagany wynik. Przeglądanie, utrzymywanie zmiennej i sortowanie są wyborami implementacyjnymi.
+  ~Utwórz posortowaną kopię A i zastosuj w niej wyszukiwanie binarne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zwróć najmniejszy indeks i, dla którego A[i]\=x, albo -1, jeśli taki indeks nie istnieje.”. Specyfikacja opisuje dopuszczalne wejścia i wymagany wynik. Przeglądanie, utrzymywanie zmiennej i sortowanie są wyborami implementacyjnymi.
+  =Zwróć najmniejszy indeks i, dla którego A[i]\=x, albo -1, jeśli taki indeks nie istnieje.#Prawidłowo. Specyfikacja opisuje dopuszczalne wejścia i wymagany wynik. Przeglądanie, utrzymywanie zmiennej i sortowanie są wyborami implementacyjnymi.
+  ####Poprawna odpowiedź to „Zwróć najmniejszy indeks i, dla którego A[i]\=x, albo -1, jeśli taki indeks nie istnieje.”. Specyfikacja opisuje dopuszczalne wejścia i wymagany wynik. Przeglądanie, utrzymywanie zmiennej i sortowanie są wyborami implementacyjnymi.
 }
 
 ::AISD-01-Q08::[plain]Wyszukiwanie maksimum rozpoczyna się od m\=A[0], po czym dla indeksów j\=1,2,...,n-1 wykonuje m\=max(m,A[j]). Jaką własność ma m po przetworzeniu dokładnie k pierwszych elementów, gdzie 1<\=k<\=n? {
-  ~m jest maksimum prefiksu A[0..k], niezależnie od tego, czy A[k] już odczytano.
-  =m jest maksimum prefiksu A[0..k-1], czyli wszystkich dotąd przetworzonych elementów.
-  ~m jest maksimum elementów A[1..k], ponieważ inicjalizacja nie należy do przebiegu pętli.
-  ~m jest równe A[k-1], ponieważ każda iteracja zastępuje poprzednią wartość maksimum.
-  ####Po inicjalizacji m jest maksimum prefiksu długości 1. Każde kolejne porównanie rozszerza ten prefiks o jeden element.
+  ~m jest maksimum prefiksu A[0..k], niezależnie od tego, czy A[k] już odczytano.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „m jest maksimum prefiksu A[0..k-1], czyli wszystkich dotąd przetworzonych elementów.”. Po inicjalizacji m jest maksimum prefiksu długości 1. Każde kolejne porównanie rozszerza ten prefiks o jeden element.
+  =m jest maksimum prefiksu A[0..k-1], czyli wszystkich dotąd przetworzonych elementów.#Prawidłowo. Po inicjalizacji m jest maksimum prefiksu długości 1. Każde kolejne porównanie rozszerza ten prefiks o jeden element.
+  ~m jest maksimum elementów A[1..k], ponieważ inicjalizacja nie należy do przebiegu pętli.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „m jest maksimum prefiksu A[0..k-1], czyli wszystkich dotąd przetworzonych elementów.”. Po inicjalizacji m jest maksimum prefiksu długości 1. Każde kolejne porównanie rozszerza ten prefiks o jeden element.
+  ~m jest równe A[k-1], ponieważ każda iteracja zastępuje poprzednią wartość maksimum.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „m jest maksimum prefiksu A[0..k-1], czyli wszystkich dotąd przetworzonych elementów.”. Po inicjalizacji m jest maksimum prefiksu długości 1. Każde kolejne porównanie rozszerza ten prefiks o jeden element.
+  ####Poprawna odpowiedź to „m jest maksimum prefiksu A[0..k-1], czyli wszystkich dotąd przetworzonych elementów.”. Po inicjalizacji m jest maksimum prefiksu długości 1. Każde kolejne porównanie rozszerza ten prefiks o jeden element.
 }
 
 ::AISD-01-Q09::[plain]Algorytm Euklidesa zaczyna od (a,b)\=(252,105) i wykonuje (a,b)\=(b,a mod b), dopóki b nie jest zerem. Jaka jest para (a,b) po dokładnie dwóch aktualizacjach? {
-  ~(105,42)
-  ~(21,0)
-  ~(252,42)
-  =(42,21)
-  ####Pierwsza aktualizacja daje (105,42), a druga (42,21). Para (21,0) pojawia się dopiero po trzeciej aktualizacji.
+  ~(105,42)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(42,21)”. Pierwsza aktualizacja daje (105,42), a druga (42,21). Para (21,0) pojawia się dopiero po trzeciej aktualizacji.
+  ~(21,0)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(42,21)”. Pierwsza aktualizacja daje (105,42), a druga (42,21). Para (21,0) pojawia się dopiero po trzeciej aktualizacji.
+  ~(252,42)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(42,21)”. Pierwsza aktualizacja daje (105,42), a druga (42,21). Para (21,0) pojawia się dopiero po trzeciej aktualizacji.
+  =(42,21)#Prawidłowo. Pierwsza aktualizacja daje (105,42), a druga (42,21). Para (21,0) pojawia się dopiero po trzeciej aktualizacji.
+  ####Poprawna odpowiedź to „(42,21)”. Pierwsza aktualizacja daje (105,42), a druga (42,21). Para (21,0) pojawia się dopiero po trzeciej aktualizacji.
 }
 
 ::AISD-01-Q10::[plain]Do znajdowania minimum tablicy użyto m\=0, a następnie dla każdego A[i] wykonuje się m\=min(m,A[i]). Dla której niepustej tablicy wynik będzie różny od jej rzeczywistego minimum? {
-  =A\=[5,2,7]
-  ~A\=[5,-2,7]
-  ~A\=[5,0,7]
-  ~A\=[-5,-2,7]
-  ####Dla samych dodatnich elementów m pozostaje równe 0, choć minimum tablicy jest dodatnie. Gdy tablica zawiera element niedodatni, ta inicjalizacja nie zmienia wyniku minimum.
+  =A\=[5,2,7]#Prawidłowo. Dla samych dodatnich elementów m pozostaje równe 0, choć minimum tablicy jest dodatnie.
+  ~A\=[5,-2,7]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=[5,2,7]”. Dla samych dodatnich elementów m pozostaje równe 0, choć minimum tablicy jest dodatnie.
+  ~A\=[5,0,7]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=[5,2,7]”. Dla samych dodatnich elementów m pozostaje równe 0, choć minimum tablicy jest dodatnie.
+  ~A\=[-5,-2,7]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=[5,2,7]”. Dla samych dodatnich elementów m pozostaje równe 0, choć minimum tablicy jest dodatnie.
+  ####Poprawna odpowiedź to „A\=[5,2,7]”. Dla samych dodatnich elementów m pozostaje równe 0, choć minimum tablicy jest dodatnie. Gdy tablica zawiera element niedodatni, ta inicjalizacja nie zmienia wyniku minimum.
 }
 
 ::AISD-01-Q11::[plain]Algorytm ma zwracać największy indeks spośród wystąpień maksymalnej wartości. Jaki wynik jest prawidłowy dla A\=[4,1,4,2] i indeksowania od zera? {
-  ~0
-  =2
-  ~1
-  ~3
-  ####Maksimum wynosi 4 i występuje pod indeksami 0 i 2. Większy z tych indeksów to 2.
+  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Maksimum wynosi 4 i występuje pod indeksami 0 i 2. Większy z tych indeksów to 2.
+  =2#Prawidłowo. Maksimum wynosi 4 i występuje pod indeksami 0 i 2. Większy z tych indeksów to 2.
+  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Maksimum wynosi 4 i występuje pod indeksami 0 i 2. Większy z tych indeksów to 2.
+  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Maksimum wynosi 4 i występuje pod indeksami 0 i 2. Większy z tych indeksów to 2.
+  ####Poprawna odpowiedź to „2”. Maksimum wynosi 4 i występuje pod indeksami 0 i 2. Większy z tych indeksów to 2.
 }
 
 ::AISD-01-Q12::[plain]Dla całkowitego x>\=1 pętla dopóki x>1 wykonuje x\=floor(x/2). Ile razy zostanie wykonane ciało pętli przy x\=37? {
-  ~4
-  ~6
-  =5
-  ~7
-  ####W kolejnych iteracjach x przyjmuje wartości 18, 9, 4, 2 i 1. Po piątym wykonaniu warunek jest fałszywy.
+  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. W kolejnych iteracjach x przyjmuje wartości 18, 9, 4, 2 i 1. Po piątym wykonaniu warunek jest fałszywy.
+  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. W kolejnych iteracjach x przyjmuje wartości 18, 9, 4, 2 i 1. Po piątym wykonaniu warunek jest fałszywy.
+  =5#Prawidłowo. W kolejnych iteracjach x przyjmuje wartości 18, 9, 4, 2 i 1. Po piątym wykonaniu warunek jest fałszywy.
+  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. W kolejnych iteracjach x przyjmuje wartości 18, 9, 4, 2 i 1. Po piątym wykonaniu warunek jest fałszywy.
+  ####Poprawna odpowiedź to „5”. W kolejnych iteracjach x przyjmuje wartości 18, 9, 4, 2 i 1. Po piątym wykonaniu warunek jest fałszywy.
 }
 
 ::AISD-01-Q13::[plain]Przyjmij, że końce zakresu pętli są włączone. Po s\=0 wykonano dla i\=0,1,2,3 przypisanie s\=s+2*i. Jaką wartość ma s? {
-  ~6
-  ~20
-  =12
-  ~8
-  ####Do akumulatora dodano kolejno 0, 2, 4 i 6, co daje wynik 12.
+  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Do akumulatora dodano kolejno 0, 2, 4 i 6, co daje wynik 12.
+  ~20#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Do akumulatora dodano kolejno 0, 2, 4 i 6, co daje wynik 12.
+  =12#Prawidłowo. Do akumulatora dodano kolejno 0, 2, 4 i 6, co daje wynik 12.
+  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Do akumulatora dodano kolejno 0, 2, 4 i 6, co daje wynik 12.
+  ####Poprawna odpowiedź to „12”. Do akumulatora dodano kolejno 0, 2, 4 i 6, co daje wynik 12.
 }
 
 ::AISD-01-Q14::[plain]Procedura sumuje tablicę: s\=0; dla i\=0,...,n-1 wykonuj s\=s+A[i]. Jaki niezmiennik jest prawdziwy bezpośrednio przed wykonaniem ciała pętli dla indeksu i? {
-  ~s jest sumą elementów A[0..i], z uwzględnieniem A[i] jeszcze przed jego odczytem.
-  =s jest sumą elementów A[0..i-1], przy czym dla i\=0 suma pustego prefiksu wynosi 0.
-  ~s jest sumą elementów A[1..i], ponieważ element A[0] służy tylko do inicjalizacji.
-  ~s jest iloczynem i oraz A[i], ponieważ wykonano wcześniej dokładnie i iteracji.
-  ####Przed iteracją o indeksie i zostały dodane dokładnie elementy o indeksach mniejszych od i. W pierwszej iteracji akumulator ma wartość 0.
+  ~s jest sumą elementów A[0..i], z uwzględnieniem A[i] jeszcze przed jego odczytem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „s jest sumą elementów A[0..i-1], przy czym dla i\=0 suma pustego prefiksu wynosi 0.”. Przed iteracją o indeksie i zostały dodane dokładnie elementy o indeksach mniejszych od i.
+  =s jest sumą elementów A[0..i-1], przy czym dla i\=0 suma pustego prefiksu wynosi 0.#Prawidłowo. Przed iteracją o indeksie i zostały dodane dokładnie elementy o indeksach mniejszych od i.
+  ~s jest sumą elementów A[1..i], ponieważ element A[0] służy tylko do inicjalizacji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „s jest sumą elementów A[0..i-1], przy czym dla i\=0 suma pustego prefiksu wynosi 0.”. Przed iteracją o indeksie i zostały dodane dokładnie elementy o indeksach mniejszych od i.
+  ~s jest iloczynem i oraz A[i], ponieważ wykonano wcześniej dokładnie i iteracji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „s jest sumą elementów A[0..i-1], przy czym dla i\=0 suma pustego prefiksu wynosi 0.”. Przed iteracją o indeksie i zostały dodane dokładnie elementy o indeksach mniejszych od i.
+  ####Poprawna odpowiedź to „s jest sumą elementów A[0..i-1], przy czym dla i\=0 suma pustego prefiksu wynosi 0.”. Przed iteracją o indeksie i zostały dodane dokładnie elementy o indeksach mniejszych od i. W pierwszej iteracji akumulator ma wartość 0.
 }
 
 ::AISD-01-Q15::[plain]Akumulator ma 8-bitowy typ całkowity ze znakiem (zakres od -128 do 127). Algorytm kolejno dodaje do niego n elementów tego typu i oblicza s/n. Który warunek gwarantuje brak przepełnienia akumulatora i dzielenia przez zero przy danej kolejności elementów? {
-  ~n>0 i końcowa suma matematyczna wszystkich elementów mieści się w zakresie akumulatora.
-  ~n>\=0 i każda suma częściowa mieści się w zakresie akumulatora.
-  ~n>0 i każdy dodawany element osobno mieści się w zakresie akumulatora.
-  =n>0 i każda suma częściowa, od początkowego 0 po wynik końcowy, mieści się w zakresie akumulatora.
-  ####Końcowa suma może mieścić się w zakresie mimo przepełnienia po drodze, np. dla [100,50,-50]. Potrzebna jest kontrola wszystkich sum częściowych i warunek n>0.
+  ~n>0 i końcowa suma matematyczna wszystkich elementów mieści się w zakresie akumulatora.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n>0 i każda suma częściowa, od początkowego 0 po wynik końcowy, mieści się w zakresie akumulatora.”. Końcowa suma może mieścić się w zakresie mimo przepełnienia po drodze, np.
+  ~n>\=0 i każda suma częściowa mieści się w zakresie akumulatora.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n>0 i każda suma częściowa, od początkowego 0 po wynik końcowy, mieści się w zakresie akumulatora.”. Końcowa suma może mieścić się w zakresie mimo przepełnienia po drodze, np.
+  ~n>0 i każdy dodawany element osobno mieści się w zakresie akumulatora.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n>0 i każda suma częściowa, od początkowego 0 po wynik końcowy, mieści się w zakresie akumulatora.”. Końcowa suma może mieścić się w zakresie mimo przepełnienia po drodze, np.
+  =n>0 i każda suma częściowa, od początkowego 0 po wynik końcowy, mieści się w zakresie akumulatora.#Prawidłowo. Końcowa suma może mieścić się w zakresie mimo przepełnienia po drodze, np.
+  ####Poprawna odpowiedź to „n>0 i każda suma częściowa, od początkowego 0 po wynik końcowy, mieści się w zakresie akumulatora.”. Końcowa suma może mieścić się w zakresie mimo przepełnienia po drodze, np. dla [100,50,-50]. Potrzebna jest kontrola wszystkich sum częściowych i warunek n>0.
 }
 
 ::AISD-01-Q16::[plain]Implementacja F zwraca indeks pierwszego wystąpienia x, a G indeks ostatniego wystąpienia x. Obie zwracają -1 przy braku dopasowania. Który test wejścia ujawni różnicę ich wyników? {
-  =A\=[2,5,2], x\=2
-  ~A\=[2,5,2], x\=5
-  ~A\=[2,5,7], x\=2
-  ~A\=[2,5,7], x\=3
-  ####Dla A\=[2,5,2] i x\=2 pierwsze trafienie ma indeks 0, a ostatnie indeks 2. Pozostałe przypadki nie rozróżniają implementacji.
+  =A\=[2,5,2], x\=2#Prawidłowo. Dla A\=[2,5,2] i x\=2 pierwsze trafienie ma indeks 0, a ostatnie indeks 2.
+  ~A\=[2,5,2], x\=5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=[2,5,2], x\=2”. Dla A\=[2,5,2] i x\=2 pierwsze trafienie ma indeks 0, a ostatnie indeks 2.
+  ~A\=[2,5,7], x\=2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=[2,5,2], x\=2”. Dla A\=[2,5,2] i x\=2 pierwsze trafienie ma indeks 0, a ostatnie indeks 2.
+  ~A\=[2,5,7], x\=3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=[2,5,2], x\=2”. Dla A\=[2,5,2] i x\=2 pierwsze trafienie ma indeks 0, a ostatnie indeks 2.
+  ####Poprawna odpowiedź to „A\=[2,5,2], x\=2”. Dla A\=[2,5,2] i x\=2 pierwsze trafienie ma indeks 0, a ostatnie indeks 2. Pozostałe przypadki nie rozróżniają implementacji.
 }
 
 ::AISD-01-Q17::[plain]Zmienna i ma początkowo wartość 0. Pętla sprawdza i<n przed każdą iteracją, a w jej ciele wykonuje i\=i+2. Ile iteracji zajdzie dla n\=7? {
-  ~3
-  =4
-  ~5
-  ~7
-  ####Ciało pętli wykonuje się przy i równym 0, 2, 4 i 6. Po zwiększeniu do 8 warunek przestaje być spełniony.
+  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Ciało pętli wykonuje się przy i równym 0, 2, 4 i 6. Po zwiększeniu do 8 warunek przestaje być spełniony.
+  =4#Prawidłowo. Ciało pętli wykonuje się przy i równym 0, 2, 4 i 6. Po zwiększeniu do 8 warunek przestaje być spełniony.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Ciało pętli wykonuje się przy i równym 0, 2, 4 i 6. Po zwiększeniu do 8 warunek przestaje być spełniony.
+  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Ciało pętli wykonuje się przy i równym 0, 2, 4 i 6. Po zwiększeniu do 8 warunek przestaje być spełniony.
+  ####Poprawna odpowiedź to „4”. Ciało pętli wykonuje się przy i równym 0, 2, 4 i 6. Po zwiększeniu do 8 warunek przestaje być spełniony.
 }
 
 ::AISD-01-Q18::[plain]Niech S(A) oznacza sumę elementów tablicy A, a A||B oznacza ich połączenie w tej kolejności. Zakładamy arytmetykę całkowitą bez przepełnienia. Która zależność zachodzi dla dowolnych A i B, także pustych? {
-  ~S(A||B)\=S(A)+S(B)+liczba elementów B
-  ~S(A||B)\=S(A)*S(B)
-  ~S(A||B)\=S(A)-S(B)
-  =S(A||B)\=S(A)+S(B)
-  ####Połączenie tablic zawiera wszystkie składniki obu sum, bez pominięć i powtórzeń. Dla pustej tablicy przyjmujemy S([])\=0.
+  ~S(A||B)\=S(A)+S(B)+liczba elementów B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „S(A||B)\=S(A)+S(B)”. Połączenie tablic zawiera wszystkie składniki obu sum, bez pominięć i powtórzeń.
+  ~S(A||B)\=S(A)*S(B)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „S(A||B)\=S(A)+S(B)”. Połączenie tablic zawiera wszystkie składniki obu sum, bez pominięć i powtórzeń.
+  ~S(A||B)\=S(A)-S(B)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „S(A||B)\=S(A)+S(B)”. Połączenie tablic zawiera wszystkie składniki obu sum, bez pominięć i powtórzeń.
+  =S(A||B)\=S(A)+S(B)#Prawidłowo. Połączenie tablic zawiera wszystkie składniki obu sum, bez pominięć i powtórzeń.
+  ####Poprawna odpowiedź to „S(A||B)\=S(A)+S(B)”. Połączenie tablic zawiera wszystkie składniki obu sum, bez pominięć i powtórzeń. Dla pustej tablicy przyjmujemy S([])\=0.
 }
 
 ::AISD-01-Q19::[plain]Program ma sumować wszystkie elementy tablicy, ale inicjalizuje s\=1 i dodaje do s kolejno każdy element, zaczynając od A[0]. Która zmiana naprawia wynik dla dowolnej długości, także zera? {
-  ~Ustawić s\=A[0] i pozostawić pętlę rozpoczynającą się od indeksu 0.
-  ~Pozostawić s\=1, ale rozpocząć pętlę od indeksu 1.
-  =Ustawić s\=0 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.
-  ~Ustawić s\=-1 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.
-  ####Dodawanie wymaga wartości początkowej 0. Taka inicjalizacja działa także dla tablicy pustej i nie powoduje podwójnego zliczenia pierwszego elementu.
+  ~Ustawić s\=A[0] i pozostawić pętlę rozpoczynającą się od indeksu 0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić s\=0 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.”. Dodawanie wymaga wartości początkowej 0. Taka inicjalizacja działa także dla tablicy pustej i nie powoduje podwójnego zliczenia pierwszego elementu.
+  ~Pozostawić s\=1, ale rozpocząć pętlę od indeksu 1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić s\=0 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.”. Dodawanie wymaga wartości początkowej 0. Taka inicjalizacja działa także dla tablicy pustej i nie powoduje podwójnego zliczenia pierwszego elementu.
+  =Ustawić s\=0 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.#Prawidłowo. Dodawanie wymaga wartości początkowej 0. Taka inicjalizacja działa także dla tablicy pustej i nie powoduje podwójnego zliczenia pierwszego elementu.
+  ~Ustawić s\=-1 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić s\=0 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.”. Dodawanie wymaga wartości początkowej 0. Taka inicjalizacja działa także dla tablicy pustej i nie powoduje podwójnego zliczenia pierwszego elementu.
+  ####Poprawna odpowiedź to „Ustawić s\=0 i pozostawić pętlę przetwarzającą każdy element dokładnie raz.”. Dodawanie wymaga wartości początkowej 0. Taka inicjalizacja działa także dla tablicy pustej i nie powoduje podwójnego zliczenia pierwszego elementu.
 }
 
 ::AISD-01-Q20::[plain]Kontrakt brzmi: zwróć dowolny indeks i, dla którego A[i]>x, a gdy taki indeks nie istnieje, zwróć -1. Dla A\=[4,9,7,9] i x\=6 który zbiór obejmuje wszystkie dopuszczalne wyniki? {
-  =1, 2 i 3
-  ~1 i 3
-  ~1, 2, 3 i -1
-  ~Tylko 1
-  ####Warunek A[i]>6 spełniają indeksy 1, 2 i 3. Ponieważ kontrakt dopuszcza dowolne trafienie, każdy z nich jest prawidłowy. Wynik -1 wolno zwrócić tylko przy braku trafień.
+  =1, 2 i 3#Prawidłowo. Warunek A[i]>6 spełniają indeksy 1, 2 i 3. Ponieważ kontrakt dopuszcza dowolne trafienie, każdy z nich jest prawidłowy.
+  ~1 i 3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1, 2 i 3”. Warunek A[i]>6 spełniają indeksy 1, 2 i 3. Ponieważ kontrakt dopuszcza dowolne trafienie, każdy z nich jest prawidłowy.
+  ~1, 2, 3 i -1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1, 2 i 3”. Warunek A[i]>6 spełniają indeksy 1, 2 i 3. Ponieważ kontrakt dopuszcza dowolne trafienie, każdy z nich jest prawidłowy.
+  ~Tylko 1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1, 2 i 3”. Warunek A[i]>6 spełniają indeksy 1, 2 i 3. Ponieważ kontrakt dopuszcza dowolne trafienie, każdy z nich jest prawidłowy.
+  ####Poprawna odpowiedź to „1, 2 i 3”. Warunek A[i]>6 spełniają indeksy 1, 2 i 3. Ponieważ kontrakt dopuszcza dowolne trafienie, każdy z nich jest prawidłowy. Wynik -1 wolno zwrócić tylko przy braku trafień.
 }
 
