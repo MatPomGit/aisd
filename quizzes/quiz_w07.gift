@@ -1,5 +1,5 @@
 // AIiSD 07: Tablice dwuwymiarowe
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-07-Q01::[plain]Macierz 3×4 jest przechowywana wierszowo w ciągłym buforze. Jaki jest indeks liniowy elementu A[2][1] przy indeksowaniu od 0? {
@@ -42,7 +42,7 @@
   ####Dla rzadkiego grafu przechowywanie całej macierzy V×V jest kosztowne, podczas gdy listy przechowują wierzchołki i istniejące relacje.
 }
 
-::AISD-07-Q06::[plain]Obraz szary ma H wierszy i W kolumn. Filtr 3×3 z dopełnieniem brzegu oblicza jeden wynik na piksel. Ile wyników powstanie? {
+::AISD-07-Q06::[plain]Obraz w skali szarości ma H wierszy i W kolumn. Filtr 3×3 z dopełnieniem brzegów oblicza jeden wynik dla każdego piksela. Ile wartości wynikowych powstanie? {
   =H·W wyników
   ~(H-2)(W-2) wyników
   ~(H+2)(W+2) wyników
@@ -58,7 +58,7 @@
   ####Obrót zgodny z zegarem zamienia kolejne wiersze na kolumny od góry ku dołowi. Wynik ma trzy wiersze i dwie kolumny.
 }
 
-::AISD-07-Q08::[plain]Macierz DP F[i][j] zależy wyłącznie od F[i-1][j] i F[i][j-1]. Które przejście od (0,0) zapewnia dostępność obu poprzedników? {
+::AISD-07-Q08::[plain]Dla komórek wewnętrznych tablicy programowania dynamicznego F[i][j] wynik zależy wyłącznie od F[i-1][j] oraz F[i][j-1]. Zakładamy, że wartości brzegowe są już zainicjalizowane. Która kolejność obliczania pozostałych komórek gwarantuje dostępność obu poprzedników? {
   =Rosnące i, a wewnątrz każdego wiersza rosnące j.
   ~Malejące i, ale rosnące j
   ~Rosnące i i malejące j
