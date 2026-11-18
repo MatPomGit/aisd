@@ -1,12 +1,12 @@
 # Quizy do wykładów AIiSD (W01–W20)
 
-**Wersja zestawu:** 1.3.0 (W02–W20); W01: 1.2.2  
-**Data:** 2026-11-17  
-**Zakres:** 20 oddzielnych banków, po 20 pytań jednokrotnego wyboru (łącznie 400 pytań).
+**Wersja zestawu:** 1.4.0 (W01–W20)  
+**Data:** 2026-11-18  
+**Zakres:** 20 banków po 20 pytań (400 pytań), w tym pytania jednokrotnego i wielokrotnego wyboru.
 
 ## Organizacja
 
-Każdy plik `quiz_wXX.gift` zawiera 20 pytań. W wersji 1.3.0 przeprowadzono ponowną recenzję W02–W20 (380 pytań): przebudowano merytorycznie 143 pytania, naprawiono niejednoznaczności i urwane dystraktory, ograniczono powtórzenia tematyczne, uzupełniono zadania o rozumowanie na konkretnych przykładach oraz przemieszano klucze we wszystkich 19 bankach. Zachowano identyfikatory i cztery warianty odpowiedzi. W wersji 1.2.2 dodatkowo poprawiono bank W01 na podstawie niezależnej recenzji merytorycznej: doprecyzowano niezmienniki i kontrakty, wymieniono oczywiste dystraktory, ograniczono powtórzenia tematyczne i usunięto okresowy układ poprawnych odpowiedzi. W wersji 1.2.0 zredagowano większość pytań w każdym banku: wyeliminowano podpowiedzi stylistyczne, przebudowano dystraktory i zastąpiono część powtarzalnych zadań analizą konkretnych przypadków. Każdy bank odpowiada wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, dokładnie jedną prawidłową odpowiedź oraz informację zwrotną z uzasadnieniem.
+Każdy plik `quiz_wXX.gift` zawiera 20 pytań. W wersji 1.4.0 poprawiono błędny klucz W10-Q01, niejednoznaczne odpowiedzi, konstrukcję zadań i polszczyznę, a sześć pytań przekształcono w wielokrotny wybór. Rozszerzono też walidację GIFT. W wersji 1.3.0 przeprowadzono ponowną recenzję W02–W20 (380 pytań): przebudowano merytorycznie 143 pytania, naprawiono niejednoznaczności i urwane dystraktory, ograniczono powtórzenia tematyczne, uzupełniono zadania o rozumowanie na konkretnych przykładach oraz przemieszano klucze we wszystkich 19 bankach. Zachowano identyfikatory i cztery warianty odpowiedzi. W wersji 1.2.2 dodatkowo poprawiono bank W01 na podstawie niezależnej recenzji merytorycznej: doprecyzowano niezmienniki i kontrakty, wymieniono oczywiste dystraktory, ograniczono powtórzenia tematyczne i usunięto okresowy układ poprawnych odpowiedzi. W wersji 1.2.0 zredagowano większość pytań w każdym banku: wyeliminowano podpowiedzi stylistyczne, przebudowano dystraktory i zastąpiono część powtarzalnych zadań analizą konkretnych przypadków. Każdy bank odpowiada wykładowi XX w kolejności kursu. Pliki są zgodne z formatem **GIFT** służącym do importu do bazy pytań Moodle. Każde pytanie zawiera cztery merytorycznie powiązane możliwości, jedną lub kilka prawidłowych odpowiedzi (zależnie od jawnego typu pytania) oraz informację zwrotną z uzasadnieniem.
 
 - `quiz_w01.gift`–`quiz_w05.gift`: podstawy algorytmiki, RAM, pseudokod, analiza kosztu, notacje asymptotyczne;
 - `quiz_w06.gift`–`quiz_w10.gift`: tablice, macierze, rekurencja, listy liniowe, stosy;
@@ -19,7 +19,7 @@ Każdy plik `quiz_wXX.gift` zawiera 20 pytań. W wersji 1.3.0 przeprowadzono pon
 2. Dla każdego wykładu utwórz odrębną kategorię, np. `AIiSD / W01`, i zaimportuj odpowiadający jej plik UTF-8.
 3. Utwórz **osobną aktywność Quiz** dla każdej kategorii. Nie przywracaj testów w pakietach Rise/SCORM.
 4. Włącz losową kolejność odpowiedzi i, jeśli jest to uzasadnione dydaktycznie, losowanie pytań z kategorii.
-5. Przed ocenianym użyciem przetestuj podgląd pytań, zapis ocen, termin wyświetlania uzasadnień i ograniczenia podejść na koncie testowym studenta.
+5. Przed ocenianym użyciem przetestuj podgląd pytań, zapis ocen, termin wyświetlania uzasadnień i ograniczenia podejść na koncie testowym studenta. Dla pytań wielokrotnego wyboru sprawdź pola wyboru, naliczanie punktów częściowych oraz brak pełnej punktacji przy zaznaczaniu wszystkich wariantów.
 
 ## Konstrukcja pytań
 
@@ -33,7 +33,8 @@ Banki zostały opracowane na podstawie mapy `docs/curriculum-map.md`, tytułów 
 - Wszystkie cztery warianty odnoszą się do **tego samego pytania i mają porównywalny poziom szczegółowości**. Odpowiedź liczbowa nie powinna konkurować z trzema długimi opisami, a wyłącznie dystraktory nie powinny zawierać objaśnień przyczynowych.
 - Nie stosujemy opcji absurdalnych ani celowo niepoprawnych stylistycznie. Fałszywość wariantu ma wynikać z **wiedzy o algorytmie**, a nie z językowej eliminacji.
 - W zadaniach o śledzeniu kodu trzeba jednoznacznie podać warunki początkowe, semantykę operacji, konwencję indeksowania i moment sprawdzania warunku.
-- Należy zachować pojedynczą poprawną odpowiedź, uzasadnienie oraz identyfikator pytania, a przy imporcie do Moodle losować kolejność odpowiedzi.
+- Pytanie jednokrotnego wyboru ma dokładnie jedną poprawną odpowiedź. Pytanie wielokrotnego wyboru musi zawierać polecenie „Zaznacz wszystkie poprawne odpowiedzi”, co najmniej dwie poprawne odpowiedzi oraz procentową punktację GIFT. W obu przypadkach zachowujemy uzasadnienie i identyfikator, a w Moodle losujemy kolejność odpowiedzi.
+- Nie wolno maskować niejednoznaczności wielokrotnym wyborem: każda prawdziwa odpowiedź musi być zamierzona, a polecenie i dystraktory muszą sprawdzać odrębne aspekty rozumowania.
 
 Powyższe zasady ograniczają zgadywanie na podstawie konstrukcji testu. Nie gwarantują, że każde pytanie jest odporne na eliminację bez wiedzy; wymagałoby to pilotażu i analizy psychometrycznej odpowiedzi studentów (trudność, moc różnicująca, częstość wyboru poszczególnych dystraktorów).
 
@@ -50,7 +51,8 @@ Wszystkie 400 pytań mają jawny znacznik formatu `[plain]`. Moodle zapisuje wó
 - Pliki są kodowane jako **UTF-8 bez BOM** i używają normalizacji **Unicode NFC**, potrzebnej m.in. dla polskich znaków.
 - Znaki sterujące GIFT `~`, `=`, `#`, `{` i `}` występują w treści wyłącznie z poprzedzającym je ukośnikiem `\`. Importer GIFT usuwa ten ukośnik i wyświetla znak dosłownie.
 - Zachowano standardowe symbole matematyczne Unicode, takie jak `Θ`, `Ω`, `→`, `×`, `≤` oraz indeksy górne i dolne. Rzadziej obsługiwane graficzne nawiasy funkcji podłogi i sufitu zastąpiono zapisami `floor(...)` i `ceil(...)`.
-- Walidator kontroluje nagłówki `[plain]`, poprawność UTF-8, obecność BOM, normalizację NFC, niewidoczne lub uszkodzone znaki, poprawne maskowanie separatorów GIFT, unikatowość odpowiedzi i rozkład kluczy.
+- Walidator kontroluje nagłówki `[plain]`, poprawność UTF-8, obecność BOM, normalizację NFC, niewidoczne lub uszkodzone znaki, poprawne maskowanie separatorów GIFT, unikatowość odpowiedzi, rozkład kluczy jednokrotnego wyboru i wagi wyboru wielokrotnego.
+- Dla wyboru wielokrotnego stosujemy warianty `~%50%Poprawna...` i `~%-50%Niepoprawna...` (przy dwóch poprawnych i dwóch błędnych odpowiedziach). Suma dodatnich wag wynosi 100%, a suma ujemnych nie mniej niż 100% wartości bezwzględnej. Dzięki temu zaznaczenie wszystkich opcji nie zapewnia punktów. Nie używamy znaku `=` dla wielokrotnego wyboru.
 - Przed wykorzystaniem pytań do oceniania trzeba **zaimportować je do testowej kategorii Moodle i obejrzeć podgląd** na komputerze i urządzeniu mobilnym, szczególnie wzory, nierówności, polskie znaki oraz symbole matematyczne. Sam test statyczny nie potwierdza krojów pisma dostępnych w konkretnym motywie Moodle.
 
 Zasady formatu: [dokumentacja GIFT w Moodle](https://docs.moodle.org/502/en/GIFT_format).
@@ -61,7 +63,7 @@ Zasady formatu: [dokumentacja GIFT w Moodle](https://docs.moodle.org/502/en/GIFT
 python3 scripts/validate_quizzes.py
 ```
 
-Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, pojedynczy klucz, uzasadnienie, rozkład pozycji odpowiedzi prawidłowych i poprawność zapisu znaków w Moodle. W każdym banku pozycje poprawnych odpowiedzi rozłożono po 5 na każdą z czterech możliwości. Od wersji 1.3.0 walidator odrzuca klucze okresowe, trzy jednakowe pozycje z rzędu i sześciopozycyjny naprzemienny wzorzec klucza. Kontroluje też część niedokończonych dystraktorów i odpowiedzi logicznie równoważnych typu „Nie” oraz „Nie, ponieważ…”. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle. Te dwa etapy pozostają do wykonania przed ocenianiem.
+Walidator sprawdza liczbę plików, identyfikatory, liczbę pytań, cztery różne odpowiedzi, poprawność typów i wag odpowiedzi, uzasadnienia oraz zapis znaków w Moodle. W pytaniach jednokrotnego wyboru kontroluje rozkład kluczy. W bankach mieszanych dopuszcza niewielkie odchylenie od równomiernego rozkładu ze względu na osobny sposób oceniania wyboru wielokrotnego. Dla pytań jednokrotnego wyboru walidator odrzuca klucze okresowe, trzy jednakowe pozycje z rzędu i sześciopozycyjny naprzemienny wzorzec klucza. Sprawdza też sumy wag odpowiedzi wielokrotnego wyboru i część niedokończonych dystraktorów i odpowiedzi logicznie równoważnych typu „Nie” oraz „Nie, ponieważ…”. Nie zastępuje niezależnej recenzji poprawności naukowej ani testowego importu do Moodle. Te dwa etapy pozostają do wykonania przed ocenianiem.
 
 **Bezpieczeństwo oceniania:** repozytorium jest publiczne, a format GIFT zawiera jawne klucze odpowiedzi. Nie używaj tych plików bezpośrednio do egzaminu o wysokiej stawce. Do takiego zastosowania przenieś bank do prywatnego miejsca, zachowaj kontrolę dostępu i przygotuj alternatywne, nieopublikowane wersje zadań.
 
