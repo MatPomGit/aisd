@@ -19,27 +19,27 @@
 }
 
 ::AISD-04-Q03::[plain]Program A sumuje n-elementową tablicę przy użyciu jednego akumulatora. Program B tworzy osobną kopię całej tablicy, a dopiero potem ją sumuje. Pomijając dane wejściowe, jak porównać dodatkową pamięć? {
-  ~A używa Θ(n), B używa Θ(1).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A używa Θ(1), B używa Θ(n).”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
-  ~Oba używają Θ(n), ponieważ muszą odczytać n elementów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A używa Θ(1), B używa Θ(n).”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
-  ~Oba używają Θ(1), ponieważ wynik sumowania jest jedną liczbą.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A używa Θ(1), B używa Θ(n).”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
+  ~A używa Θ(n), B używa Θ(1).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A używa Θ(1), B używa Θ(n)”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
+  ~Oba używają Θ(n), ponieważ muszą odczytać n elementów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A używa Θ(1), B używa Θ(n)”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
+  ~Oba używają Θ(1), ponieważ wynik sumowania jest jedną liczbą.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A używa Θ(1), B używa Θ(n)”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
   =A używa Θ(1), B używa Θ(n).#Prawidłowo. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
-  ####Poprawna odpowiedź to „A używa Θ(1), B używa Θ(n).”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
+  ####Poprawna odpowiedź to „A używa Θ(1), B używa Θ(n)”. Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
 }
 
 ::AISD-04-Q04::[plain]Koszt algorytmu A wynosi 5n²+7n operacji, a algorytmu B 30n log₂(n) dla n >\= 2. Jak poprawnie wybrać szybszy algorytm dla ustalonej wartości n? {
-  ~B jest szybszy dla każdego n>\=2, ponieważ ma mniejszą klasę asymptotyczną.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n.”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów.
-  ~A jest szybszy dla każdego n>\=2, ponieważ ma mniejszy współczynnik przy n².#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n.”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów.
+  ~B jest szybszy dla każdego n>\=2, ponieważ ma mniejszą klasę asymptotyczną.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów.
+  ~A jest szybszy dla każdego n>\=2, ponieważ ma mniejszy współczynnik przy n².#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów.
   =Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n.#Prawidłowo. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów.
-  ~Obie funkcje są zawsze porównywalne i mają ten sam rząd wzrostu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n.”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów.
-  ####Poprawna odpowiedź to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n.”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów. Konkretne współczynniki mogą zmienić kolejność dla określonych n.
+  ~Obie funkcje są zawsze porównywalne i mają ten sam rząd wzrostu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów.
+  ####Poprawna odpowiedź to „Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n”. Asymptotyka porządkuje wzrost kosztu, nie rozstrzyga wszystkich małych rozmiarów. Konkretne współczynniki mogą zmienić kolejność dla określonych n.
 }
 
 ::AISD-04-Q05::[plain]W RAM jednostkowym program wykonuje 2 instrukcje inicjalizacji, a następnie n razy po 3 instrukcje. Jaką wartość przyjmuje koszt dla n\=4 przy liczeniu każdej instrukcji? {
   =14.#Prawidłowo. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
-  ~11.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14.”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
-  ~12.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14.”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
-  ~18.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14.”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
-  ####Poprawna odpowiedź to „14.”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
+  ~11.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
+  ~12.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
+  ~18.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
+  ####Poprawna odpowiedź to „14”. Koszt wynosi 2+3n; dla n\=4 to 14. Model jednostkowy nie liczy osobno długości operandów.
 }
 
 ::AISD-04-Q06::[plain]Algorytm sprawdza dla każdej pary indeksów 0<\=i<j<n pewien warunek. Ile razy uruchamia test? {
@@ -51,19 +51,19 @@
 }
 
 ::AISD-04-Q07::[plain]Algorytm dla każdej tablicy wykonuje dokładnie n iteracji i na końcu zwraca zawsze 0. Co można wywnioskować z dowodu, że wykonuje O(n) operacji? {
-  ~Że oblicza poprawną sumę tablicy, jeśli pętla przechodzi po wszystkich elementach.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy.”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
-  ~Że na pewno zwraca poprawne minimum, gdy tablica nie jest pusta.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy.”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
-  ~Że jest równoważny każdemu innemu algorytmowi o koszcie O(n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy.”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
+  ~Że oblicza poprawną sumę tablicy, jeśli pętla przechodzi po wszystkich elementach.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
+  ~Że na pewno zwraca poprawne minimum, gdy tablica nie jest pusta.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
+  ~Że jest równoważny każdemu innemu algorytmowi o koszcie O(n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
   =Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy.#Prawidłowo. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
-  ####Poprawna odpowiedź to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy.”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
+  ####Poprawna odpowiedź to „Że kończy się w liniowym czasie, lecz poprawność wyniku zależy od specyfikacji i zawartości tablicy”. Złożoność dotyczy zasobów, a nie wartości funkcji obliczanej. Liniowy algorytm zwracający stale zero może być funkcjonalnie błędny.
 }
 
 ::AISD-04-Q08::[plain]W jednym zadaniu przeszukujemy n liczb 32-bitowych, w drugim n liczb o dowolnej liczbie bitów. Które stwierdzenie o rozmiarze wejścia jest najbardziej precyzyjne? {
-  ~W obu przypadkach rozmiar bitowy wynosi dokładnie n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby.”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
+  ~W obu przypadkach rozmiar bitowy wynosi dokładnie n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
   =Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby.#Prawidłowo. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
-  ~Długość największego elementu zawsze równa się liczbie elementów n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby.”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
-  ~W drugim przypadku nie można zdefiniować rozmiaru danych wejściowych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby.”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
-  ####Poprawna odpowiedź to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby.”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
+  ~Długość największego elementu zawsze równa się liczbie elementów n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
+  ~W drugim przypadku nie można zdefiniować rozmiaru danych wejściowych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
+  ####Poprawna odpowiedź to „Liczba elementów n jest przydatnym parametrem, ale w drugim przypadku całkowita liczba bitów może zależeć także od długości każdej liczby”. Liczba elementów bywa parametrem analizy, lecz bitowa długość reprezentacji zależy również od rozmiarów samych wartości.
 }
 
 ::AISD-04-Q09::[plain]Pętla zewnętrzna wykonuje się n razy, a wewnętrzna dokładnie 2i razy dla i\=0,...,n-1. Ile łącznie razy działa ciało wewnętrzne? {
@@ -115,19 +115,19 @@
 }
 
 ::AISD-04-Q15::[plain]Ile dodatkowej pamięci zużywa rekurencyjne przeszukiwanie DFS łańcucha o n węzłach, jeśli pominiemy pamięć danych wejściowych? {
-  ~Θ(log n) ramek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n) ramek stosu.”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
-  ~Θ(n²) ramek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n) ramek stosu.”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
-  ~Θ(1) ramek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n) ramek stosu.”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
+  ~Θ(log n) ramek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n) ramek stosu”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
+  ~Θ(n²) ramek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n) ramek stosu”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
+  ~Θ(1) ramek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n) ramek stosu”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
   =Θ(n) ramek stosu.#Prawidłowo. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
-  ####Poprawna odpowiedź to „Θ(n) ramek stosu.”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
+  ####Poprawna odpowiedź to „Θ(n) ramek stosu”. Rekurencja schodzi przez n węzłów bez powrotu, więc utrzymuje liniową liczbę aktywnych wywołań.
 }
 
 ::AISD-04-Q16::[plain]Algorytm A wykonuje 4n+10 operacji, algorytm B 2n²+1. Dla n\=2 który jest tańszy, a który ma lepszy rząd wzrostu dla dostatecznie dużych n? {
-  ~Dla n\=2 tańszy jest A; asymptotycznie lepszy jest B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A.”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
-  ~Dla n\=2 tańszy jest B; asymptotycznie lepszy jest B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A.”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
+  ~Dla n\=2 tańszy jest A; asymptotycznie lepszy jest B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
+  ~Dla n\=2 tańszy jest B; asymptotycznie lepszy jest B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
   =Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A.#Prawidłowo. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
-  ~Dla n\=2 tańszy jest A; asymptotycznie lepszy jest A.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A.”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
-  ####Poprawna odpowiedź to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A.”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
+  ~Dla n\=2 tańszy jest A; asymptotycznie lepszy jest A.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
+  ####Poprawna odpowiedź to „Dla n\=2 tańszy jest B; asymptotycznie lepszy jest A”. Dla n\=2 otrzymujemy A\=18 i B\=9, ale A ma Θ(n), a B ma Θ(n²).
 }
 
 ::AISD-04-Q17::[plain]Dla rekurencji T(n)\=2T(n/2)+1, T(1)\=1 i n\=8, ile jednostek kosztu powstaje? {
@@ -147,11 +147,11 @@
 }
 
 ::AISD-04-Q19::[plain]Kod wykonuje pętle: for i\=0..n-1: for j\=0..i: compare(). Ile porównań wykonuje dla n\=4 i jaka jest klasa kosztu dla rosnącego n? {
-  ~6 i Θ(n²).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10 i Θ(n²).”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
+  ~6 i Θ(n²).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10 i Θ(n²)”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
   =10 i Θ(n²).#Prawidłowo. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
-  ~10 i Θ(n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10 i Θ(n²).”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
-  ~16 i Θ(n²).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10 i Θ(n²).”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
-  ####Poprawna odpowiedź to „10 i Θ(n²).”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
+  ~10 i Θ(n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10 i Θ(n²)”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
+  ~16 i Θ(n²).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10 i Θ(n²)”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
+  ####Poprawna odpowiedź to „10 i Θ(n²)”. Wewnętrzna pętla wykonuje 1,2,3,4 porównania, łącznie 10. Suma n(n+1)/2 rośnie kwadratowo.
 }
 
 ::AISD-04-Q20::[plain]Pętla while k<n zaczyna od k\=1 i w każdej iteracji ustawia k\=3k. Ile iteracji wykona dla n\=82? {
