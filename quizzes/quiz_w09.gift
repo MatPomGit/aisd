@@ -4,42 +4,42 @@
 
 ::AISD-09-Q01::[plain]Lista jednokierunkowa ma n węzłów. Chcemy wielokrotnie odczytywać element o indeksie k, zaczynając od head za każdym razem. Ile przejść do next potrzeba na jeden odczyt? {
   =k przejść do next, o ile 0<\=k<n.#Prawidłowo. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
-  ~n-k przejść do next, niezależnie od k.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „k przejść do next, o ile 0<\=k<n.”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
-  ~Zawsze 1 przejście, bo znamy indeks.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „k przejść do next, o ile 0<\=k<n.”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
-  ~Zawsze n przejść, nawet dla k\=0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „k przejść do next, o ile 0<\=k<n.”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
-  ####Poprawna odpowiedź to „k przejść do next, o ile 0<\=k<n.”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
+  ~n-k przejść do next, niezależnie od k.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „k przejść do next, o ile 0<\=k<n”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
+  ~Zawsze 1 przejście, bo znamy indeks.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „k przejść do next, o ile 0<\=k<n”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
+  ~Zawsze n przejść, nawet dla k\=0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „k przejść do next, o ile 0<\=k<n”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
+  ####Poprawna odpowiedź to „k przejść do next, o ile 0<\=k<n”. Element na pozycji 0 wskazuje head, a element na pozycji k uzyskuje się po k przejściach do next.
 }
 
 ::AISD-09-Q02::[plain]W liście jednokierunkowej znamy wskaźnik na poprzednik p elementu x. Jak poprawnie usunąć x z wnętrza listy? {
-  ~Ustawić x.next na p.next, a następnie zwolnić p.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić p.next na x.next, a następnie zwolnić x.”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
-  ~Ustawić p.next na x, a dopiero potem zwolnić x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić p.next na x.next, a następnie zwolnić x.”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
+  ~Ustawić x.next na p.next, a następnie zwolnić p.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić p.next na x.next, a następnie zwolnić x”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
+  ~Ustawić p.next na x, a dopiero potem zwolnić x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić p.next na x.next, a następnie zwolnić x”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
   =Ustawić p.next na x.next, a następnie zwolnić x.#Prawidłowo. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
-  ~Ustawić p.next na x.next.next, pomijając również następcę x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić p.next na x.next, a następnie zwolnić x.”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
-  ####Poprawna odpowiedź to „Ustawić p.next na x.next, a następnie zwolnić x.”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
+  ~Ustawić p.next na x.next.next, pomijając również następcę x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić p.next na x.next, a następnie zwolnić x”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
+  ####Poprawna odpowiedź to „Ustawić p.next na x.next, a następnie zwolnić x”. Przepięcie p.next pomija x, nie tracąc dalszej części listy.
 }
 
 ::AISD-09-Q03::[plain]Dwukierunkowa lista ma węzeł x między p i q. Jakie wiązania są konieczne po usunięciu x? {
-  ~p.next\=q i q.next\=p, co odtwarza oba kierunki listy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „p.next\=q oraz q.prev\=p.”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
-  ~p.prev\=q i q.prev\=p, co odtwarza połączenie poprzednika z następcą.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „p.next\=q oraz q.prev\=p.”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
+  ~p.next\=q i q.next\=p, co odtwarza oba kierunki listy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „p.next\=q oraz q.prev\=p”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
+  ~p.prev\=q i q.prev\=p, co odtwarza połączenie poprzednika z następcą.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „p.next\=q oraz q.prev\=p”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
   =p.next\=q oraz q.prev\=p.#Prawidłowo. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
-  ~p.next\=q i q.prev\=x#Ta odpowiedź jest niepoprawna. Właściwy wariant to „p.next\=q oraz q.prev\=p.”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
-  ####Poprawna odpowiedź to „p.next\=q oraz q.prev\=p.”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
+  ~p.next\=q i q.prev\=x#Ta odpowiedź jest niepoprawna. Właściwy wariant to „p.next\=q oraz q.prev\=p”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
+  ####Poprawna odpowiedź to „p.next\=q oraz q.prev\=p”. Po usunięciu sąsiedzi muszą wskazywać bezpośrednio na siebie.
 }
 
 ::AISD-09-Q04::[plain]Lista cykliczna jednokierunkowa z jednym węzłem x ma jaki warunek strukturalny, jeśli nie używa węzła strażnika? {
-  ~x.next\=null#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=x.”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
+  ~x.next\=null#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=x”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
   =x.next\=x.#Prawidłowo. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
-  ~head\=null, a x.next\=x#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=x.”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
-  ~x.next\=head.next#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=x.”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
-  ####Poprawna odpowiedź to „x.next\=x.”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
+  ~head\=null, a x.next\=x#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=x”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
+  ~x.next\=head.next#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=x”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
+  ####Poprawna odpowiedź to „x.next\=x”. W jednowęzłowym cyklu następnik wraca do tego samego węzła.
 }
 
 ::AISD-09-Q05::[plain]Niecykliczna lista jednokierunkowa ma wskaźniki head i tail. Po usunięciu jej jedynego węzła ustawiono head na null, lecz pozostawiono dawną wartość tail. Jaki błąd może wystąpić podczas kolejnego dodawania elementu na koniec listy? {
   =tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć.#Prawidłowo. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
-  ~Nie ma błędu, bo zwolnienie węzła automatycznie zeruje tail.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć.”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
-  ~Koszt enqueue wzrośnie do Θ(log n), ale pamięć pozostanie poprawna.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć.”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
-  ~Lista automatycznie stanie się cykliczna z jednym węzłem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć.”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
-  ####Poprawna odpowiedź to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć.”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
+  ~Nie ma błędu, bo zwolnienie węzła automatycznie zeruje tail.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
+  ~Koszt enqueue wzrośnie do Θ(log n), ale pamięć pozostanie poprawna.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
+  ~Lista automatycznie stanie się cykliczna z jednym węzłem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
+  ####Poprawna odpowiedź to „tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć”. Przy usunięciu ostatniego węzła oba wskaźniki muszą zostać zaktualizowane, aby nie pozostał wiszący tail.
 }
 
 ::AISD-09-Q06::[plain]Chcemy usunąć ostatni węzeł listy jednokierunkowej bez wskaźników do poprzedników. Jaki jest koszt tej operacji w najgorszym przypadku? {
@@ -51,19 +51,19 @@
 }
 
 ::AISD-09-Q07::[plain]Jaki jest skutek pominięcia aktualizacji tail przy usunięciu jedynego węzła listy? {
-  ~head i tail będą automatycznie równe null po zwolnieniu ostatniego węzła.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty.”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
-  ~tail będzie wskazywał nową pustą komórkę, co nie wpływa na poprawność.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty.”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
-  ~Błędne tail wpłynie jedynie na koszt pamięci, a nie na kolejną operację enqueue.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty.”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
+  ~head i tail będą automatycznie równe null po zwolnieniu ostatniego węzła.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
+  ~tail będzie wskazywał nową pustą komórkę, co nie wpływa na poprawność.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
+  ~Błędne tail wpłynie jedynie na koszt pamięci, a nie na kolejną operację enqueue.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
   =tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty.#Prawidłowo. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
-  ####Poprawna odpowiedź to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty.”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
+  ####Poprawna odpowiedź to „tail może nadal wskazywać usunięty obiekt, mimo że head jest pusty”. Po usunięciu ostatniego elementu oba wskaźniki graniczne powinny reprezentować pusty stan.
 }
 
 ::AISD-09-Q08::[plain]System wymaga dostępu do elementu o indeksie k oraz częstego wstawiania na początku sekwencji. Który kompromis jest trafny dla tablicy i listy jednokierunkowej bez indeksów pomocniczych? {
-  ~Lista ma Θ(1) dostępu przez indeks, a tablica Θ(n), bo tablica jest ciągła.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku.”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head.
-  ~Obie mają Θ(1) dla obu operacji niezależnie od rozmiaru.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku.”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head.
+  ~Lista ma Θ(1) dostępu przez indeks, a tablica Θ(n), bo tablica jest ciągła.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head.
+  ~Obie mają Θ(1) dla obu operacji niezależnie od rozmiaru.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head.
   =Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku.#Prawidłowo. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head.
-  ~Lista ma Θ(n) wstawienia na początku, a tablica Θ(1), bo elementy nie są powiązane.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku.”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head.
-  ####Poprawna odpowiedź to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku.”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head. Odczyt indeksowy jest odwrotnie szybszy w tablicy.
+  ~Lista ma Θ(n) wstawienia na początku, a tablica Θ(1), bo elementy nie są powiązane.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head.
+  ####Poprawna odpowiedź to „Tablica ma Θ(1) dostępu przez indeks, lecz zwykle Θ(n) wstawienia na początku; lista ma Θ(k+1) dostępu i Θ(1) wstawienia na początku”. W tablicy trzeba przesuwać istniejące elementy, a lista może zmienić wskaźnik head. Odczyt indeksowy jest odwrotnie szybszy w tablicy.
 }
 
 ::AISD-09-Q09::[plain]Lista jednokierunkowa A→B→C→D; usuwamy węzeł C, mając wskaźnik do B. Na co powinno wskazywać B.next po operacji? {
@@ -83,19 +83,19 @@
 }
 
 ::AISD-09-Q11::[plain]Lista dwukierunkowa A↔B↔C; usuwamy pierwszy węzeł A. Która aktualizacja jest konieczna? {
-  ~head\=B, ale B.prev\=A#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=B i B.prev\=null.”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
-  ~head\=C, a C.prev\=B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=B i B.prev\=null.”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
-  ~head\=B, ale B.prev\=C#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=B i B.prev\=null.”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
+  ~head\=B, ale B.prev\=A#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=B i B.prev\=null”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
+  ~head\=C, a C.prev\=B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=B i B.prev\=null”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
+  ~head\=B, ale B.prev\=C#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=B i B.prev\=null”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
   =head\=B i B.prev\=null.#Prawidłowo. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
-  ####Poprawna odpowiedź to „head\=B i B.prev\=null.”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
+  ####Poprawna odpowiedź to „head\=B i B.prev\=null”. Po usunięciu głowy B jest pierwszym elementem i nie ma poprzednika.
 }
 
 ::AISD-09-Q12::[plain]Lista jednokierunkowa A→B→C→D ma tylko wskaźnik head. Chcemy dopisać E na koniec. Ile odwołań do next potrzeba, by z A dojść do ostatniego węzła D? {
-  ~2.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3.”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
+  ~2.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
   =3.#Prawidłowo. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
-  ~4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3.”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
-  ~5.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3.”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
-  ####Poprawna odpowiedź to „3.”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
+  ~4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
+  ~5.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
+  ####Poprawna odpowiedź to „3”. Z A trzeba przejść do B, następnie C i D. To trzy odwołania do next, choć odwiedzono cztery węzły.
 }
 
 ::AISD-09-Q13::[plain]Lista cykliczna A→B→C→A ma wskaźnik head\=A. Ile przejść po next od A potrzeba, by wrócić do A? {
@@ -107,11 +107,11 @@
 }
 
 ::AISD-09-Q14::[plain]W liście dwukierunkowej A↔B↔C wstawiamy X między A i B. Jakie powinny być wskaźniki X? {
-  ~X.prev\=B i X.next\=A#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.prev\=A i X.next\=B.”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
-  ~X.prev\=A i X.next\=C#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.prev\=A i X.next\=B.”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
+  ~X.prev\=B i X.next\=A#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.prev\=A i X.next\=B”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
+  ~X.prev\=A i X.next\=C#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.prev\=A i X.next\=B”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
   =X.prev\=A i X.next\=B.#Prawidłowo. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
-  ~X.prev\=null i X.next\=B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.prev\=A i X.next\=B.”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
-  ####Poprawna odpowiedź to „X.prev\=A i X.next\=B.”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
+  ~X.prev\=null i X.next\=B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.prev\=A i X.next\=B”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
+  ####Poprawna odpowiedź to „X.prev\=A i X.next\=B”. Nowy węzeł powinien wskazywać bezpośrednich sąsiadów w ich dotychczasowym porządku.
 }
 
 ::AISD-09-Q15::[plain]Jaką dodatkową pamięć wymaga przechowywanie n wskaźników next w jednokierunkowej liście n-węzłowej w standardowym modelu stałej wielkości wskaźnika? {
@@ -123,27 +123,27 @@
 }
 
 ::AISD-09-Q16::[plain]Lista jednokierunkowa przechowuje head i tail, ale nie wskaźniki prev. Która operacja nadal wymaga w najgorszym przypadku przejścia Θ(n) węzłów? {
-  ~Dopisanie nowego węzła na koniec.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika.”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
+  ~Dopisanie nowego węzła na koniec.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
   =Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika.#Prawidłowo. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
-  ~Odczyt pierwszego elementu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika.”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
-  ~Wstawienie na początku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika.”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
-  ####Poprawna odpowiedź to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika.”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
+  ~Odczyt pierwszego elementu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
+  ~Wstawienie na początku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
+  ####Poprawna odpowiedź to „Usunięcie ostatniego węzła, aby odnaleźć jego poprzednika”. Znając tail nie znamy poprzednika ogona. Trzeba przejść listę od head, aby go znaleźć.
 }
 
 ::AISD-09-Q17::[plain]Węzeł X ma next\=null. W której sytuacji może to być prawidłowe w liście jednokierunkowej bez strażnika? {
-  ~Gdy X jest węzłem wewnętrznym, a następca jest pomijany.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy X jest ogonem listy niecyklicznej.”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
-  ~Gdy lista ma co najmniej dwa węzły i X jest jej głową.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy X jest ogonem listy niecyklicznej.”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
-  ~Gdy lista jest cykliczna, a X wskazuje bezpośrednio na head.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy X jest ogonem listy niecyklicznej.”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
+  ~Gdy X jest węzłem wewnętrznym, a następca jest pomijany.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy X jest ogonem listy niecyklicznej”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
+  ~Gdy lista ma co najmniej dwa węzły i X jest jej głową.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy X jest ogonem listy niecyklicznej”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
+  ~Gdy lista jest cykliczna, a X wskazuje bezpośrednio na head.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy X jest ogonem listy niecyklicznej”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
   =Gdy X jest ogonem listy niecyklicznej.#Prawidłowo. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
-  ####Poprawna odpowiedź to „Gdy X jest ogonem listy niecyklicznej.”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
+  ####Poprawna odpowiedź to „Gdy X jest ogonem listy niecyklicznej”. W liście niecyklicznej jedynie ostatni węzeł kończy łańcuch wskaźnikiem null.
 }
 
 ::AISD-09-Q18::[plain]Odwracamy listę A→B→C przez zmianę wskaźników next. Program wykonuje prev\=head; cur\=head.next, a następnie przełącza tylko B i C. Co stanie się, jeśli nie zmieni A.next na null? {
   =Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A.#Prawidłowo. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
-  ~Nie wystąpi problem, bo stary ogon automatycznie traci swój wskaźnik.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A.”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
-  ~Lista po odwróceniu będzie prawidłowa, ale dłuższa o jeden węzeł.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A.”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
-  ~Węzeł C zostanie usunięty z pamięci niezależnie od połączeń.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A.”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
-  ####Poprawna odpowiedź to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A.”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
+  ~Nie wystąpi problem, bo stary ogon automatycznie traci swój wskaźnik.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
+  ~Lista po odwróceniu będzie prawidłowa, ale dłuższa o jeden węzeł.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
+  ~Węzeł C zostanie usunięty z pamięci niezależnie od połączeń.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
+  ####Poprawna odpowiedź to „Może powstać cykl pomiędzy A i B, zamiast poprawnego zakończenia listy w A”. Dawny pierwszy element staje się ogonem i musi wskazywać null. Pozostawienie starego next może wytworzyć cykl.
 }
 
 ::AISD-09-Q19::[plain]Ile przypisań do pól next wykonuje standardowy iteracyjny algorytm odwracania listy jednokierunkowej złożonej z n węzłów? {
@@ -156,9 +156,9 @@
 
 ::AISD-09-Q20::[plain]W liście dwukierunkowej znamy wskaźnik do wewnętrznego węzła X oraz jego sąsiadów P i Q. Które działania pozwalają usunąć X w czasie Θ(1)? {
   =Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X.#Prawidłowo. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
-  ~Przejść od head do X i przepiąć tylko X.next.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X.”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
-  ~Ustawić P.next\=null i Q.prev\=null bez zmiany reszty listy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X.”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
-  ~Posortować listę według wartości przed odłączeniem X.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X.”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
-  ####Poprawna odpowiedź to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X.”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
+  ~Przejść od head do X i przepiąć tylko X.next.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
+  ~Ustawić P.next\=null i Q.prev\=null bez zmiany reszty listy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
+  ~Posortować listę według wartości przed odłączeniem X.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
+  ####Poprawna odpowiedź to „Ustawić P.next\=Q i Q.prev\=P, a następnie zwolnić X”. Przy znanym wskaźniku do węzła wewnętrznego i jego sąsiadów wystarczą stałoczasowe przepięcia obu stron.
 }
 
