@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Statyczna kontrola 20 banków pytań Moodle GIFT (jedno- i wielokrotny wybór).
+"""Statyczna kontrola 20 banków pytań Moodle GIFT (wyłącznie jednokrotny wybór).
 
 Sprawdza strukturę pytań, kodowanie UTF-8 oraz zapis znaków sterujących
 GIFT. Sprawdza również objaśnienia poszczególnych odpowiedzi, ale nie zastępuje
@@ -80,7 +80,6 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
     stems: set[str] = set()
     key_positions = [0, 0, 0, 0]
     key_sequence: list[int | None] = []
-    multiple_questions = 0
 
     for position, chunk in enumerate(chunks, start=1):
         lines = chunk.splitlines()
@@ -115,28 +114,16 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         if len(raw_options) != 4 or any(item is None for item in options):
             errors.append(f"{path}: {key} wymaga czterech poprawnych składniowo wariantów GIFT")
             continue
-        weighted = any(item.group(2) is not None for item in options)
-        if weighted:
-            multiple_questions += 1
-            weights = [float(item.group(2)) if item.group(2) is not None else None
-                       for item in options]
-            positives = [weight for weight in weights if weight is not None and weight > 0]
-            negatives = [weight for weight in weights if weight is not None and weight < 0]
-            if (any(item.group(1) != "~" for item in options)
-                    or any(weight is None or weight == 0 for weight in weights)
-                    or len(positives) < 2 or len(negatives) < 1
-                    or abs(sum(positives) - 100) > 0.01
-                    or sum(negatives) > -99.99):
-                errors.append(f"{path}: {key} niepoprawne wagi wielokrotnego wyboru")
-            if "Zaznacz wszystkie poprawne odpowiedzi" not in stem:
-                errors.append(f"{path}: {key} brak jawnego polecenia wielokrotnego wyboru")
+        if any(item.group(2) is not None for item in options):
+            errors.append(f"{path}: {key} niedozwolone wagi procentowe: wszystkie pytania muszą być jednokrotnego wyboru")
+        if "Zaznacz wszystkie poprawne odpowiedzi" in stem:
+            errors.append(f"{path}: {key} niedozwolone polecenie wielokrotnego wyboru")
+        correct = [i for i, item in enumerate(options) if item.group(1) == "="]
+        if len(correct) != 1:
+            errors.append(f"{path}: {key} musi mieć dokładnie jedną poprawną odpowiedź")
         else:
-            correct = [i for i, item in enumerate(options) if item.group(1) == "="]
-            if len(correct) != 1:
-                errors.append(f"{path}: {key} musi mieć dokładnie jeden klucz jednokrotnego wyboru")
-            else:
-                key_positions[correct[0]] += 1
-                key_sequence[-1] = correct[0]
+            key_positions[correct[0]] += 1
+            key_sequence[-1] = correct[0]
         if len(feedback) != 1:
             errors.append(f"{path}: {key} wymaga jednego uzasadnienia")
 
@@ -166,17 +153,14 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
             if len(explanation.strip()) < 70 or not explanation.startswith(("Poprawna odpowiedź", "Poprawne odpowiedzi")):
                 errors.append(f"{path}: {key} wymaga podsumowania poprawnych odpowiedzi i ich uzasadnienia")
 
-    if multiple_questions == 0:
-        if key_positions != [EXPECTED_QUESTIONS // 4] * 4:
-            errors.append(f"{path}: nierówny rozkład pozycji klucza: {key_positions}")
-    elif max(key_positions) - min(key_positions) > 2:
-        errors.append(f"{path}: nierówny rozkład kluczy jednokrotnego wyboru: {key_positions}")
+    if key_positions != [EXPECTED_QUESTIONS // 4] * 4:
+        errors.append(f"{path}: nierówny rozkład pozycji klucza: {key_positions}")
     if len(key_sequence) == EXPECTED_QUESTIONS:
         if any(key_sequence[i] is not None
                and key_sequence[i] == key_sequence[i - 1] == key_sequence[i - 2]
                for i in range(2, EXPECTED_QUESTIONS)):
             errors.append(f"{path}: trzy identyczne pozycje klucza z rzędu")
-        if multiple_questions == 0 and any(
+        if any(
                 all(key_sequence[i] == key_sequence[i - period]
                     for i in range(period, EXPECTED_QUESTIONS))
                 for period in range(1, EXPECTED_QUESTIONS // 2 + 1)):
@@ -205,13 +189,7 @@ def main() -> int:
     if errors:
         print("\n".join(f"BŁĄD: {message}" for message in errors))
         return 1
-    multiple = sum(
-        "Zaznacz wszystkie poprawne odpowiedzi" in line
-        for path in QUIZZES.glob("*.gift")
-        for line in path.read_text(encoding="utf-8").splitlines()
-        if line.startswith("::AISD-")
-    )
-    print(f"PASS: {EXPECTED_LECTURES} banków, {EXPECTED_LECTURES * EXPECTED_QUESTIONS} pytań GIFT, w tym {multiple} wielokrotnego wyboru (UTF-8, [plain])")
+    print(f"PASS: {EXPECTED_LECTURES} banków, {EXPECTED_LECTURES * EXPECTED_QUESTIONS} pytań jednokrotnego wyboru GIFT (UTF-8, [plain], uzasadnienia)")
     return 0
 
 

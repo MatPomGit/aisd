@@ -1,5 +1,5 @@
 // AIiSD 17: Teoria i klasyfikacja sortowania
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-17-Q01::[plain]Sortujemy stabilnie rekordy (2,A),(1,B),(2,C) według klucza rosnąco. Który wynik zachowuje porządek rekordów o równych kluczach? {
@@ -130,12 +130,12 @@
   ####Poprawna odpowiedź to „B ma asymptotycznie mniejszy koszt, ale dla małych n nie da się rozstrzygnąć czasu bez stałych i danych implementacyjnych”. Różne rzędy wzrostu dają przewagę asymptotyczną B, natomiast praktyczny czas przy konkretnym n wymaga uwzględnienia współczynników.
 }
 
-::AISD-17-Q17::[plain]Które wyjaśnienia opisują możliwą przyczynę niestabilności standardowego sortowania szybkiego (quicksort)? Zaznacz wszystkie poprawne odpowiedzi. {
-  ~%50%Zamiany podczas partycjonowania mogą odwrócić kolejność rekordów o równych kluczach.#Tak. Odległe zamiany podczas partycjonowania mogą przenieść rekord o równym kluczu za inny taki rekord.
-  ~%50%Przenoszenie rekordów między częściami tablicy może zmienić względną kolejność elementów o równych kluczach.#Tak. Przeniesienie równych kluczy do różnych fragmentów może zmienić ich kolejność po dalszych przestawieniach.
-  ~%-50%Każda implementacja quicksort musi usuwać wszystkie rekordy o równych kluczach.#Nie. Quicksort nie wymaga usuwania rekordów o równych kluczach; istotna jest ich względna kolejność.
-  ~%-50%Stabilność wynika automatycznie z wyboru elementu osiowego na początku tablicy.#Nie. Sam sposób wyboru elementu osiowego nie gwarantuje stabilności partycjonowania.
-  ####Poprawne odpowiedzi to „Zamiany podczas partycjonowania mogą odwrócić kolejność rekordów o równych kluczach.” oraz „Przenoszenie rekordów między częściami tablicy może zmienić względną kolejność elementów o równych kluczach”. Typowe, niestabilne partycjonowanie może przenosić równe klucze w sposób zmieniający ich pierwotną kolejność. Oba wskazane mechanizmy mogą naruszać stabilność, choć istnieją również stabilne warianty quicksort.
+::AISD-17-Q17::[plain]Która operacja w typowej implementacji sortowania szybkiego (quicksort) może naruszyć stabilność, czyli względną kolejność rekordów o równych kluczach? {
+  =Zamiana rekordów podczas partycjonowania, która odwraca kolejność dwóch rekordów o jednakowym kluczu.#Poprawnie. Partycjonowanie oparte na zamianach może przestawić równe klucze i naruszyć ich pierwotną kolejność.
+  ~Porównanie dwóch równych kluczy bez zmiany położenia ich rekordów.#Nie. Samo porównanie nie przemieszcza rekordów, dlatego nie może zmienić ich względnej kolejności.
+  ~Sprawdzenie, czy rozpatrywany podciąg ma długość nie większą niż jeden.#Nie. Warunek zakończenia rekurencji nie przestawia żadnych rekordów.
+  ~Wyznaczenie indeksu elementu osiowego bez przemieszczania elementów tablicy.#Nie. Sam wybór osi nie zmienia położenia rekordów; źródłem niestabilności może być późniejsze partycjonowanie.
+  ####Poprawna odpowiedź to „Zamiana rekordów podczas partycjonowania, która odwraca kolejność dwóch rekordów o jednakowym kluczu”. Stabilność oznacza zachowanie względnej kolejności równych kluczy. Typowe partycjonowanie może wykonać zamiany zmieniające tę kolejność, chociaż istnieją również stabilne odmiany sortowania szybkiego.
 }
 
 ::AISD-17-Q18::[plain]Selection sort wykonuje standardowo n(n-1)/2 porównań. Jak wpływa na tę liczbę całkowicie posortowane wejście przy n\=8? {

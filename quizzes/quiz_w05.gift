@@ -1,5 +1,5 @@
 // AIiSD 05: Notacje asymptotyczne i kryteria wagowe
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-05-Q01::[plain]Dla f(n) \= 3n²+7n+5 i g(n) \= n², przy n >\= 1, student chce wykazać, że f należy do klasy Θ(g). Które dwie nierówności wystarczą do przeprowadzenia dowodu? {
@@ -114,12 +114,12 @@
   ####Poprawna odpowiedź to „f(n) należy do Θ(g(n))”. log₂(n²)\=2 log₂ n, więc stosunek jest stały i dodatni.
 }
 
-::AISD-05-Q15::[plain]Dla f(n) \= n log n oraz g(n) \= n² określ, które relacje są prawdziwe, gdy n dąży do nieskończoności. Zaznacz wszystkie poprawne odpowiedzi. {
-  ~%50%f należy do o(g).#Poprawnie. Iloraz f(n)/g(n) \= log(n)/n dąży do zera, co jest definicją o(g).
-  ~%50%f należy do O(g).#Poprawnie. Zależność f należy do o(g) pociąga za sobą f należy do O(g).
-  ~%-50%f należy do Ω(g).#To stwierdzenie jest fałszywe: iloraz funkcji dąży do zera, więc f nie ma dodatniego asymptotycznego ograniczenia dolnego rzędu g.
-  ~%-50%f należy do Θ(g).#To stwierdzenie jest fałszywe, gdyż Θ(g) wymaga ograniczenia zarówno z góry, jak i z dołu stałymi wielokrotnościami g.
-  ####Poprawne odpowiedzi to „f należy do o(g).” oraz „f należy do O(g)”. Iloraz f(n)/g(n) \= log(n)/n dąży do zera. Zatem f należy do o(g), a także do O(g), ale nie do Ω(g) ani do Θ(g).
+::AISD-05-Q15::[plain]Dla f(n) \= n log₂(n) oraz g(n) \= n² przy n ≥ 2, która relacja asymptotyczna wyraża, że f rośnie ściśle wolniej niż g? {
+  ~f należy do Ω(g).#Nie. Relacja Ω(g) oznacza asymptotyczne ograniczenie od dołu, którego tu nie ma, ponieważ f(n)/g(n) dąży do zera.
+  =f należy do o(g).#Poprawnie. Granica ilorazu f(n)/g(n) wynosi zero, co definiuje relację małego o.
+  ~f należy do Θ(g).#Nie. Relacja Θ(g) wymaga tego samego rzędu wzrostu, a iloraz rozważanych funkcji dąży do zera.
+  ~g należy do o(f).#Nie. Funkcja g rośnie szybciej od f, zatem iloraz g(n)/f(n) nie dąży do zera.
+  ####Poprawna odpowiedź to „f należy do o(g)”. Iloraz f(n)/g(n) \= (log₂ n)/n dąży do zera, zatem f ma ściśle mniejszy rząd wzrostu niż g. Nie zachodzi ani równoważność rzędów Θ(g), ani dolne ograniczenie Ω(g).
 }
 
 ::AISD-05-Q16::[plain]W modelu jednostkowym RAM jedna instrukcja dodaje dwie dowolnie duże liczby i kosztuje 1. W modelu bitowym sumujemy dwie liczby o długości n bitów. Dlaczego oszacowania mogą się różnić? {
