@@ -1,5 +1,5 @@
 // AIiSD 14: Kopce i kolejki priorytetowe
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-14-Q01::[plain]W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
@@ -42,12 +42,12 @@
   ####Koszt sumuje się po wysokościach poddrzew: duża liczba węzłów ma małą wysokość, co daje całkowity koszt Θ(n).
 }
 
-::AISD-14-Q06::[plain]Jaki jest koszt wstawienia nowego elementu do kopca binarnego o n elementach w najgorszym przypadku? {
-  ~O(1) w najgorszym przypadku
-  ~O(n)
-  ~O(log² n)
-  =O(log n)
-  ####Przesuwanie nowego elementu w górę obejmuje co najwyżej wysokość kopca.
+::AISD-14-Q06::[plain]Rozważamy wstawienie elementu do binarnego kopca o n elementach, gdzie n >\= 2. Które oszacowania czasu operacji w najgorszym przypadku są prawdziwe? Zaznacz wszystkie poprawne odpowiedzi. {
+  ~%-50%O(1).
+  ~%50%O(n).
+  ~%-50%Θ(n).
+  ~%50%O(log n).
+  ####Nowy element może przemieszczać się w górę najwyżej o wysokość kopca, więc koszt wynosi O(log n), a tym samym także O(n). Nie ma ogólnej gwarancji O(1), a Θ(n) nie jest ścisłym oszacowaniem tego przypadku.
 }
 
 ::AISD-14-Q07::[plain]Kopiec minimalny ma tablicę [2,5,3,9,7,8]. Jaka wartość pojawi się w korzeniu po jednokrotnym extract-min i prawidłowej naprawie kopca? {
