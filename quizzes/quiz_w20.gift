@@ -1,163 +1,163 @@
 // AIiSD 20: Zaawansowane techniki projektowania algorytmów
-// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.5 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-20-Q01::[plain]Dla monet o nominałach 1,3,4 chcemy wydać kwotę 6 najmniejszą liczbą monet. Dlaczego strategia wybierania zawsze największej dostępnej monety nie jest optymalna? {
-  ~Daje 3+3 i wymaga 3 monet, mimo że wystarczą dwie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety”. To kontrprzykład dla zachłanności: lokalny wybór 4 prowadzi do wyniku gorszego niż dwa razy 3.
-  ~Nie może wydać 6, ponieważ brak monety o nominale 2.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety”. To kontrprzykład dla zachłanności: lokalny wybór 4 prowadzi do wyniku gorszego niż dwa razy 3.
+  ~Daje 3+3 i wymaga 3 monet, mimo że wystarczą dwie.#Strategia największego nominału zaczyna od 4, nie od 3+3; ponadto 3+3 wymaga dwóch, nie trzech monet.
+  ~Nie może wydać 6, ponieważ brak monety o nominale 2.#Istnienie monety 1 pozwala wydać każdą nieujemną kwotę całkowitą, w tym 6.
   =Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety.#Prawidłowo. To kontrprzykład dla zachłanności: lokalny wybór 4 prowadzi do wyniku gorszego niż dwa razy 3.
-  ~Zawsze daje rozwiązanie optymalne, ponieważ najmniejsza reszta oznacza najmniejszą liczbę monet.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety”. To kontrprzykład dla zachłanności: lokalny wybór 4 prowadzi do wyniku gorszego niż dwa razy 3.
+  ~Zawsze daje rozwiązanie optymalne, ponieważ najmniejsza reszta oznacza najmniejszą liczbę monet.#Najmniejsza reszta po pierwszym wyborze nie oznacza najmniejszej łącznej liczby monet; 4+1+1 jest gorsze od 3+3.
   ####Poprawna odpowiedź to „Daje 4+1+1, czyli 3 monety, podczas gdy 3+3 wystarczy za 2 monety”. To kontrprzykład dla zachłanności: lokalny wybór 4 prowadzi do wyniku gorszego niż dwa razy 3.
 }
 
 ::AISD-20-Q02::[plain]Który wybór zachłanny prowadzi do optymalnego rozwiązania problemu wyznaczenia maksymalnej liczby niepokrywających się przedziałów? {
-  ~Wybór przedziału o najwcześniejszym początku, gdy jego koniec nie koliduje z poprzednim.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi”. Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
+  ~Wybór przedziału o najwcześniejszym początku, gdy jego koniec nie koliduje z poprzednim.#Najwcześniejszy początek może należeć do długiego przedziału, który blokuje wiele krótszych późniejszych spotkań.
   =Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi.#Prawidłowo. Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
-  ~Wybór najkrótszego przedziału#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi”. Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
-  ~Wybór przedziału o najmniejszej liczbie kolizji z pozostałymi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi”. Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
+  ~Wybór najkrótszego przedziału#Najkrótszy przedział nie musi kończyć się najwcześniej i może przecinać dwa inne rozłączne przedziały.
+  ~Wybór przedziału o najmniejszej liczbie kolizji z pozostałymi.#Liczba kolizji nie zastępuje argumentu wymiany gwarantującego optymalność wyboru najwcześniejszego końca.
   ####Poprawna odpowiedź to „Wybór przedziału o najwcześniejszym końcu spośród zgodnych z poprzednimi”. Najwcześniejsze zakończenie pozostawia możliwie dużo miejsca dla następnych przedziałów; uzasadnia to argument wymiany.
 }
 
 ::AISD-20-Q03::[plain]Co odróżnia memoizację od tabulacji w programowaniu dynamicznym? {
-  ~Memoizacja oblicza wszystkie stany z góry, a tabulacja tylko stany osiągalne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń”. Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
-  ~Memoizacja i tabulacja różnią się wyłącznie sposobem przechowywania tablicy wyników.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń”. Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
-  ~Memoizacja zawsze wymaga iteracji po stanach, a tabulacja tylko wywołań rekurencyjnych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń”. Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
+  ~Memoizacja oblicza wszystkie stany z góry, a tabulacja tylko stany osiągalne.#Memoizacja zwykle oblicza stany na żądanie, podczas gdy tabulacja wykonuje z góry określoną kolejność.
+  ~Memoizacja i tabulacja różnią się wyłącznie sposobem przechowywania tablicy wyników.#Obie metody mogą używać tabeli wyników, lecz różnią się sposobem wyznaczania kolejności obliczeń.
+  ~Memoizacja zawsze wymaga iteracji po stanach, a tabulacja tylko wywołań rekurencyjnych.#W memoizacji często występuje rekurencja, a w tabulacji iteracja, nie odwrotnie.
   =Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń.#Prawidłowo. Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
   ####Poprawna odpowiedź to „Memoizacja oblicza żądane stany na żądanie i je zapamiętuje; tabulacja realizuje ustalony porządek obliczeń”. Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
 }
 
-::AISD-20-Q04::[plain]Algorytm dziel i zwyciężaj dzieli problem rozmiaru n na dwie połowy, rozwiązuje je rekurencyjnie i scala wyniki w czasie Θ(n), przy stałym koszcie przypadku bazowego. Jaki będzie rząd całkowitego kosztu, jeśli każde scalanie zastąpimy operacją o koszcie Θ(n²)? {
+::AISD-20-Q04::[plain]Algorytm dziel i zwyciężaj dla n będącego potęgą 2 dzieli problem na dwie równe połowy, rozwiązuje je rekurencyjnie i scala wyniki w czasie Θ(n), przy stałym koszcie przypadku bazowego. Jaki będzie rząd całkowitego kosztu, jeśli każde scalanie zastąpimy operacją o koszcie Θ(n²)? {
   =Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania.#Prawidłowo. Dla T(n)\=2T(n/2)+Θ(n²) suma kosztów na poziomach jest geometryczna i dominuje koszt korzenia Θ(n²).
-  ~Rekurencja nadal ma Θ(n log n), bo liczba podproblemów się nie zmienia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania”. Dla T(n)\=2T(n/2)+Θ(n²) suma kosztów na poziomach jest geometryczna i dominuje koszt korzenia Θ(n²).
-  ~Koszt spadnie do Θ(log n), bo podział jest binarny.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania”. Dla T(n)\=2T(n/2)+Θ(n²) suma kosztów na poziomach jest geometryczna i dominuje koszt korzenia Θ(n²).
-  ~Koszt wzrośnie do Θ(2^n), bo pojawia się scalanie kwadratowe.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania”. Dla T(n)\=2T(n/2)+Θ(n²) suma kosztów na poziomach jest geometryczna i dominuje koszt korzenia Θ(n²).
+  ~Rekurencja nadal ma Θ(n log n), bo liczba podproblemów się nie zmienia.#Bez zmian w liczbie podproblemów koszt scalania na korzeniu wynosi Θ(n²), więc całkowita złożoność już nie jest Θ(n log n).
+  ~Koszt spadnie do Θ(log n), bo podział jest binarny.#Podział na połowy nie oznacza kosztu logarytmicznego, gdy każde scalanie wymaga kwadratowej pracy.
+  ~Koszt wzrośnie do Θ(2^n), bo pojawia się scalanie kwadratowe.#Koszt Θ(n²) na każdym podproblemie nie tworzy wykładniczej liczby różnych podproblemów.
   ####Poprawna odpowiedź to „Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania”. Dla T(n)\=2T(n/2)+Θ(n²) suma kosztów na poziomach jest geometryczna i dominuje koszt korzenia Θ(n²).
 }
 
 ::AISD-20-Q05::[plain]Plecak 0/1 ma pojemność 4 oraz przedmioty A\=(masa 3, wartość 5), B\=(masa 2, wartość 3), C\=(masa 2, wartość 3). Algorytm zachłanny bierze przedmiot o największej wartości do masy. Co pokazuje błąd tej reguły? {
   =Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum.#Prawidłowo. Stosunek dla A wynosi 5/3, a dla B i C po 3/2, więc zachłanność wybiera A.
-  ~Bierze B+C o wartości 6, co zawsze jest optymalne dla każdego plecaka 0/1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum”. Stosunek dla A wynosi 5/3, a dla B i C po 3/2, więc zachłanność wybiera A.
-  ~Bierze A+B o wartości 8, choć przekracza pojemność 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum”. Stosunek dla A wynosi 5/3, a dla B i C po 3/2, więc zachłanność wybiera A.
-  ~Nie potrafi porównać stosunków wartości do masy w liczbach całkowitych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum”. Stosunek dla A wynosi 5/3, a dla B i C po 3/2, więc zachłanność wybiera A.
+  ~Bierze B+C o wartości 6, co zawsze jest optymalne dla każdego plecaka 0/1.#B+C daje optimum w podanym przykładzie, ale nie w każdym plecaku 0/1; twierdzenie o uniwersalności jest fałszywe.
+  ~Bierze A+B o wartości 8, choć przekracza pojemność 4.#Łączna masa A+B wynosi 3+2\=5, co przekracza pojemność 4, więc taki wybór jest niedozwolony.
+  ~Nie potrafi porównać stosunków wartości do masy w liczbach całkowitych.#Stosunki 5/3 i 3/2 można porównać arytmetycznie; problemem jest brak optymalności reguły.
   ####Poprawna odpowiedź to „Bierze A o wartości 5, ale B+C daje wartość 6, więc nie uzyskuje optimum”. Stosunek dla A wynosi 5/3, a dla B i C po 3/2, więc zachłanność wybiera A. Dwa pozostałe razem mieszczą się w pojemności i mają większą wartość.
 }
 
-::AISD-20-Q06::[plain]W programowaniu dynamicznym stosujemy zależność F[i]\=min(F[i-1]+a[i],F[i-2]+b[i]) dla i>\=2. Jakie wartości początkowe trzeba określić? {
-  ~Wystarczy F[1]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Co najmniej wartości F[0] i F[1]”. Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
-  ~Wystarczy F[0]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Co najmniej wartości F[0] i F[1]”. Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
-  ~Wystarczy wartość F[n], jeżeli obliczamy tablicę rosnąco po indeksach.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Co najmniej wartości F[0] i F[1]”. Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
+::AISD-20-Q06::[plain]W programowaniu dynamicznym stosujemy zależność F[i]\=min(F[i-1]+a[i],F[i-2]+b[i]) dla całkowitych indeksów i>\=2. Jakie wartości początkowe trzeba określić? {
+  ~Wystarczy F[1]#Wzór zawiera F[i-2], więc do obliczenia F[2] nie wystarczy znać F[1].
+  ~Wystarczy F[0]#Wzór zawiera F[i-1], więc nie wystarczy wyłącznie F[0].
+  ~Wystarczy wartość F[n], jeżeli obliczamy tablicę rosnąco po indeksach.#F[n] jest szukanym wynikiem, a nie danymi bazowymi pozwalającymi obliczać wcześniejsze stany.
   =Co najmniej wartości F[0] i F[1].#Prawidłowo. Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
   ####Poprawna odpowiedź to „Co najmniej wartości F[0] i F[1]”. Każdy stan odwołuje się do dwóch poprzednich, więc obie wartości początkowe muszą być zdefiniowane.
 }
 
-::AISD-20-Q07::[plain]W problemie wyboru maksymalnej liczby niepokrywających się przedziałów algorytm zachłanny wybiera przedział o najwcześniejszym końcu. Jaki krok stanowi sedno argumentu wymiany? {
-  ~Pokazanie na kilku danych testowych, że wybór najwcześniejszego początku jest równie dobry.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pokazanie, że w pewnym optimum pierwszy przedział można zastąpić tym kończącym się najwcześniej, nie zmniejszając liczby wybranych przedziałów”. Wymiana nie pogarsza możliwości wyboru dalszych przedziałów, bo zachłanny przedział kończy się nie później niż zastępowany.
+::AISD-20-Q07::[plain]W problemie wyboru maksymalnej liczby niepokrywających się przedziałów algorytm zachłanny wybiera z dostępnych przedziałów zgodnych z dotychczas wybranymi ten o najwcześniejszym końcu. Jaki krok stanowi sedno argumentu wymiany? {
+  ~Pokazanie na kilku danych testowych, że wybór najwcześniejszego początku jest równie dobry.#Sprawdzenie kilku przykładów nie dowodzi poprawności zachłannej metody dla wszystkich zestawów przedziałów.
   =Pokazanie, że w pewnym optimum pierwszy przedział można zastąpić tym kończącym się najwcześniej, nie zmniejszając liczby wybranych przedziałów.#Prawidłowo. Wymiana nie pogarsza możliwości wyboru dalszych przedziałów, bo zachłanny przedział kończy się nie później niż zastępowany.
-  ~Założenie, że każdy lokalnie najkrótszy przedział musi należeć do każdego optimum.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pokazanie, że w pewnym optimum pierwszy przedział można zastąpić tym kończącym się najwcześniej, nie zmniejszając liczby wybranych przedziałów”. Wymiana nie pogarsza możliwości wyboru dalszych przedziałów, bo zachłanny przedział kończy się nie później niż zastępowany.
-  ~Stwierdzenie, że zachłanność jest optymalna dla wszystkich zadań z przedziałami.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pokazanie, że w pewnym optimum pierwszy przedział można zastąpić tym kończącym się najwcześniej, nie zmniejszając liczby wybranych przedziałów”. Wymiana nie pogarsza możliwości wyboru dalszych przedziałów, bo zachłanny przedział kończy się nie później niż zastępowany.
+  ~Założenie, że każdy lokalnie najkrótszy przedział musi należeć do każdego optimum.#Argument wymiany dotyczy najwcześniejszego zakończenia, a nie zawsze najkrótszego przedziału.
+  ~Stwierdzenie, że zachłanność jest optymalna dla wszystkich zadań z przedziałami.#Własność zachłanna musi zostać wykazana dla konkretnego problemu; nie obowiązuje we wszystkich zadaniach przedziałowych.
   ####Poprawna odpowiedź to „Pokazanie, że w pewnym optimum pierwszy przedział można zastąpić tym kończącym się najwcześniej, nie zmniejszając liczby wybranych przedziałów”. Wymiana nie pogarsza możliwości wyboru dalszych przedziałów, bo zachłanny przedział kończy się nie później niż zastępowany.
 }
 
 ::AISD-20-Q08::[plain]Każdy stan programowania dynamicznego jest parą (i,c), gdzie 0<\=i<\=n i 0<\=c<\=C, dla n,C>\=1. Obliczenie stanu ma koszt O(1). Jaki jest koszt wypełnienia całej tabeli? {
-  ~O(n+C)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „O(nC)”. Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
-  ~O(C log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „O(nC)”. Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
+  ~O(n+C)#Tabela zawiera (n+1)(C+1) stanów, czyli iloczyn liczby wartości obu indeksów, nie ich sumę.
+  ~O(C log n)#Wypełnianie całej tabeli nie jest logarytmiczne względem n; obejmuje każdy indeks i i c.
   =O(nC)#Prawidłowo. Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
-  ~O(2^n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „O(nC)”. Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
+  ~O(2^n)#Liczba stanów jest wielomianowa względem n i C, nie wykładnicza względem n.
   ####Poprawna odpowiedź to „O(nC)”. Tabela ma (n+1)(C+1) stanów, a obliczenie każdego trwa stały czas.
 }
 
 ::AISD-20-Q09::[plain]W plecaku 0/1 pojemność wynosi 5, a przedmioty mają (masa,wartość) A\=(2,3), B\=(3,4), C\=(4,5). Jaka jest maksymalna wartość? {
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
+  ~5#Sam przedmiot C ma wartość 5, lecz pojemność pozwala wybrać A+B o wartości 7.
+  ~8#Wartość 8 wymagałaby kombinacji niedozwolonej przez pojemność: B+C ma masę 7.
   =7#Prawidłowo. A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
-  ~9#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
+  ~9#Wartość 9 nie jest osiągalna przez żaden podzbiór przedmiotów o łącznej masie najwyżej 5.
   ####Poprawna odpowiedź to „7”. A+B waży 5 i daje 7; C osobno daje 5, a połączenie C z dowolnym innym przekracza pojemność.
 }
 
 ::AISD-20-Q10::[plain]Dla przedziałów [1,3), [2,5), [3,4), [4,6) wybieranych zachłannie według najwcześniejszego końca, ile maksymalnie można wybrać niepokrywających się przedziałów? {
   =3#Prawidłowo. Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
+  ~2#Dwa przedziały to zaniżenie wyniku: można wybrać [1,3), [3,4) i [4,6).
+  ~4#Cztery przedziały są niemożliwe, bo [2,5) nakłada się na pozostałe.
+  ~1#Jeden przedział to wynik nieoptymalny, ponieważ istnieją trzy kolejno zgodne przedziały.
   ####Poprawna odpowiedź to „3”. Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
 }
 
 ::AISD-20-Q11::[plain]W jakiej kolejności należy przetwarzać wierzchołki skierowanego grafu acyklicznego, aby metodą programowania dynamicznego wyznaczać najkrótsze ścieżki także przy ujemnych wagach krawędzi? {
-  ~W kolejności rosnących wag krawędzi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W porządku topologicznym”. Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
-  ~W kolejności malejących stopni wierzchołków.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W porządku topologicznym”. Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
-  ~W kolejności odwiedzania podczas BFS.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W porządku topologicznym”. Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
+  ~W kolejności rosnących wag krawędzi.#Kolejność według wag krawędzi nie respektuje zależności między poprzednikami i następcami w DAG.
+  ~W kolejności malejących stopni wierzchołków.#Stopień wierzchołka nie określa, czy wszystkie stany poprzedników zostały obliczone.
+  ~W kolejności odwiedzania podczas BFS.#BFS nie musi odpowiadać porządkowi topologicznemu, szczególnie przy różnych długościach ścieżek i ujemnych wagach.
   =W porządku topologicznym.#Prawidłowo. Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
   ####Poprawna odpowiedź to „W porządku topologicznym”. Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
 }
 
 ::AISD-20-Q12::[plain]Dla rekurencji T(n)\=3T(n/3)+n, gdzie n jest potęgą 3, student szacuje Θ(n), bo dzieli n na trzy części. Co przeoczył? {
-  ~Każde wywołanie kosztuje Θ(n²) przez liczbę gałęzi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n)”. Na poziomie d jest 3^d podproblemów po n/3^d, więc suma pracy poziomu to n.
+  ~Każde wywołanie kosztuje Θ(n²) przez liczbę gałęzi.#Praca jednego wywołania jest liniowa w rozmiarze podproblemu, a nie kwadratowa.
   =Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n).#Prawidłowo. Na poziomie d jest 3^d podproblemów po n/3^d, więc suma pracy poziomu to n.
-  ~Rozmiary podproblemów nie zmniejszają się, więc rekurencja jest nieskończona.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n)”. Na poziomie d jest 3^d podproblemów po n/3^d, więc suma pracy poziomu to n.
-  ~Rekurencja ma dokładnie n poziomów, stąd Θ(n²).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n)”. Na poziomie d jest 3^d podproblemów po n/3^d, więc suma pracy poziomu to n.
+  ~Rozmiary podproblemów nie zmniejszają się, więc rekurencja jest nieskończona.#Każdy z trzech podproblemów ma rozmiar n/3, więc argument zmniejsza się i rekurencja kończy.
+  ~Rekurencja ma dokładnie n poziomów, stąd Θ(n²).#Głębokość zmniejszania n trzykrotnie wynosi Θ(log n), nie Θ(n).
   ####Poprawna odpowiedź to „Każdy poziom rekurencji łącznie wykonuje Θ(n) pracy, a poziomów jest Θ(log n), więc całkowity koszt to Θ(n log n)”. Na poziomie d jest 3^d podproblemów po n/3^d, więc suma pracy poziomu to n. Istnieje Θ(log n) poziomów.
 }
 
 ::AISD-20-Q13::[plain]W problemie wyboru największej liczby niepokrywających się przedziałów rozważamy [0,3), [3,6) i [2,4). Dlaczego zachłanne wybieranie najkrótszego przedziału może być błędne? {
-  ~Wszystkie trzy przedziały są rozłączne, więc wybór kolejności nie ma znaczenia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przedział [2,4) jest najkrótszy i blokuje oba pozostałe, a wybór [0,3) oraz [3,6) daje dwa przedziały”. [2,4) ma długość 2 i przecina oba dłuższe przedziały. Strategia końca najwcześniejszego wybrałaby [0,3) i potem [3,6), osiągając lepszy wynik.
-  ~Najkrótszy przedział to [0,3), dlatego można następnie wybrać [3,6).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przedział [2,4) jest najkrótszy i blokuje oba pozostałe, a wybór [0,3) oraz [3,6) daje dwa przedziały”. [2,4) ma długość 2 i przecina oba dłuższe przedziały. Strategia końca najwcześniejszego wybrałaby [0,3) i potem [3,6), osiągając lepszy wynik.
+  ~Wszystkie trzy przedziały są rozłączne, więc wybór kolejności nie ma znaczenia.#Przedziały [0,3) i [2,4) nakładają się; trzy przedziały nie są wzajemnie rozłączne.
+  ~Najkrótszy przedział to [0,3), dlatego można następnie wybrać [3,6).#[0,3) ma długość 3, a [2,4) długość 2, więc nie jest najkrótszy.
   =Przedział [2,4) jest najkrótszy i blokuje oba pozostałe, a wybór [0,3) oraz [3,6) daje dwa przedziały.#Prawidłowo. [2,4) ma długość 2 i przecina oba dłuższe przedziały. Strategia końca najwcześniejszego wybrałaby [0,3) i potem [3,6), osiągając lepszy wynik.
-  ~Algorytm nie może działać na przedziałach półotwartych, ponieważ mają różne końce.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przedział [2,4) jest najkrótszy i blokuje oba pozostałe, a wybór [0,3) oraz [3,6) daje dwa przedziały”. [2,4) ma długość 2 i przecina oba dłuższe przedziały. Strategia końca najwcześniejszego wybrałaby [0,3) i potem [3,6), osiągając lepszy wynik.
+  ~Algorytm nie może działać na przedziałach półotwartych, ponieważ mają różne końce.#Przedziały półotwarte pozwalają, aby koniec jednego równał się początkowi następnego, np. 3 w podanych danych.
   ####Poprawna odpowiedź to „Przedział [2,4) jest najkrótszy i blokuje oba pozostałe, a wybór [0,3) oraz [3,6) daje dwa przedziały”. [2,4) ma długość 2 i przecina oba dłuższe przedziały. Strategia końca najwcześniejszego wybrałaby [0,3) i potem [3,6), osiągając lepszy wynik.
 }
 
 ::AISD-20-Q14::[plain]W programowaniu dynamicznym F[i]\=F[i-1]+F[i-2], a F[0]\=1 i F[1]\=2. Ile wynosi F[5]? {
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Kolejne wartości to 1,2,3,5,8,13.
+  ~8#Osiem to F[4], natomiast F[5]\=F[4]+F[3]\=8+5\=13.
   =13#Prawidłowo. Kolejne wartości to 1,2,3,5,8,13.
-  ~21#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Kolejne wartości to 1,2,3,5,8,13.
-  ~11#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Kolejne wartości to 1,2,3,5,8,13.
+  ~21#Wartość 21 to następny wyraz F[6], a nie F[5].
+  ~11#Jedenaście nie wynika z rekurencji: kolejne wartości to 1,2,3,5,8,13.
   ####Poprawna odpowiedź to „13”. Z warunków początkowych F[0]\=1 i F[1]\=2 wyznaczamy kolejne wartości za pomocą sumy dwóch poprzednich: 3,5,8,13. Zatem F[5]\=13.
 }
 
 ::AISD-20-Q15::[plain]W algorytmie dziel i zwyciężaj T(n)\=2T(n/2)+Θ(n) i n jest potęgą 2. Student usuwa pracę scalania, twierdząc, że na wyniku kosztu nic się nie zmieni. Który wniosek jest prawidłowy? {
-  ~Obie rekurencje mają Θ(n log n), bo liczba wywołań jest identyczna.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n)”. Sumowanie kosztu wszystkich węzłów daje Θ(n) dla pracy stałej na węzeł i Θ(n log n) dla liniowego scalania na poziom.
-  ~Obie mają Θ(n²), bo każde wywołanie tworzy dwa kolejne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n)”. Sumowanie kosztu wszystkich węzłów daje Θ(n) dla pracy stałej na węzeł i Θ(n log n) dla liniowego scalania na poziom.
-  ~Bez scalania rekurencja zawsze ma Θ(1), bo przypadki bazowe są stałe.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n)”. Sumowanie kosztu wszystkich węzłów daje Θ(n) dla pracy stałej na węzeł i Θ(n log n) dla liniowego scalania na poziom.
+  ~Obie rekurencje mają Θ(n log n), bo liczba wywołań jest identyczna.#Bez kosztu liniowego scalania zmienia się suma kosztów poziomów: pozostaje Θ(n), nie Θ(n log n).
+  ~Obie mają Θ(n²), bo każde wywołanie tworzy dwa kolejne.#Rozgałęzienie na dwa podproblemy nie powoduje kwadratowego kosztu, gdy każdy poziom wykonuje łącznie Θ(n) pracy.
+  ~Bez scalania rekurencja zawsze ma Θ(1), bo przypadki bazowe są stałe.#Nawet bez scalania rekurencja tworzy n przypadków bazowych, więc koszt nie jest stały.
   =Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n).#Prawidłowo. Sumowanie kosztu wszystkich węzłów daje Θ(n) dla pracy stałej na węzeł i Θ(n log n) dla liniowego scalania na poziom.
   ####Poprawna odpowiedź to „Bez scalania rekurencja 2T(n/2)+Θ(1) ma Θ(n), a ze scalaniem liniowym ma Θ(n log n)”. Sumowanie kosztu wszystkich węzłów daje Θ(n) dla pracy stałej na węzeł i Θ(n log n) dla liniowego scalania na poziom.
 }
 
 ::AISD-20-Q16::[plain]W DP dla plecaka 0/1 stan DP[i][c] oznacza optimum użycia pierwszych i przedmiotów przy pojemności c. Która decyzja jest poprawna, gdy masa i-tego przedmiotu w_i>c? {
-  ~DP[i][c]\=v_i+DP[i-1][c].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DP[i][c]\=DP[i-1][c]”. Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
-  ~DP[i][c]\=DP[i-1][c-w_i].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DP[i][c]\=DP[i-1][c]”. Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
+  ~DP[i][c]\=v_i+DP[i-1][c].#Przy w_i>c przedmiot nie mieści się w plecaku, więc nie wolno dodać jego wartości v_i.
+  ~DP[i][c]\=DP[i-1][c-w_i].#Wyrażenie c-w_i jest ujemne, czyli poza dozwolonym zakresem pojemności w tabeli.
   =DP[i][c]\=DP[i-1][c].#Prawidłowo. Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
-  ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DP[i][c]\=DP[i-1][c]”. Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
+  ~DP[i][c]\=max(DP[i-1][c],v_i+DP[i-1][c-w_i]).#Obie gałęzie maksimum wymagają dopuszczalnych indeksów; dla c<w_i gałąź wyboru przedmiotu nie jest dozwolona.
   ####Poprawna odpowiedź to „DP[i][c]\=DP[i-1][c]”. Przedmiot nie mieści się w pozostałej pojemności, więc nie można go wybrać.
 }
 
 ::AISD-20-Q17::[plain]Skoki długości 1 lub 2 pozwalają pokonać odległość n, a każdy skok ma koszt 1. Jaki jest najmniejszy koszt pokonania odległości n\=7? {
   =4#Prawidłowo. Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
-  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
+  ~3#Trzy skoki mogą pokonać maksymalnie 6 jednostek przy długościach 1 lub 2, nie 7.
+  ~5#Pięć skoków nie jest konieczne, bo sekwencja 2+2+2+1 daje cztery.
+  ~7#Siedem skoków po 1 osiągnie cel, ale nie minimalizuje liczby skoków.
   ####Poprawna odpowiedź to „4”. Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
 }
 
 ::AISD-20-Q18::[plain]W skierowanym grafie o dodatnich wagach szukamy ścieżki z S do T o najmniejszej sumie wag. Rozważana strategia w każdym bieżącym wierzchołku wybiera najtańszą krawędź wychodzącą, nie oceniając dalszej trasy. Dlaczego taka strategia nie musi znaleźć ścieżki optymalnej? {
   =Najtańszy lokalny krok może prowadzić do dalszej trasy droższej niż alternatywny pierwszy krok.#Prawidłowo. Lokalna waga krawędzi nie określa jeszcze całkowitego kosztu dojścia do celu.
-  ~Dodatnie wagi gwarantują, że najtańsza wychodząca krawędź leży na ścieżce optymalnej.#Nie. Dodatniość wag nie gwarantuje własności wyboru zachłannego dla pojedynczych krawędzi wychodzących.
-  ~Brak cykli gwarantuje, że wybór najtańszej krawędzi wychodzącej jest zawsze optymalny.#Nie. Także w grafie acyklicznym tani pierwszy krok może prowadzić do kosztownego dalszego odcinka.
-  ~Koszt pozostałej części ścieżki jest taki sam niezależnie od wybranego sąsiada.#Nie. Różne sąsiednie wierzchołki mogą mieć zupełnie inne minimalne koszty dotarcia do celu.
+  ~Dodatnie wagi gwarantują, że najtańsza wychodząca krawędź leży na ścieżce optymalnej.#Dodatnie wagi nie zapewniają, że wybór najtańszej pojedynczej krawędzi prowadzi do najtańszej całej trasy.
+  ~Brak cykli gwarantuje, że wybór najtańszej krawędzi wychodzącej jest zawsze optymalny.#Także w grafie acyklicznym tani pierwszy krok może prowadzić do droższego dalszego odcinka.
+  ~Koszt pozostałej części ścieżki jest taki sam niezależnie od wybranego sąsiada.#Minimalny pozostały koszt zwykle zależy od wybranego sąsiada, więc nie jest jednakowy dla wszystkich kroków.
   ####Poprawna odpowiedź to „Najtańszy lokalny krok może prowadzić do dalszej trasy droższej niż alternatywny pierwszy krok”. Przykładowo S→A ma wagę 1, A→T wagę 100, S→B wagę 2, a B→T wagę 2. Lokalny wybór S→A daje trasę o koszcie 101, podczas gdy S→B→T kosztuje 4.
 }
 
 ::AISD-20-Q19::[plain]W DP z tabelą o wymiarach (n+1)×(C+1), dla n>\=1 i C>\=1, jaka jest pamięć potrzebna do przechowania całej tabeli? {
-  ~Θ(n+C)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(nC)”. Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
+  ~Θ(n+C)#Tabela ma iloczyn (n+1)(C+1) komórek, a nie sumę dwóch wymiarów.
   =Θ(nC)#Prawidłowo. Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
-  ~Θ(log n+log C)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(nC)”. Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
-  ~Θ(n²+C²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(nC)”. Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
+  ~Θ(log n+log C)#Liczba komórek nie jest logarytmem wymiarów; każda para indeksów wymaga miejsca.
+  ~Θ(n²+C²)#Wyrażenie n²+C² opisuje inny sposób rozmiaru, nie prostokątną tablicę n razy C.
   ####Poprawna odpowiedź to „Θ(nC)”. Przechowywanych jest (n+1)(C+1) komórek; dla n,C>\=1 jest to Θ(nC).
 }
 
-::AISD-20-Q20::[plain]W plecaku 0/1 aktualizujemy jednowymiarową tablicę DP[c] dla kolejnych przedmiotów. Dlaczego pojemności trzeba przetwarzać malejąco? {
-  ~Aby móc zawsze wybierać ten sam przedmiot dowolnie wiele razy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany”. Przetwarzanie od dużych pojemności do małych zachowuje stany z poprzedniego kroku dla mniejszych c i uniemożliwia wielokrotny wybór przedmiotu.
-  ~Aby liczba pojemności spadła z C do log C.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany”. Przetwarzanie od dużych pojemności do małych zachowuje stany z poprzedniego kroku dla mniejszych c i uniemożliwia wielokrotny wybór przedmiotu.
-  ~Aby wartości DP[c] były zawsze malejące w funkcji c.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany”. Przetwarzanie od dużych pojemności do małych zachowuje stany z poprzedniego kroku dla mniejszych c i uniemożliwia wielokrotny wybór przedmiotu.
+::AISD-20-Q20::[plain]W plecaku 0/1 aktualizujemy jednowymiarową tablicę DP[c] dla kolejnych przedmiotów o dodatnich masach całkowitych, a c jest pojemnością. Dlaczego pojemności trzeba przetwarzać malejąco? {
+  ~Aby móc zawsze wybierać ten sam przedmiot dowolnie wiele razy.#Przetwarzanie malejące zapobiega ponownemu wyborowi tego samego przedmiotu w jednej iteracji, a nie umożliwia go.
+  ~Aby liczba pojemności spadła z C do log C.#Wciąż trzeba rozważyć wszystkie pojemności do C, więc liczba stanów nie spada logarytmicznie.
+  ~Aby wartości DP[c] były zawsze malejące w funkcji c.#Wartości optimum DP[c] przy większej pojemności mogą być niemalejące; kierunek iteracji służy zachowaniu modelu 0/1.
   =Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany.#Prawidłowo. Przetwarzanie od dużych pojemności do małych zachowuje stany z poprzedniego kroku dla mniejszych c i uniemożliwia wielokrotny wybór przedmiotu.
   ####Poprawna odpowiedź to „Aby w jednym przebiegu nie używać wielokrotnie tego samego przedmiotu przez nadpisane stany”. Przetwarzanie od dużych pojemności do małych zachowuje stany z poprzedniego kroku dla mniejszych c i uniemożliwia wielokrotny wybór przedmiotu.
 }

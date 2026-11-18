@@ -1,164 +1,164 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.5 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-16-Q01::[plain]W nieważonym grafie istnieją ścieżki A→B→D oraz A→C→E→D. BFS startuje w A. Dlaczego pierwsze odkrycie D daje odległość 2? {
-  ~Ponieważ BFS zawsze wybiera ścieżkę o najmniejszej sumie dodatnich wag.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ BFS przetwarza warstwy rosnącej odległości od źródła”. Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
-  ~Ponieważ ścieżka przez C ma więcej wierzchołków o krótszych nazwach.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ BFS przetwarza warstwy rosnącej odległości od źródła”. Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
-  ~Ponieważ DFS i BFS mają identyczną kolejność odwiedzin.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ BFS przetwarza warstwy rosnącej odległości od źródła”. Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
+::AISD-16-Q01::[plain]W nieważonym grafie D jest osiągalny z A, a najkrótsza ścieżka do D ma dwie krawędzie, np. A→B→D; istnieje też dłuższa ścieżka A→C→E→D. BFS startuje w A. Dlaczego pierwsze odkrycie D daje odległość 2? {
+  ~Ponieważ BFS zawsze wybiera ścieżkę o najmniejszej sumie dodatnich wag.#Minimalizacja sumy wag wymaga informacji o wagach; w grafie nieważonym BFS minimalizuje liczbę krawędzi.
+  ~Ponieważ ścieżka przez C ma więcej wierzchołków o krótszych nazwach.#Alfabetyczna kolejność nazw wierzchołków nie wyznacza długości ścieżki i nie jest powodem optymalności BFS.
+  ~Ponieważ DFS i BFS mają identyczną kolejność odwiedzin.#DFS może najpierw zejść głęboko w dłuższą trasę, więc jego kolejność nie jest taka sama jak w BFS.
   =Ponieważ BFS przetwarza warstwy rosnącej odległości od źródła.#Prawidłowo. Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
   ####Poprawna odpowiedź to „Ponieważ BFS przetwarza warstwy rosnącej odległości od źródła”. Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
 }
 
 ::AISD-16-Q02::[plain]Przeprowadzamy BFS na grafie reprezentowanym listami sąsiedztwa. Aby odwiedzić również składowe niepołączone z pierwszym wierzchołkiem, uruchamiamy BFS z każdego kolejnego nieodwiedzonego wierzchołka. Zakładamy stały koszt operacji kolejki. Jaka jest ścisła asymptotyczna złożoność czasowa odwiedzenia całego grafu o V wierzchołkach i E krawędziach? {
-  ~Θ(V²)#Nie. Taki koszt może wystąpić w gęstym grafie, ale nie stanowi ścisłego oszacowania dla każdego grafu reprezentowanego listami sąsiedztwa.
-  ~Θ(E log V)#Nie. BFS nie używa kolejki priorytetowej; każdy wierzchołek oraz każda pozycja listy sąsiedztwa są przetwarzane stałą liczbę razy.
+  ~Θ(V²)#Koszt Θ(V²) opisuje przeglądanie całej macierzy sąsiedztwa, a nie pełny BFS na listach dla dowolnego grafu.
+  ~Θ(E log V)#BFS nie używa operacji wymagających logarytmicznego kosztu na krawędź; wystarcza zwykła kolejka.
   =Θ(V+E)#Prawidłowo. Przeglądamy wszystkie V wierzchołków oraz wszystkie listy sąsiedztwa zawierające łącznie O(E) wpisów.
-  ~Θ(VE)#Nie. BFS nie przegląda wszystkich krawędzi osobno dla każdego wierzchołka, lecz odwiedza każdą listę sąsiedztwa tylko raz.
+  ~Θ(VE)#Każdą listę sąsiadów przeglądamy raz podczas wizyty w wierzchołku, nie raz dla każdej pary V,E.
   ####Poprawna odpowiedź to „Θ(V+E)”. Pełne przejście obejmuje także graf niespójny. Każdy z V wierzchołków i każda reprezentowana krawędź są przetwarzane stałą liczbę razy; w grafie nieskierowanym każda krawędź występuje w dwóch listach, co nie zmienia klasy kosztu.
 }
 
 ::AISD-16-Q03::[plain]W skierowanym grafie z cyklem A→B→C→A DFS wykonywany rekurencyjnie bez znaczników odwiedzenia może: {
-  ~Zakończyć się po jednokrotnym przejściu cyklu, pomimo braku znaczników odwiedzenia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie zakończyć się z powodu nieskończonego ciągu wywołań”. Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
+  ~Zakończyć się po jednokrotnym przejściu cyklu, pomimo braku znaczników odwiedzenia.#W grafie z cyklem rekurencja bez znaczników może powracać do A po ścieżce A→B→C→A i ponawiać ją.
   =Nie zakończyć się z powodu nieskończonego ciągu wywołań.#Prawidłowo. Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
-  ~Zawsze znaleźć ścieżkę o najmniejszej liczbie krawędzi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie zakończyć się z powodu nieskończonego ciągu wywołań”. Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
-  ~Odwiedzić każdy wierzchołek dokładnie dwa razy, bez ponownego wejścia do aktywnego wywołania.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie zakończyć się z powodu nieskończonego ciągu wywołań”. Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
+  ~Zawsze znaleźć ścieżkę o najmniejszej liczbie krawędzi.#DFS nie zapewnia najkrótszej ścieżki, zwłaszcza gdy wybierze dłuższą gałąź przed krótszą.
+  ~Odwiedzić każdy wierzchołek dokładnie dwa razy, bez ponownego wejścia do aktywnego wywołania.#Bez oznaczania aktywnych lub odwiedzonych wierzchołków cykl nie ogranicza liczby wejść do dwóch.
   ####Poprawna odpowiedź to „Nie zakończyć się z powodu nieskończonego ciągu wywołań”. Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
 }
 
 ::AISD-16-Q04::[plain]W grafie są dwie trasy z A do T: A→B→T o kosztach krawędzi 2 i 2 oraz A→C→T o kosztach 6 i 1. Heurystyka wynosi h(B) \= 2 i h(C) \= 1. Jakiego wyboru na początku dokonają odpowiednio zachłanne przeszukiwanie best-first, używające samego h, oraz A*, używające g+h? {
-  ~Oba algorytmy wybiorą C, ponieważ h(C) < h(B).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Best-first wybierze C, a A* wybierze B, ponieważ uwzględnia koszt dotarcia g”. Best-first porównuje h(B) \= 2 z h(C) \= 1 i wybiera C. A* porównuje f(B) \= 2+2 \= 4 oraz f(C) \= 6+1 \= 7, dlatego wybiera B.
-  ~Best-first wybierze B, a A* wybierze C, ponieważ A* pomija koszt dotarcia do wierzchołka.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Best-first wybierze C, a A* wybierze B, ponieważ uwzględnia koszt dotarcia g”. Best-first porównuje h(B) \= 2 z h(C) \= 1 i wybiera C. A* porównuje f(B) \= 2+2 \= 4 oraz f(C) \= 6+1 \= 7, dlatego wybiera B.
+  ~Oba algorytmy wybiorą C, ponieważ h(C) < h(B).#Best-first używa h i wybiera C, lecz A* porównuje 2+2\=4 dla B z 6+1\=7 dla C, więc wybiera B.
+  ~Best-first wybierze B, a A* wybierze C, ponieważ A* pomija koszt dotarcia do wierzchołka.#Greedy best-first nie uwzględnia g; wbrew dystraktorowi A* właśnie dodaje koszt dotarcia.
   =Best-first wybierze C, a A* wybierze B, ponieważ uwzględnia koszt dotarcia g.#Prawidłowo. Best-first porównuje h(B) \= 2 z h(C) \= 1 i wybiera C. A* porównuje f(B) \= 2+2 \= 4 oraz f(C) \= 6+1 \= 7, dlatego wybiera B.
-  ~Oba algorytmy wybiorą B, ponieważ porównują jedynie koszt końcowej krawędzi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Best-first wybierze C, a A* wybierze B, ponieważ uwzględnia koszt dotarcia g”. Best-first porównuje h(B) \= 2 z h(C) \= 1 i wybiera C. A* porównuje f(B) \= 2+2 \= 4 oraz f(C) \= 6+1 \= 7, dlatego wybiera B.
+  ~Oba algorytmy wybiorą B, ponieważ porównują jedynie koszt końcowej krawędzi.#Same końcowe krawędzie o kosztach 2 i 1 nie wyznaczają obu decyzji; oba algorytmy używają innych ocen.
   ####Poprawna odpowiedź to „Best-first wybierze C, a A* wybierze B, ponieważ uwzględnia koszt dotarcia g”. Best-first porównuje h(B) \= 2 z h(C) \= 1 i wybiera C. A* porównuje f(B) \= 2+2 \= 4 oraz f(C) \= 6+1 \= 7, dlatego wybiera B.
 }
 
 ::AISD-16-Q05::[plain]W nieważonym grafie z wierzchołka A do celu T istnieją ścieżki o różnej liczbie krawędzi. Które stwierdzenie o pierwszej ścieżce odnalezionej przez BFS i DFS jest poprawne? {
   =BFS gwarantuje najmniejszą liczbę krawędzi, natomiast DFS nie zapewnia takiej gwarancji.#Poprawnie. BFS przetwarza wierzchołki warstwami od źródła, a DFS zależy od kolejności przeszukiwania gałęzi.
-  ~DFS gwarantuje najmniejszą liczbę krawędzi, natomiast BFS nie zapewnia takiej gwarancji.#Nie. To BFS, dzięki kolejce FIFO, przeszukuje graf według rosnącej odległości od źródła.
-  ~Oba algorytmy zawsze znajdują ścieżkę o najmniejszej liczbie krawędzi.#Nie. DFS może najpierw wejść w dłuższą gałąź i odnaleźć dłuższą ścieżkę.
-  ~Żaden z tych algorytmów nie gwarantuje ścieżki o najmniejszej liczbie krawędzi.#Nie. BFS zapewnia takie rozwiązanie w grafie nieważonym, gdy liczba krawędzi jest miarą długości.
+  ~DFS gwarantuje najmniejszą liczbę krawędzi, natomiast BFS nie zapewnia takiej gwarancji.#DFS może znaleźć długą ścieżkę przed krótszą; BFS przechodzi warstwami i gwarantuje minimalną liczbę krawędzi.
+  ~Oba algorytmy zawsze znajdują ścieżkę o najmniejszej liczbie krawędzi.#BFS gwarantuje najmniejszą liczbę krawędzi, ale taka gwarancja nie przysługuje standardowemu DFS.
+  ~Żaden z tych algorytmów nie gwarantuje ścieżki o najmniejszej liczbie krawędzi.#Ta odpowiedź pomija własność BFS: pierwsze odkrycie celu w grafie nieważonym wyznacza najmniejszą odległość.
   ####Poprawna odpowiedź to „BFS gwarantuje najmniejszą liczbę krawędzi, natomiast DFS nie zapewnia takiej gwarancji”. BFS odwiedza kolejne warstwy odległości w grafie nieważonym. DFS rozwija gałęzie w zależności od kolejności sąsiadów i może odnaleźć dłuższą ścieżkę przed krótszą.
 }
 
 ::AISD-16-Q06::[plain]W grafie A→B, A→C, B→D, C→D BFS dodaje odkryte wierzchołki do kolejki. Co może się stać, jeśli D oznaczymy jako odwiedzony dopiero przy zdejmowaniu z kolejki? {
-  ~BFS nie będzie mógł w ogóle odwiedzić D.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D może zostać dodany do kolejki z B i ponownie z C”. Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
-  ~BFS wykryje ujemne wagi, nawet gdy graf ich nie ma.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D może zostać dodany do kolejki z B i ponownie z C”. Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
+  ~BFS nie będzie mógł w ogóle odwiedzić D.#Opóźnione oznaczenie nie uniemożliwia osiągnięcia D, lecz może powodować jego wielokrotne dodanie.
+  ~BFS wykryje ujemne wagi, nawet gdy graf ich nie ma.#Sam algorytm BFS nie wykrywa z opóźnionych znaczników ujemnych wag; problemem są duplikaty w kolejce.
   =D może zostać dodany do kolejki z B i ponownie z C.#Prawidłowo. Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
-  ~D zostanie automatycznie pominięty przez kolejkę FIFO niezależnie od znaczników.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D może zostać dodany do kolejki z B i ponownie z C”. Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
+  ~D zostanie automatycznie pominięty przez kolejkę FIFO niezależnie od znaczników.#Kolejka FIFO nie usuwa automatycznie powtarzających się wartości; bez oznaczenia B i C mogą dopisać D.
   ####Poprawna odpowiedź to „D może zostać dodany do kolejki z B i ponownie z C”. Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
 }
 
 ::AISD-16-Q07::[plain]W pełnym drzewie b-arnym o głębokości d ≥ 1 każdy węzeł poza ostatnim poziomem ma dokładnie b ≥ 2 dzieci, a korzeń należy do poziomu 0. Ile dokładnie węzłów znajduje się na poziomie d? {
   =b^d#Poprawnie. Na każdym kolejnym poziomie liczba węzłów zwiększa się b-krotnie, więc na poziomie d wynosi b^d.
-  ~b^(d-1)#Nie. Ten wzór podaje liczbę węzłów na poprzednim poziomie d-1.
-  ~1+b+...+b^d#Nie. Ten wzór opisuje łączną liczbę węzłów od korzenia aż do poziomu d, a nie liczbę węzłów tylko na poziomie d.
-  ~b^(d+1)#Nie. Ta wartość opisuje hipotetyczną liczebność następnego poziomu, a nie poziomu d.
+  ~b^(d-1)#b^(d-1) jest liczbą węzłów na poziomie poprzedzającym d, nie na d.
+  ~1+b+...+b^d#Suma 1+b+...+b^d zlicza wszystkie poziomy od korzenia do d, nie wyłącznie ostatni.
+  ~b^(d+1)#b^(d+1) zliczałoby węzły jeszcze o jeden poziom głębiej niż wskazane d.
   ####Poprawna odpowiedź to „b^d”. Korzeń tworzy poziom 0 z jednym węzłem. Na każdym dalszym poziomie liczba węzłów jest b razy większa niż na poprzednim. Po d takich krokach na poziomie d znajduje się dokładnie b^d węzłów.
 }
 
 ::AISD-16-Q08::[plain]Kiedy BFS zwykle zużywa więcej pamięci granicy przeszukiwania niż DFS w bardzo szerokim, płytkim drzewie? {
-  ~Gdy granica BFS zawiera tylko bieżący poziom, którego rozmiar jest stały niezależnie od b.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi”. BFS przechowuje w kolejce wiele wierzchołków z kolejnych warstw, natomiast rekurencyjny DFS wykorzystuje pamięć przede wszystkim na bieżącą ścieżkę.
-  ~Gdy DFS przechowuje wszystkie liście jednocześnie, a BFS tylko jedną aktywną ścieżkę.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi”. BFS przechowuje w kolejce wiele wierzchołków z kolejnych warstw, natomiast rekurencyjny DFS wykorzystuje pamięć przede wszystkim na bieżącą ścieżkę.
-  ~Gdy BFS i DFS mają identyczną wielkość granicy dla dowolnej kolejności rozwijania.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi”. BFS przechowuje w kolejce wiele wierzchołków z kolejnych warstw, natomiast rekurencyjny DFS wykorzystuje pamięć przede wszystkim na bieżącą ścieżkę.
+  ~Gdy granica BFS zawiera tylko bieżący poziom, którego rozmiar jest stały niezależnie od b.#W szerokim drzewie warstwa BFS może zawierać b^d węzłów, więc jej rozmiar nie jest stały względem b.
+  ~Gdy DFS przechowuje wszystkie liście jednocześnie, a BFS tylko jedną aktywną ścieżkę.#DFS schodzi w głąb i zachowuje aktywną ścieżkę, a nie koniecznie wszystkie liście naraz.
+  ~Gdy BFS i DFS mają identyczną wielkość granicy dla dowolnej kolejności rozwijania.#BFS przechowuje całą granicę bieżącego poziomu, podczas gdy DFS może operować na znacznie mniejszej granicy.
   =Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi.#Prawidłowo. BFS przechowuje w kolejce wiele wierzchołków z kolejnych warstw, natomiast rekurencyjny DFS wykorzystuje pamięć przede wszystkim na bieżącą ścieżkę.
   ####Poprawna odpowiedź to „Gdy BFS przechowuje dużą warstwę jednocześnie, a DFS utrzymuje głównie ścieżkę i stan wyboru gałęzi”. BFS przechowuje w kolejce wiele wierzchołków z kolejnych warstw, natomiast rekurencyjny DFS wykorzystuje pamięć przede wszystkim na bieżącą ścieżkę.
 }
 
 ::AISD-16-Q09::[plain]Graf nieważony ma krawędzie A-B, A-C, B-D, C-D. BFS z A przetwarza sąsiadów alfabetycznie. Który szczegół zmieni rodzica D, lecz nie jego odległość? {
-  ~Zastąpienie kolejki FIFO przez stos DFS bez innych zmian.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przetworzenie C przed B, przy tej samej strukturze grafu”. Przy remisie dwóch najkrótszych dróg o długości 2 kolejność odkrycia B i C może wskazać innego rodzica D, ale odległość pozostaje 2.
-  ~Zmiana odległości początkowej A na 7.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przetworzenie C przed B, przy tej samej strukturze grafu”. Przy remisie dwóch najkrótszych dróg o długości 2 kolejność odkrycia B i C może wskazać innego rodzica D, ale odległość pozostaje 2.
-  ~Usunięcie obu krawędzi prowadzących do D.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przetworzenie C przed B, przy tej samej strukturze grafu”. Przy remisie dwóch najkrótszych dróg o długości 2 kolejność odkrycia B i C może wskazać innego rodzica D, ale odległość pozostaje 2.
+  ~Zastąpienie kolejki FIFO przez stos DFS bez innych zmian.#Zamiana FIFO na stos zmienia algorytm na DFS, więc nie jest zmianą kolejności rodziców w BFS.
+  ~Zmiana odległości początkowej A na 7.#Zmiana początkowego numeru odległości nie zmienia tego, który sąsiad odkrywa D jako pierwszy.
+  ~Usunięcie obu krawędzi prowadzących do D.#Po usunięciu obu krawędzi do D nie ma już ścieżki A→D, więc zmienia się osiągalność, nie tylko rodzic.
   =Przetworzenie C przed B, przy tej samej strukturze grafu.#Prawidłowo. Przy remisie dwóch najkrótszych dróg o długości 2 kolejność odkrycia B i C może wskazać innego rodzica D, ale odległość pozostaje 2.
   ####Poprawna odpowiedź to „Przetworzenie C przed B, przy tej samej strukturze grafu”. Przy remisie dwóch najkrótszych dróg o długości 2 kolejność odkrycia B i C może wskazać innego rodzica D, ale odległość pozostaje 2.
 }
 
 ::AISD-16-Q10::[plain]W grafie o krawędziach A-B, A-C, B-D, C-E algorytm DFS zaczyna od A i odwiedza sąsiadów w kolejności alfabetycznej. Jaka jest kolejność pierwszych odwiedzin? {
   =A,B,D,C,E#Prawidłowo. DFS podąża z A do B, następnie do D i po powrocie eksploruje C oraz E.
-  ~A,B,C,D,E#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A,B,D,C,E”. DFS podąża z A do B, następnie do D i po powrocie eksploruje C oraz E.
-  ~A,C,E,B,D#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A,B,D,C,E”. DFS podąża z A do B, następnie do D i po powrocie eksploruje C oraz E.
-  ~A,C,B,D,E#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A,B,D,C,E”. DFS podąża z A do B, następnie do D i po powrocie eksploruje C oraz E.
+  ~A,B,C,D,E#BFS mógłby odkryć C przed zejściem do D, lecz DFS bada B→D przed powrotem do A.
+  ~A,C,E,B,D#Alfabetyczny porządek wymaga wybrania B przed C, więc ta sekwencja nie jest poprawnym DFS.
+  ~A,C,B,D,E#Sekwencja zaczynająca od C łamie zadany alfabetyczny wybór pierwszego sąsiada A.
   ####Poprawna odpowiedź to „A,B,D,C,E”. DFS podąża z A do B, następnie do D i po powrocie eksploruje C oraz E.
 }
 
 ::AISD-16-Q11::[plain]W grafie o dodatnich wagach łuków A→B\=2, A→C\=6 i B→C\=1, jaki jest minimalny koszt dotarcia z A do C? {
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka A→B→C kosztuje 2+1\=3 i jest tańsza od bezpośredniej krawędzi 6.
+  ~6#Bezpośredni łuk A→C kosztuje 6, natomiast droga przez B kosztuje 2+1\=3.
   =3#Prawidłowo. Ścieżka A→B→C kosztuje 2+1\=3 i jest tańsza od bezpośredniej krawędzi 6.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka A→B→C kosztuje 2+1\=3 i jest tańsza od bezpośredniej krawędzi 6.
-  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka A→B→C kosztuje 2+1\=3 i jest tańsza od bezpośredniej krawędzi 6.
+  ~2#Koszt 2 jest kosztem dojścia do B, lecz do C trzeba jeszcze przejść za 1.
+  ~7#Koszt 7 nie odpowiada najtańszej drodze; 6 to koszt łuku bezpośredniego, a 3 drogi przez B.
   ####Poprawna odpowiedź to „3”. Ścieżka A→B→C kosztuje 2+1\=3 i jest tańsza od bezpośredniej krawędzi 6.
 }
 
 ::AISD-16-Q12::[plain]Z A do F w nieważonym grafie prowadzą dwie ścieżki o długości odpowiednio 3 i 5 krawędzi. Które zachowanie poprawnego BFS wynika z jego reguły odkrywania? {
   =Pierwsze odkrycie F daje odległość 3, niezależnie od istnienia dłuższej ścieżki.#Prawidłowo. BFS rozwija rosnące poziomy, dlatego pierwsza znaleziona droga ma minimalną liczbę krawędzi.
-  ~Pierwsze odkrycie F zawsze nastąpi po 5 krawędziach, bo dłuższa ścieżka ma więcej wierzchołków.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pierwsze odkrycie F daje odległość 3, niezależnie od istnienia dłuższej ścieżki”. BFS rozwija rosnące poziomy, dlatego pierwsza znaleziona droga ma minimalną liczbę krawędzi.
-  ~BFS nie potrafi rozróżnić odległości 3 i 5 bez wag.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pierwsze odkrycie F daje odległość 3, niezależnie od istnienia dłuższej ścieżki”. BFS rozwija rosnące poziomy, dlatego pierwsza znaleziona droga ma minimalną liczbę krawędzi.
-  ~BFS zawsze odwiedza każdy wierzchołek więcej niż jeden raz, aby znaleźć krótszą drogę.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pierwsze odkrycie F daje odległość 3, niezależnie od istnienia dłuższej ścieżki”. BFS rozwija rosnące poziomy, dlatego pierwsza znaleziona droga ma minimalną liczbę krawędzi.
+  ~Pierwsze odkrycie F zawsze nastąpi po 5 krawędziach, bo dłuższa ścieżka ma więcej wierzchołków.#BFS odkrywa najbliższe warstwy przed dalszymi, więc nie wybiera najpierw ścieżki pięciokrawędziowej.
+  ~BFS nie potrafi rozróżnić odległości 3 i 5 bez wag.#W grafie nieważonym porównujemy liczbę krawędzi; dwie ścieżki o długościach 3 i 5 dają różne odległości.
+  ~BFS zawsze odwiedza każdy wierzchołek więcej niż jeden raz, aby znaleźć krótszą drogę.#Prawidłowy BFS oznacza wierzchołek przy odkrywaniu i nie musi odwiedzać go wielokrotnie.
   ####Poprawna odpowiedź to „Pierwsze odkrycie F daje odległość 3, niezależnie od istnienia dłuższej ścieżki”. BFS rozwija rosnące poziomy, dlatego pierwsza znaleziona droga ma minimalną liczbę krawędzi.
 }
 
-::AISD-16-Q13::[plain]W standardowym A* w grafie o nieujemnych kosztach, jak obliczana jest wartość f(v)? {
-  ~h(v)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „g(v)+h(v)”. A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
+::AISD-16-Q13::[plain]W standardowym A* w grafie o nieujemnych kosztach funkcja g(v) oznacza koszt dotychczasowej ścieżki od startu, a h(v) oszacowanie kosztu do celu. Jak definiuje się f(v)? {
+  ~h(v)#Samo h(v) jest oceną zachłannego best-first, lecz A* uwzględnia również koszt g(v) już przebytej drogi.
   =g(v)+h(v)#Prawidłowo. A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
-  ~g(v)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „g(v)+h(v)”. A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
-  ~g(v)-h(v)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „g(v)+h(v)”. A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
+  ~g(v)#Samo g(v) pomija prognozę pozostałego kosztu do celu, która występuje w ocenie A*.
+  ~g(v)-h(v)#Odejmowanie h(v) mogłoby premiować zbyt kosztowną trasę; A* definiuje f(v)\=g(v)+h(v).
   ####Poprawna odpowiedź to „g(v)+h(v)”. A* sumuje rzeczywisty koszt od startu do v i heurystyczne oszacowanie reszty.
 }
 
-::AISD-16-Q14::[plain]W A* minimalizującym koszt do celu T heurystyka h(v) ma oszacowywać pozostały koszt. Dla węzła B faktyczny najkrótszy koszt B→T wynosi 5. Która wartość h(B) jest dopuszczalna? {
-  ~7, bo większa wartość przyspieszy przeszukiwanie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5, ponieważ nie przekracza rzeczywistego minimalnego kosztu”. Heurystyka dopuszczalna nie przeszacowuje kosztu do celu. Wartość 5 jest zgodna z tym warunkiem; 6,7 i 10 go łamią.
-  ~6, bo przeszacowanie o 1 nie zmienia optymalności.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5, ponieważ nie przekracza rzeczywistego minimalnego kosztu”. Heurystyka dopuszczalna nie przeszacowuje kosztu do celu. Wartość 5 jest zgodna z tym warunkiem; 6,7 i 10 go łamią.
-  ~10, bo heurystyka może być dowolną dodatnią liczbą.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5, ponieważ nie przekracza rzeczywistego minimalnego kosztu”. Heurystyka dopuszczalna nie przeszacowuje kosztu do celu. Wartość 5 jest zgodna z tym warunkiem; 6,7 i 10 go łamią.
+::AISD-16-Q14::[plain]W A* minimalizującym koszt do celu T heurystyka dopuszczalna h(v) nie może przeszacowywać pozostałego kosztu. Dla węzła B faktyczny najkrótszy koszt B→T wynosi 5. Która wartość h(B) jest dopuszczalna? {
+  ~7, bo większa wartość przyspieszy przeszukiwanie.#Przy rzeczywistym koszcie 5 heurystyka 7 przeszacowuje go i narusza dopuszczalność.
+  ~6, bo przeszacowanie o 1 nie zmienia optymalności.#Nawet przeszacowanie o jeden narusza definicję heurystyki dopuszczalnej; 6>5.
+  ~10, bo heurystyka może być dowolną dodatnią liczbą.#Dowolna dodatnia wartość nie jest dozwolona, jeśli przekracza rzeczywisty koszt do celu, tutaj 5.
   =5, ponieważ nie przekracza rzeczywistego minimalnego kosztu.#Prawidłowo. Heurystyka dopuszczalna nie przeszacowuje kosztu do celu. Wartość 5 jest zgodna z tym warunkiem; 6,7 i 10 go łamią.
   ####Poprawna odpowiedź to „5, ponieważ nie przekracza rzeczywistego minimalnego kosztu”. Heurystyka dopuszczalna nie przeszacowuje kosztu do celu. Wartość 5 jest zgodna z tym warunkiem; 6,7 i 10 go łamią.
 }
 
 ::AISD-16-Q15::[plain]Pełne BFS uruchamiamy na grafie z V wierzchołkami i E krawędziami. Dlaczego implementacja na listach sąsiedztwa często jest korzystniejsza od macierzy dla grafu rzadkiego? {
-  ~Na listach BFS ma koszt O(1) niezależnie od liczby krawędzi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na listach iterujemy po istniejących sąsiadach z kosztem O(V+E); w macierzy przeglądanie wierszy może kosztować O(V²)”. Listy pozwalają iterować po rzeczywistych krawędziach. Macierz wymaga sprawdzania potencjalnych sąsiadów w każdym wierszu.
-  ~Macierz zawsze wymaga mniej pamięci dla E dużo mniejszego od V².#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na listach iterujemy po istniejących sąsiadach z kosztem O(V+E); w macierzy przeglądanie wierszy może kosztować O(V²)”. Listy pozwalają iterować po rzeczywistych krawędziach. Macierz wymaga sprawdzania potencjalnych sąsiadów w każdym wierszu.
+  ~Na listach BFS ma koszt O(1) niezależnie od liczby krawędzi.#BFS musi przetwarzać wierzchołki i krawędzie; jego koszt na listach nie jest stały.
+  ~Macierz zawsze wymaga mniej pamięci dla E dużo mniejszego od V².#Dla grafu rzadkiego macierz ma Θ(V²) komórek, a listy wymagają Θ(V+E), zatem macierz nie jest zwykle mniejsza.
   =Na listach iterujemy po istniejących sąsiadach z kosztem O(V+E); w macierzy przeglądanie wierszy może kosztować O(V²).#Prawidłowo. Listy pozwalają iterować po rzeczywistych krawędziach. Macierz wymaga sprawdzania potencjalnych sąsiadów w każdym wierszu.
-  ~BFS na macierzy nie potrafi oznaczać wierzchołków odwiedzonych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na listach iterujemy po istniejących sąsiadach z kosztem O(V+E); w macierzy przeglądanie wierszy może kosztować O(V²)”. Listy pozwalają iterować po rzeczywistych krawędziach. Macierz wymaga sprawdzania potencjalnych sąsiadów w każdym wierszu.
+  ~BFS na macierzy nie potrafi oznaczać wierzchołków odwiedzonych.#Macierz sąsiedztwa umożliwia znaczniki odwiedzenia tak samo jak lista; różnica dotyczy kosztu przeglądu sąsiadów.
   ####Poprawna odpowiedź to „Na listach iterujemy po istniejących sąsiadach z kosztem O(V+E); w macierzy przeglądanie wierszy może kosztować O(V²)”. Listy pozwalają iterować po rzeczywistych krawędziach. Macierz wymaga sprawdzania potencjalnych sąsiadów w każdym wierszu.
 }
 
-::AISD-16-Q16::[plain]W przeszukiwaniu drzewa o współczynniku rozgałęzień b\=3 i głębokości 2 ile jest węzłów na dokładnie drugim poziomie, licząc korzeń jako poziom 0? {
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Każdy z trzech węzłów poziomu 1 ma po trzech potomków, razem 3²\=9.
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Każdy z trzech węzłów poziomu 1 ma po trzech potomków, razem 3²\=9.
-  ~13#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Każdy z trzech węzłów poziomu 1 ma po trzech potomków, razem 3²\=9.
-  =9#Prawidłowo. Każdy z trzech węzłów poziomu 1 ma po trzech potomków, razem 3²\=9.
-  ####Poprawna odpowiedź to „9”. Każdy z trzech węzłów poziomu 1 ma po trzech potomków, razem 3²\=9.
+::AISD-16-Q16::[plain]Pełne drzewo trójdzielne ma korzeń na poziomie 0 i liście na poziomie 2. Każdy węzeł z poziomu 0 i 1 ma dokładnie troje dzieci. Ile węzłów znajduje się łącznie w całym drzewie? {
+  ~6#Sześć to liczba węzłów na poziomach 1 i 2 podzielona przez dwa, nie całkowita liczba węzłów drzewa.
+  ~9#Dziewięć zlicza tylko liście na poziomie 2, a pomija korzeń i trzy węzły poziomu 1.
+  ~12#Dwanaście zlicza poziomy 1 i 2, lecz nadal pomija korzeń na poziomie 0.
+  =13#Prawidłowo. Na kolejnych poziomach jest 1, 3 i 9 węzłów, więc suma wynosi 1+3+9\=13.
+  ####Poprawna odpowiedź to „13”. Dla pełnego drzewa b-arnego o wysokości d suma liczności poziomów to 1+b+...+b^d. Przy b\=3 i d\=2 otrzymujemy 1+3+9\=13.
 }
 
-::AISD-16-Q17::[plain]W grafie o wagach A→B\=10, A→C\=1 i C→B\=1 stosujemy zwykły BFS zamiast algorytmu Dijkstry. Jakiego błędnego wyniku możemy się spodziewać przy minimalizowaniu sumy wag? {
-  ~BFS wybierze A→C→B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2”. BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
+::AISD-16-Q17::[plain]W grafie o dodatnich wagach A→B\=10, A→C\=1 i C→B\=1 stosujemy zwykły BFS zamiast algorytmu Dijkstry. Jakiego błędnego wyniku możemy się spodziewać przy minimalizowaniu sumy wag? {
+  ~BFS wybierze A→C→B#Trasa przez C jest tańsza według sumy wag, ale BFS szuka najmniejszej liczby krawędzi i może ją pominąć.
   =BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2.#Prawidłowo. BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
-  ~BFS nie znajdzie B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2”. BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
-  ~BFS zwróci minimalny koszt 2 niezależnie od wielkości dodatnich wag.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2”. BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
+  ~BFS nie znajdzie B#BFS może odwiedzić B przez bezpośredni łuk A→B, więc nie jest prawdą, że celu nie znajdzie.
+  ~BFS zwróci minimalny koszt 2 niezależnie od wielkości dodatnich wag.#W grafie ważonym BFS nie minimalizuje sumy wag; bezpośrednia krawędź o wadze 10 może zostać wybrana przed drogą o koszcie 2.
   ####Poprawna odpowiedź to „BFS może wybrać A→B o koszcie 10 zamiast A→C→B o koszcie 2”. BFS minimalizuje liczbę krawędzi, a nie sumę ich dowolnych wag.
 }
 
 ::AISD-16-Q18::[plain]Algorytm DFS rekurencyjnie przechodzi graf będący prostą ścieżką o n wierzchołkach. Jak rośnie maksymalna głębokość stosu? {
-  ~Θ(1)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Głębokość wywołań odpowiada długości odwiedzanej ścieżki.
-  ~Θ(log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Głębokość wywołań odpowiada długości odwiedzanej ścieżki.
+  ~Θ(1)#Na ścieżce o n wierzchołkach rekurencyjny DFS zagłębia się przez Θ(n) kolejnych wywołań.
+  ~Θ(log n)#Łańcuch nie jest drzewem zrównoważonym; głębokość wywołań nie rośnie logarytmicznie.
   =Θ(n)#Prawidłowo. Głębokość wywołań odpowiada długości odwiedzanej ścieżki.
-  ~Θ(n²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Głębokość wywołań odpowiada długości odwiedzanej ścieżki.
+  ~Θ(n²)#Jest jedna ramka na kolejny wierzchołek ścieżki, nie po n ramek na każdy z n wierzchołków.
   ####Poprawna odpowiedź to „Θ(n)”. Głębokość wywołań odpowiada długości odwiedzanej ścieżki.
 }
 
 ::AISD-16-Q19::[plain]Ile liści ma pełne drzewo wyborów opisujące wszystkie kombinacje n decyzji binarnych? {
   =2^n#Prawidłowo. Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
-  ~n²#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2^n”. Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
-  ~2n#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2^n”. Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
-  ~n!#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2^n”. Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
+  ~n²#Liczba n² nie uwzględnia wszystkich rozgałęzień binarnych, których jest 2^n na poziomie końcowym.
+  ~2n#Wartość 2n jest liniowa, a po n niezależnych wyborach binarnych istnieje wykładniczo wiele kombinacji.
+  ~n!#n! liczy permutacje n różnych elementów, a nie przypisania n niezależnych decyzji o dwóch wartościach.
   ####Poprawna odpowiedź to „2^n”. Każda z n decyzji ma dwa warianty; liczba kompletnych kombinacji to 2^n.
 }
 
 ::AISD-16-Q20::[plain]Graf skierowany ma drogi A→B→C→T o długości 3 oraz A→D→T o długości 2. Sąsiedzi A są przeglądani alfabetycznie, więc B przed D. Dlaczego DFS może zwrócić trasę dłuższą niż BFS? {
-  ~DFS zawsze znajduje trasę o minimalnej liczbie krawędzi, więc obie trasy muszą mieć tę samą długość.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DFS może wejść najpierw w gałąź B i znaleźć trasę długości 3; BFS odkrywa cel przez D na poziomie 2”. DFS bada głęboko pierwszą gałąź, co nie gwarantuje najmniejszej liczby krawędzi.
+  ~DFS zawsze znajduje trasę o minimalnej liczbie krawędzi, więc obie trasy muszą mieć tę samą długość.#DFS nie gwarantuje minimalnej liczby krawędzi, bo może najpierw przejść dłuższą gałąź B.
   =DFS może wejść najpierw w gałąź B i znaleźć trasę długości 3; BFS odkrywa cel przez D na poziomie 2.#Prawidłowo. DFS bada głęboko pierwszą gałąź, co nie gwarantuje najmniejszej liczby krawędzi.
-  ~BFS wybierze trasę długości 3, ponieważ alfabetycznie B jest przed D.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DFS może wejść najpierw w gałąź B i znaleźć trasę długości 3; BFS odkrywa cel przez D na poziomie 2”. DFS bada głęboko pierwszą gałąź, co nie gwarantuje najmniejszej liczby krawędzi.
-  ~BFS nie może przeszukiwać grafów skierowanych, więc nie znajdzie żadnej trasy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DFS może wejść najpierw w gałąź B i znaleźć trasę długości 3; BFS odkrywa cel przez D na poziomie 2”. DFS bada głęboko pierwszą gałąź, co nie gwarantuje najmniejszej liczby krawędzi.
+  ~BFS wybierze trasę długości 3, ponieważ alfabetycznie B jest przed D.#BFS odkrywa cel w warstwie 2 przez D, mimo że B jest alfabetycznie wcześniejsze.
+  ~BFS nie może przeszukiwać grafów skierowanych, więc nie znajdzie żadnej trasy.#BFS działa również na grafach skierowanych, jeśli przegląda dostępne łuki wychodzące.
   ####Poprawna odpowiedź to „DFS może wejść najpierw w gałąź B i znaleźć trasę długości 3; BFS odkrywa cel przez D na poziomie 2”. DFS bada głęboko pierwszą gałąź, co nie gwarantuje najmniejszej liczby krawędzi. BFS przegląda kolejne poziomy i znajduje krótszą trasę długości 2.
 }
 

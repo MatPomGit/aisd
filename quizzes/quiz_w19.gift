@@ -1,164 +1,164 @@
 // AIiSD 19: Zaawansowane algorytmy sortowania i optymalizacji
-// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.5 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
-::AISD-19-Q01::[plain]Quicksort wybiera pierwszy element jako pivot, a wejście jest rosnąco posortowane. Która cecha partycjonowania wyjaśnia czas Θ(n²) dla tej implementacji? {
-  ~Podział na dwie równe części o rozmiarze n/2.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Podział na podproblemy o rozmiarach 0 oraz n-1 w kolejnych wywołaniach”. Skrajnie niezrównoważony podział prowadzi do sumy kosztów n+(n-1)+...+1\=Θ(n²).
-  ~Koszt pojedynczego partycjonowania Θ(log n).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Podział na podproblemy o rozmiarach 0 oraz n-1 w kolejnych wywołaniach”. Skrajnie niezrównoważony podział prowadzi do sumy kosztów n+(n-1)+...+1\=Θ(n²).
+::AISD-19-Q01::[plain]Quicksort wybiera pierwszy element jako pivot, a wejście zawiera n różnych kluczy posortowanych rosnąco. Która cecha partycjonowania wyjaśnia czas Θ(n²) dla tej implementacji? {
+  ~Podział na dwie równe części o rozmiarze n/2.#Podział na dwie podobne połowy prowadziłby do Θ(n log n), a nie najgorszego Θ(n²).
+  ~Koszt pojedynczego partycjonowania Θ(log n).#Jedno partycjonowanie zazwyczaj przegląda Θ(n) elementów, a nie Θ(log n).
   =Podział na podproblemy o rozmiarach 0 oraz n-1 w kolejnych wywołaniach.#Prawidłowo. Skrajnie niezrównoważony podział prowadzi do sumy kosztów n+(n-1)+...+1\=Θ(n²).
-  ~Brak wykonywania porównań, bo dane są już uporządkowane.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Podział na podproblemy o rozmiarach 0 oraz n-1 w kolejnych wywołaniach”. Skrajnie niezrównoważony podział prowadzi do sumy kosztów n+(n-1)+...+1\=Θ(n²).
+  ~Brak wykonywania porównań, bo dane są już uporządkowane.#Posortowane dane nadal wymagają porównań z pivotem; skrajny pivot może tworzyć bardzo nierówne podziały.
   ####Poprawna odpowiedź to „Podział na podproblemy o rozmiarach 0 oraz n-1 w kolejnych wywołaniach”. Skrajnie niezrównoważony podział prowadzi do sumy kosztów n+(n-1)+...+1\=Θ(n²).
 }
 
 ::AISD-19-Q02::[plain]Stabilny counting sort ma przechować n rekordów o kluczach 0..k-1 w osobnym buforze wyniku. Dlaczego jego dodatkowa pamięć wynosi O(n+k)? {
-  ~Ponieważ wynik zawiera tylko k rekordów, a liczniki n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ trzeba przechować k liczników i n pozycji wynikowych”. Tablica liczników ma k pozycji, a pomocnicza tablica wyników n rekordów.
-  ~Ponieważ stabilność nie wymaga bufora wyniku ani liczników.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ trzeba przechować k liczników i n pozycji wynikowych”. Tablica liczników ma k pozycji, a pomocnicza tablica wyników n rekordów.
-  ~Ponieważ każdy z n elementów potrzebuje dokładnie k komórek.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ trzeba przechować k liczników i n pozycji wynikowych”. Tablica liczników ma k pozycji, a pomocnicza tablica wyników n rekordów.
+  ~Ponieważ wynik zawiera tylko k rekordów, a liczniki n.#Bufor wyniku ma n pozycji na rekordy, a tablica liczników k pozycji, nie odwrotnie.
+  ~Ponieważ stabilność nie wymaga bufora wyniku ani liczników.#Stabilne counting sort wymaga liczników, a zwykle także osobnego bufora, by zachować kolejność równych kluczy.
+  ~Ponieważ każdy z n elementów potrzebuje dokładnie k komórek.#Dla każdego elementu wystarczy jedna pozycja wyniku, nie k osobnych komórek na rekord.
   =Ponieważ trzeba przechować k liczników i n pozycji wynikowych.#Prawidłowo. Tablica liczników ma k pozycji, a pomocnicza tablica wyników n rekordów.
   ####Poprawna odpowiedź to „Ponieważ trzeba przechować k liczników i n pozycji wynikowych”. Tablica liczników ma k pozycji, a pomocnicza tablica wyników n rekordów. Łącznie dodatkowa pamięć to O(n+k).
 }
 
 ::AISD-19-Q03::[plain]Stabilne LSD radix sort sortuje liczby dwucyfrowe najpierw po jedności, a potem po dziesiątkach. Co może się stać, jeśli drugi przebieg jest niestabilny? {
   =Może zniszczyć wcześniej ustalony porządek jedności wśród liczb o tych samych dziesiątkach.#Prawidłowo. Drugi przebieg musi zachować wcześniejszą kolejność według jedności dla równych cyfr dziesiątek.
-  ~Nie wpływa to na wynik, bo dziesiątki są zawsze unikalne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może zniszczyć wcześniej ustalony porządek jedności wśród liczb o tych samych dziesiątkach”. Drugi przebieg musi zachować wcześniejszą kolejność według jedności dla równych cyfr dziesiątek.
-  ~Drugi przebieg usuwa duplikaty, więc nie ma już czego sortować.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może zniszczyć wcześniej ustalony porządek jedności wśród liczb o tych samych dziesiątkach”. Drugi przebieg musi zachować wcześniejszą kolejność według jedności dla równych cyfr dziesiątek.
-  ~Niestabilność gwarantuje szybsze sortowanie bez ryzyka zmiany kolejności.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Może zniszczyć wcześniej ustalony porządek jedności wśród liczb o tych samych dziesiątkach”. Drugi przebieg musi zachować wcześniejszą kolejność według jedności dla równych cyfr dziesiątek.
+  ~Nie wpływa to na wynik, bo dziesiątki są zawsze unikalne.#Dziesiątki mogą się powtarzać; wtedy ważna jest kolejność uzyskana po wcześniejszym przebiegu jedności.
+  ~Drugi przebieg usuwa duplikaty, więc nie ma już czego sortować.#Drugi przebieg nie usuwa duplikatów, lecz przestawia rekordy według kolejnej cyfry.
+  ~Niestabilność gwarantuje szybsze sortowanie bez ryzyka zmiany kolejności.#Niestabilność nie zapewnia poprawności ani szybszego przebiegu LSD radix sort.
   ####Poprawna odpowiedź to „Może zniszczyć wcześniej ustalony porządek jedności wśród liczb o tych samych dziesiątkach”. Drugi przebieg musi zachować wcześniejszą kolejność według jedności dla równych cyfr dziesiątek.
 }
 
 ::AISD-19-Q04::[plain]Kiedy trójdzielny podział w sortowaniu szybkim, rozdzielający klucze mniejsze, równe i większe od elementu osiowego (pivota), jest szczególnie korzystny? {
-  ~Gdy wszystkie klucze równe elementowi osiowemu ponownie przekazuje się do rekurencji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy dane zawierają wiele powtarzających się kluczy”. Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
-  ~Gdy wszystkie klucze są różne, a dodatkowy podział na równe wartości niczego nie zmienia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy dane zawierają wiele powtarzających się kluczy”. Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
-  ~Gdy wejście jest posortowane i każdy podział musi utworzyć dwie identyczne części.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy dane zawierają wiele powtarzających się kluczy”. Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
+  ~Gdy wszystkie klucze równe elementowi osiowemu ponownie przekazuje się do rekurencji.#Ponowne sortowanie wszystkich kluczy równych pivotowi zaprzecza celowi podziału trójdzielnego.
+  ~Gdy wszystkie klucze są różne, a dodatkowy podział na równe wartości niczego nie zmienia.#Jeżeli wszystkie klucze są różne, oddzielanie grupy równej pivotowi zwykle nie przynosi dużej oszczędności.
+  ~Gdy wejście jest posortowane i każdy podział musi utworzyć dwie identyczne części.#Posortowanie danych nie gwarantuje powstawania dwóch identycznych części dla każdej strategii pivota.
   =Gdy dane zawierają wiele powtarzających się kluczy.#Prawidłowo. Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
   ####Poprawna odpowiedź to „Gdy dane zawierają wiele powtarzających się kluczy”. Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
 }
 
 ::AISD-19-Q05::[plain]Sortowanie kubełkowe rozdziela n niezależnych liczb o rozkładzie jednostajnym na n koszyków o jednakowym prawdopodobieństwie trafienia. Zawartość każdego koszyka sortujemy algorytmem o koszcie O(k²), gdzie k oznacza liczbę elementów w koszyku. Dlaczego oczekiwany koszt całego algorytmu wynosi O(n)? {
-  ~Ponieważ wszystkie elementy trafiają do różnych koszyków.#Nie. Nawet przy równomiernym rozkładzie kilka elementów może trafić do tego samego koszyka.
-  ~Ponieważ średni rozmiar koszyka wynosi 1, więc jego kwadrat także ma średnią 1.#Nie. Wartość oczekiwana kwadratu zmiennej losowej zależy również od wariancji; nie można po prostu podnieść średniej do kwadratu.
+  ~Ponieważ wszystkie elementy trafiają do różnych koszyków.#Równomierny rozkład nie oznacza, że koszyki nie mogą zawierać kolizji; kilka liczb może trafić do tego samego koszyka.
+  ~Ponieważ średni rozmiar koszyka wynosi 1, więc jego kwadrat także ma średnią 1.#Z E[K]\=1 nie wynika E[K²]\=1; drugi moment uwzględnia również wariancję rozmiaru koszyka.
   =Ponieważ oczekiwany kwadrat liczby elementów w jednym koszyku jest O(1), a koszyków jest n.#Prawidłowo. Dla każdego koszyka liczba elementów ma rozkład dwumianowy, którego drugi moment jest mniejszy od 2.
-  ~Ponieważ koszt sortowania każdego koszyka pozostaje O(1), nawet gdy jego rozmiar rośnie.#Nie. Sortowanie koszyka zawierającego k elementów może kosztować O(k²); stały jest jego oczekiwany koszt, a nie koszt każdego możliwego przypadku.
+  ~Ponieważ koszt sortowania każdego koszyka pozostaje O(1), nawet gdy jego rozmiar rośnie.#Koszt sortowania koszyka z k elementami może rosnąć jak k²; stały jest oczekiwany drugi moment, nie każdy możliwy koszt.
   ####Poprawna odpowiedź to „Ponieważ oczekiwany kwadrat liczby elementów w jednym koszyku jest O(1), a koszyków jest n”. Liczba K elementów w wybranym koszyku ma rozkład dwumianowy z parametrami n i 1/n, więc E[K] wynosi 1, wariancja jest mniejsza od 1 i E[K²] jest mniejsze od 2. Suma oczekiwanych kosztów sortowania n koszyków jest zatem O(n), podobnie jak rozdział danych i inicjalizacja koszyków.
 }
 
 ::AISD-19-Q06::[plain]Kiedy counting sort może być niepraktyczny pomimo liniowej zależności od n w pierwszym składniku kosztu? {
   =Gdy zakres k jest ogromny w stosunku do n.#Prawidłowo. Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
-  ~Gdy klucze są już posortowane rosnąco#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy zakres k jest ogromny w stosunku do n”. Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
-  ~Gdy wiele kluczy się powtarza#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy zakres k jest ogromny w stosunku do n”. Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
-  ~Gdy wymagane jest sortowanie stabilne#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy zakres k jest ogromny w stosunku do n”. Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
+  ~Gdy klucze są już posortowane rosnąco#Uporządkowanie danych nie zmniejsza koniecznej tablicy liczników o rozmiarze k.
+  ~Gdy wiele kluczy się powtarza#Duża liczba powtórzeń sprzyja counting sort, bo nie zwiększa rozmiaru dziedziny k.
+  ~Gdy wymagane jest sortowanie stabilne#Counting sort może działać stabilnie przy użyciu sum skumulowanych i właściwego porządku przetwarzania.
   ####Poprawna odpowiedź to „Gdy zakres k jest ogromny w stosunku do n”. Tablica liczników zależy od liczby możliwych wartości klucza, nie tylko od liczby elementów.
 }
 
 ::AISD-19-Q07::[plain]Stabilny counting sort przetwarza od końca rekordy o kluczach [1,0,1,0]. Po sumowaniu liczników C\=[2,4] (liczności skumulowane). Gdzie umieści ostatni rekord wejścia o kluczu 0, stosując C[0]\=C[0]-1 jako indeks? {
-  ~Na indeksie 0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na indeksie 1”. Początkowo C[0]\=2 oznacza koniec obszaru kluczy 0. Po dekrementacji otrzymujemy indeks 1.
+  ~Na indeksie 0.#Po odjęciu jedynki od C[0]\=2 otrzymujemy indeks 1, a nie 0.
   =Na indeksie 1.#Prawidłowo. Początkowo C[0]\=2 oznacza koniec obszaru kluczy 0. Po dekrementacji otrzymujemy indeks 1.
-  ~Na indeksie 2.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na indeksie 1”. Początkowo C[0]\=2 oznacza koniec obszaru kluczy 0. Po dekrementacji otrzymujemy indeks 1.
-  ~Na indeksie 3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Na indeksie 1”. Początkowo C[0]\=2 oznacza koniec obszaru kluczy 0. Po dekrementacji otrzymujemy indeks 1.
+  ~Na indeksie 2.#Indeks 2 to granica początku zakresu kluczy 1, a ostatni rekord o kluczu 0 trafia na 1.
+  ~Na indeksie 3.#Indeks 3 należałby do późniejszych kluczy; dla zera skumulowana liczność wynosi tylko 2.
   ####Poprawna odpowiedź to „Na indeksie 1”. Początkowo C[0]\=2 oznacza koniec obszaru kluczy 0. Po dekrementacji otrzymujemy indeks 1.
 }
 
 ::AISD-19-Q08::[plain]Dla tablicy [9,2,7,5,1] wybieramy pivot jako medianę trzech kluczy: pierwszego, środkowego i ostatniego. Jaka wartość zostanie wybrana? {
   =7#Prawidłowo. Rozważane klucze to 9, 7 i 1. Ich medianą jest 7, niezależnie od pozostałych wartości tablicy.
-  ~9#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Rozważane klucze to 9, 7 i 1. Ich medianą jest 7, niezależnie od pozostałych wartości tablicy.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Rozważane klucze to 9, 7 i 1. Ich medianą jest 7, niezależnie od pozostałych wartości tablicy.
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Rozważane klucze to 9, 7 i 1. Ich medianą jest 7, niezależnie od pozostałych wartości tablicy.
+  ~9#Dziewiątka jest największą spośród wartości pierwszej, środkowej i ostatniej, nie medianą.
+  ~5#Piątka znajduje się na indeksie 3, a mediana trzech bierze pozycje 0,2,4.
+  ~1#Jedynka jest najmniejszą spośród 9,7,1, a mediana trzech wynosi 7.
   ####Poprawna odpowiedź to „7”. Rozważane klucze to 9, 7 i 1. Ich medianą jest 7, niezależnie od pozostałych wartości tablicy.
 }
 
 ::AISD-19-Q09::[plain]Quicksort z pivotem jako ostatnim elementem partycjonuje [4,2,7,1,5]. Ile elementów jest mniejszych od pivota 5? {
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
+  ~2#Od pivota 5 mniejsze są 4,2 i 1, więc dwa elementy to za mało.
   =3#Prawidłowo. Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
+  ~4#W tablicy przed pivotem 7 jest większe od 5, więc nie ma czterech mniejszych elementów.
+  ~1#Wartość 1 jest tylko jednym spośród trzech kluczy mniejszych od 5.
   ####Poprawna odpowiedź to „3”. Klucze 4,2,1 są mniejsze od 5; klucz 7 większy.
 }
 
 ::AISD-19-Q10::[plain]Dla counting sort kluczy [2,0,2,1,0,2] z dziedziny \{0,1,2\}, jaka jest tablica liczników? {
-  ~[2,2,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,1,3]”. Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
-  ~[3,1,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,1,3]”. Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
-  ~[1,2,3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,1,3]”. Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
+  ~[2,2,2]#Częstość klucza 1 wynosi 1, a klucza 2 wynosi 3, więc rozkład nie jest równy.
+  ~[3,1,2]#To częstotliwości zapisane w odwrotnej kolejności dla kluczy 0 i 2; zero występuje dwa razy.
+  ~[1,2,3]#Klucz 0 występuje dwa razy, 1 raz, 2 trzy razy; przedstawiony wariant ma błędny porządek liczności.
   =[2,1,3]#Prawidłowo. Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
   ####Poprawna odpowiedź to „[2,1,3]”. Wartości 0,1,2 występują odpowiednio 2,1,3 razy.
 }
 
 ::AISD-19-Q11::[plain]W stabilnym LSD radix sort dla liczb 21,13,12,24 jaki jest wynik po pierwszym sortowaniu według cyfry jedności? {
   =21,12,13,24#Prawidłowo. Cyfry jedności wynoszą 1,3,2,4, więc kolejność po pierwszym etapie to 21,12,13,24.
-  ~12,21,13,24#Ta odpowiedź jest niepoprawna. Właściwy wariant to „21,12,13,24”. Cyfry jedności wynoszą 1,3,2,4, więc kolejność po pierwszym etapie to 21,12,13,24.
-  ~13,12,24,21#Ta odpowiedź jest niepoprawna. Właściwy wariant to „21,12,13,24”. Cyfry jedności wynoszą 1,3,2,4, więc kolejność po pierwszym etapie to 21,12,13,24.
-  ~24,13,12,21#Ta odpowiedź jest niepoprawna. Właściwy wariant to „21,12,13,24”. Cyfry jedności wynoszą 1,3,2,4, więc kolejność po pierwszym etapie to 21,12,13,24.
+  ~12,21,13,24#W stabilnym sortowaniu po jedności cyfra 1 liczby 21 poprzedza cyfrę 2 liczby 12.
+  ~13,12,24,21#Liczba 13 ma cyfrę jedności 3 i powinna wystąpić po 12 z cyfrą 2.
+  ~24,13,12,21#Liczba 24 ma największą cyfrę jedności, czyli 4, więc nie może znaleźć się pierwsza.
   ####Poprawna odpowiedź to „21,12,13,24”. Cyfry jedności wynoszą 1,3,2,4, więc kolejność po pierwszym etapie to 21,12,13,24.
 }
 
 ::AISD-19-Q12::[plain]Counting sort rozpatruje n\=10 rekordów o kluczach z zakresu od 0 do 999999. Co może uczynić metodę niepraktyczną w porównaniu z sortowaniem przez porównania? {
   =Tablica liczników o milionie pozycji, choć liczba rekordów wynosi zaledwie 10.#Prawidłowo. Koszt pamięci i inicjalizacji tablicy liczników zależy od wielkości zakresu kluczy k, a nie tylko n.
-  ~Niezbędne wykonanie n! porównań.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica liczników o milionie pozycji, choć liczba rekordów wynosi zaledwie 10”. Koszt pamięci i inicjalizacji tablicy liczników zależy od wielkości zakresu kluczy k, a nie tylko n.
-  ~Brak możliwości uporządkowania liczb całkowitych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica liczników o milionie pozycji, choć liczba rekordów wynosi zaledwie 10”. Koszt pamięci i inicjalizacji tablicy liczników zależy od wielkości zakresu kluczy k, a nie tylko n.
-  ~Wymóg zapisania wszystkich 999999 wartości jako danych wejściowych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica liczników o milionie pozycji, choć liczba rekordów wynosi zaledwie 10”. Koszt pamięci i inicjalizacji tablicy liczników zależy od wielkości zakresu kluczy k, a nie tylko n.
+  ~Niezbędne wykonanie n! porównań.#Counting sort wykonuje zliczanie, a nie n! porównań wszystkich permutacji.
+  ~Brak możliwości uporządkowania liczb całkowitych.#Counting sort jest przeznaczony dla całkowitoliczbowych kluczy z indeksowaną dziedziną.
+  ~Wymóg zapisania wszystkich 999999 wartości jako danych wejściowych.#Nie trzeba wczytywać miliona liczb wejściowych; pamięć zużywa milion pozycji liczników.
   ####Poprawna odpowiedź to „Tablica liczników o milionie pozycji, choć liczba rekordów wynosi zaledwie 10”. Koszt pamięci i inicjalizacji tablicy liczników zależy od wielkości zakresu kluczy k, a nie tylko n.
 }
 
 ::AISD-19-Q13::[plain]Dla counting sort kluczy [2,1,2,0] tablica liczników częstości wynosi [1,1,2]. Jak wygląda tablica po zastąpieniu liczników sumami prefiksowymi? {
-  ~[1,1,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,2,4]”. Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
-  ~[0,1,3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,2,4]”. Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
+  ~[1,1,2]#To tablica zwykłych częstości przed obliczeniem sum prefiksowych, nie wynik skumulowany.
+  ~[0,1,3]#Suma prefiksowa na indeksie 0 musi wynosić 1, nie 0, bo klucz 0 występuje raz.
   =[1,2,4]#Prawidłowo. Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
-  ~[1,3,4]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,2,4]”. Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
+  ~[1,3,4]#Dla kluczy 0 i 1 skumulowana liczność to 1+1\=2, nie 3.
   ####Poprawna odpowiedź to „[1,2,4]”. Kumulacja częstości [1,1,2] daje [1,2,4]; licznik C[k] podaje liczbę kluczy nie większych od k.
 }
 
 ::AISD-19-Q14::[plain]Ile stabilnych przebiegów sortowania według kolejnych cyfr wymaga sortowanie pozycyjne LSD liczb trzycyfrowych w systemie dziesiętnym? {
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Każdy z trzech rzędów dziesiętnych, jedności, dziesiątki i setki, wymaga jednego stabilnego przebiegu.
+  ~1#Każda z trzech cyfr wymaga odrębnego stabilnego przebiegu, więc jeden nie wystarcza.
   =3#Prawidłowo. Każdy z trzech rzędów dziesiętnych, jedności, dziesiątki i setki, wymaga jednego stabilnego przebiegu.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Każdy z trzech rzędów dziesiętnych, jedności, dziesiątki i setki, wymaga jednego stabilnego przebiegu.
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Każdy z trzech rzędów dziesiętnych, jedności, dziesiątki i setki, wymaga jednego stabilnego przebiegu.
+  ~2#Dwa przebiegi nie uwzględniają jednej z trzech pozycji dziesiętnych.
+  ~10#Dziesięć oznacza podstawę systemu liczbowego, a nie liczbę pozycji cyfrowych.
   ####Poprawna odpowiedź to „3”. Każdy z trzech rzędów dziesiętnych, jedności, dziesiątki i setki, wymaga jednego stabilnego przebiegu.
 }
 
-::AISD-19-Q15::[plain]Quicksort wybiera pivot losowo, a wejście ma n różnych kluczy. Jaki wniosek wynika o jego czasie? {
-  ~Najgorszy czas staje się Θ(n log n), bo pivot jest losowany.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oczekiwany czas jest Θ(n log n), lecz najgorszy przypadek nadal może wynosić Θ(n²)”. Losowy pivot prowadzi do oczekiwanych zrównoważonych podziałów, ale nie wyklucza niekorzystnej sekwencji pivotów.
+::AISD-19-Q15::[plain]Quicksort wybiera pivot jednostajnie losowo spośród elementów bieżącej podtablicy, a wejście ma n różnych kluczy. Jaki wniosek wynika o jego czasie? {
+  ~Najgorszy czas staje się Θ(n log n), bo pivot jest losowany.#Losowy pivot nie eliminuje możliwości wielokrotnych skrajnych podziałów i kwadratowego przypadku najgorszego.
   =Oczekiwany czas jest Θ(n log n), lecz najgorszy przypadek nadal może wynosić Θ(n²).#Prawidłowo. Losowy pivot prowadzi do oczekiwanych zrównoważonych podziałów, ale nie wyklucza niekorzystnej sekwencji pivotów.
-  ~Oczekiwany czas to Θ(n²) dla każdej kolejności kluczy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oczekiwany czas jest Θ(n log n), lecz najgorszy przypadek nadal może wynosić Θ(n²)”. Losowy pivot prowadzi do oczekiwanych zrównoważonych podziałów, ale nie wyklucza niekorzystnej sekwencji pivotów.
-  ~Oczekiwany czas jest Θ(n), bo losowość eliminuje partycjonowanie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oczekiwany czas jest Θ(n log n), lecz najgorszy przypadek nadal może wynosić Θ(n²)”. Losowy pivot prowadzi do oczekiwanych zrównoważonych podziałów, ale nie wyklucza niekorzystnej sekwencji pivotów.
+  ~Oczekiwany czas to Θ(n²) dla każdej kolejności kluczy.#Dla losowo wybieranego pivota oczekiwany czas quicksort jest Θ(n log n), nie kwadratowy.
+  ~Oczekiwany czas jest Θ(n), bo losowość eliminuje partycjonowanie.#Partycjonowanie pozostaje konieczne, a liczba porównań nie staje się liniowa dzięki samemu losowaniu.
   ####Poprawna odpowiedź to „Oczekiwany czas jest Θ(n log n), lecz najgorszy przypadek nadal może wynosić Θ(n²)”. Losowy pivot prowadzi do oczekiwanych zrównoważonych podziałów, ale nie wyklucza niekorzystnej sekwencji pivotów.
 }
 
 ::AISD-19-Q16::[plain]LSD radix sort poprawnie sortuje według jedności. Przy drugim przebiegu po dziesiątkach zamienia kolejność liczb 21 i 22 o tym samym dziesiątku. Dlaczego to błąd? {
-  ~Równa cyfra dziesiątek oznacza, że dwie liczby mają identyczną wartość.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Narusza porządek ustalony według jedności i może dać wynik 22 przed 21”. Stabilność kolejnego przebiegu zachowuje wyniki wcześniejszego sortowania mniej znaczących cyfr dla równych cyfr bardziej znaczących.
-  ~W LSD nie wolno sortować po dziesiątkach po sortowaniu po jedności.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Narusza porządek ustalony według jedności i może dać wynik 22 przed 21”. Stabilność kolejnego przebiegu zachowuje wyniki wcześniejszego sortowania mniej znaczących cyfr dla równych cyfr bardziej znaczących.
-  ~Zamiana zawsze poprawia porządek, bo cyfry bardziej znaczące są ważniejsze.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Narusza porządek ustalony według jedności i może dać wynik 22 przed 21”. Stabilność kolejnego przebiegu zachowuje wyniki wcześniejszego sortowania mniej znaczących cyfr dla równych cyfr bardziej znaczących.
+  ~Równa cyfra dziesiątek oznacza, że dwie liczby mają identyczną wartość.#Ta sama cyfra dziesiątek nie oznacza równych liczb: 21 i 22 mają różne cyfry jedności.
+  ~W LSD nie wolno sortować po dziesiątkach po sortowaniu po jedności.#Po sortowaniu po jedności drugi przebieg właśnie powinien porządkować według dziesiątek, ale stabilnie.
+  ~Zamiana zawsze poprawia porządek, bo cyfry bardziej znaczące są ważniejsze.#Cyfra bardziej znacząca wyznacza główny porządek, lecz przy jej remisie trzeba zachować wcześniejszy porządek jedności.
   =Narusza porządek ustalony według jedności i może dać wynik 22 przed 21.#Prawidłowo. Stabilność kolejnego przebiegu zachowuje wyniki wcześniejszego sortowania mniej znaczących cyfr dla równych cyfr bardziej znaczących.
   ####Poprawna odpowiedź to „Narusza porządek ustalony według jedności i może dać wynik 22 przed 21”. Stabilność kolejnego przebiegu zachowuje wyniki wcześniejszego sortowania mniej znaczących cyfr dla równych cyfr bardziej znaczących.
 }
 
-::AISD-19-Q17::[plain]Sortowanie kubełkowe używa pięciu koszyków o szerokości 0,2. Wartości 0,15; 0,35; 0,85 trafiają do koszyka o indeksie floor(5x). Jakie są ich kolejne indeksy? {
-  ~0,2,4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0,1,4”. Po przemnożeniu wartości przez 5 otrzymujemy kolejno 0,75; 1,75 i 4,25.
-  ~1,2,4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0,1,4”. Po przemnożeniu wartości przez 5 otrzymujemy kolejno 0,75; 1,75 i 4,25.
-  ~0,1,3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0,1,4”. Po przemnożeniu wartości przez 5 otrzymujemy kolejno 0,75; 1,75 i 4,25.
+::AISD-19-Q17::[plain]Sortowanie kubełkowe dla liczb 0≤x<1 używa pięciu koszyków o szerokości 0,2. Wartości 0,15; 0,35; 0,85 trafiają do koszyka o indeksie floor(5x). Jakie są ich kolejne indeksy? {
+  ~0,2,4#Dla x\=0,35 iloczyn 5x\=1,75 i floor(1,75)\=1, a nie 2.
+  ~1,2,4#Dla x\=0,15 mamy floor(0,75)\=0, a nie 1.
+  ~0,1,3#Dla x\=0,85 mamy floor(4,25)\=4, a nie 3.
   =0,1,4#Prawidłowo. Po przemnożeniu wartości przez 5 otrzymujemy kolejno 0,75; 1,75 i 4,25.
   ####Poprawna odpowiedź to „0,1,4”. Po przemnożeniu wartości przez 5 otrzymujemy kolejno 0,75; 1,75 i 4,25. Zaokrąglenie każdej z nich w dół daje indeksy 0, 1 i 4.
 }
 
-::AISD-19-Q18::[plain]W sortowaniu szybkim z podziałem trójdzielnym wydzielamy wartości mniejsze, równe i większe od pivota. Co robimy z grupą kluczy równych pivotowi? {
-  ~Grupa równa pivotowi jest ponownie dzielona, ale bez porównań.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie wymaga ponownego sortowania rekurencyjnego”. Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
-  ~Grupa równa pivotowi trafia zawsze do lewej rekurencji, aby zakończyć podział.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie wymaga ponownego sortowania rekurencyjnego”. Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
+::AISD-19-Q18::[plain]W sortowaniu szybkim z podziałem trójdzielnym wydzielamy wartości mniejsze, równe i większe od pivota, a rekurencyjnie sortujemy tylko grupy skrajne. Co robimy z grupą kluczy równych pivotowi? {
+  ~Grupa równa pivotowi jest ponownie dzielona, ale bez porównań.#Równe pivotowi klucze stanowią już uporządkowaną grupę względem pivota i nie muszą być ponownie dzielone.
+  ~Grupa równa pivotowi trafia zawsze do lewej rekurencji, aby zakończyć podział.#Wysyłanie wszystkich równych wartości do lewej rekurencji może ponownie tworzyć ten sam problem.
   =Nie wymaga ponownego sortowania rekurencyjnego.#Prawidłowo. Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
-  ~Grupa równa pivotowi jest sortowana jeszcze raz, aby przywrócić stabilność.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie wymaga ponownego sortowania rekurencyjnego”. Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
+  ~Grupa równa pivotowi jest sortowana jeszcze raz, aby przywrócić stabilność.#Ponowne sortowanie grupy równych kluczy nie przywraca stabilności i nie jest potrzebne do uporządkowania po wartości.
   ####Poprawna odpowiedź to „Nie wymaga ponownego sortowania rekurencyjnego”. Wariant trójdzielny traktuje blok równych wartości jako rozwiązany względem wybranego pivota.
 }
 
 ::AISD-19-Q19::[plain]W sortowaniu szybkim z podziałem trójdzielnym wszystkie klucze tablicy [3,3,3,3,3] są równe pivotowi. Jakie rozmiary mają dwa podproblemy po pierwszym podziale? {
-  ~0 i 4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0 i 0”. Wszystkie wartości są równe pivotowi, dlatego trafiają do grupy środkowej, a oba rekurencyjne podproblemy są puste.
-  ~2 i 2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0 i 0”. Wszystkie wartości są równe pivotowi, dlatego trafiają do grupy środkowej, a oba rekurencyjne podproblemy są puste.
+  ~0 i 4#Wszystkie pięć elementów jest równe pivotowi, więc nie ma podproblemu o rozmiarze 4.
+  ~2 i 2#Rozmiary 2 i 2 oznaczałyby rozdzielenie kluczy równych pivotowi, czego trójdzielna partycja nie robi.
   =0 i 0#Prawidłowo. Wszystkie wartości są równe pivotowi, dlatego trafiają do grupy środkowej, a oba rekurencyjne podproblemy są puste.
-  ~4 i 0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0 i 0”. Wszystkie wartości są równe pivotowi, dlatego trafiają do grupy środkowej, a oba rekurencyjne podproblemy są puste.
+  ~4 i 0#Wszystkie klucze trafiają do grupy środkowej, więc nie istnieje czteroelementowa prawa lub lewa rekurencja.
   ####Poprawna odpowiedź to „0 i 0”. Wszystkie wartości są równe pivotowi, dlatego trafiają do grupy środkowej, a oba rekurencyjne podproblemy są puste.
 }
 
 ::AISD-19-Q20::[plain]Quicksort w każdym podziale pozostawia jeden podproblem o rozmiarze n-1, a partycjonowanie kosztuje Θ(n). Jaka jest klasa czasu w najgorszym przypadku? {
-  ~Θ(n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n²)”. Rekurencja T(n)\=T(n-1)+Θ(n) daje sumę kosztów liniowych od 1 do n, a więc Θ(n²).
+  ~Θ(n)#Suma kosztów partycjonowania n+(n-1)+...+1 rośnie kwadratowo, nie liniowo.
   =Θ(n²)#Prawidłowo. Rekurencja T(n)\=T(n-1)+Θ(n) daje sumę kosztów liniowych od 1 do n, a więc Θ(n²).
-  ~Θ(n log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n²)”. Rekurencja T(n)\=T(n-1)+Θ(n) daje sumę kosztów liniowych od 1 do n, a więc Θ(n²).
-  ~Θ(2^n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n²)”. Rekurencja T(n)\=T(n-1)+Θ(n) daje sumę kosztów liniowych od 1 do n, a więc Θ(n²).
+  ~Θ(n log n)#Nierówne podziały 0 oraz n-1 nie tworzą rekurencji zbalansowanej o koszcie Θ(n log n).
+  ~Θ(2^n)#Jedna gałąź zmniejsza rozmiar o jeden, więc liczba wywołań jest liniowa, a łączny koszt nie jest wykładniczy.
   ####Poprawna odpowiedź to „Θ(n²)”. Rekurencja T(n)\=T(n-1)+Θ(n) daje sumę kosztów liniowych od 1 do n, a więc Θ(n²).
 }
 
