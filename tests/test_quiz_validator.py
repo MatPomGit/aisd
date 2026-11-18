@@ -90,8 +90,8 @@ class QuizValidatorTests(unittest.TestCase):
 
     def test_escaped_hash_is_literal(self):
         self.assertEqual(
-            validator.split_gift_feedback(r"Wariant \\#1#Wyjaśnienie."),
-            (r"Wariant \\#1", "Wyjaśnienie."),
+            validator.split_gift_feedback(r"Wariant \#1#Wyjaśnienie."),
+            (r"Wariant \#1", "Wyjaśnienie."),
         )
 
     def test_missing_multiselect_instruction(self):
