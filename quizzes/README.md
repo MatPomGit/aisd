@@ -40,7 +40,7 @@ Przykładowa składnia:
   ~5#Nie. Wynik dodawania 2+2 to cztery, a nie pięć.
   ~3#Nie. Dodając do dwóch kolejne dwa, otrzymujemy cztery.
   ~2#Nie. Wynik jest większy od każdego z dodatnich składników.
-  ####Poprawna odpowiedź to 4, ponieważ 2+2=4.
+  ####Poprawna odpowiedź to 4, ponieważ 2+2\=4.
 }
 ```
 
