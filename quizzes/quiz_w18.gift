@@ -1,164 +1,164 @@
 // AIiSD 18: Sortowanie porównawcze w praktyce
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.5 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-18-Q01::[plain]Selection sort przetwarza rosnąco A\=[4,1,3,2]. Po pierwszym przebiegu ma wybrać minimum i zamienić je z A[0]. Który wynik jest prawidłowy? {
-  ~[1,2,3,4].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,4,3,2]”. Minimum to 1 na indeksie 1. Po zamianie z A[0] otrzymujemy [1,4,3,2], bez sortowania reszty.
-  ~[2,1,3,4].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,4,3,2]”. Minimum to 1 na indeksie 1. Po zamianie z A[0] otrzymujemy [1,4,3,2], bez sortowania reszty.
+  ~[1,2,3,4].#Jedna zamiana minimum 1 z A[0] nie porządkuje jeszcze całej tablicy; wynik [1,2,3,4] wymaga kolejnych przebiegów.
+  ~[2,1,3,4].#Ta tablica przesuwa wartość 2 na początek, lecz znalezionym minimum jest 1.
   =[1,4,3,2].#Prawidłowo. Minimum to 1 na indeksie 1. Po zamianie z A[0] otrzymujemy [1,4,3,2], bez sortowania reszty.
-  ~[4,1,2,3].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,4,3,2]”. Minimum to 1 na indeksie 1. Po zamianie z A[0] otrzymujemy [1,4,3,2], bez sortowania reszty.
+  ~[4,1,2,3].#Wynik nadal zaczyna się od 4, mimo że pierwszy przebieg ma umieścić minimum 1 na początku.
   ####Poprawna odpowiedź to „[1,4,3,2]”. Minimum to 1 na indeksie 1. Po zamianie z A[0] otrzymujemy [1,4,3,2], bez sortowania reszty.
 }
 
-::AISD-18-Q02::[plain]Dla standardowego selection sort bez wcześniejszego przerywania jaka jest dokładna liczba porównań elementów dla n>\=1? {
+::AISD-18-Q02::[plain]Dla standardowego selection sort bez wcześniejszego przerywania jaka jest dokładna liczba porównań kluczy dla n>\=1, przy jednym porównaniu na każdą sprawdzaną parę elementów? {
   =n(n-1)/2#Prawidłowo. Algorytm porównuje n-1,n-2,...,1 elementów w kolejnych przebiegach.
-  ~n(n+1)/2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n(n-1)/2”. Algorytm porównuje n-1,n-2,...,1 elementów w kolejnych przebiegach.
-  ~n(n-1)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n(n-1)/2”. Algorytm porównuje n-1,n-2,...,1 elementów w kolejnych przebiegach.
-  ~(n-1)²#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n(n-1)/2”. Algorytm porównuje n-1,n-2,...,1 elementów w kolejnych przebiegach.
+  ~n(n+1)/2#Suma porównań standardowego selection sort to (n-1)+(n-2)+...+1, a nie 1+2+...+n.
+  ~n(n-1)#Wynik n(n-1) podwaja liczbę porównań w nieuporządkowanej części.
+  ~(n-1)²#Wyrażenie (n-1)² zakłada tę samą liczbę porównań w kolejnych przebiegach, choć jest ich coraz mniej.
   ####Poprawna odpowiedź to „n(n-1)/2”. Algorytm porównuje n-1,n-2,...,1 elementów w kolejnych przebiegach.
 }
 
 ::AISD-18-Q03::[plain]Algorytm sortowania przez wstawianie porządkuje rosnąco tablicę [2,4,3,5]. Jak wygląda tablica po wstawieniu trzeciego elementu do uporządkowanego prefiksu? {
-  ~[2,4,5,3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,3,4,5]”. Trójka zostaje wstawiona między 2 i 4, co wymaga przesunięcia czwórki.
-  ~[3,2,4,5]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,3,4,5]”. Trójka zostaje wstawiona między 2 i 4, co wymaga przesunięcia czwórki.
-  ~[2,4,3,5]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,3,4,5]”. Trójka zostaje wstawiona między 2 i 4, co wymaga przesunięcia czwórki.
+  ~[2,4,5,3]#Po wstawieniu trzeciego elementu 3 powinno znaleźć się przed 4, a 5 pozostaje na końcu.
+  ~[3,2,4,5]#Przeniesienie 3 przed 2 narusza porządek rosnący, bo 2<3.
+  ~[2,4,3,5]#Tablica początkowa ma inwersję 4,3, którą wstawianie trzeciego elementu powinno usunąć.
   =[2,3,4,5]#Prawidłowo. Trójka zostaje wstawiona między 2 i 4, co wymaga przesunięcia czwórki.
   ####Poprawna odpowiedź to „[2,3,4,5]”. Trójka zostaje wstawiona między 2 i 4, co wymaga przesunięcia czwórki.
 }
 
 ::AISD-18-Q04::[plain]Stabilne merge sort scala lewy ciąg [(2,A),(5,B)] i prawy [(2,C),(4,D)], uporządkowane po kluczu. Który rekord o kluczu 2 powinien trafić do wyjścia pierwszy? {
   =(2,A), bo przy równych kluczach należy wybrać element lewego ciągu.#Prawidłowo. Dla równych kluczy najpierw wybiera się element z lewej połówki, która zachowuje wcześniejszy porządek wejściowy.
-  ~(2,C), bo prawy ciąg jest krótszy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(2,A), bo przy równych kluczach należy wybrać element lewego ciągu”. Dla równych kluczy najpierw wybiera się element z lewej połówki, która zachowuje wcześniejszy porządek wejściowy.
-  ~Dowolny, ponieważ stabilność nie dotyczy równych kluczy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(2,A), bo przy równych kluczach należy wybrać element lewego ciągu”. Dla równych kluczy najpierw wybiera się element z lewej połówki, która zachowuje wcześniejszy porządek wejściowy.
-  ~(5,B), bo należy najpierw usunąć większy klucz.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(2,A), bo przy równych kluczach należy wybrać element lewego ciągu”. Dla równych kluczy najpierw wybiera się element z lewej połówki, która zachowuje wcześniejszy porządek wejściowy.
+  ~(2,C), bo prawy ciąg jest krótszy.#W przypadku remisu stabilne scalanie wybiera rekord z lewej listy, więc C nie może wyprzedzić A.
+  ~Dowolny, ponieważ stabilność nie dotyczy równych kluczy.#Stabilność dotyczy właśnie zachowania względnej kolejności równych kluczy, także podczas scalania.
+  ~(5,B), bo należy najpierw usunąć większy klucz.#Klucz 5 jest większy od 2, więc B nie może zostać pobrany przed rekordem z kluczem 2.
   ####Poprawna odpowiedź to „(2,A), bo przy równych kluczach należy wybrać element lewego ciągu”. Dla równych kluczy najpierw wybiera się element z lewej połówki, która zachowuje wcześniejszy porządek wejściowy.
 }
 
 ::AISD-18-Q05::[plain]Jaki jest najgorszy koszt czasowy standardowego heapsort opartego na kopcu binarnym? {
   =Θ(n log n)#Prawidłowo. Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
-  ~Θ(n²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n log n)”. Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
-  ~Θ(n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n log n)”. Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
-  ~Θ(log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n log n)”. Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
+  ~Θ(n²)#Heapsort ma najgorszy koszt Θ(n log n), a nie kwadratowy, bo usuwa n elementów z kopca.
+  ~Θ(n)#Koszt liniowy nie uwzględnia Θ(log n) przesiewania w kolejnych usunięciach maksimum.
+  ~Θ(log n)#Θ(log n) opisuje pojedyncze przesiewanie, nie pełne sortowanie n elementów.
   ####Poprawna odpowiedź to „Θ(n log n)”. Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
 }
 
 ::AISD-18-Q06::[plain]Który element klasycznej implementacji sortowania przez scalanie (merge sort) wymaga dodatkowej pamięci Θ(n), nie licząc stosu rekurencji? {
-  ~Pomocniczy stos wywołań głębokości Θ(n) dla zrównoważonych podziałów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pomocniczy bufor do scalania”. Standardowe scalanie tablic potrzebuje miejsca na tymczasowo łączone podciągi.
-  ~Tablica wskaźników do każdego porównania, po jednym na poziom drzewa rekurencji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pomocniczy bufor do scalania”. Standardowe scalanie tablic potrzebuje miejsca na tymczasowo łączone podciągi.
+  ~Pomocniczy stos wywołań głębokości Θ(n) dla zrównoważonych podziałów.#Dla dzielenia problemu na połowy stos rekurencji ma głębokość Θ(log n), nie Θ(n).
+  ~Tablica wskaźników do każdego porównania, po jednym na poziom drzewa rekurencji.#Przechowywanie wskaźników do każdego porównania nie jest standardowym elementem klasycznego merge sort.
   =Pomocniczy bufor do scalania.#Prawidłowo. Standardowe scalanie tablic potrzebuje miejsca na tymczasowo łączone podciągi.
-  ~Bufor o Θ(log n) elementach#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pomocniczy bufor do scalania”. Standardowe scalanie tablic potrzebuje miejsca na tymczasowo łączone podciągi.
+  ~Bufor o Θ(log n) elementach#Bufor Θ(log n) elementów nie wystarcza do klasycznego scalania wymagającego Θ(n) miejsca.
   ####Poprawna odpowiedź to „Pomocniczy bufor do scalania”. Standardowe scalanie tablic potrzebuje miejsca na tymczasowo łączone podciągi.
 }
 
 ::AISD-18-Q07::[plain]Dla tablicy prawie posortowanej, z jedną inwersją, porównujemy insertion sort i standardowy selection sort. Która różnica jest zasadnicza? {
-  ~Selection sort zawsze kończy się po jednym porównaniu, gdy tablica jest prawie posortowana.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Insertion sort może wykonać mało przesunięć, a selection sort nadal wykonuje Θ(n²) porównań”. Insertion sort może korzystać z niewielkiej liczby inwersji. Selection sort sprawdza kolejne minima bez względu na początkowy porządek.
+  ~Selection sort zawsze kończy się po jednym porównaniu, gdy tablica jest prawie posortowana.#Selection sort nadal porównuje elementy w kolejnych nieuporządkowanych sufiksach i nie kończy po jednym porównaniu.
   =Insertion sort może wykonać mało przesunięć, a selection sort nadal wykonuje Θ(n²) porównań.#Prawidłowo. Insertion sort może korzystać z niewielkiej liczby inwersji. Selection sort sprawdza kolejne minima bez względu na początkowy porządek.
-  ~Insertion sort zawsze wykonuje Θ(n²) przesunięć, niezależnie od inwersji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Insertion sort może wykonać mało przesunięć, a selection sort nadal wykonuje Θ(n²) porównań”. Insertion sort może korzystać z niewielkiej liczby inwersji. Selection sort sprawdza kolejne minima bez względu na początkowy porządek.
-  ~Obie metody mają koszt Θ(1) dla każdej tablicy z jedną inwersją.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Insertion sort może wykonać mało przesunięć, a selection sort nadal wykonuje Θ(n²) porównań”. Insertion sort może korzystać z niewielkiej liczby inwersji. Selection sort sprawdza kolejne minima bez względu na początkowy porządek.
+  ~Insertion sort zawsze wykonuje Θ(n²) przesunięć, niezależnie od inwersji.#Insertion sort przesuwa tylko elementy tworzące inwersje; przy jednej inwersji przesunięć jest niewiele.
+  ~Obie metody mają koszt Θ(1) dla każdej tablicy z jedną inwersją.#Nawet przy jednej inwersji odczytanie n elementów kosztuje co najmniej liniowo, nie stałoczasowo.
   ####Poprawna odpowiedź to „Insertion sort może wykonać mało przesunięć, a selection sort nadal wykonuje Θ(n²) porównań”. Insertion sort może korzystać z niewielkiej liczby inwersji. Selection sort sprawdza kolejne minima bez względu na początkowy porządek.
 }
 
 ::AISD-18-Q08::[plain]Standardowy selection sort wybiera minimum i zamienia je z elementem na początku nieuporządkowanej części. Dlaczego nie jest ogólnie stabilny? {
-  ~Wybór minimum może pominąć element o najmniejszym kluczu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zamiana może przenieść rekord o danym kluczu za inny równy mu rekord”. Przeniesienie rekordu z początku na odległą pozycję może odwrócić kolejność równych kluczy.
+  ~Wybór minimum może pominąć element o najmniejszym kluczu.#Selection sort znajduje minimum poprawnie; problem stabilności wynika z nieograniczonej zamiany odległych rekordów.
   =Zamiana może przenieść rekord o danym kluczu za inny równy mu rekord.#Prawidłowo. Przeniesienie rekordu z początku na odległą pozycję może odwrócić kolejność równych kluczy.
-  ~Wymiana minimum z A[i] zawsze odwraca wszystkie rekordy o równych kluczach.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zamiana może przenieść rekord o danym kluczu za inny równy mu rekord”. Przeniesienie rekordu z początku na odległą pozycję może odwrócić kolejność równych kluczy.
-  ~Niestabilność występuje tylko wtedy, gdy minimum jest w ostatniej komórce.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zamiana może przenieść rekord o danym kluczu za inny równy mu rekord”. Przeniesienie rekordu z początku na odległą pozycję może odwrócić kolejność równych kluczy.
+  ~Wymiana minimum z A[i] zawsze odwraca wszystkie rekordy o równych kluczach.#Jedna zamiana może, ale nie musi odwrócić kolejność rekordów o równych kluczach; nie dzieje się tak zawsze.
+  ~Niestabilność występuje tylko wtedy, gdy minimum jest w ostatniej komórce.#Niestabilność może wystąpić również wtedy, gdy minimum nie leży na ostatniej pozycji.
   ####Poprawna odpowiedź to „Zamiana może przenieść rekord o danym kluczu za inny równy mu rekord”. Przeniesienie rekordu z początku na odległą pozycję może odwrócić kolejność równych kluczy.
 }
 
 ::AISD-18-Q09::[plain]W selection sort po pierwszym przebiegu dla A\=[5,2,4,1,3] otrzymano [1,2,4,5,3]. Co można już zagwarantować o fragmencie posortowanym? {
-  ~Cała tablica jest posortowana, bo minimum znalazło się na początku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pierwszy element jest minimalny w całej tablicy, ale pozostały sufiks nie musi być posortowany”. Po pierwszym przebiegu selection sort gwarantuje tylko poprawną pierwszą pozycję.
-  ~Dwa pierwsze elementy muszą być dwoma najmniejszymi w poprawnej kolejności.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pierwszy element jest minimalny w całej tablicy, ale pozostały sufiks nie musi być posortowany”. Po pierwszym przebiegu selection sort gwarantuje tylko poprawną pierwszą pozycję.
-  ~Ostatni element musi być maksymalny, bo pierwszy jest minimalny.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pierwszy element jest minimalny w całej tablicy, ale pozostały sufiks nie musi być posortowany”. Po pierwszym przebiegu selection sort gwarantuje tylko poprawną pierwszą pozycję.
+  ~Cała tablica jest posortowana, bo minimum znalazło się na początku.#Po pierwszym przebiegu selection sort gwarantuje tylko poprawność A[0], nie całego sufiksu.
+  ~Dwa pierwsze elementy muszą być dwoma najmniejszymi w poprawnej kolejności.#Drugi element nie musi być drugim minimum: po zamianie może pozostać wcześniejsza wartość inna niż drugie minimum.
+  ~Ostatni element musi być maksymalny, bo pierwszy jest minimalny.#Umieszczenie minimum na początku nie czyni ostatniego elementu automatycznie maksimum.
   =Pierwszy element jest minimalny w całej tablicy, ale pozostały sufiks nie musi być posortowany.#Prawidłowo. Po pierwszym przebiegu selection sort gwarantuje tylko poprawną pierwszą pozycję.
   ####Poprawna odpowiedź to „Pierwszy element jest minimalny w całej tablicy, ale pozostały sufiks nie musi być posortowany”. Po pierwszym przebiegu selection sort gwarantuje tylko poprawną pierwszą pozycję. Sufiks może pozostać nieuporządkowany.
 }
 
 ::AISD-18-Q10::[plain]W insertion sort na [4,2,5,1,3] jaki jest stan po wstawieniu elementu z początkowego indeksu 3 do posortowanego prefiksu? {
-  ~[2,4,5,1,3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,2,4,5,3]”. Po uporządkowaniu 4,2,5 mamy [2,4,5], a następnie wstawienie 1 przesuwa trzy elementy.
-  ~[1,4,2,5,3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,2,4,5,3]”. Po uporządkowaniu 4,2,5 mamy [2,4,5], a następnie wstawienie 1 przesuwa trzy elementy.
+  ~[2,4,5,1,3]#Stan [2,4,5,1,3] występuje po wcześniejszych krokach, ale przed wstawieniem początkowego A[3]\=1.
+  ~[1,4,2,5,3]#Wynik [1,4,2,5,3] nie zachowuje posortowanego prefiksu, bo 4 poprzedza 2.
   =[1,2,4,5,3]#Prawidłowo. Po uporządkowaniu 4,2,5 mamy [2,4,5], a następnie wstawienie 1 przesuwa trzy elementy.
-  ~[1,2,3,4,5]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,2,4,5,3]”. Po uporządkowaniu 4,2,5 mamy [2,4,5], a następnie wstawienie 1 przesuwa trzy elementy.
+  ~[1,2,3,4,5]#Wynik w pełni posortowany wymaga jeszcze wstawienia ostatniego elementu 3.
   ####Poprawna odpowiedź to „[1,2,4,5,3]”. Po uporządkowaniu 4,2,5 mamy [2,4,5], a następnie wstawienie 1 przesuwa trzy elementy.
 }
 
 ::AISD-18-Q11::[plain]Podczas scalania dwóch uporządkowanych list [1,4,7] i [2,3,8], jakie są pierwsze cztery wartości wyniku? {
-  ~1,2,4,3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1,2,3,4”. Scalanie zawsze pobiera mniejszy z dwóch dostępnych elementów czołowych.
+  ~1,2,4,3#Po 1 i 2 następną wartością jest 3 z prawej listy, nie 4 z lewej.
   =1,2,3,4#Prawidłowo. Scalanie zawsze pobiera mniejszy z dwóch dostępnych elementów czołowych.
-  ~2,1,3,4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1,2,3,4”. Scalanie zawsze pobiera mniejszy z dwóch dostępnych elementów czołowych.
-  ~1,4,2,3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1,2,3,4”. Scalanie zawsze pobiera mniejszy z dwóch dostępnych elementów czołowych.
+  ~2,1,3,4#Z dwóch pierwszych elementów 1 i 2 mniejsza jest jedynka, więc wynik nie zaczyna się od 2.
+  ~1,4,2,3#Po pobraniu 1 z lewej listy trzeba porównać 4 z 2, a nie natychmiast dopisać 4.
   ####Poprawna odpowiedź to „1,2,3,4”. Scalanie zawsze pobiera mniejszy z dwóch dostępnych elementów czołowych.
 }
 
 ::AISD-18-Q12::[plain]Tablicę ośmiu elementów dzielimy na połowy aż do pojedynczych elementów, a następnie scalamy. Ile poziomów scalania wykona sortowanie przez scalanie? {
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Na powrocie scalane są podciągi rozmiaru 1→2, 2→4 oraz 4→8.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Na powrocie scalane są podciągi rozmiaru 1→2, 2→4 oraz 4→8.
+  ~2#Osiem elementów wymaga redukcji rozmiaru 8→4→2→1, czyli trzech poziomów scalania, nie dwóch.
+  ~4#Cztery poziomy obejmowałyby dodatkową redukcję po osiągnięciu pojedynczych elementów.
   =3#Prawidłowo. Na powrocie scalane są podciągi rozmiaru 1→2, 2→4 oraz 4→8.
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Na powrocie scalane są podciągi rozmiaru 1→2, 2→4 oraz 4→8.
+  ~8#Liczba poziomów scalania wynosi log₂8\=3, nie liczbę elementów tablicy.
   ####Poprawna odpowiedź to „3”. Na powrocie scalane są podciągi rozmiaru 1→2, 2→4 oraz 4→8.
 }
 
 ::AISD-18-Q13::[plain]Dla wejścia [1,2,3,4,5] ile przesunięć elementów wykona standardowy insertion sort, jeśli porównuje klucz przez > i nie przesuwa równych? {
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Każdy nowy klucz jest nie mniejszy od poprzedniego, więc nie ma potrzeby przesuwania.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Każdy nowy klucz jest nie mniejszy od poprzedniego, więc nie ma potrzeby przesuwania.
+  ~4#Dane są już rosnąco uporządkowane, więc żaden element nie jest przesuwany w prawo.
+  ~5#Pięć przesunięć wymagałoby obecności elementów większych od właśnie wstawianego; tutaj ich nie ma.
   =0#Prawidłowo. Każdy nowy klucz jest nie mniejszy od poprzedniego, więc nie ma potrzeby przesuwania.
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Każdy nowy klucz jest nie mniejszy od poprzedniego, więc nie ma potrzeby przesuwania.
+  ~10#Dziesięć to liczba potencjalnych par, ale uporządkowana tablica nie zawiera inwersji.
   ####Poprawna odpowiedź to „0”. Każdy nowy klucz jest nie mniejszy od poprzedniego, więc nie ma potrzeby przesuwania.
 }
 
-::AISD-18-Q14::[plain]Selection sort na n\=6 elementach wykonuje zamianę po każdym z pierwszych n-1 przebiegów, nawet gdy indeks minimum jest równy i. Ile takich wywołań zamiany wykona niezależnie od wejścia? {
+::AISD-18-Q14::[plain]Selection sort dla n\=6 elementów wywołuje procedurę zamiany po każdym z pierwszych n-1 przebiegów, nawet gdy indeks minimum jest równy i. Ile takich wywołań zamiany wykona niezależnie od wejścia? {
   =5.#Prawidłowo. Algorytm wykonuje n-1\=5 przebiegów i jedno wywołanie swap w każdym.
-  ~6.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Algorytm wykonuje n-1\=5 przebiegów i jedno wywołanie swap w każdym.
-  ~15.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Algorytm wykonuje n-1\=5 przebiegów i jedno wywołanie swap w każdym.
-  ~4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Algorytm wykonuje n-1\=5 przebiegów i jedno wywołanie swap w każdym.
+  ~6.#Dla n\=6 standardowy algorytm ma n-1\=5 przebiegów z zamianą, nie cztery.
+  ~15.#Liczba 15 to liczba porównań elementów, a nie wywołań zamiany.
+  ~4.#Cztery zamiany pomijałoby ostatni z n-1 przebiegów podanych w poleceniu.
   ####Poprawna odpowiedź to „5”. Algorytm wykonuje n-1\=5 przebiegów i jedno wywołanie swap w każdym.
 }
 
 ::AISD-18-Q15::[plain]W heapsort rosnącym z kopcem maksymalnym po przeniesieniu maksimum na koniec tablicy jaki jest kolejny krok? {
-  ~Po zamianie maksimum z końcem trzeba powiększyć kopiec, aby odzyskać utracony element.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zmniejszenie zakresu kopca i przywrócenie własności max-heap”. Końcowy element jest już na miejscu; pozostały prefiks trzeba naprawić jako kopiec.
+  ~Po zamianie maksimum z końcem trzeba powiększyć kopiec, aby odzyskać utracony element.#Po usunięciu maksimum kopiec ma mniejszy rozmiar, a nie większy; końcowa część tablicy jest już posortowana.
   =Zmniejszenie zakresu kopca i przywrócenie własności max-heap.#Prawidłowo. Końcowy element jest już na miejscu; pozostały prefiks trzeba naprawić jako kopiec.
-  ~Po zamianie maksimum z końcem wystarczy przeprowadzić sift-up od ostatniego indeksu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zmniejszenie zakresu kopca i przywrócenie własności max-heap”. Końcowy element jest już na miejscu; pozostały prefiks trzeba naprawić jako kopiec.
-  ~Po zamianie maksimum z końcem należy wykonać merge dwóch podtablic.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zmniejszenie zakresu kopca i przywrócenie własności max-heap”. Końcowy element jest już na miejscu; pozostały prefiks trzeba naprawić jako kopiec.
+  ~Po zamianie maksimum z końcem wystarczy przeprowadzić sift-up od ostatniego indeksu.#Po przeniesieniu nowego korzenia z końca często trzeba przesiewać w dół, a nie w górę od końca.
+  ~Po zamianie maksimum z końcem należy wykonać merge dwóch podtablic.#Scalanie podtablic należy do merge sort, a heapsort przywraca własność kopca.
   ####Poprawna odpowiedź to „Zmniejszenie zakresu kopca i przywrócenie własności max-heap”. Końcowy element jest już na miejscu; pozostały prefiks trzeba naprawić jako kopiec.
 }
 
 ::AISD-18-Q16::[plain]Dla tablicy [3,1,2] ile inwersji występuje względem sortowania rosnącego? {
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Inwersjami są pary (3,1) i (3,2).
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Inwersjami są pary (3,1) i (3,2).
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Inwersjami są pary (3,1) i (3,2).
+  ~1#W [3,1,2] są dwie pary w odwrotnej kolejności: (3,1) i (3,2), nie jedna.
+  ~3#Pomiędzy 1 i 2 nie ma inwersji, więc wszystkich trzech par nie można zliczać.
+  ~0#Element 3 poprzedza dwie mniejsze liczby, zatem są dwie inwersje, nie zero.
   =2#Prawidłowo. Inwersjami są pary (3,1) i (3,2).
   ####Poprawna odpowiedź to „2”. Inwersja to para pozycji i<j, dla której wcześniejszy element jest większy od późniejszego. W tablicy [3,1,2] są dwie takie pary: (3,1) oraz (3,2).
 }
 
 ::AISD-18-Q17::[plain]Dla standardowego insertion sort z przesuwaniem większych elementów ile przesunięć wymaga [4,3,2,1]? {
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Każda z sześciu inwersji odpowiada jednemu przesunięciu większego elementu.
+  ~4#Cztery przesunięcia nie wystarczą: w odwrotnym porządku kolejne elementy wymagają 1,2,3 przesunięć.
   =6#Prawidłowo. Każda z sześciu inwersji odpowiada jednemu przesunięciu większego elementu.
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Każda z sześciu inwersji odpowiada jednemu przesunięciu większego elementu.
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Każda z sześciu inwersji odpowiada jednemu przesunięciu większego elementu.
+  ~3#Trzy to liczba wstawianych po pierwszym elementów, nie suma przesunięć 1+2+3.
+  ~8#Osiem przekracza rzeczywistą liczbę sześciu par inwersji dla czterech elementów.
   ####Poprawna odpowiedź to „6”. Każda z sześciu inwersji odpowiada jednemu przesunięciu większego elementu.
 }
 
 ::AISD-18-Q18::[plain]Selection sort i insertion sort otrzymują już posortowane n-elementowe wejście. Jaki wniosek jest prawdziwy dla standardowych implementacji? {
-  ~Oba zawsze wykonują Θ(n²) porównań.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Selection sort pozostaje Θ(n²), a insertion sort może zakończyć pracę w Θ(n)”. Selection sort nadal wyszukuje minima, a insertion sort może szybko stwierdzić, że każdy następny klucz jest na właściwym miejscu.
-  ~Selection sort zawsze kończy się w Θ(n), a insertion sort w Θ(n²).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Selection sort pozostaje Θ(n²), a insertion sort może zakończyć pracę w Θ(n)”. Selection sort nadal wyszukuje minima, a insertion sort może szybko stwierdzić, że każdy następny klucz jest na właściwym miejscu.
-  ~Oba pracują w Θ(1), bo wejście nie wymaga zmian.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Selection sort pozostaje Θ(n²), a insertion sort może zakończyć pracę w Θ(n)”. Selection sort nadal wyszukuje minima, a insertion sort może szybko stwierdzić, że każdy następny klucz jest na właściwym miejscu.
+  ~Oba zawsze wykonują Θ(n²) porównań.#Selection sort nadal wykonuje Θ(n²) porównań, nawet gdy wejście jest już posortowane.
+  ~Selection sort zawsze kończy się w Θ(n), a insertion sort w Θ(n²).#Dla posortowanego wejścia insertion sort wykonuje tylko liniową liczbę sprawdzeń, a selection sort kwadratową.
+  ~Oba pracują w Θ(1), bo wejście nie wymaga zmian.#Samo sprawdzenie, że n elementów jest uporządkowanych, wymaga pracy zależnej od n, więc nie Θ(1).
   =Selection sort pozostaje Θ(n²), a insertion sort może zakończyć pracę w Θ(n).#Prawidłowo. Selection sort nadal wyszukuje minima, a insertion sort może szybko stwierdzić, że każdy następny klucz jest na właściwym miejscu.
   ####Poprawna odpowiedź to „Selection sort pozostaje Θ(n²), a insertion sort może zakończyć pracę w Θ(n)”. Selection sort nadal wyszukuje minima, a insertion sort może szybko stwierdzić, że każdy następny klucz jest na właściwym miejscu.
 }
 
-::AISD-18-Q19::[plain]Podczas stabilnego sortowania przez scalanie łączymy [(2,A),(4,B)] i [(2,C),(3,D)] według rosnącego klucza. Który rekord z kluczem 2 trafi do wyniku jako pierwszy? {
-  ~(2,C)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(2,A)”. Przy remisie stabilny merge pobiera rekord z lewej połowy, zachowując porządek pierwotny.
-  ~(4,B)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(2,A)”. Przy remisie stabilny merge pobiera rekord z lewej połowy, zachowując porządek pierwotny.
-  ~(3,D)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „(2,A)”. Przy remisie stabilny merge pobiera rekord z lewej połowy, zachowując porządek pierwotny.
-  =(2,A)#Prawidłowo. Przy remisie stabilny merge pobiera rekord z lewej połowy, zachowując porządek pierwotny.
-  ####Poprawna odpowiedź to „(2,A)”. Przy remisie stabilny merge pobiera rekord z lewej połowy, zachowując porządek pierwotny.
+::AISD-18-Q19::[plain]Scalamy stabilnie lewy ciąg [(1,A),(2,B)] i prawy [(1,C),(2,D)], uprzednio uporządkowane według klucza. Jaka jest pełna kolejność wynikowa? {
+  ~[(1,C),(1,A),(2,B),(2,D)].#Przy równych kluczach 1 wybieramy najpierw rekord A z lewej listy, a nie C z prawej.
+  ~[(1,A),(2,B),(1,C),(2,D)].#Po dwóch jedynkach nadal trzeba zachować rosnący porządek, więc dwójki nie mogą poprzedzać drugiej jedynki.
+  ~[(1,A),(1,C),(2,D),(2,B)].#Przy równych dwójkach stabilne scalanie wybiera rekord B z lewej przed D z prawej.
+  =[(1,A),(1,C),(2,B),(2,D)].#Prawidłowo. Dla równych kluczy wybieramy element lewego ciągu; zachowujemy także rosnącą kolejność kluczy.
+  ####Poprawna odpowiedź to „[(1,A),(1,C),(2,B),(2,D)]”. Przy remisie stabilne scalanie wybiera rekord z lewego ciągu. Wynik ma rosnące klucze 1,1,2,2 i zachowuje ich kolejność źródłową.
 }
 
 ::AISD-18-Q20::[plain]Scalamy rosnące listy [1,4,7] oraz [2,3,8] przez porównanie pierwszych niewykorzystanych elementów. Ile porównań wykona ten konkretny przebieg, kończący po wyczerpaniu jednej listy? {
   =5.#Prawidłowo. Porównania: 1:2, 4:2, 4:3, 4:8, 7:8. Po pięciu porównaniach lewa lista się wyczerpuje, a resztę prawej można dopisać.
-  ~4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Porównania: 1:2, 4:2, 4:3, 4:8, 7:8. Po pięciu porównaniach lewa lista się wyczerpuje, a resztę prawej można dopisać.
-  ~6.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Porównania: 1:2, 4:2, 4:3, 4:8, 7:8. Po pięciu porównaniach lewa lista się wyczerpuje, a resztę prawej można dopisać.
-  ~9.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Porównania: 1:2, 4:2, 4:3, 4:8, 7:8. Po pięciu porównaniach lewa lista się wyczerpuje, a resztę prawej można dopisać.
+  ~4.#Po czterech porównaniach jedna lista nadal nie jest wyczerpana: pozostają 7 i 8.
+  ~6.#Algorytm kończy porównywanie po wyczerpaniu jednej listy, więc nie musi porównywać pozostałego elementu.
+  ~9.#Dziewięć byłoby zbyt dużą liczbą, bo łączna długość obu list wynosi sześć.
   ####Poprawna odpowiedź to „5”. Porównania: 1:2, 4:2, 4:3, 4:8, 7:8. Po pięciu porównaniach lewa lista się wyczerpuje, a resztę prawej można dopisać.
 }
 
