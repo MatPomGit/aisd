@@ -1,164 +1,164 @@
 // AIiSD 06: Tablice jednowymiarowe
-// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
+// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-06-Q01::[plain]Tablica A\=[2,3,2,5,2]. Usuwamy pierwsze wystąpienie wartości 2, zachowując kolejność pozostałych elementów. Jaki wynik otrzymamy? {
-  ~[3,2,5,2,2]
-  =[3,2,5,2]
-  ~[2,3,5,2]
-  ~[3,2,2,5]
-  ####Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
+  ~[3,2,5,2,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[3,2,5,2]”. Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
+  =[3,2,5,2]#Prawidłowo. Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
+  ~[2,3,5,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[3,2,5,2]”. Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
+  ~[3,2,2,5]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[3,2,5,2]”. Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
+  ####Poprawna odpowiedź to „[3,2,5,2]”. Usuwany jest element o indeksie 0; wszystkie późniejsze elementy przesuwają się o jedną pozycję w lewo.
 }
 
 ::AISD-06-Q02::[plain]Tablica A\=[2,4,6,8] ma wolną komórkę na końcu. Chcemy wstawić 5 na indeks 2, zachowując kolejność. W którą stronę trzeba przesuwać istniejące elementy? {
-  ~Od indeksu 2 w prawo, zaczynając od przepisania A[2] do A[3].
-  =Od ostatniego zajętego indeksu 3 do indeksu 2, przenosząc elementy o jedną pozycję w prawo.
-  ~Zaczynając od indeksu 0, aby uniknąć nadpisania A[2].
-  ~Nie trzeba przesuwać elementów, bo na końcu istnieje wolna komórka.
-  ####Przesuwanie od końca chroni przed nadpisaniem jeszcze nieprzeniesionych wartości. Wynik po wstawieniu to [2,4,5,6,8].
+  ~Od indeksu 2 w prawo, zaczynając od przepisania A[2] do A[3].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Od ostatniego zajętego indeksu 3 do indeksu 2, przenosząc elementy o jedną pozycję w prawo.”. Przesuwanie od końca chroni przed nadpisaniem jeszcze nieprzeniesionych wartości.
+  =Od ostatniego zajętego indeksu 3 do indeksu 2, przenosząc elementy o jedną pozycję w prawo.#Prawidłowo. Przesuwanie od końca chroni przed nadpisaniem jeszcze nieprzeniesionych wartości.
+  ~Zaczynając od indeksu 0, aby uniknąć nadpisania A[2].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Od ostatniego zajętego indeksu 3 do indeksu 2, przenosząc elementy o jedną pozycję w prawo.”. Przesuwanie od końca chroni przed nadpisaniem jeszcze nieprzeniesionych wartości.
+  ~Nie trzeba przesuwać elementów, bo na końcu istnieje wolna komórka.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Od ostatniego zajętego indeksu 3 do indeksu 2, przenosząc elementy o jedną pozycję w prawo.”. Przesuwanie od końca chroni przed nadpisaniem jeszcze nieprzeniesionych wartości.
+  ####Poprawna odpowiedź to „Od ostatniego zajętego indeksu 3 do indeksu 2, przenosząc elementy o jedną pozycję w prawo.”. Przesuwanie od końca chroni przed nadpisaniem jeszcze nieprzeniesionych wartości. Wynik po wstawieniu to [2,4,5,6,8].
 }
 
 ::AISD-06-Q03::[plain]W nieuporządkowanej tablicy n różnych liczb chcemy sprawdzić obecność klucza. Jaka jest liczba porównań w najgorszym przypadku dla wyszukiwania liniowego? {
-  ~n-1 porównań
-  ~ceil(log₂ n) porównań
-  ~n(n-1)/2 porównań
-  =n porównań
-  ####Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
+  ~n-1 porównań#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n porównań”. Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
+  ~ceil(log₂ n) porównań#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n porównań”. Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
+  ~n(n-1)/2 porównań#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n porównań”. Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
+  =n porównań#Prawidłowo. Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
+  ####Poprawna odpowiedź to „n porównań”. Gdy klucza nie ma albo znajduje się na końcu, wszystkie elementy muszą zostać porównane.
 }
 
 ::AISD-06-Q04::[plain]Tablica dynamiczna ma długość 3 i pojemność 5. Dodajemy dwa elementy, po czym usuwamy ostatni bez zmniejszania bufora. Który stan otrzymamy? {
-  ~Długość 5 i pojemność 4.
-  ~Długość 4 i pojemność 4.
-  ~Długość 3 i pojemność 5.
-  =Długość 4 i pojemność 5.
-  ####Po dwóch dopisaniach długość wynosi 5, a po usunięciu 4. Pojemność nie musi zmieniać się przy żadnej z tych operacji.
+  ~Długość 5 i pojemność 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Długość 4 i pojemność 5.”. Po dwóch dopisaniach długość wynosi 5, a po usunięciu 4. Pojemność nie musi zmieniać się przy żadnej z tych operacji.
+  ~Długość 4 i pojemność 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Długość 4 i pojemność 5.”. Po dwóch dopisaniach długość wynosi 5, a po usunięciu 4. Pojemność nie musi zmieniać się przy żadnej z tych operacji.
+  ~Długość 3 i pojemność 5.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Długość 4 i pojemność 5.”. Po dwóch dopisaniach długość wynosi 5, a po usunięciu 4. Pojemność nie musi zmieniać się przy żadnej z tych operacji.
+  =Długość 4 i pojemność 5.#Prawidłowo. Po dwóch dopisaniach długość wynosi 5, a po usunięciu 4. Pojemność nie musi zmieniać się przy żadnej z tych operacji.
+  ####Poprawna odpowiedź to „Długość 4 i pojemność 5.”. Po dwóch dopisaniach długość wynosi 5, a po usunięciu 4. Pojemność nie musi zmieniać się przy żadnej z tych operacji.
 }
 
 ::AISD-06-Q05::[plain]Aby odwrócić tablicę n elementów w miejscu przez zamiany par skrajnych pozycji, ile zamian potrzeba? {
-  ~ceil(n/2)
-  ~n-1
-  =floor(n/2)
-  ~floor((n-1)/2)
-  ####Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
+  ~ceil(n/2)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „floor(n/2)”. Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
+  ~n-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „floor(n/2)”. Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
+  =floor(n/2)#Prawidłowo. Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
+  ~floor((n-1)/2)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „floor(n/2)”. Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
+  ####Poprawna odpowiedź to „floor(n/2)”. Każda zamiana ustawia dwa elementy; przy nieparzystym n element środkowy pozostaje na miejscu.
 }
 
 ::AISD-06-Q06::[plain]Dla tablicy A i listy jednokierunkowej L przechowujących n elementów wykonujemy wielokrotnie odczyt elementu o indeksie n-1, nie zmieniając danych. Która reprezentacja zwykle oferuje mniejszy koszt pojedynczego odczytu i dlaczego? {
-  ~Lista, bo jej wskaźniki zapewniają dostęp w Θ(1) do każdego indeksu.
-  ~Obie, bo ostatni element zawsze odczytuje się bez przechodzenia struktury.
-  =Tablica, bo adres elementu można obliczyć w Θ(1), a lista wymaga przejścia węzłów.
-  ~Lista, bo jej węzły mają zawsze kolejne adresy pamięci.
-  ####Przy dostępie swobodnym indeks tablicy umożliwia bezpośrednie wyznaczenie adresu. Lista bez dodatkowego indeksu wymaga przejścia od głowy.
+  ~Lista, bo jej wskaźniki zapewniają dostęp w Θ(1) do każdego indeksu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica, bo adres elementu można obliczyć w Θ(1), a lista wymaga przejścia węzłów.”. Przy dostępie swobodnym indeks tablicy umożliwia bezpośrednie wyznaczenie adresu.
+  ~Obie, bo ostatni element zawsze odczytuje się bez przechodzenia struktury.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica, bo adres elementu można obliczyć w Θ(1), a lista wymaga przejścia węzłów.”. Przy dostępie swobodnym indeks tablicy umożliwia bezpośrednie wyznaczenie adresu.
+  =Tablica, bo adres elementu można obliczyć w Θ(1), a lista wymaga przejścia węzłów.#Prawidłowo. Przy dostępie swobodnym indeks tablicy umożliwia bezpośrednie wyznaczenie adresu.
+  ~Lista, bo jej węzły mają zawsze kolejne adresy pamięci.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Tablica, bo adres elementu można obliczyć w Θ(1), a lista wymaga przejścia węzłów.”. Przy dostępie swobodnym indeks tablicy umożliwia bezpośrednie wyznaczenie adresu.
+  ####Poprawna odpowiedź to „Tablica, bo adres elementu można obliczyć w Θ(1), a lista wymaga przejścia węzłów.”. Przy dostępie swobodnym indeks tablicy umożliwia bezpośrednie wyznaczenie adresu. Lista bez dodatkowego indeksu wymaga przejścia od głowy.
 }
 
 ::AISD-06-Q07::[plain]Tablica nieuporządkowana przechowuje n elementów, a kolejność nie ma znaczenia. Jak usunąć element A[k] w Θ(1), gdy znamy k i n>0? {
-  =Zastąpić A[k] wartością ostatniego elementu i zmniejszyć długość.
-  ~Przesunąć wszystkie elementy po k o jedną pozycję w lewo.
-  ~Przesortować tablicę, a następnie wykonać wyszukiwanie binarne.
-  ~Utworzyć kopię tablicy bez A[k], zachowując kolejność.
-  ####Gdy kolejność nie jest wymagana, można zastąpić usuwany element ostatnim i zmniejszyć długość, unikając przesuwania całego sufiksu.
+  =Zastąpić A[k] wartością ostatniego elementu i zmniejszyć długość.#Prawidłowo. Gdy kolejność nie jest wymagana, można zastąpić usuwany element ostatnim i zmniejszyć długość, unikając przesuwania całego sufiksu.
+  ~Przesunąć wszystkie elementy po k o jedną pozycję w lewo.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zastąpić A[k] wartością ostatniego elementu i zmniejszyć długość.”. Gdy kolejność nie jest wymagana, można zastąpić usuwany element ostatnim i zmniejszyć długość, unikając przesuwania całego sufiksu.
+  ~Przesortować tablicę, a następnie wykonać wyszukiwanie binarne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zastąpić A[k] wartością ostatniego elementu i zmniejszyć długość.”. Gdy kolejność nie jest wymagana, można zastąpić usuwany element ostatnim i zmniejszyć długość, unikając przesuwania całego sufiksu.
+  ~Utworzyć kopię tablicy bez A[k], zachowując kolejność.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zastąpić A[k] wartością ostatniego elementu i zmniejszyć długość.”. Gdy kolejność nie jest wymagana, można zastąpić usuwany element ostatnim i zmniejszyć długość, unikając przesuwania całego sufiksu.
+  ####Poprawna odpowiedź to „Zastąpić A[k] wartością ostatniego elementu i zmniejszyć długość.”. Gdy kolejność nie jest wymagana, można zastąpić usuwany element ostatnim i zmniejszyć długość, unikając przesuwania całego sufiksu.
 }
 
 ::AISD-06-Q08::[plain]Tablica dynamiczna podwaja pojemność po zapełnieniu. Dlaczego dopisanie na końcu ma amortyzowany koszt O(1), mimo że pojedyncze dopisanie może kosztować Θ(n)? {
-  ~Ponieważ przy każdej operacji kopiuje się dokładnie jeden element.
-  =Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).
-  ~Ponieważ podczas realokacji pojemność nigdy nie wzrasta ponad n.
-  ~Ponieważ operacja kopiowania n elementów ma stały koszt w modelu RAM.
-  ####Przy podwajaniu pojemności koszt pojedynczej realokacji może być liniowy, ale łączny koszt kopiowania elementów podczas n dopisań wynosi O(n). Dlatego amortyzowany koszt pojedynczego dopisania to O(1).
+  ~Ponieważ przy każdej operacji kopiuje się dokładnie jeden element.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).”. Przy podwajaniu pojemności koszt pojedynczej realokacji może być liniowy, ale łączny koszt kopiowania elementów podczas n dopisań wynosi O(n).
+  =Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).#Prawidłowo. Przy podwajaniu pojemności koszt pojedynczej realokacji może być liniowy, ale łączny koszt kopiowania elementów podczas n dopisań wynosi O(n).
+  ~Ponieważ podczas realokacji pojemność nigdy nie wzrasta ponad n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).”. Przy podwajaniu pojemności koszt pojedynczej realokacji może być liniowy, ale łączny koszt kopiowania elementów podczas n dopisań wynosi O(n).
+  ~Ponieważ operacja kopiowania n elementów ma stały koszt w modelu RAM.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).”. Przy podwajaniu pojemności koszt pojedynczej realokacji może być liniowy, ale łączny koszt kopiowania elementów podczas n dopisań wynosi O(n).
+  ####Poprawna odpowiedź to „Ponieważ najdroższe realokacje występują rzadko, a łączny koszt kopiowania w serii n dopisań jest O(n).”. Przy podwajaniu pojemności koszt pojedynczej realokacji może być liniowy, ale łączny koszt kopiowania elementów podczas n dopisań wynosi O(n). Dlatego amortyzowany koszt pojedynczego dopisania to O(1).
 }
 
 ::AISD-06-Q09::[plain]Pętla ma policzyć wystąpienia x w A\=[3,3,2,3], ale po znalezieniu A[i]\=x zwiększa i o 2, a w pozostałych przypadkach o 1. Jaki wynik zwróci dla x\=3 i na czym polega błąd? {
-  ~3; algorytm prawidłowo liczy wszystkie trafienia.
-  =2; pomija elementy bezpośrednio po trafieniu, w tym drugie 3.
-  ~1; pomija wszystkie kolejne trafienia po pierwszym.
-  ~4; błędnie liczy elementy różne od x.
-  ####Dla i\=0 algorytm liczy 3 i przechodzi na i\=2; pomija A[1]\=3. Następnie przechodzi na i\=3 i liczy kolejne 3, razem 2 zamiast 3.
+  ~3; algorytm prawidłowo liczy wszystkie trafienia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2; pomija elementy bezpośrednio po trafieniu, w tym drugie 3.”. Dla i\=0 algorytm liczy 3 i przechodzi na i\=2; pomija A[1]\=3. Następnie przechodzi na i\=3 i liczy kolejne 3, razem 2 zamiast 3.
+  =2; pomija elementy bezpośrednio po trafieniu, w tym drugie 3.#Prawidłowo. Dla i\=0 algorytm liczy 3 i przechodzi na i\=2; pomija A[1]\=3. Następnie przechodzi na i\=3 i liczy kolejne 3, razem 2 zamiast 3.
+  ~1; pomija wszystkie kolejne trafienia po pierwszym.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2; pomija elementy bezpośrednio po trafieniu, w tym drugie 3.”. Dla i\=0 algorytm liczy 3 i przechodzi na i\=2; pomija A[1]\=3. Następnie przechodzi na i\=3 i liczy kolejne 3, razem 2 zamiast 3.
+  ~4; błędnie liczy elementy różne od x.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2; pomija elementy bezpośrednio po trafieniu, w tym drugie 3.”. Dla i\=0 algorytm liczy 3 i przechodzi na i\=2; pomija A[1]\=3. Następnie przechodzi na i\=3 i liczy kolejne 3, razem 2 zamiast 3.
+  ####Poprawna odpowiedź to „2; pomija elementy bezpośrednio po trafieniu, w tym drugie 3.”. Dla i\=0 algorytm liczy 3 i przechodzi na i\=2; pomija A[1]\=3. Następnie przechodzi na i\=3 i liczy kolejne 3, razem 2 zamiast 3.
 }
 
 ::AISD-06-Q10::[plain]Z tablicy A\=[5,8,2,6] usuwamy element o indeksie 1, przesuwając pozostałe w lewo. Jaką zawartość ma tablica po zmniejszeniu jej długości do trzech elementów? {
-  ~[8,2,6]
-  ~[5,8,6]
-  =[5,2,6]
-  ~[5,6,2]
-  ####Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
+  ~[8,2,6]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[5,2,6]”. Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
+  ~[5,8,6]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[5,2,6]”. Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
+  =[5,2,6]#Prawidłowo. Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
+  ~[5,6,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[5,2,6]”. Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
+  ####Poprawna odpowiedź to „[5,2,6]”. Usuwane jest 8; następne elementy 2 i 6 przesuwają się w lewo.
 }
 
 ::AISD-06-Q11::[plain]Tablica A\=[2,4,6,8] jest indeksowana od zera. Wstawiamy liczbę 5 na indeks 2, zachowując kolejność. Co powstaje? {
-  =[2,4,5,6,8]
-  ~[2,5,4,6,8]
-  ~[2,4,6,5,8]
-  ~[2,4,6,8,5]
-  ####Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
+  =[2,4,5,6,8]#Prawidłowo. Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
+  ~[2,5,4,6,8]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,4,5,6,8]”. Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
+  ~[2,4,6,5,8]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,4,5,6,8]”. Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
+  ~[2,4,6,8,5]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,4,5,6,8]”. Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
+  ####Poprawna odpowiedź to „[2,4,5,6,8]”. Przed indeksem 2 pozostają 2 i 4, potem nowa 5, a istniejące 6 i 8 przesuwają się w prawo.
 }
 
 ::AISD-06-Q12::[plain]Wyszukiwanie binarne wartości 11 w posortowanej tablicy [1,3,5,7,9,11,13] rozpoczyna się od przedziału domkniętego [0,6]. Jakie indeksy środkowe zostaną sprawdzone przy m\=floor((l+r)/2)? {
-  ~3,4,5
-  ~3,6,5
-  =3,5
-  ~2,4,5
-  ####Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
+  ~3,4,5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3,5”. Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
+  ~3,6,5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3,5”. Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
+  =3,5#Prawidłowo. Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
+  ~2,4,5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3,5”. Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
+  ####Poprawna odpowiedź to „3,5”. Pierwszy środek ma indeks 3 i wartość 7; po odrzuceniu lewej części środek [4,6] wynosi 5.
 }
 
 ::AISD-06-Q13::[plain]Pusta dynamiczna tablica ma pojemność 2 i przy przepełnieniu podwaja pojemność. Jaką pojemność ma po zapisaniu piątego elementu? {
-  ~5
-  ~4
-  ~16
-  =8
-  ####Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
+  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
+  ~16#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
+  =8#Prawidłowo. Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
+  ####Poprawna odpowiedź to „8”. Pojemności po kolejnych realokacjach: 2,4 i 8; piąty element wymaga pojemności 8.
 }
 
 ::AISD-06-Q14::[plain]Tablica A\=[4,7,2,9,1] ma pięć elementów. Usuwamy A[1] w zwartej tablicy, zachowując kolejność. Która sekwencja przypisań jest poprawna? {
-  =A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.
-  ~A[1]\=A[0]; A[2]\=A[1]; A[3]\=A[2].
-  ~A[4]\=A[3]; A[3]\=A[2]; A[2]\=A[1]; zmniejsz długość do 4.
-  ~Zmień długość na 4 bez przesuwania elementów, bo usunięta pozycja jest wewnętrzna.
-  ####Elementy po usuwanej pozycji muszą przesunąć się o jeden indeks w lewo, w kolejności rosnących indeksów, zanim zmniejszymy długość logiczną.
+  =A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.#Prawidłowo. Elementy po usuwanej pozycji muszą przesunąć się o jeden indeks w lewo, w kolejności rosnących indeksów, zanim zmniejszymy długość logiczną.
+  ~A[1]\=A[0]; A[2]\=A[1]; A[3]\=A[2].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.”. Elementy po usuwanej pozycji muszą przesunąć się o jeden indeks w lewo, w kolejności rosnących indeksów, zanim zmniejszymy długość logiczną.
+  ~A[4]\=A[3]; A[3]\=A[2]; A[2]\=A[1]; zmniejsz długość do 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.”. Elementy po usuwanej pozycji muszą przesunąć się o jeden indeks w lewo, w kolejności rosnących indeksów, zanim zmniejszymy długość logiczną.
+  ~Zmień długość na 4 bez przesuwania elementów, bo usunięta pozycja jest wewnętrzna.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.”. Elementy po usuwanej pozycji muszą przesunąć się o jeden indeks w lewo, w kolejności rosnących indeksów, zanim zmniejszymy długość logiczną.
+  ####Poprawna odpowiedź to „A[1]\=A[2]; A[2]\=A[3]; A[3]\=A[4]; zmniejsz długość do 4.”. Elementy po usuwanej pozycji muszą przesunąć się o jeden indeks w lewo, w kolejności rosnących indeksów, zanim zmniejszymy długość logiczną.
 }
 
 ::AISD-06-Q15::[plain]Tablica A\=[4,1,9,2]. Odwracamy ją w miejscu, zamieniając pary skrajne. Co otrzymamy po pierwszej zamianie? {
-  ~[2,9,1,4]
-  ~[4,9,1,2]
-  ~[1,4,9,2]
-  =[2,1,9,4]
-  ####Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
+  ~[2,9,1,4]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,1,9,4]”. Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
+  ~[4,9,1,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,1,9,4]”. Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
+  ~[1,4,9,2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,1,9,4]”. Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
+  =[2,1,9,4]#Prawidłowo. Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
+  ####Poprawna odpowiedź to „[2,1,9,4]”. Pierwsza zamiana dotyczy pozycji 0 i 3; pozostałe pozostają niezmienione.
 }
 
 ::AISD-06-Q16::[plain]W posortowanej tablicy A \= [2,2,2,3,3,4] procedura lower_bound(3) zwraca indeks pierwszego elementu nie mniejszego niż 3. Który indeks powinna zwrócić? {
-  ~Zwrócić indeks 4, bo ostatnie dopasowanie jest prawą granicą.
-  ~Zwrócić indeks 5, bo 4 jest pierwszą wartością większą niż 3.
-  =Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.
-  ~Zwrócić -1, bo duplikaty naruszają założenia wyszukiwania binarnego.
-  ####Pierwszym elementem nie mniejszym niż 3 jest A[3], dlatego procedura zwraca indeks 3, nawet jeśli jej pierwsze porównanie wykryło wartość 3 pod innym indeksem.
+  ~Zwrócić indeks 4, bo ostatnie dopasowanie jest prawą granicą.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.”. Pierwszym elementem nie mniejszym niż 3 jest A[3], dlatego procedura zwraca indeks 3, nawet jeśli jej pierwsze porównanie wykryło wartość 3 pod innym indeksem.
+  ~Zwrócić indeks 5, bo 4 jest pierwszą wartością większą niż 3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.”. Pierwszym elementem nie mniejszym niż 3 jest A[3], dlatego procedura zwraca indeks 3, nawet jeśli jej pierwsze porównanie wykryło wartość 3 pod innym indeksem.
+  =Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.#Prawidłowo. Pierwszym elementem nie mniejszym niż 3 jest A[3], dlatego procedura zwraca indeks 3, nawet jeśli jej pierwsze porównanie wykryło wartość 3 pod innym indeksem.
+  ~Zwrócić -1, bo duplikaty naruszają założenia wyszukiwania binarnego.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.”. Pierwszym elementem nie mniejszym niż 3 jest A[3], dlatego procedura zwraca indeks 3, nawet jeśli jej pierwsze porównanie wykryło wartość 3 pod innym indeksem.
+  ####Poprawna odpowiedź to „Zwrócić indeks 3, nawet gdy środkowy element pierwszego trafienia ma indeks 4.”. Pierwszym elementem nie mniejszym niż 3 jest A[3], dlatego procedura zwraca indeks 3, nawet jeśli jej pierwsze porównanie wykryło wartość 3 pod innym indeksem.
 }
 
 ::AISD-06-Q17::[plain]Dla A\=[1,4,2,4,3] ile wyniesie wynik pętli s\=0; dla i od 0 do 4: jeśli A[i]>2, s\=s+1? {
-  ~2
-  ~4
-  ~5
-  =3
-  ####Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
+  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
+  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
+  =3#Prawidłowo. Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
+  ####Poprawna odpowiedź to „3”. Warunek spełniają wartości 4,4,3, zatem licznik wzrasta trzy razy.
 }
 
 ::AISD-06-Q18::[plain]Tablica dynamiczna ma długość 7 i pojemność 8. Dopisujemy 2 elementy; po zapełnieniu bufor podwaja pojemność. Ile elementów trzeba skopiować podczas pierwszej realokacji? {
-  =8, bo dopiero dziewiąty element przekracza pojemność 8.
-  ~7, bo tyle elementów było przed obiema operacjami.
-  ~9, bo pojemność powiększa się po zapisaniu dziewiątego.
-  ~16, bo tyle wynosi pojemność nowego bufora.
-  ####Pierwsze dopisanie zwiększa długość do 8 bez realokacji. Przed dodaniem dziewiątego elementu trzeba przenieść osiem już zapisanych.
+  =8, bo dopiero dziewiąty element przekracza pojemność 8.#Prawidłowo. Pierwsze dopisanie zwiększa długość do 8 bez realokacji. Przed dodaniem dziewiątego elementu trzeba przenieść osiem już zapisanych.
+  ~7, bo tyle elementów było przed obiema operacjami.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8, bo dopiero dziewiąty element przekracza pojemność 8.”. Pierwsze dopisanie zwiększa długość do 8 bez realokacji. Przed dodaniem dziewiątego elementu trzeba przenieść osiem już zapisanych.
+  ~9, bo pojemność powiększa się po zapisaniu dziewiątego.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8, bo dopiero dziewiąty element przekracza pojemność 8.”. Pierwsze dopisanie zwiększa długość do 8 bez realokacji. Przed dodaniem dziewiątego elementu trzeba przenieść osiem już zapisanych.
+  ~16, bo tyle wynosi pojemność nowego bufora.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8, bo dopiero dziewiąty element przekracza pojemność 8.”. Pierwsze dopisanie zwiększa długość do 8 bez realokacji. Przed dodaniem dziewiątego elementu trzeba przenieść osiem już zapisanych.
+  ####Poprawna odpowiedź to „8, bo dopiero dziewiąty element przekracza pojemność 8.”. Pierwsze dopisanie zwiększa długość do 8 bez realokacji. Przed dodaniem dziewiątego elementu trzeba przenieść osiem już zapisanych.
 }
 
 ::AISD-06-Q19::[plain]Jaką liczbę porównań wykona wyszukiwanie liniowe wartości 6 w [5,4,6,6], kończące po pierwszym trafieniu? {
-  =3
-  ~2
-  ~4
-  ~1
-  ####Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
+  =3#Prawidłowo. Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
+  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
+  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
+  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
+  ####Poprawna odpowiedź to „3”. Wartości 5 i 4 są różne od 6; trzecia próba znajduje pierwszą 6.
 }
 
 ::AISD-06-Q20::[plain]Tablica A\=[3,1,4,1,5] ma indeksy od zera. Pętla i\=4; dopóki i>\=0: wypisz A[i]; i\=i-2. Jaki ciąg zostanie wypisany? {
-  ~5,1,3
-  =5,4,3
-  ~3,4,5
-  ~5,1,1
-  ####Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
+  ~5,1,3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5,4,3”. Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
+  =5,4,3#Prawidłowo. Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
+  ~3,4,5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5,4,3”. Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
+  ~5,1,1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5,4,3”. Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
+  ####Poprawna odpowiedź to „5,4,3”. Odczyty następują dla indeksów 4,2,0, czyli wartości 5,4,3.
 }
 
