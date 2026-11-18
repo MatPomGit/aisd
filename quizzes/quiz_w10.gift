@@ -79,7 +79,7 @@
   ~-15#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Najpierw 2·3\=6, a następnie 7-6\=1.
   =1#Prawidłowo. Najpierw 2·3\=6, a następnie 7-6\=1.
   ~-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Najpierw 2·3\=6, a następnie 7-6\=1.
-  ####Poprawna odpowiedź to „1”. Najpierw 2·3\=6, a następnie 7-6\=1.
+  ####Poprawna odpowiedź to „1”. W zapisie postfiksowym operator działa na dwóch wcześniejszych operandach. Najpierw obliczamy 2·3\=6, następnie 7-6\=1.
 }
 
 ::AISD-10-Q11::[plain]Jaki jest maksymalny rozmiar stosu podczas sprawdzania poprawności ciągu nawiasów '([\{\}])'? {
@@ -127,7 +127,7 @@
   ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. 8/4\=2, następnie 2+2\=4.
   =4#Prawidłowo. 8/4\=2, następnie 2+2\=4.
   ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. 8/4\=2, następnie 2+2\=4.
-  ####Poprawna odpowiedź to „4”. 8/4\=2, następnie 2+2\=4.
+  ####Poprawna odpowiedź to „4”. W zapisie postfiksowym najpierw wykonujemy dzielenie 8/4\=2, odkładamy wynik na stos i dodajemy kolejne 2. Ostatecznie otrzymujemy 4.
 }
 
 ::AISD-10-Q17::[plain]Przekształcamy wyrażenie infiksowe '2 * 3 + 4' na postfiksowe. Po odczytaniu '2 * 3' na stosie operatorów jest tylko '*', a bieżącym operatorem jest '+'. Co zrobić przed odłożeniem '+'? {
