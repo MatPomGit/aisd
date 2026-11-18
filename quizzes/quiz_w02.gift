@@ -1,5 +1,5 @@
 // AIiSD 02: Maszyna RAM
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-02-Q01::[plain]W maszynie RAM przyjmujemy: LOAD r ustawia akumulator na R[r], ADD r dodaje R[r] do akumulatora, STORE r zapisuje akumulator do R[r]. Dla R[2]\=7 i R[3]\=5 wykonano LOAD 2; ADD 3; STORE 4. Ile wynosi R[4]? {
@@ -42,12 +42,12 @@
   ####Poprawna odpowiedź to „Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu”. Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
 }
 
-::AISD-02-Q06::[plain]W programie RAM testuje się warunek c\=0 przed zmniejszeniem całkowitoliczbowego licznika c o 1. Jaki jest najszerszy z poniższych zbiorów wartości początkowych, dla którego program zawsze kończy się bez przepełnienia? {
-  ~Wszystkie liczby całkowite.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wszystkie nieujemne liczby całkowite”. Dla c\=0 program kończy się od razu, a każda dodatnia wartość całkowita dochodzi do zera.
-  ~Tylko dodatnie liczby całkowite.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wszystkie nieujemne liczby całkowite”. Dla c\=0 program kończy się od razu, a każda dodatnia wartość całkowita dochodzi do zera.
-  ~Wszystkie liczby całkowite różne od zera.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wszystkie nieujemne liczby całkowite”. Dla c\=0 program kończy się od razu, a każda dodatnia wartość całkowita dochodzi do zera.
-  =Wszystkie nieujemne liczby całkowite.#Prawidłowo. Dla c\=0 program kończy się od razu, a każda dodatnia wartość całkowita dochodzi do zera.
-  ####Poprawna odpowiedź to „Wszystkie nieujemne liczby całkowite”. Dla c\=0 program kończy się od razu, a każda dodatnia wartość całkowita dochodzi do zera. Wartość ujemna przy dalszym zmniejszaniu nie osiąga zera.
+::AISD-02-Q06::[plain]Program RAM sprawdza przed każdą iteracją warunek c ≠ 0. Gdy jest spełniony, zmniejsza całkowitoliczbowy licznik c o 1 i ponownie sprawdza warunek; w przeciwnym razie kończy działanie. Przyjmujemy dokładną arytmetykę całkowitą bez przepełnienia. Który zbiór obejmuje dokładnie wszystkie wartości początkowe gwarantujące zakończenie? {
+  ~Wszystkie liczby całkowite.#Nie. Dla ujemnego c kolejne zmniejszenia oddalają licznik od zera, więc pętla nie osiągnie warunku zakończenia.
+  ~Tylko dodatnie liczby całkowite.#Nie. Początkowe c równe zero także prowadzi do zakończenia, bez wykonania żadnej iteracji.
+  ~Wszystkie liczby całkowite różne od zera.#Nie. Ten zbiór zawiera wartości ujemne, które przy zmniejszaniu o jeden nie osiągają zera.
+  =Wszystkie nieujemne liczby całkowite.#Prawidłowo. Dla zera program kończy się od razu, a dla dodatniego c licznik po skończonej liczbie iteracji osiąga zero.
+  ####Poprawna odpowiedź to „Wszystkie nieujemne liczby całkowite”. Warunek jest sprawdzany przed zmniejszeniem licznika. Wartość zero powoduje natychmiastowe zakończenie, dodatnia osiąga zero po skończonej liczbie kroków, natomiast ujemna oddala się od zera.
 }
 
 ::AISD-02-Q07::[plain]Tablica A jest indeksowana od 0. Program sumujący ma postać: s :\= 0; dla i od 1 do n-1 wykonuj s :\= s + A[i]. Który test ujawnia błąd polegający na pominięciu pierwszego elementu? {

@@ -1,5 +1,5 @@
 // AIiSD 20: Zaawansowane techniki projektowania algorytmów
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-20-Q01::[plain]Dla monet o nominałach 1,3,4 chcemy wydać kwotę 6 najmniejszą liczbą monet. Dlaczego strategia wybierania zawsze największej dostępnej monety nie jest optymalna? {
@@ -138,12 +138,12 @@
   ####Poprawna odpowiedź to „4”. Trzy skoki długości 2 i jeden długości 1 pokrywają 7 w czterech krokach.
 }
 
-::AISD-20-Q18::[plain]W grafie o dodatnich wagach krawędzi szukamy ścieżki o najmniejszej sumie wag. Dlaczego wybieranie w każdym kroku najtańszej dostępnej krawędzi może prowadzić do nieoptymalnego wyniku? {
-  =Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu.#Prawidłowo. Lokalna ocena nie uwzględnia przyszłych kosztów i nie zapewnia własności wyboru zachłannego.
-  ~Lokalny wybór zawsze daje optimum, jeśli wszystkie koszty są nieujemne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu”. Lokalna ocena nie uwzględnia przyszłych kosztów i nie zapewnia własności wyboru zachłannego.
-  ~Wybór najtańszej krawędzi zapewnia najkrótszą ścieżkę tylko w grafach bez cykli.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu”. Lokalna ocena nie uwzględnia przyszłych kosztów i nie zapewnia własności wyboru zachłannego.
-  ~Łączny koszt przyszłej części ścieżki jest niezależny od obecnego wyboru.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu”. Lokalna ocena nie uwzględnia przyszłych kosztów i nie zapewnia własności wyboru zachłannego.
-  ####Poprawna odpowiedź to „Najtańszy bieżący krok może prowadzić do kosztowniejszego dalszego podproblemu”. Lokalna ocena nie uwzględnia przyszłych kosztów i nie zapewnia własności wyboru zachłannego.
+::AISD-20-Q18::[plain]W skierowanym grafie o dodatnich wagach szukamy ścieżki z S do T o najmniejszej sumie wag. Rozważana strategia w każdym bieżącym wierzchołku wybiera najtańszą krawędź wychodzącą, nie oceniając dalszej trasy. Dlaczego taka strategia nie musi znaleźć ścieżki optymalnej? {
+  =Najtańszy lokalny krok może prowadzić do dalszej trasy droższej niż alternatywny pierwszy krok.#Prawidłowo. Lokalna waga krawędzi nie określa jeszcze całkowitego kosztu dojścia do celu.
+  ~Dodatnie wagi gwarantują, że najtańsza wychodząca krawędź leży na ścieżce optymalnej.#Nie. Dodatniość wag nie gwarantuje własności wyboru zachłannego dla pojedynczych krawędzi wychodzących.
+  ~Brak cykli gwarantuje, że wybór najtańszej krawędzi wychodzącej jest zawsze optymalny.#Nie. Także w grafie acyklicznym tani pierwszy krok może prowadzić do kosztownego dalszego odcinka.
+  ~Koszt pozostałej części ścieżki jest taki sam niezależnie od wybranego sąsiada.#Nie. Różne sąsiednie wierzchołki mogą mieć zupełnie inne minimalne koszty dotarcia do celu.
+  ####Poprawna odpowiedź to „Najtańszy lokalny krok może prowadzić do dalszej trasy droższej niż alternatywny pierwszy krok”. Przykładowo S→A ma wagę 1, A→T wagę 100, S→B wagę 2, a B→T wagę 2. Lokalny wybór S→A daje trasę o koszcie 101, podczas gdy S→B→T kosztuje 4.
 }
 
 ::AISD-20-Q19::[plain]W DP z tabelą o wymiarach (n+1)×(C+1), dla n>\=1 i C>\=1, jaka jest pamięć potrzebna do przechowania całej tabeli? {
