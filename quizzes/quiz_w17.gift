@@ -1,5 +1,5 @@
 // AIiSD 17: Teoria i klasyfikacja sortowania
-// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-17-Q01::[plain]Sortujemy stabilnie rekordy (2,A),(1,B),(2,C) według klucza rosnąco. Który wynik zachowuje porządek rekordów o równych kluczach? {
@@ -154,11 +154,11 @@
   ####Poprawna odpowiedź to „Stabilność opisuje kolejność równych kluczy, a adaptacyjność zależność kosztu od uporządkowania wejścia”. Są to niezależne własności: jedna dotyczy wyniku, druga kosztu wykonania.
 }
 
-::AISD-17-Q20::[plain]Student twierdzi, że liczba porównań przy sortowaniu n różnych kluczy musi być większa niż 2^n dla dużych n, bo istnieje n! permutacji. Które wyjaśnienie naprawia wnioskowanie? {
-  ~Liczba permutacji n! nie wpływa na liczbę porównań w żadnym modelu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewo decyzji potrzebuje około log₂(n!) porównań, a nie n!; daje to dolne ograniczenie Ω(n log n)”. Drzewo decyzji musi mieć n! liści, ale wysokość rośnie jak log₂(n!), nie jak liczba liści.
-  =Drzewo decyzji potrzebuje około log₂(n!) porównań, a nie n!; daje to dolne ograniczenie Ω(n log n).#Prawidłowo. Drzewo decyzji musi mieć n! liści, ale wysokość rośnie jak log₂(n!), nie jak liczba liści.
-  ~Każda permutacja wymaga pojedynczego porównania, więc wystarczy O(1).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewo decyzji potrzebuje około log₂(n!) porównań, a nie n!; daje to dolne ograniczenie Ω(n log n)”. Drzewo decyzji musi mieć n! liści, ale wysokość rośnie jak log₂(n!), nie jak liczba liści.
-  ~Liczba porównań to zawsze dokładnie n!, bo każdy wynik odpowiada jednej ścieżce.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewo decyzji potrzebuje około log₂(n!) porównań, a nie n!; daje to dolne ograniczenie Ω(n log n)”. Drzewo decyzji musi mieć n! liści, ale wysokość rośnie jak log₂(n!), nie jak liczba liści.
-  ####Poprawna odpowiedź to „Drzewo decyzji potrzebuje około log₂(n!) porównań, a nie n!; daje to dolne ograniczenie Ω(n log n)”. Drzewo decyzji musi mieć n! liści, ale wysokość rośnie jak log₂(n!), nie jak liczba liści.
+::AISD-17-Q20::[plain]Student twierdzi, że każdy algorytm sortowania porównawczego n różnych kluczy musi wykonać więcej niż 2^n porównań dla dostatecznie dużych n, ponieważ istnieje n! permutacji. Który argument obala to twierdzenie? {
+  ~Każda z n! permutacji wymaga n! porównań, lecz porównania można wykonać równolegle.#Nie. Liczba liści drzewa decyzji nie jest równa liczbie porównań na jednej ścieżce.
+  =Merge sort wykonuje O(n log n) porównań, a ten koszt jest mniejszy niż 2^n dla dostatecznie dużych n.#Prawidłowo. Istnienie algorytmu o takim ograniczeniu górnym obala twierdzenie o obowiązkowym koszcie ponad 2^n.
+  ~Dolne ograniczenie Ω(n log n) dowodzi, że każde sortowanie musi przekroczyć 2^n porównań.#Nie. Dolne ograniczenie Ω(n log n) nie oznacza wykładniczego kosztu; n log n rośnie wolniej niż 2^n.
+  ~Jedno porównanie wystarcza do rozróżnienia wszystkich n! permutacji danych wejściowych.#Nie. Porównanie dwóch kluczy ma dwa możliwe rozstrzygnięcia i nie identyfikuje dowolnej permutacji.
+  ####Poprawna odpowiedź to „Merge sort wykonuje O(n log n) porównań, a ten koszt jest mniejszy niż 2^n dla dostatecznie dużych n”. Binarne drzewo decyzji wymaga co najmniej n! liści, więc daje dolne ograniczenie log₂(n!) rzędu Ω(n log n), a nie Ω(2^n). Istnienie merge sort z górnym ograniczeniem O(n log n) stanowi kontrprzykład dla tezy studenta.
 }
 

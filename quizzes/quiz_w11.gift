@@ -1,5 +1,5 @@
 // AIiSD 11: Kolejki
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-11-Q01::[plain]Pusta kolejka FIFO otrzymuje A,B,C; wykonano dequeue(), enqueue(D), dequeue(). Który element zostanie usunięty w następnym dequeue()? {
@@ -154,11 +154,11 @@
   ####Poprawna odpowiedź to „[4,1,2]”. Push_front dodaje 4 przed 1, a pop_back usuwa 3.
 }
 
-::AISD-11-Q20::[plain]Zadania A,B,C trafiają do jednozadaniowego serwera FIFO w chwili t\=0. Czas obsługi wynosi odpowiednio 5,2,3. Jak długo czeka na rozpoczęcie obsługi C i kiedy kończy się C? {
-  ~C czeka 5, kończy się w t\=8.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
-  =C czeka 7, kończy się w t\=10.#Prawidłowo. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
-  ~C czeka 3, kończy się w t\=6.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
-  ~C nie czeka, kończy się w t\=3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
-  ####Poprawna odpowiedź to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
+::AISD-11-Q20::[plain]Zadania A, B i C trafiają jednocześnie do pustej kolejki FIFO w chwili t\=0. Ustalono, że przy jednoczesnym przybyciu będą obsługiwane w kolejności A, B, C. Pojedynczy serwer rozpoczyna obsługę bez przerw, a czasy zadań wynoszą odpowiednio 5, 2 i 3 jednostki. Jak długo zadanie C czeka na rozpoczęcie obsługi i w jakiej chwili się kończy? {
+  ~C czeka 5 jednostek i kończy się w t\=8.#Nie. Przed C trzeba wykonać nie tylko zadanie A trwające 5 jednostek, ale także B trwające 2 jednostki.
+  =C czeka 7 jednostek i kończy się w t\=10.#Prawidłowo. Zadanie A trwa od t\=0 do t\=5, B od t\=5 do t\=7, a C od t\=7 do t\=10.
+  ~C czeka 3 jednostki i kończy się w t\=6.#Nie. Czas wykonania C wynosi 3 jednostki, ale jego oczekiwanie zależy od łącznego czasu obsługi A i B.
+  ~C nie czeka i kończy się w t\=3.#Nie. Serwer obsługuje jedno zadanie naraz, a zgodnie z przyjętą kolejnością C znajduje się za A i B.
+  ####Poprawna odpowiedź to „C czeka 7 jednostek i kończy się w t\=10”. Kolejność rozstrzygania jednoczesnych przyjść to A, B, C. Zadanie C rozpoczyna się po 5+2 jednostkach oczekiwania, a jego obsługa trwa kolejne 3 jednostki.
 }
 

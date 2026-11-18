@@ -1,5 +1,5 @@
 // AIiSD 12: Podstawy drzew
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-12-Q01::[plain]Wysokość drzewa definiujemy jako liczbę krawędzi na najdłuższej ścieżce od korzenia do liścia. Jaką wysokość ma drzewo składające się z jednego węzła? {
@@ -42,12 +42,12 @@
   ####Poprawna odpowiedź to „Liczba liści to I+1, zatem w tym przypadku 8”. W pełnym drzewie binarnym liczba liści L i węzłów wewnętrznych I spełnia L\=I+1. Dla I\=7 otrzymujemy 8.
 }
 
-::AISD-12-Q06::[plain]Drzewo z n węzłami jest spójne i nie zawiera cykli. Ile ma krawędzi? {
-  ~n#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n-1”. Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
-  ~n+1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n-1”. Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
-  =n-1#Prawidłowo. Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
-  ~2n-2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n-1”. Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
-  ####Poprawna odpowiedź to „n-1”. Każdy poza korzeniem ma dokładnie jedną krawędź do rodzica.
+::AISD-12-Q06::[plain]Nieskierowane drzewo ma n ≥ 1 węzłów, jest spójne i nie zawiera cykli. Ile ma krawędzi? {
+  ~n#Nie. Drzewo o jednym węźle ma zero krawędzi, a nie jedną; ogólnie krawędzi jest o jedną mniej niż węzłów.
+  ~n+1#Nie. Tyle krawędzi przy n ≥ 1 nie jest możliwe w drzewie; dodatkowe krawędzie prowadziłyby do powstania cyklu.
+  =n-1#Prawidłowo. Po wybraniu korzenia każdy z pozostałych n-1 węzłów ma dokładnie jednego rodzica, a więc jedną krawędź do niego.
+  ~2n-2#Nie. Każdą krawędź drzewa nieskierowanego liczymy tylko raz, a nie oddzielnie w obu kierunkach.
+  ####Poprawna odpowiedź to „n-1”. W każdym niepustym drzewie nieskierowanym z n węzłami jest dokładnie n-1 krawędzi. Po wybraniu korzenia każdy pozostały węzeł jest połączony z jednym rodzicem.
 }
 
 ::AISD-12-Q07::[plain]Przejście preorder drzewa binarnego daje kolejność R, A, B, a przejście inorder kolejność A, R, B. Który węzeł jest korzeniem? {

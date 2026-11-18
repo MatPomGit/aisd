@@ -1,5 +1,5 @@
 // AIiSD 19: Zaawansowane algorytmy sortowania i optymalizacji
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-19-Q01::[plain]Quicksort wybiera pierwszy element jako pivot, a wejście jest rosnąco posortowane. Która cecha partycjonowania wyjaśnia czas Θ(n²) dla tej implementacji? {
@@ -34,12 +34,12 @@
   ####Poprawna odpowiedź to „Gdy dane zawierają wiele powtarzających się kluczy”. Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
 }
 
-::AISD-19-Q05::[plain]Bucket sort używa liczby koszyków proporcjonalnej do n i sortuje każdy koszyk metodą kwadratową. Dlaczego równomierny, niezależny rozkład wejścia może dać oczekiwany koszt O(n)? {
-  ~Ponieważ wszystkie elementy zawsze trafiają do różnych koszyków.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ oczekiwana liczba elementów w koszyku jest stała, co ogranicza oczekiwany łączny koszt sortowania koszyków”. Przy niezależnych, równomiernych danych i odpowiednio licznych koszykach oczekiwane rozmiary koszyków są małe, więc suma kosztów jest liniowa.
-  ~Ponieważ każdy koszyk musi mieć dokładnie jeden element dla każdego wejścia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ oczekiwana liczba elementów w koszyku jest stała, co ogranicza oczekiwany łączny koszt sortowania koszyków”. Przy niezależnych, równomiernych danych i odpowiednio licznych koszykach oczekiwane rozmiary koszyków są małe, więc suma kosztów jest liniowa.
-  =Ponieważ oczekiwana liczba elementów w koszyku jest stała, co ogranicza oczekiwany łączny koszt sortowania koszyków.#Prawidłowo. Przy niezależnych, równomiernych danych i odpowiednio licznych koszykach oczekiwane rozmiary koszyków są małe, więc suma kosztów jest liniowa.
-  ~Ponieważ sortowanie kwadratowe ma w każdym koszyku koszt stały niezależnie od jego rozmiaru.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ oczekiwana liczba elementów w koszyku jest stała, co ogranicza oczekiwany łączny koszt sortowania koszyków”. Przy niezależnych, równomiernych danych i odpowiednio licznych koszykach oczekiwane rozmiary koszyków są małe, więc suma kosztów jest liniowa.
-  ####Poprawna odpowiedź to „Ponieważ oczekiwana liczba elementów w koszyku jest stała, co ogranicza oczekiwany łączny koszt sortowania koszyków”. Przy niezależnych, równomiernych danych i odpowiednio licznych koszykach oczekiwane rozmiary koszyków są małe, więc suma kosztów jest liniowa.
+::AISD-19-Q05::[plain]Sortowanie kubełkowe rozdziela n niezależnych liczb o rozkładzie jednostajnym na n koszyków o jednakowym prawdopodobieństwie trafienia. Zawartość każdego koszyka sortujemy algorytmem o koszcie O(k²), gdzie k oznacza liczbę elementów w koszyku. Dlaczego oczekiwany koszt całego algorytmu wynosi O(n)? {
+  ~Ponieważ wszystkie elementy trafiają do różnych koszyków.#Nie. Nawet przy równomiernym rozkładzie kilka elementów może trafić do tego samego koszyka.
+  ~Ponieważ średni rozmiar koszyka wynosi 1, więc jego kwadrat także ma średnią 1.#Nie. Wartość oczekiwana kwadratu zmiennej losowej zależy również od wariancji; nie można po prostu podnieść średniej do kwadratu.
+  =Ponieważ oczekiwany kwadrat liczby elementów w jednym koszyku jest O(1), a koszyków jest n.#Prawidłowo. Dla każdego koszyka liczba elementów ma rozkład dwumianowy, którego drugi moment jest mniejszy od 2.
+  ~Ponieważ koszt sortowania każdego koszyka pozostaje O(1), nawet gdy jego rozmiar rośnie.#Nie. Sortowanie koszyka zawierającego k elementów może kosztować O(k²); stały jest jego oczekiwany koszt, a nie koszt każdego możliwego przypadku.
+  ####Poprawna odpowiedź to „Ponieważ oczekiwany kwadrat liczby elementów w jednym koszyku jest O(1), a koszyków jest n”. Liczba K elementów w wybranym koszyku ma rozkład dwumianowy z parametrami n i 1/n, więc E[K] wynosi 1, wariancja jest mniejsza od 1 i E[K²] jest mniejsze od 2. Suma oczekiwanych kosztów sortowania n koszyków jest zatem O(n), podobnie jak rozdział danych i inicjalizacja koszyków.
 }
 
 ::AISD-19-Q06::[plain]Kiedy counting sort może być niepraktyczny pomimo liniowej zależności od n w pierwszym składniku kosztu? {

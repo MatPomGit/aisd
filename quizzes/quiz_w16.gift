@@ -1,5 +1,5 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-16-Q01::[plain]W nieważonym grafie istnieją ścieżki A→B→D oraz A→C→E→D. BFS startuje w A. Dlaczego pierwsze odkrycie D daje odległość 2? {
@@ -10,12 +10,12 @@
   ####Poprawna odpowiedź to „Ponieważ BFS przetwarza warstwy rosnącej odległości od źródła”. Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
 }
 
-::AISD-16-Q02::[plain]Jakie jest standardowe najściślejsze asymptotyczne oszacowanie czasu pełnego przeszukiwania BFS, wyrażone za pomocą liczby wierzchołków V i krawędzi E, dla grafu reprezentowanego listami sąsiedztwa? {
-  ~O(V²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „O(V+E)”. Każdy wierzchołek i każda reprezentowana krawędź są przetwarzane stałą liczbę razy.
-  ~O(E log V)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „O(V+E)”. Każdy wierzchołek i każda reprezentowana krawędź są przetwarzane stałą liczbę razy.
-  =O(V+E)#Prawidłowo. Każdy wierzchołek i każda reprezentowana krawędź są przetwarzane stałą liczbę razy.
-  ~O(VE)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „O(V+E)”. Każdy wierzchołek i każda reprezentowana krawędź są przetwarzane stałą liczbę razy.
-  ####Poprawna odpowiedź to „O(V+E)”. Każdy wierzchołek i każda reprezentowana krawędź są przetwarzane stałą liczbę razy.
+::AISD-16-Q02::[plain]Przeprowadzamy BFS na grafie reprezentowanym listami sąsiedztwa. Aby odwiedzić również składowe niepołączone z pierwszym wierzchołkiem, uruchamiamy BFS z każdego kolejnego nieodwiedzonego wierzchołka. Zakładamy stały koszt operacji kolejki. Jaka jest ścisła asymptotyczna złożoność czasowa odwiedzenia całego grafu o V wierzchołkach i E krawędziach? {
+  ~Θ(V²)#Nie. Taki koszt może wystąpić w gęstym grafie, ale nie stanowi ścisłego oszacowania dla każdego grafu reprezentowanego listami sąsiedztwa.
+  ~Θ(E log V)#Nie. BFS nie używa kolejki priorytetowej; każdy wierzchołek oraz każda pozycja listy sąsiedztwa są przetwarzane stałą liczbę razy.
+  =Θ(V+E)#Prawidłowo. Przeglądamy wszystkie V wierzchołków oraz wszystkie listy sąsiedztwa zawierające łącznie O(E) wpisów.
+  ~Θ(VE)#Nie. BFS nie przegląda wszystkich krawędzi osobno dla każdego wierzchołka, lecz odwiedza każdą listę sąsiedztwa tylko raz.
+  ####Poprawna odpowiedź to „Θ(V+E)”. Pełne przejście obejmuje także graf niespójny. Każdy z V wierzchołków i każda reprezentowana krawędź są przetwarzane stałą liczbę razy; w grafie nieskierowanym każda krawędź występuje w dwóch listach, co nie zmienia klasy kosztu.
 }
 
 ::AISD-16-Q03::[plain]W skierowanym grafie z cyklem A→B→C→A DFS wykonywany rekurencyjnie bez znaczników odwiedzenia może: {
