@@ -1,163 +1,163 @@
 // AIiSD 13: Binarne drzewa wyszukiwań BST
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.4 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-13-Q01::[plain]W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
-  ~8 → 10 → 6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 → 3 → 6”. 6<8 kieruje w lewo, a 6>3 w prawo.
-  ~8 → 3 → 1 → 6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 → 3 → 6”. 6<8 kieruje w lewo, a 6>3 w prawo.
+  ~8 → 10 → 6#Klucz 6 jest mniejszy od 8, więc wyszukiwanie przechodzi w lewo do 3, nie w prawo do 10.
+  ~8 → 3 → 1 → 6#Z węzła 3 klucz 6 jest większy, więc przechodzimy do prawego dziecka 6, nie do lewego dziecka 1.
   =8 → 3 → 6#Prawidłowo. 6<8 kieruje w lewo, a 6>3 w prawo.
-  ~8 → 6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 → 3 → 6”. 6<8 kieruje w lewo, a 6>3 w prawo.
+  ~8 → 6#Korzeń 8 nie ma bezpośredniego dziecka 6; porównanie z 3 jest konieczne.
   ####Poprawna odpowiedź to „8 → 3 → 6”. W BST porównujemy szukany klucz z każdym napotkanym węzłem. Ponieważ 6<8, idziemy w lewo do 3, a ponieważ 6>3, idziemy w prawo do 6.
 }
 
 ::AISD-13-Q02::[plain]BST ma korzeń 10, lewe poddrzewo zawierające 4 i 7 oraz prawe zawierające 12 i 15. Usuwamy korzeń przez podstawienie następnika inorder. Jaki klucz zastępuje 10? {
   =12.#Prawidłowo. Następnik inorder to najmniejszy klucz prawego poddrzewa, czyli 12.
-  ~7.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Następnik inorder to najmniejszy klucz prawego poddrzewa, czyli 12.
-  ~15.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Następnik inorder to najmniejszy klucz prawego poddrzewa, czyli 12.
-  ~4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Następnik inorder to najmniejszy klucz prawego poddrzewa, czyli 12.
+  ~7.#Klucz 7 jest poprzednikiem inorder, a pytanie wymaga następnika, czyli najmniejszego klucza większego od 10.
+  ~15.#Klucz 15 należy do prawego poddrzewa, lecz nie jest jego minimum, bo zawiera ono 12.
+  ~4.#Klucz 4 jest mniejszy od usuwanego korzenia 10, więc nie może być następnikiem inorder.
   ####Poprawna odpowiedź to „12”. Następnik inorder to najmniejszy klucz prawego poddrzewa, czyli 12. Podstawienie poprzednika dałoby 7, ale nie jest to wskazana metoda.
 }
 
 ::AISD-13-Q03::[plain]Jaką kolejność kluczy zwraca inorder dla BST bez duplikatów? {
-  ~Malejącą.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ściśle rosnącą”. Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
-  ~Według poziomów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ściśle rosnącą”. Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
-  ~Według kolejności wstawienia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ściśle rosnącą”. Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
+  ~Malejącą.#Inorder odwiedza lewe poddrzewo, korzeń i prawe; w BST bez duplikatów daje kolejność rosnącą, nie malejącą.
+  ~Według poziomów.#Kolejność poziomów to przejście BFS, a nie inorder.
+  ~Według kolejności wstawienia.#Kolejność wstawiania nie jest ogólnie identyczna z przejściem inorder drzewa BST.
   =Ściśle rosnącą.#Prawidłowo. Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
   ####Poprawna odpowiedź to „Ściśle rosnącą”. Porządek BST zapewnia mniejsze klucze po lewej i większe po prawej.
 }
 
 ::AISD-13-Q04::[plain]Do pustego BST bez równoważenia wstawiono rosnące klucze 1,2,...,n. Jaką wysokość w krawędziach ma wynik dla n>0? {
   =n-1#Prawidłowo. Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
-  ~ceil(log₂ n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n-1”. Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
-  ~n#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n-1”. Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
-  ~ceil(log₂(n+1))-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n-1”. Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
+  ~ceil(log₂ n)#Rosnące wstawianie bez równoważenia daje łańcuch, a nie wysokość logarytmiczną.
+  ~n#Dla n węzłów w łańcuchu istnieje n-1 krawędzi, a nie n.
+  ~ceil(log₂(n+1))-1#Wyrażenie ceil(log₂(n+1))-1 opisuje znacznie niższe drzewa, nie łańcuch utworzony z rosnących kluczy.
   ####Poprawna odpowiedź to „n-1”. Każdy nowy klucz trafia do prawego dziecka poprzednika, tworząc łańcuch.
 }
 
-::AISD-13-Q05::[plain]BST bez równoważenia otrzymuje klucze w kolejności 1,2,3,4,5,6,7. Jak zmieni się maksymalny koszt wyszukiwania w porównaniu z BST zbalansowanym o tych samych kluczach? {
-  ~W obu drzewach wyszukiwanie zawsze wymaga Θ(1) porównań.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W pierwszym wysokość wynosi 6 i najgorsze wyszukiwanie ma Θ(n), w drugim wysokość może wynosić 2 i koszt jest Θ(log n)”. Rosnące klucze tworzą prawy łańcuch w zwykłym BST. Równoważenie skraca wysokość i ścieżki wyszukiwania.
+::AISD-13-Q05::[plain]Do pustego BST bez równoważenia wstawiono 1,2,3,4,5,6,7. Jak porównać wysokość obu drzew i asymptotyczny najgorszy koszt wyszukiwania dla analogicznie budowanych rodzin drzew o n kluczach, w porównaniu ze zbalansowanym BST? {
+  ~W obu drzewach wyszukiwanie zawsze wymaga Θ(1) porównań.#W zdegenerowanym BST wyszukiwanie może przejść przez n węzłów, więc nie zawsze kosztuje Θ(1).
   =W pierwszym wysokość wynosi 6 i najgorsze wyszukiwanie ma Θ(n), w drugim wysokość może wynosić 2 i koszt jest Θ(log n).#Prawidłowo. Rosnące klucze tworzą prawy łańcuch w zwykłym BST. Równoważenie skraca wysokość i ścieżki wyszukiwania.
-  ~Pierwszy ma wysokość 2, a drugi 6, bo rosnące klucze dają idealny podział.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W pierwszym wysokość wynosi 6 i najgorsze wyszukiwanie ma Θ(n), w drugim wysokość może wynosić 2 i koszt jest Θ(log n)”. Rosnące klucze tworzą prawy łańcuch w zwykłym BST. Równoważenie skraca wysokość i ścieżki wyszukiwania.
-  ~W pierwszym koszt zawsze jest Θ(log n), bo BST przechowuje posortowane klucze.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W pierwszym wysokość wynosi 6 i najgorsze wyszukiwanie ma Θ(n), w drugim wysokość może wynosić 2 i koszt jest Θ(log n)”. Rosnące klucze tworzą prawy łańcuch w zwykłym BST. Równoważenie skraca wysokość i ścieżki wyszukiwania.
+  ~Pierwszy ma wysokość 2, a drugi 6, bo rosnące klucze dają idealny podział.#Rosnące klucze nie równoważą drzewa BST; tworzą prawą ścieżkę o wysokości 6.
+  ~W pierwszym koszt zawsze jest Θ(log n), bo BST przechowuje posortowane klucze.#Klucze są uporządkowane relacyjnie, lecz drzewo może być zdegenerowane i mieć liniową wysokość.
   ####Poprawna odpowiedź to „W pierwszym wysokość wynosi 6 i najgorsze wyszukiwanie ma Θ(n), w drugim wysokość może wynosić 2 i koszt jest Θ(log n)”. Rosnące klucze tworzą prawy łańcuch w zwykłym BST. Równoważenie skraca wysokość i ścieżki wyszukiwania.
 }
 
 ::AISD-13-Q06::[plain]W BST bez duplikatów węzeł 12 ma lewe poddrzewo o korzeniu 7 i prawe o korzeniu 18. Gdzie poprawnie może leżeć klucz 15? {
-  ~W prawym poddrzewie węzła 7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W lewym poddrzewie węzła 18”. 15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
-  ~W prawym poddrzewie korzenia 18#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W lewym poddrzewie węzła 18”. 15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
+  ~W prawym poddrzewie węzła 7#Wszystkie klucze w lewym poddrzewie 12 muszą być mniejsze od 12, a 15 jest większe.
+  ~W prawym poddrzewie korzenia 18#Klucz 15 jest mniejszy od 18, więc musi leżeć w jego lewym, nie prawym poddrzewie.
   =W lewym poddrzewie węzła 18.#Prawidłowo. 15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
-  ~W lewym poddrzewie 7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W lewym poddrzewie węzła 18”. 15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
+  ~W lewym poddrzewie 7#Poddrzewo węzła 7 leży w lewej części drzewa 12 i nie może zawierać klucza 15.
   ####Poprawna odpowiedź to „W lewym poddrzewie węzła 18”. 15>12 i 15<18, dlatego jest w prawym poddrzewie korzenia, ale po lewej względem 18.
 }
 
 ::AISD-13-Q07::[plain]Który warunek jest niezbędny do zachowania poprawności BST, gdy w implementacji dopuszcza się duplikaty? {
-  ~Duplikaty należy rozmieszczać naprzemiennie w lewym i prawym poddrzewie, aby zachować równowagę.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji”. Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
+  ~Duplikaty należy rozmieszczać naprzemiennie w lewym i prawym poddrzewie, aby zachować równowagę.#Naprzemienne umieszczanie równych kluczy bez konsekwentnej konwencji może naruszyć niezmiennik BST.
   =Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji.#Prawidłowo. Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
-  ~Duplikaty muszą być usuwane po wstawieniu, aby BST mógł wykonać inorder.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji”. Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
-  ~Każdy duplikat należy umieścić jako nowe prawe dziecko bez uwzględniania pozostałych węzłów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji”. Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
+  ~Duplikaty muszą być usuwane po wstawieniu, aby BST mógł wykonać inorder.#Duplikaty można obsługiwać licznikami lub przyjętą regułą rozmieszczania bez ich usuwania.
+  ~Każdy duplikat należy umieścić jako nowe prawe dziecko bez uwzględniania pozostałych węzłów.#Wstawienie jako prawe dziecko bez porównywania z istniejącymi potomkami może nadpisać węzły i złamać strukturę.
   ####Poprawna odpowiedź to „Jednoznaczna i konsekwentna reguła ich rozmieszczania lub agregacji”. Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
 }
 
 ::AISD-13-Q08::[plain]Drzewo BST ma n węzłów i wysokość Θ(log n). Student twierdzi, że wyszukiwanie musi kosztować Θ(n), ponieważ w drzewie jest n kluczy. Które wyjaśnienie obala ten wniosek? {
-  ~Wyszukiwanie w BST przegląda wszystkie n węzłów przed zakończeniem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyszukiwanie podąża tylko jedną ścieżką o długości ograniczonej wysokością, więc ma O(log n)”. Porównania kierują wyszukiwanie w pojedyncze poddrzewo. Liczba porównań jest ograniczona wysokością plus stały składnik.
+  ~Wyszukiwanie w BST przegląda wszystkie n węzłów przed zakończeniem.#Wyszukiwanie BST porównuje klucz z węzłami wzdłuż jednej ścieżki, a nie przegląda wszystkie n węzłów.
   =Wyszukiwanie podąża tylko jedną ścieżką o długości ograniczonej wysokością, więc ma O(log n).#Prawidłowo. Porównania kierują wyszukiwanie w pojedyncze poddrzewo. Liczba porównań jest ograniczona wysokością plus stały składnik.
-  ~Długość ścieżki jest zawsze Θ(1), niezależnie od liczby węzłów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyszukiwanie podąża tylko jedną ścieżką o długości ograniczonej wysokością, więc ma O(log n)”. Porównania kierują wyszukiwanie w pojedyncze poddrzewo. Liczba porównań jest ograniczona wysokością plus stały składnik.
-  ~Koszt wyszukiwania w BST zależy wyłącznie od liczby liści.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyszukiwanie podąża tylko jedną ścieżką o długości ograniczonej wysokością, więc ma O(log n)”. Porównania kierują wyszukiwanie w pojedyncze poddrzewo. Liczba porównań jest ograniczona wysokością plus stały składnik.
+  ~Długość ścieżki jest zawsze Θ(1), niezależnie od liczby węzłów.#Wysokość Θ(log n) rośnie wraz z n, dlatego długość ścieżki nie jest zawsze stała.
+  ~Koszt wyszukiwania w BST zależy wyłącznie od liczby liści.#Długość wyszukiwania zależy od wysokości i położenia klucza, a nie wyłącznie od liczby liści.
   ####Poprawna odpowiedź to „Wyszukiwanie podąża tylko jedną ścieżką o długości ograniczonej wysokością, więc ma O(log n)”. Porównania kierują wyszukiwanie w pojedyncze poddrzewo. Liczba porównań jest ograniczona wysokością plus stały składnik.
 }
 
 ::AISD-13-Q09::[plain]Do pustego BST bez duplikatów wstawiono kolejno 5,2,8,1,3,7,9. Jaki klucz znajduje się w prawym dziecku węzła 2? {
   =3#Prawidłowo. 3>2, ale 3<5, więc zostaje prawym dzieckiem 2.
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. 3>2, ale 3<5, więc zostaje prawym dzieckiem 2.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. 3>2, ale 3<5, więc zostaje prawym dzieckiem 2.
-  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. 3>2, ale 3<5, więc zostaje prawym dzieckiem 2.
+  ~1#Klucz 1 jest lewym dzieckiem 2, bo jest mniejszy.
+  ~5#Klucz 5 pozostaje korzeniem drzewa, a nie prawym dzieckiem węzła 2.
+  ~7#Klucz 7 trafia do lewego poddrzewa 8, nie do prawego dziecka 2.
   ####Poprawna odpowiedź to „3”. 3>2, ale 3<5, więc zostaje prawym dzieckiem 2.
 }
 
 ::AISD-13-Q10::[plain]BST ma klucze 10,5,15,3,7,12,18. Po usunięciu korzenia 10 używamy następnika inorder. Co stanie się z kluczem 12 w strukturze? {
-  ~Pozostanie w swoim poprzednim węźle i jednocześnie pojawi się w korzeniu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zastąpi klucz 10, a dawny węzeł z kluczem 12 zostanie usunięty lub przepięty”. Po podstawieniu następnika należy jeszcze usunąć jego wcześniejszy węzeł, aby nie pozostawić duplikatu 12.
-  ~Zostanie zamieniony z 18, bo to maksimum prawego poddrzewa.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zastąpi klucz 10, a dawny węzeł z kluczem 12 zostanie usunięty lub przepięty”. Po podstawieniu następnika należy jeszcze usunąć jego wcześniejszy węzeł, aby nie pozostawić duplikatu 12.
+  ~Pozostanie w swoim poprzednim węźle i jednocześnie pojawi się w korzeniu.#Pozostawienie 12 równocześnie w korzeniu i dotychczasowym miejscu stworzyłoby duplikat klucza.
+  ~Zostanie zamieniony z 18, bo to maksimum prawego poddrzewa.#Klucz 18 jest największy w prawym poddrzewie, a następnik to najmniejszy klucz większy od 10.
   =Zastąpi klucz 10, a dawny węzeł z kluczem 12 zostanie usunięty lub przepięty.#Prawidłowo. Po podstawieniu następnika należy jeszcze usunąć jego wcześniejszy węzeł, aby nie pozostawić duplikatu 12.
-  ~Zastąpi klucz 7, bo 7 jest największą wartością mniejszą od 10.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zastąpi klucz 10, a dawny węzeł z kluczem 12 zostanie usunięty lub przepięty”. Po podstawieniu następnika należy jeszcze usunąć jego wcześniejszy węzeł, aby nie pozostawić duplikatu 12.
+  ~Zastąpi klucz 7, bo 7 jest największą wartością mniejszą od 10.#Klucz 7 jest poprzednikiem inorder, nie następnikiem wybieranym przy tej metodzie.
   ####Poprawna odpowiedź to „Zastąpi klucz 10, a dawny węzeł z kluczem 12 zostanie usunięty lub przepięty”. Po podstawieniu następnika należy jeszcze usunąć jego wcześniejszy węzeł, aby nie pozostawić duplikatu 12.
 }
 
-::AISD-13-Q11::[plain]BST zawiera klucze 8,4,12,2,6,10,14. Usunięto liść o kluczu 2, ale nie zmieniono wskaźnika left rodzica 4. Który problem powstał? {
-  ~BST automatycznie odtworzy brakujący liść przy następnym wyszukiwaniu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wskaźnik 4.left może wskazywać zwolniony węzeł, co narusza strukturę i bezpieczeństwo pamięci”. Po zwolnieniu liścia trzeba odłączyć od rodzica wskazanie na zwolniony obiekt.
+::AISD-13-Q11::[plain]Do pustego BST wstawiono kolejno 8,4,12,2,6,10,14. Usunięto liść o kluczu 2, ale nie zmieniono wskaźnika left rodzica 4. Który problem powstał? {
+  ~BST automatycznie odtworzy brakujący liść przy następnym wyszukiwaniu.#Usunięcie węzła nie powoduje automatycznej rekonstrukcji brakującego liścia.
   =Wskaźnik 4.left może wskazywać zwolniony węzeł, co narusza strukturę i bezpieczeństwo pamięci.#Prawidłowo. Po zwolnieniu liścia trzeba odłączyć od rodzica wskazanie na zwolniony obiekt.
-  ~Drzewo utraci własność BST tylko wtedy, gdy 2 było maksimum.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wskaźnik 4.left może wskazywać zwolniony węzeł, co narusza strukturę i bezpieczeństwo pamięci”. Po zwolnieniu liścia trzeba odłączyć od rodzica wskazanie na zwolniony obiekt.
-  ~Koszt wyszukiwania spadnie do Θ(1) dzięki pozostawionemu wskaźnikowi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wskaźnik 4.left może wskazywać zwolniony węzeł, co narusza strukturę i bezpieczeństwo pamięci”. Po zwolnieniu liścia trzeba odłączyć od rodzica wskazanie na zwolniony obiekt.
+  ~Drzewo utraci własność BST tylko wtedy, gdy 2 było maksimum.#Klucz 2 jest liściem lewego poddrzewa i nie jest maksimum drzewa; błąd dotyczy pozostawionego wskaźnika.
+  ~Koszt wyszukiwania spadnie do Θ(1) dzięki pozostawionemu wskaźnikowi.#Wiszący wskaźnik nie skraca ścieżek wyszukiwania do stałego czasu, lecz grozi niepoprawnym odczytem pamięci.
   ####Poprawna odpowiedź to „Wskaźnik 4.left może wskazywać zwolniony węzeł, co narusza strukturę i bezpieczeństwo pamięci”. Po zwolnieniu liścia trzeba odłączyć od rodzica wskazanie na zwolniony obiekt.
 }
 
 ::AISD-13-Q12::[plain]Do pustego BST bez równoważenia wstawiamy kolejno 4,2,6,1,3,5,7. Jaka będzie wysokość w krawędziach? {
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Korzeń ma dwa poziomy potomków; najdłuższa ścieżka od 4 do liścia ma dwie krawędzie.
+  ~3#Drzewo z 7 kluczy wstawionych w podanej kolejności ma trzy poziomy 0,1,2, czyli wysokość 2.
   =2#Prawidłowo. Korzeń ma dwa poziomy potomków; najdłuższa ścieżka od 4 do liścia ma dwie krawędzie.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Korzeń ma dwa poziomy potomków; najdłuższa ścieżka od 4 do liścia ma dwie krawędzie.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Korzeń ma dwa poziomy potomków; najdłuższa ścieżka od 4 do liścia ma dwie krawędzie.
+  ~4#Nie każdy węzeł jest na osobnym poziomie; liście 1,3,5,7 leżą na poziomie 2.
+  ~6#Wysokość 6 oznaczałaby łańcuch siedmiu węzłów, którego ta kolejność nie tworzy.
   ####Poprawna odpowiedź to „2”. Korzeń ma dwa poziomy potomków; najdłuższa ścieżka od 4 do liścia ma dwie krawędzie.
 }
 
 ::AISD-13-Q13::[plain]W BST korzeń 8 ma jedyne dziecko 12 po prawej, a 12 ma jedyne lewe dziecko 10. Po usunięciu 8 przez zastąpienie jego jedynym dzieckiem jaki jest nowy korzeń? {
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
+  ~10#Węzeł 10 pozostaje lewym potomkiem 12, a nie zostaje korzeniem po usunięciu 8.
+  ~8#Usunięty korzeń 8 nie może pozostać korzeniem wynikowego BST.
+  ~6#W drzewie nie występuje klucz 6, więc nie może zastąpić korzenia.
   =12#Prawidłowo. Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
   ####Poprawna odpowiedź to „12”. Usuwanie węzła z jednym dzieckiem przepina jego jedyne poddrzewo w miejsce usuwanego węzła.
 }
 
-::AISD-13-Q14::[plain]W BST bez duplikatów zawierającym 8,4,12,2,6,10,14 jakie klucze zostaną odwiedzone przy nieudanym wyszukiwaniu 11? {
+::AISD-13-Q14::[plain]Do pustego BST bez duplikatów wstawiono kolejno 8,4,12,2,6,10,14. Jakie klucze zostaną odwiedzone przy nieudanym wyszukiwaniu 11? {
   =8,12,10#Prawidłowo. 11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
-  ~8,4,6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8,12,10”. 11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
-  ~8,12,14#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8,12,10”. 11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
-  ~8,10,12#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8,12,10”. 11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
+  ~8,4,6#Klucz 11 jest większy od 8, więc nie wchodzimy do lewej gałęzi 4 i 6.
+  ~8,12,14#Po porównaniu z 12 szukamy 11 w lewym poddrzewie 12, a nie w prawym liściu 14.
+  ~8,10,12#Klucz 10 nie jest dzieckiem korzenia 8; przed nim trzeba odwiedzić 12.
   ####Poprawna odpowiedź to „8,12,10”. 11>8, 11<12, 11>10; prawe dziecko 10 jest puste.
 }
 
 ::AISD-13-Q15::[plain]Do pustego BST wstawiamy 9,5,12,3,7,6. Jaka jest głębokość węzła 6, licząc liczbę krawędzi od korzenia? {
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
+  ~2#Z korzenia 9 do 6 idziemy przez 5 i 7, czyli przechodzimy trzy krawędzie, nie dwie.
+  ~4#Cztery krawędzie wymagałyby jeszcze jednego poziomu; 6 jest bezpośrednim dzieckiem 7.
+  ~1#Węzeł 6 nie jest dzieckiem korzenia, więc jego głębokość przekracza jeden.
   =3#Prawidłowo. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
   ####Poprawna odpowiedź to „3”. Głębokość to liczba krawędzi od korzenia do rozpatrywanego węzła. Na ścieżce 9→5→7→6 występują trzy krawędzie, więc głębokość 6 wynosi 3.
 }
 
-::AISD-13-Q16::[plain]BST zawiera klucze 4,2,6,1,3,5,7. Który wskaźnik należy zmienić po usunięciu liścia o kluczu 1? {
-  ~Prawe dziecko 2 zostaje puste#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lewe dziecko węzła 2 staje się puste”. 1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
-  ~Lewe dziecko 4 zostaje puste#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lewe dziecko węzła 2 staje się puste”. 1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
+::AISD-13-Q16::[plain]Do pustego BST wstawiono kolejno 4,2,6,1,3,5,7. Który wskaźnik należy zmienić po usunięciu liścia o kluczu 1? {
+  ~Prawe dziecko 2 zostaje puste#Klucz 1 jest mniejszy od 2 i trafia do jego lewego, nie prawego dziecka.
+  ~Lewe dziecko 4 zostaje puste#Usunięcie 1 nie opróżnia lewego poddrzewa 4, ponieważ pozostaje w nim 2 oraz 3.
   =Lewe dziecko węzła 2 staje się puste.#Prawidłowo. 1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
-  ~Prawe dziecko 6 zostaje puste#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lewe dziecko węzła 2 staje się puste”. 1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
+  ~Prawe dziecko 6 zostaje puste#Węzeł 6 należy do prawego poddrzewa 4, a usuwany 1 znajduje się po lewej stronie 2.
   ####Poprawna odpowiedź to „Lewe dziecko węzła 2 staje się puste”. 1 jest liściem i lewym dzieckiem 2, więc odłączenie dotyczy 2.left.
 }
 
 ::AISD-13-Q17::[plain]W BST bez dodatkowego wskaźnika minimum znajduje się przez wielokrotne przechodzenie do lewego dziecka. Które dwa drzewa mogą mieć wyraźnie inny koszt tej operacji przy tej samej liczbie węzłów? {
-  ~Drzewa o różnych wartościach klucza w korzeniu, ale zawsze identycznej lewej ścieżce.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewa o różnej długości lewej skrajnej ścieżki”. Szukając minimum, przechodzimy tylko lewymi krawędziami, zatem koszt zależy od długości konkretnej ścieżki, nie bezpośrednio od n.
-  ~Drzewa o identycznej strukturze, ale różnych etykietach liści.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewa o różnej długości lewej skrajnej ścieżki”. Szukając minimum, przechodzimy tylko lewymi krawędziami, zatem koszt zależy od długości konkretnej ścieżki, nie bezpośrednio od n.
-  ~Drzewa o tej samej lewej ścieżce, bo koszty zależą tylko od liczby węzłów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewa o różnej długości lewej skrajnej ścieżki”. Szukając minimum, przechodzimy tylko lewymi krawędziami, zatem koszt zależy od długości konkretnej ścieżki, nie bezpośrednio od n.
+  ~Drzewa o różnych wartościach klucza w korzeniu, ale zawsze identycznej lewej ścieżce.#Sama inna wartość klucza korzenia, przy tej samej długości lewej ścieżki, nie zmienia liczby przejść.
+  ~Drzewa o identycznej strukturze, ale różnych etykietach liści.#Etykiety liści nie wpływają na koszt, jeżeli struktura i lewa skrajna ścieżka są identyczne.
+  ~Drzewa o tej samej lewej ścieżce, bo koszty zależą tylko od liczby węzłów.#Przy tym samym n długość lewej skrajnej ścieżki może być różna, więc koszt minimum nie jest zawsze taki sam.
   =Drzewa o różnej długości lewej skrajnej ścieżki.#Prawidłowo. Szukając minimum, przechodzimy tylko lewymi krawędziami, zatem koszt zależy od długości konkretnej ścieżki, nie bezpośrednio od n.
   ####Poprawna odpowiedź to „Drzewa o różnej długości lewej skrajnej ścieżki”. Szukając minimum, przechodzimy tylko lewymi krawędziami, zatem koszt zależy od długości konkretnej ścieżki, nie bezpośrednio od n.
 }
 
 ::AISD-13-Q18::[plain]Do pustego BST bez duplikatów wstawiono kolejno klucze 10,5,15,12,13. Jaki klucz ma rodzic węzła 13? {
   =12#Prawidłowo. 13<15 prowadzi do 12, a 13>12 kieruje do prawego dziecka 12.
-  ~15#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. 13<15 prowadzi do 12, a 13>12 kieruje do prawego dziecka 12.
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. 13<15 prowadzi do 12, a 13>12 kieruje do prawego dziecka 12.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. 13<15 prowadzi do 12, a 13>12 kieruje do prawego dziecka 12.
+  ~15#Klucz 15 jest dziadkiem 13, bo jego lewe dziecko to 12, a prawe dziecko 12 to 13.
+  ~10#Klucz 10 jest korzeniem i przodkiem 13, ale nie jego bezpośrednim rodzicem.
+  ~5#Klucz 5 leży w lewym poddrzewie 10, natomiast 13 znajduje się w prawym.
   ####Poprawna odpowiedź to „12”. 13<15 prowadzi do 12, a 13>12 kieruje do prawego dziecka 12.
 }
 
 ::AISD-13-Q19::[plain]Zwykły BST z n kluczami ma wysokość n-1; drzewo AVL z tymi samymi kluczami ma wysokość O(log n). Co z tego wynika dla najgorszego kosztu wyszukiwania? {
-  ~W AVL koszt pozostaje Θ(n), bo oba drzewa mają identyczną liczbę kluczy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W AVL liczba porównań jest ograniczona przez O(log n), w zdegenerowanym BST może być Θ(n)”. Wyszukiwanie podąża po jednej ścieżce od korzenia. Równoważenie ogranicza wysokość i maksymalną długość ścieżki.
-  ~AVL zapewnia Θ(1) porównań niezależnie od klucza.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W AVL liczba porównań jest ograniczona przez O(log n), w zdegenerowanym BST może być Θ(n)”. Wyszukiwanie podąża po jednej ścieżce od korzenia. Równoważenie ogranicza wysokość i maksymalną długość ścieżki.
+  ~W AVL koszt pozostaje Θ(n), bo oba drzewa mają identyczną liczbę kluczy.#W drzewie AVL wysokość logarytmiczna ogranicza liczbę porównań, mimo że liczba kluczy jest taka sama.
+  ~AVL zapewnia Θ(1) porównań niezależnie od klucza.#W AVL nie każde wyszukiwanie jest stałoczasowe; ścieżka może mieć Θ(log n) węzłów.
   =W AVL liczba porównań jest ograniczona przez O(log n), w zdegenerowanym BST może być Θ(n).#Prawidłowo. Wyszukiwanie podąża po jednej ścieżce od korzenia. Równoważenie ogranicza wysokość i maksymalną długość ścieżki.
-  ~Różnica dotyczy tylko pamięci, ponieważ w BST każda operacja przegląda wszystkie węzły.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W AVL liczba porównań jest ograniczona przez O(log n), w zdegenerowanym BST może być Θ(n)”. Wyszukiwanie podąża po jednej ścieżce od korzenia. Równoważenie ogranicza wysokość i maksymalną długość ścieżki.
+  ~Różnica dotyczy tylko pamięci, ponieważ w BST każda operacja przegląda wszystkie węzły.#W zwykłym BST operacja przechodzi jedną ścieżkę, nie wszystkie węzły; różnica wysokości wpływa na czas.
   ####Poprawna odpowiedź to „W AVL liczba porównań jest ograniczona przez O(log n), w zdegenerowanym BST może być Θ(n)”. Wyszukiwanie podąża po jednej ścieżce od korzenia. Równoważenie ogranicza wysokość i maksymalną długość ścieżki.
 }
 
 ::AISD-13-Q20::[plain]BST ma korzeń 20, lewe poddrzewo zawierające klucze 12 i 17 oraz prawe zawierające 24 i 30. Który klucz zastąpi 20, jeśli usuwamy korzeń przez podstawienie jego poprzednika inorder? {
-  ~12#Ta odpowiedź jest niepoprawna. Właściwy wariant to „17”. Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
-  ~24#Ta odpowiedź jest niepoprawna. Właściwy wariant to „17”. Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
-  ~30#Ta odpowiedź jest niepoprawna. Właściwy wariant to „17”. Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
+  ~12#Klucz 12 jest mniejszy od 20, lecz największym mniejszym kluczem jest 17.
+  ~24#Klucz 24 jest większy od 20, więc mógłby być następnikiem, a nie poprzednikiem.
+  ~30#Klucz 30 to większa wartość z prawego poddrzewa; poprzednik leży po lewej.
   =17#Prawidłowo. Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
   ####Poprawna odpowiedź to „17”. Poprzednikiem inorder 20 jest największy klucz jego lewego poddrzewa, czyli 17.
 }
