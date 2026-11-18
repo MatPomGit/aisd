@@ -1,164 +1,164 @@
 // AIiSD 08: Rekurencja i dynamiczne struktury danych
-// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
+// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-08-Q01::[plain]Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
-  =24
-  ~10
-  ~16
-  ~120
-  ####f(4)\=4·3·2·1·1\=24.
+  =24#Prawidłowo. f(4)\=4·3·2·1·1\=24.
+  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. f(4)\=4·3·2·1·1\=24.
+  ~16#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. f(4)\=4·3·2·1·1\=24.
+  ~120#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. f(4)\=4·3·2·1·1\=24.
+  ####Poprawna odpowiedź to „24”. Funkcja oblicza silnię: przypadek bazowy zwraca 1, a każde kolejne wywołanie mnoży wynik przez bieżące n. Dlatego f(4)\=4·3·2·1·1\=24.
 }
 
 ::AISD-08-Q02::[plain]Funkcja f(n) zwraca 0, jeśli n \= 0. W przeciwnym przypadku wywołuje f(n-2). Co stanie się po wywołaniu f(5), jeśli działania wykonujemy na liczbach całkowitych bez ograniczenia zakresu? {
-  ~Zakończy się na n\=1, bo zejście o dwa oznacza osiągnięcie zera.
-  ~Zwróci 0 po trzech wywołaniach, bo n zostanie zaokrąglone.
-  ~Zakończy się dla wszystkich dodatnich n, ponieważ argument maleje.
-  =Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0.
-  ####Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
+  ~Zakończy się na n\=1, bo zejście o dwa oznacza osiągnięcie zera.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0”. Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
+  ~Zwróci 0 po trzech wywołaniach, bo n zostanie zaokrąglone.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0”. Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
+  ~Zakończy się dla wszystkich dodatnich n, ponieważ argument maleje.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0”. Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
+  =Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0.#Prawidłowo. Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
+  ####Poprawna odpowiedź to „Wywoła kolejno 5,3,1,-1 i będzie kontynuowała, ponieważ nie osiągnie n\=0”. Nieparzysty argument nie trafi do zera przy odejmowaniu po dwa. Warunek bazowy trzeba rozszerzyć albo dobrać inną miarę.
 }
 
 ::AISD-08-Q03::[plain]Funkcja f(n) dla n>0 zwraca 2*f(n-1), a f(0)\=1. Kompilator nie eliminuje rekurencji. Dlaczego wykonanie f(6) wymaga pamięci stosu Θ(n) dla ogólnego n? {
-  ~Ponieważ każdy wynik wymaga osobnej tablicy n elementów.
-  ~Ponieważ funkcja wykonuje dokładnie n² wywołań dla n>0.
-  =Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0).
-  ~Ponieważ wartości zwracane są zawsze większe od słowa maszynowego.
-  ####Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
+  ~Ponieważ każdy wynik wymaga osobnej tablicy n elementów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0)”. Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
+  ~Ponieważ funkcja wykonuje dokładnie n² wywołań dla n>0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0)”. Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
+  =Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0).#Prawidłowo. Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
+  ~Ponieważ wartości zwracane są zawsze większe od słowa maszynowego.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0)”. Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
+  ####Poprawna odpowiedź to „Ponieważ przed obliczeniem wyniku f(n) trzeba zachować aktywne ramki wywołań aż do f(0)”. Przed powrotem z f(0) aktywne są wywołania f(n),...,f(0), czyli n+1 ramek, a więc Θ(n) pamięci dodatkowej.
 }
 
 ::AISD-08-Q04::[plain]Lista jednokierunkowa ma wskaźnik head. Wstawiamy nowy węzeł x na początek niepustej listy. Która kolejność aktualizacji zachowuje wszystkie elementy? {
-  ~head\=x, następnie x.next\=head, co zachowuje poprzedni początek listy.
-  ~x.next\=head.next, następnie head\=x, co zachowuje dotychczasową głowę.
-  ~head.next\=x, następnie head\=x, bez przepinania pozostałych węzłów.
-  =x.next\=head, potem head\=x.
-  ####Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
+  ~head\=x, następnie x.next\=head, co zachowuje poprzedni początek listy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=head, potem head\=x”. Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
+  ~x.next\=head.next, następnie head\=x, co zachowuje dotychczasową głowę.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=head, potem head\=x”. Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
+  ~head.next\=x, następnie head\=x, bez przepinania pozostałych węzłów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „x.next\=head, potem head\=x”. Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
+  =x.next\=head, potem head\=x.#Prawidłowo. Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
+  ####Poprawna odpowiedź to „x.next\=head, potem head\=x”. Najpierw nowy węzeł musi wskazać dotychczasową głowę; dopiero później można zmienić head.
 }
 
 ::AISD-08-Q05::[plain]Rekurencyjny DFS ma przejść graf skierowany z cyklem A→B→C→A. Która zmiana gwarantuje, że nie rozpocznie drugi raz przetwarzania aktywnego wierzchołka? {
-  ~Oznaczenie wierzchołka po powrocie ze wszystkich wywołań DFS jego sąsiadów.
-  =Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów.
-  ~Usunięcie sprawdzenia stanu odwiedzenia i ograniczenie liczby argumentów funkcji.
-  ~Rekurencyjne przetworzenie każdego sąsiada dwukrotnie dla wykrycia cyklu.
-  ####Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
+  ~Oznaczenie wierzchołka po powrocie ze wszystkich wywołań DFS jego sąsiadów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów”. Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
+  =Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów.#Prawidłowo. Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
+  ~Usunięcie sprawdzenia stanu odwiedzenia i ograniczenie liczby argumentów funkcji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów”. Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
+  ~Rekurencyjne przetworzenie każdego sąsiada dwukrotnie dla wykrycia cyklu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów”. Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
+  ####Poprawna odpowiedź to „Oznaczenie wierzchołka przed rozpoczęciem rekurencyjnych wywołań dla sąsiadów”. Oznaczenie przy wejściu zapobiega ponownej rekurencji do już aktywnego wierzchołka.
 }
 
 ::AISD-08-Q06::[plain]Dla rekurencji T(n)\=2T(n/2)+Θ(n), przy n potędze dwójki, jaki jest rząd kosztu? {
-  =Θ(n log n)
-  ~Θ(n)
-  ~Θ(n²)
-  ~Θ(log n)
-  ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
+  =Θ(n log n)#Prawidłowo. Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
+  ~Θ(n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n log n)”. Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
+  ~Θ(n²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n log n)”. Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
+  ~Θ(log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n log n)”. Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
+  ####Poprawna odpowiedź to „Θ(n log n)”. Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
 }
 
 ::AISD-08-Q07::[plain]Program często wstawia liczby na początek sekwencji, a tylko sporadycznie odczytuje element o zadanym indeksie. Która struktura umożliwia wydajne wykonywanie dominującej operacji bez przesuwania n elementów? {
-  ~Zwykła tablica zwarta, bo wstawienie na początku zawsze kosztuje Θ(1).
-  ~Posortowana tablica, bo gwarantuje brak przesunięć.
-  ~Macierz sąsiedztwa, bo przechowuje każdą sekwencję w jednym wierszu.
-  =Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć.
-  ####W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head. Tablica zwarta wymaga zwykle przesunięcia danych.
+  ~Zwykła tablica zwarta, bo wstawienie na początku zawsze kosztuje Θ(1).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć”. W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head.
+  ~Posortowana tablica, bo gwarantuje brak przesunięć.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć”. W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head.
+  ~Macierz sąsiedztwa, bo przechowuje każdą sekwencję w jednym wierszu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć”. W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head.
+  =Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć.#Prawidłowo. W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head.
+  ####Poprawna odpowiedź to „Lista jednokierunkowa z dostępem do head, bo wstawienie na początku wymaga stałej liczby przepięć”. W liście jednokierunkowej wstawienie na początku wymaga utworzenia węzła i aktualizacji head. Tablica zwarta wymaga zwykle przesunięcia danych.
 }
 
 ::AISD-08-Q08::[plain]Program wywołuje rekurencyjnie f(n-1), a wywołanie jest ostatnią operacją funkcji. Dlaczego nie można z tego wywnioskować stałego zużycia stosu? {
-  ~Ponieważ rekurencja ogonowa zawsze zużywa więcej pamięci niż zwykła.
-  =Ponieważ optymalizacja wywołań ogonowych zależy od kompilatora lub środowiska wykonawczego i nie jest gwarantowana.
-  ~Ponieważ funkcja nie może kończyć się wywołaniem innej funkcji.
-  ~Ponieważ każda rekurencja ogonowa automatycznie zamienia się w iterację.
-  ####Wywołanie ogonowe umożliwia optymalizację, ale nie gwarantuje jej w każdym języku i środowisku.
+  ~Ponieważ rekurencja ogonowa zawsze zużywa więcej pamięci niż zwykła.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ optymalizacja wywołań ogonowych zależy od kompilatora lub środowiska wykonawczego i nie jest gwarantowana”. Wywołanie ogonowe umożliwia optymalizację, ale nie gwarantuje jej w każdym języku i środowisku.
+  =Ponieważ optymalizacja wywołań ogonowych zależy od kompilatora lub środowiska wykonawczego i nie jest gwarantowana.#Prawidłowo. Wywołanie ogonowe umożliwia optymalizację, ale nie gwarantuje jej w każdym języku i środowisku.
+  ~Ponieważ funkcja nie może kończyć się wywołaniem innej funkcji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ optymalizacja wywołań ogonowych zależy od kompilatora lub środowiska wykonawczego i nie jest gwarantowana”. Wywołanie ogonowe umożliwia optymalizację, ale nie gwarantuje jej w każdym języku i środowisku.
+  ~Ponieważ każda rekurencja ogonowa automatycznie zamienia się w iterację.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ optymalizacja wywołań ogonowych zależy od kompilatora lub środowiska wykonawczego i nie jest gwarantowana”. Wywołanie ogonowe umożliwia optymalizację, ale nie gwarantuje jej w każdym języku i środowisku.
+  ####Poprawna odpowiedź to „Ponieważ optymalizacja wywołań ogonowych zależy od kompilatora lub środowiska wykonawczego i nie jest gwarantowana”. Wywołanie ogonowe umożliwia optymalizację, ale nie gwarantuje jej w każdym języku i środowisku.
 }
 
 ::AISD-08-Q09::[plain]Rekurencja f(n)\=f(n-1)+2 dla n>0, f(0)\=3 została zaimplementowana bez sprawdzenia n>0, czyli zawsze wywołuje f(n-1)+2. Co stanie się dla n\=0? {
-  ~Zwróci 3, bo wartość bazowa jest zapisana w dokumentacji.
-  =Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3.
-  ~Zwróci 2, bo ostatnie wywołanie niczego nie dodaje.
-  ~Zwróci 0, bo liczby ujemne są ignorowane w rekurencji.
-  ####Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
+  ~Zwróci 3, bo wartość bazowa jest zapisana w dokumentacji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3”. Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
+  =Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3.#Prawidłowo. Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
+  ~Zwróci 2, bo ostatnie wywołanie niczego nie dodaje.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3”. Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
+  ~Zwróci 0, bo liczby ujemne są ignorowane w rekurencji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3”. Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
+  ####Poprawna odpowiedź to „Uruchomi kolejne wywołania z n\=-1,-2,..., zamiast zwrócić 3”. Warunek bazowy musi zostać zakodowany w funkcji. Sam matematyczny opis f(0)\=3 nie ogranicza wywołań.
 }
 
 ::AISD-08-Q10::[plain]Dla rekurencji f(n)\=f(n-1)+f(n-2), f(0)\=0, f(1)\=1 jaka jest wartość f(6)? {
-  ~5
-  ~13
-  ~6
-  =8
-  ####Kolejne wartości to 0,1,1,2,3,5,8.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Kolejne wartości to 0,1,1,2,3,5,8.
+  ~13#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Kolejne wartości to 0,1,1,2,3,5,8.
+  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Kolejne wartości to 0,1,1,2,3,5,8.
+  =8#Prawidłowo. Kolejne wartości to 0,1,1,2,3,5,8.
+  ####Poprawna odpowiedź to „8”. Z warunków f(0)\=0 i f(1)\=1 otrzymujemy kolejno f(2)\=1, f(3)\=2, f(4)\=3, f(5)\=5 i f(6)\=8.
 }
 
 ::AISD-08-Q11::[plain]W rekurencyjnym przejściu drzewa binarnego rozmiaru n, jeśli każda funkcja odwiedza węzeł raz i wykonuje stałą pracę, jaki jest czas? {
-  ~Θ(log n)
-  ~Θ(n log n)
-  =Θ(n)
-  ~Θ(n²)
-  ####Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
+  ~Θ(log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
+  ~Θ(n log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
+  =Θ(n)#Prawidłowo. Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
+  ~Θ(n²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
+  ####Poprawna odpowiedź to „Θ(n)”. Każdy z n węzłów jest odwiedzany raz niezależnie od wysokości drzewa.
 }
 
 ::AISD-08-Q12::[plain]Funkcja wywołuje rekurencyjnie f(n//2), gdzie // oznacza dzielenie całkowite, dopóki n>1. Ile wywołań z dodatnim argumentem powstanie dla n\=32, licząc pierwsze? {
-  ~5
-  ~7
-  =6
-  ~32
-  ####Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
+  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
+  =6#Prawidłowo. Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
+  ~32#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
+  ####Poprawna odpowiedź to „6”. Argumenty to 32,16,8,4,2,1, czyli sześć wywołań.
 }
 
 ::AISD-08-Q13::[plain]Dwie funkcje wywołują się wzajemnie: f(n) wywołuje g(n), a g(n) wywołuje f(n-1). Każda kończy się dla n\=0. Dlaczego taka wzajemna rekurencja może kończyć się dla n>\=0? {
-  =Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym.
-  ~Ponieważ każde pojedyncze wywołanie zmniejsza n.
-  ~Ponieważ wzajemna rekurencja zawsze kończy się, niezależnie od argumentów.
-  ~Ponieważ dwa przypadki bazowe dowodzą zakończenia nawet bez postępu.
-  ####Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
+  =Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym.#Prawidłowo. Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
+  ~Ponieważ każde pojedyncze wywołanie zmniejsza n.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym”. Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
+  ~Ponieważ wzajemna rekurencja zawsze kończy się, niezależnie od argumentów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym”. Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
+  ~Ponieważ dwa przypadki bazowe dowodzą zakończenia nawet bez postępu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym”. Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
+  ####Poprawna odpowiedź to „Ponieważ n zmniejsza się co pełny cykl f→g→f, a 0 jest osiągalnym przypadkiem bazowym”. Miara n nie musi maleć przy każdym przejściu pomiędzy funkcjami, ale maleje co pełny cykl wywołań i jest ograniczona z dołu.
 }
 
 ::AISD-08-Q14::[plain]W liście jednokierunkowej head→A→B→C i nowy węzeł X ma zostać wstawiony po B. Jakie wskaźniki należy ustawić? {
-  =X.next\=C, B.next\=X.
-  ~B.next\=X, a X.next\=B, co tworzy połączenie z nowym węzłem.
-  ~X.next\=B, a B.next\=C, co dopina X przed B.
-  ~B.next\=X, a X.next\=null
-  ####Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
+  =X.next\=C, B.next\=X.#Prawidłowo. Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
+  ~B.next\=X, a X.next\=B, co tworzy połączenie z nowym węzłem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.next\=C, B.next\=X”. Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
+  ~X.next\=B, a B.next\=C, co dopina X przed B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.next\=C, B.next\=X”. Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
+  ~B.next\=X, a X.next\=null#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.next\=C, B.next\=X”. Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
+  ####Poprawna odpowiedź to „X.next\=C, B.next\=X”. Najpierw X przejmuje stare następstwo B, a potem B wskazuje X.
 }
 
 ::AISD-08-Q15::[plain]Naiwny rekurencyjny Fibonacci wywołuje F(n-1) i F(n-2) bez pamiętania wyników. Który problem ujawnia drzewo wywołań F(5)? {
-  ~F(5) nie ma przypadku bazowego, nawet gdy F(0) i F(1) są zdefiniowane.
-  =F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów.
-  ~Każdy stan F(k) występuje dokładnie raz, więc memoizacja niczego nie zmienia.
-  ~Wartości F(3) i F(2) muszą być równe, bo są obliczane w tym samym wywołaniu.
-  ####W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
+  ~F(5) nie ma przypadku bazowego, nawet gdy F(0) i F(1) są zdefiniowane.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów”. W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
+  =F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów.#Prawidłowo. W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
+  ~Każdy stan F(k) występuje dokładnie raz, więc memoizacja niczego nie zmienia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów”. W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
+  ~Wartości F(3) i F(2) muszą być równe, bo są obliczane w tym samym wywołaniu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów”. W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
+  ####Poprawna odpowiedź to „F(3) jest obliczane wielokrotnie, więc memoizacja może ograniczyć powtarzanie podproblemów”. W F(5)\=F(4)+F(3), a F(4) ponownie oblicza F(3). Zapamiętywanie wartości eliminuje ten i dalsze powtórzenia.
 }
 
 ::AISD-08-Q16::[plain]W tablicowej implementacji stosu wywołań każdy poziom rekurencji przechowuje dwie zmienne i adres powrotu. Jak rośnie dodatkowa pamięć dla głębokości d? {
-  ~Θ(log d)
-  =Θ(d)
-  ~Θ(d²)
-  ~Θ(1)
-  ####Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
+  ~Θ(log d)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(d)”. Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
+  =Θ(d)#Prawidłowo. Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
+  ~Θ(d²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(d)”. Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
+  ~Θ(1)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(d)”. Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
+  ####Poprawna odpowiedź to „Θ(d)”. Stała liczba pól na poziom mnożona przez liczbę aktywnych ramek daje koszt liniowy.
 }
 
 ::AISD-08-Q17::[plain]Rekurencja T(n)\=T(n/2)+Θ(1) dla n\=2^k. Jaka jest klasa wzrostu? {
-  ~Θ(n)
-  ~Θ(n log n)
-  ~Θ(log² n)
-  =Θ(log n)
-  ####Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
+  ~Θ(n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(log n)”. Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
+  ~Θ(n log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(log n)”. Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
+  ~Θ(log² n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(log n)”. Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
+  =Θ(log n)#Prawidłowo. Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
+  ####Poprawna odpowiedź to „Θ(log n)”. Rozmiar problemu zmniejsza się dwukrotnie przez log₂ n poziomów, a praca na poziom jest stała.
 }
 
 ::AISD-08-Q18::[plain]Rekurencyjny algorytm DFS grafu oznacza wierzchołek jako odwiedzony dopiero po powrocie z rekurencji. Co może się zdarzyć w grafie z cyklem? {
-  ~DFS zakończy się prawidłowo
-  ~DFS odwiedzi każdy wierzchołek najwyżej dwa razy, niezależnie od długości cyklu.
-  =Nastąpi ponowne wejście do już aktywnego wierzchołka.
-  ~DFS znajdzie ścieżkę o minimalnej liczbie krawędzi, mimo opóźnionego oznaczenia.
-  ####Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
+  ~DFS zakończy się prawidłowo#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nastąpi ponowne wejście do już aktywnego wierzchołka”. Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
+  ~DFS odwiedzi każdy wierzchołek najwyżej dwa razy, niezależnie od długości cyklu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nastąpi ponowne wejście do już aktywnego wierzchołka”. Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
+  =Nastąpi ponowne wejście do już aktywnego wierzchołka.#Prawidłowo. Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
+  ~DFS znajdzie ścieżkę o minimalnej liczbie krawędzi, mimo opóźnionego oznaczenia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nastąpi ponowne wejście do już aktywnego wierzchołka”. Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
+  ####Poprawna odpowiedź to „Nastąpi ponowne wejście do już aktywnego wierzchołka”. Wierzchołek w stosie rekurencji jest nadal nieoznaczony, więc cykl może go ponownie wywołać.
 }
 
 ::AISD-08-Q19::[plain]Obliczanie sumy 1+...+n ma wersję rekurencyjną S(n)\=n+S(n-1) i iteracyjną z akumulatorem. Która obserwacja wyjaśnia różnicę pamięci przy n>0? {
-  ~Rekurencja ma zawsze Θ(1) pamięci, bo zwraca jedną liczbę.
-  ~Iteracja musi zapisać wszystkie n argumentów, a rekurencja nie.
-  =Rekurencja bez eliminacji wywołań utrzymuje Θ(n) ramek stosu, a iteracja może użyć Θ(1) pamięci dodatkowej.
-  ~Oba rozwiązania muszą użyć Θ(n²) pamięci z powodu sumowania.
-  ####Klasyczna rekurencja gromadzi zaległe wywołania do osiągnięcia n\=0. Iteracja może aktualizować jeden akumulator.
+  ~Rekurencja ma zawsze Θ(1) pamięci, bo zwraca jedną liczbę.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Rekurencja bez eliminacji wywołań utrzymuje Θ(n) ramek stosu, a iteracja może użyć Θ(1) pamięci dodatkowej”. Klasyczna rekurencja gromadzi zaległe wywołania do osiągnięcia n\=0.
+  ~Iteracja musi zapisać wszystkie n argumentów, a rekurencja nie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Rekurencja bez eliminacji wywołań utrzymuje Θ(n) ramek stosu, a iteracja może użyć Θ(1) pamięci dodatkowej”. Klasyczna rekurencja gromadzi zaległe wywołania do osiągnięcia n\=0.
+  =Rekurencja bez eliminacji wywołań utrzymuje Θ(n) ramek stosu, a iteracja może użyć Θ(1) pamięci dodatkowej.#Prawidłowo. Klasyczna rekurencja gromadzi zaległe wywołania do osiągnięcia n\=0.
+  ~Oba rozwiązania muszą użyć Θ(n²) pamięci z powodu sumowania.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Rekurencja bez eliminacji wywołań utrzymuje Θ(n) ramek stosu, a iteracja może użyć Θ(1) pamięci dodatkowej”. Klasyczna rekurencja gromadzi zaległe wywołania do osiągnięcia n\=0.
+  ####Poprawna odpowiedź to „Rekurencja bez eliminacji wywołań utrzymuje Θ(n) ramek stosu, a iteracja może użyć Θ(1) pamięci dodatkowej”. Klasyczna rekurencja gromadzi zaległe wywołania do osiągnięcia n\=0. Iteracja może aktualizować jeden akumulator.
 }
 
 ::AISD-08-Q20::[plain]W liście dwukierunkowej węzeł X znajduje się bezpośrednio przed Y. Wstawiamy między nimi węzeł N. Który zestaw aktualizacji wskaźników jest kompletny? {
-  =X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N.
-  ~X.next\=N, N.prev\=Y, N.next\=X, Y.prev\=N.
-  ~X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=X.
-  ~X.next\=Y, N.prev\=X, N.next\=Y, Y.prev\=N.
-  ####Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
+  =X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N.#Prawidłowo. Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
+  ~X.next\=N, N.prev\=Y, N.next\=X, Y.prev\=N.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N”. Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
+  ~X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=X.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N”. Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
+  ~X.next\=Y, N.prev\=X, N.next\=Y, Y.prev\=N.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N”. Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
+  ####Poprawna odpowiedź to „X.next\=N, N.prev\=X, N.next\=Y, Y.prev\=N”. Oba łącza nowego węzła i oba łącza sąsiadów muszą zostać ustawione spójnie.
 }
 

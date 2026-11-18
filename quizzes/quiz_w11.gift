@@ -1,164 +1,164 @@
 // AIiSD 11: Kolejki
-// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
+// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-11-Q01::[plain]Pusta kolejka FIFO otrzymuje A,B,C; wykonano dequeue(), enqueue(D), dequeue(). Który element zostanie usunięty w następnym dequeue()? {
-  ~A.
-  =C.
-  ~B.
-  ~D.
-  ####Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
+  ~A.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C”. Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
+  =C.#Prawidłowo. Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
+  ~B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C”. Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
+  ~D.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C”. Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
+  ####Poprawna odpowiedź to „C”. Po pierwszym dequeue pozostają B,C, po dodaniu D kolejka to B,C,D; drugie dequeue usuwa B, a następne C.
 }
 
 ::AISD-11-Q02::[plain]Kolejka cykliczna ma pojemność 5, a rear oznacza indeks ostatniego elementu. Jeżeli rear\=4, jaki będzie indeks nowego ostatniego elementu po poprawnym enqueue, gdy jest miejsce? {
-  ~1
-  ~4
-  ~5
-  =0
-  ####Nowy indeks wynosi (4+1) mod 5, czyli 0.
+  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Nowy indeks wynosi (4+1) mod 5, czyli 0.
+  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Nowy indeks wynosi (4+1) mod 5, czyli 0.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Nowy indeks wynosi (4+1) mod 5, czyli 0.
+  =0#Prawidłowo. Nowy indeks wynosi (4+1) mod 5, czyli 0.
+  ####Poprawna odpowiedź to „0”. W kolejce cyklicznej po ostatnim indeksie 4 następuje ponownie indeks 0. Nową pozycję wyznacza (rear+1) mod 5, czyli (4+1) mod 5\=0.
 }
 
 ::AISD-11-Q03::[plain]W kolejce tablicowej rozmiar bufora wynosi c, a front i rear mogą przyjmować tę samą wartość dla stanu pustego i pełnego. Która informacja usuwa niejednoznaczność? {
-  ~Wskaźnik rear liczony od początku bufora, bez licznika elementów.
-  =Dodatkowy licznik elementów lub odrębny znacznik pełności.
-  ~Zachowywanie front i rear w przedziale modulo c, bez dodatkowego stanu.
-  ~Wymuszenie, aby indeksy front i rear nigdy nie były jednocześnie równe.
-  ####Same indeksy front i rear nie pozwalają odróżnić obu stanów bez dodatkowej informacji o liczbie elementów lub pełności bufora.
+  ~Wskaźnik rear liczony od początku bufora, bez licznika elementów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dodatkowy licznik elementów lub odrębny znacznik pełności”. Same indeksy front i rear nie pozwalają odróżnić obu stanów bez dodatkowej informacji o liczbie elementów lub pełności bufora.
+  =Dodatkowy licznik elementów lub odrębny znacznik pełności.#Prawidłowo. Same indeksy front i rear nie pozwalają odróżnić obu stanów bez dodatkowej informacji o liczbie elementów lub pełności bufora.
+  ~Zachowywanie front i rear w przedziale modulo c, bez dodatkowego stanu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dodatkowy licznik elementów lub odrębny znacznik pełności”. Same indeksy front i rear nie pozwalają odróżnić obu stanów bez dodatkowej informacji o liczbie elementów lub pełności bufora.
+  ~Wymuszenie, aby indeksy front i rear nigdy nie były jednocześnie równe.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dodatkowy licznik elementów lub odrębny znacznik pełności”. Same indeksy front i rear nie pozwalają odróżnić obu stanów bez dodatkowej informacji o liczbie elementów lub pełności bufora.
+  ####Poprawna odpowiedź to „Dodatkowy licznik elementów lub odrębny znacznik pełności”. Same indeksy front i rear nie pozwalają odróżnić obu stanów bez dodatkowej informacji o liczbie elementów lub pełności bufora.
 }
 
 ::AISD-11-Q04::[plain]Niecykliczna lista jednokierunkowa ma reprezentować kolejkę FIFO z operacjami enqueue i dequeue w czasie O(1), także przy przejściu do stanu pustego. Jakie wskaźniki wystarczą? {
-  =head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować.
-  ~Tylko head, bo wstawienie na koniec nie wymaga przejścia listy.
-  ~Tylko tail, który wskazuje null, gdy kolejka jest pełna.
-  ~Wskaźniki do dwóch pierwszych elementów, bez dostępu do ostatniego.
-  ####W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania. Przy pustce oba wskaźniki muszą być spójne.
+  =head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować.#Prawidłowo. W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania.
+  ~Tylko head, bo wstawienie na koniec nie wymaga przejścia listy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować”. W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania.
+  ~Tylko tail, który wskazuje null, gdy kolejka jest pełna.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować”. W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania.
+  ~Wskaźniki do dwóch pierwszych elementów, bez dostępu do ostatniego.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować”. W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania.
+  ####Poprawna odpowiedź to „head i tail, przy czym przy usunięciu ostatniego elementu oba trzeba wyzerować”. W niecyklicznej liście potrzebujemy głowy do zdejmowania i ogona do dopisywania. Przy pustce oba wskaźniki muszą być spójne.
 }
 
 ::AISD-11-Q05::[plain]Kolejka FIFO zawiera zadania A, B, C w kolejności przybycia, lecz zadanie C ma najwyższy priorytet. Który element usunie standardowa FIFO, a który kolejka priorytetowa skonfigurowana na najwyższy priorytet? {
-  ~Obie usuną A, bo priorytet nie zmienia porządku.
-  =FIFO usunie A, a kolejka priorytetowa usunie C.
-  ~FIFO usunie C, a kolejka priorytetowa usunie A.
-  ~Obie usuną C, bo zadanie o najwyższym priorytecie zawsze trafia na początek.
-  ####FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
+  ~Obie usuną A, bo priorytet nie zmienia porządku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „FIFO usunie A, a kolejka priorytetowa usunie C”. FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
+  =FIFO usunie A, a kolejka priorytetowa usunie C.#Prawidłowo. FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
+  ~FIFO usunie C, a kolejka priorytetowa usunie A.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „FIFO usunie A, a kolejka priorytetowa usunie C”. FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
+  ~Obie usuną C, bo zadanie o najwyższym priorytecie zawsze trafia na początek.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „FIFO usunie A, a kolejka priorytetowa usunie C”. FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
+  ####Poprawna odpowiedź to „FIFO usunie A, a kolejka priorytetowa usunie C”. FIFO wybiera według czasu dodania, natomiast kolejka priorytetowa według zadanego porządku priorytetów.
 }
 
 ::AISD-11-Q06::[plain]Graf nieważony ma krawędzie A-B, A-C, B-D, C-D. BFS startuje w A i przetwarza sąsiadów alfabetycznie. Która informacja o D jest poprawna? {
-  =D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B.
-  ~D ma odległość 1, ponieważ można go odkryć przez B.
-  ~D ma odległość 3, bo istnieją dwie różne ścieżki.
-  ~D ma odległość 2, ale BFS zawsze wybierze C jako rodzica.
-  ####BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2. Odległości w nieważonym grafie są minimalne.
+  =D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B.#Prawidłowo. BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2.
+  ~D ma odległość 1, ponieważ można go odkryć przez B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B”. BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2.
+  ~D ma odległość 3, bo istnieją dwie różne ścieżki.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B”. BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2.
+  ~D ma odległość 2, ale BFS zawsze wybierze C jako rodzica.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B”. BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2.
+  ####Poprawna odpowiedź to „D ma odległość 2 i jako rodzica w drzewie BFS otrzyma B”. BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2. Odległości w nieważonym grafie są minimalne.
 }
 
 ::AISD-11-Q07::[plain]Które operacje oferuje kolejka dwustronna (deque), a których nie udostępnia zwykła kolejka FIFO? {
-  ~Dodawanie na obu końcach, ale usuwanie wyłącznie z początku.
-  ~Dodawanie na końcu i usuwanie z dowolnego środka w stałym czasie.
-  ~Usuwanie na obu końcach, lecz dodawanie wyłącznie na końcu.
-  =Dodawanie i usuwanie na obu końcach.
-  ####Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
+  ~Dodawanie na obu końcach, ale usuwanie wyłącznie z początku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dodawanie i usuwanie na obu końcach”. Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
+  ~Dodawanie na końcu i usuwanie z dowolnego środka w stałym czasie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dodawanie i usuwanie na obu końcach”. Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
+  ~Usuwanie na obu końcach, lecz dodawanie wyłącznie na końcu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dodawanie i usuwanie na obu końcach”. Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
+  =Dodawanie i usuwanie na obu końcach.#Prawidłowo. Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
+  ####Poprawna odpowiedź to „Dodawanie i usuwanie na obu końcach”. Deque wspiera dwustronne aktualizacje, podczas gdy FIFO narzuca jedną parę końców.
 }
 
 ::AISD-11-Q08::[plain]Kolejka zrealizowana jako dynamiczna lista z head i tail usuwa ostatni pozostały element. Jak zaktualizować wskaźniki? {
-  ~Ustawić head\=null, pozostawiając tail wskazujące dawny jedyny element.
-  ~Ustawić tail\=null, pozostawiając head wskazujące dawny jedyny element.
-  =Ustawić head\=null i tail\=null.
-  ~Ustawić head\=tail.next, ale nie zmieniać tail nawet przy pustej liście.
-  ####Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
+  ~Ustawić head\=null, pozostawiając tail wskazujące dawny jedyny element.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić head\=null i tail\=null”. Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
+  ~Ustawić tail\=null, pozostawiając head wskazujące dawny jedyny element.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić head\=null i tail\=null”. Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
+  =Ustawić head\=null i tail\=null.#Prawidłowo. Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
+  ~Ustawić head\=tail.next, ale nie zmieniać tail nawet przy pustej liście.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ustawić head\=null i tail\=null”. Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
+  ####Poprawna odpowiedź to „Ustawić head\=null i tail\=null”. Po opróżnieniu oba wskaźniki muszą reprezentować pustą kolejkę.
 }
 
 ::AISD-11-Q09::[plain]Kolejka cykliczna o pojemności 5 zaczyna z front\=0, size\=0. Dodano A,B,C, usunięto A,B, a potem dodano D,E,F. W jakich komórkach leżą C,D,E,F w kolejności FIFO? {
-  ~0,1,2,3.
-  ~2,3,4,5.
-  =2,3,4,0.
-  ~3,4,0,1.
-  ####Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
+  ~0,1,2,3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2,3,4,0”. Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
+  ~2,3,4,5.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2,3,4,0”. Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
+  =2,3,4,0.#Prawidłowo. Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
+  ~3,4,0,1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2,3,4,0”. Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
+  ####Poprawna odpowiedź to „2,3,4,0”. Po dwóch usunięciach front\=2, a kolejka zawiera C w indeksie 2. Kolejne elementy trafiają na 3,4,0 modulo 5.
 }
 
 ::AISD-11-Q10::[plain]Kolejka cykliczna o pojemności 4 ma front\=3 i size\=2, a elementy zajmują indeksy 3 oraz 0. Wykonujemy dequeue, a potem enqueue(X). Gdzie zostanie zapisany X, jeżeli pozycja wstawienia to (front+size) mod 4? {
-  ~Indeks 0, bo front po dequeue wynosi 0.
-  ~Indeks 2, bo rear nie zmienia się przy dequeue.
-  ~Indeks 3, bo nowy element musi zastąpić właśnie usunięty.
-  =Indeks 1, bo po dequeue front\=0 i size\=1.
-  ####Dequeue przesuwa front z 3 do 0 i zmniejsza size do 1. Wstawienie trafia do (0+1) mod 4 \= 1.
+  ~Indeks 0, bo front po dequeue wynosi 0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Indeks 1, bo po dequeue front\=0 i size\=1”. Dequeue przesuwa front z 3 do 0 i zmniejsza size do 1. Wstawienie trafia do (0+1) mod 4 \= 1.
+  ~Indeks 2, bo rear nie zmienia się przy dequeue.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Indeks 1, bo po dequeue front\=0 i size\=1”. Dequeue przesuwa front z 3 do 0 i zmniejsza size do 1. Wstawienie trafia do (0+1) mod 4 \= 1.
+  ~Indeks 3, bo nowy element musi zastąpić właśnie usunięty.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Indeks 1, bo po dequeue front\=0 i size\=1”. Dequeue przesuwa front z 3 do 0 i zmniejsza size do 1. Wstawienie trafia do (0+1) mod 4 \= 1.
+  =Indeks 1, bo po dequeue front\=0 i size\=1.#Prawidłowo. Dequeue przesuwa front z 3 do 0 i zmniejsza size do 1. Wstawienie trafia do (0+1) mod 4 \= 1.
+  ####Poprawna odpowiedź to „Indeks 1, bo po dequeue front\=0 i size\=1”. Dequeue przesuwa front z 3 do 0 i zmniejsza size do 1. Wstawienie trafia do (0+1) mod 4 \= 1.
 }
 
 ::AISD-11-Q11::[plain]W kolejce cyklicznej o pojemności 6, gdzie rear oznacza indeks następnej wolnej komórki, rear\=5. Po enqueue jaki będzie rear? {
-  ~1
-  ~5
-  ~4
-  =0
-  ####Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
+  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
+  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
+  =0#Prawidłowo. Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
+  ####Poprawna odpowiedź to „0”. Indeks rear, wskazujący kolejną wolną pozycję, zwiększa się cyklicznie modulo 6.
 }
 
 ::AISD-11-Q12::[plain]W grafie nieważonym BFS wykorzystuje kolejkę. Jeśli po zdjęciu A odkryjemy kolejno B i C, a w kolejce przed nimi był D, jaki jest porządek następnych dequeue? {
-  =D,B,C
-  ~B,C,D
-  ~C,B,D
-  ~D,C,B
-  ####Nowo odkryte wierzchołki trafiają na koniec, za wcześniejszy D.
+  =D,B,C#Prawidłowo. Nowo odkryte wierzchołki trafiają na koniec, za wcześniejszy D.
+  ~B,C,D#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D,B,C”. Nowo odkryte wierzchołki trafiają na koniec, za wcześniejszy D.
+  ~C,B,D#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D,B,C”. Nowo odkryte wierzchołki trafiają na koniec, za wcześniejszy D.
+  ~D,C,B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „D,B,C”. Nowo odkryte wierzchołki trafiają na koniec, za wcześniejszy D.
+  ####Poprawna odpowiedź to „D,B,C”. Nowo odkryte wierzchołki trafiają na koniec, za wcześniejszy D.
 }
 
 ::AISD-11-Q13::[plain]W kolejce priorytetowej min-heap mamy klucze 5,2,7,3. Jaką wartość zwróci pierwsze extract-min? {
-  ~3
-  ~5
-  =2
-  ~7
-  ####Priorytetem jest najmniejszy klucz; niezależnie od kolejności dodania minimum wynosi 2.
+  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Priorytetem jest najmniejszy klucz; niezależnie od kolejności dodania minimum wynosi 2.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Priorytetem jest najmniejszy klucz; niezależnie od kolejności dodania minimum wynosi 2.
+  =2#Prawidłowo. Priorytetem jest najmniejszy klucz; niezależnie od kolejności dodania minimum wynosi 2.
+  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Priorytetem jest najmniejszy klucz; niezależnie od kolejności dodania minimum wynosi 2.
+  ####Poprawna odpowiedź to „2”. Priorytetem jest najmniejszy klucz; niezależnie od kolejności dodania minimum wynosi 2.
 }
 
 ::AISD-11-Q14::[plain]Dla bufora cyklicznego pojemności 8, front\=6 i size\=4, jakie indeksy zajmują elementy w kolejności FIFO? {
-  ~6,7,1,2
-  =6,7,0,1
-  ~6,5,4,3
-  ~6,7,0,2
-  ####Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
+  ~6,7,1,2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6,7,0,1”. Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
+  =6,7,0,1#Prawidłowo. Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
+  ~6,5,4,3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6,7,0,1”. Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
+  ~6,7,0,2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6,7,0,1”. Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
+  ####Poprawna odpowiedź to „6,7,0,1”. Kolejne indeksy to (front+i) mod 8 dla i\=0,1,2,3.
 }
 
 ::AISD-11-Q15::[plain]Kolejka jest zaimplementowana za pomocą dwóch stosów. Elementy są przenoszone ze stosu wejściowego do wyjściowego tylko wtedy, gdy wyjściowy jest pusty. Dlaczego dequeue ma amortyzowany koszt O(1)? {
-  =Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz.
-  ~Bo pojedyncze dequeue nigdy nie przenosi więcej niż jednego elementu.
-  ~Bo transfer trwa Θ(log n) dla każdej liczby elementów.
-  ~Bo dwa stosy gwarantują usuwanie w porządku LIFO zamiast FIFO.
-  ####Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
+  =Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz.#Prawidłowo. Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
+  ~Bo pojedyncze dequeue nigdy nie przenosi więcej niż jednego elementu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz”. Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
+  ~Bo transfer trwa Θ(log n) dla każdej liczby elementów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz”. Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
+  ~Bo dwa stosy gwarantują usuwanie w porządku LIFO zamiast FIFO.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz”. Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
+  ####Poprawna odpowiedź to „Bo każdy element w serii operacji jest włożony i zdjęty z każdego stosu co najwyżej raz”. Każdy element można przenieść z in do out tylko raz, zatem koszt łączny rozkłada się na operacje w amortyzowanym O(1).
 }
 
 ::AISD-11-Q16::[plain]W pustej kolejce z head\=tail\=null dodano pojedynczy element X. Jakie powinny być wskaźniki po enqueue? {
-  ~head\=X i tail\=null.
-  ~head\=null i tail\=X.
-  =head\=X i tail\=X.
-  ~head\=null i tail\=null.
-  ####W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
+  ~head\=X i tail\=null.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=X i tail\=X”. W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
+  ~head\=null i tail\=X.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=X i tail\=X”. W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
+  =head\=X i tail\=X.#Prawidłowo. W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
+  ~head\=null i tail\=null.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „head\=X i tail\=X”. W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
+  ####Poprawna odpowiedź to „head\=X i tail\=X”. W jednoelementowej kolejce pierwszy i ostatni element jest tym samym węzłem.
 }
 
 ::AISD-11-Q17::[plain]Kolejka cykliczna ma pojemność 7, front\=5 i size\=3. Na jaki indeks trafi nowy element enqueue, jeśli pozycja wstawienia to (front+size) mod 7? {
-  =1
-  ~0
-  ~2
-  ~5
-  ####(5+3) mod 7 \= 1.
+  =1#Prawidłowo. (5+3) mod 7 \= 1.
+  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. (5+3) mod 7 \= 1.
+  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. (5+3) mod 7 \= 1.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. (5+3) mod 7 \= 1.
+  ####Poprawna odpowiedź to „1”. Wstawianie następuje na indeksie (front+size) mod pojemność. Przy front\=5, size\=3 i pojemności 7 otrzymujemy (5+3) mod 7\=1.
 }
 
 ::AISD-11-Q18::[plain]Przy realizacji kolejki FIFO zwykłą tablicą i przesuwaniu wszystkich elementów w lewo przy dequeue, jaki jest najgorszy koszt usunięcia pierwszego elementu? {
-  ~Θ(1)
-  ~Θ(log n)
-  ~Θ(n log n)
-  =Θ(n)
-  ####Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
+  ~Θ(1)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
+  ~Θ(log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
+  ~Θ(n log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(n)”. Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
+  =Θ(n)#Prawidłowo. Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
+  ####Poprawna odpowiedź to „Θ(n)”. Pozostałych n-1 elementów trzeba przesunąć o jedną pozycję.
 }
 
 ::AISD-11-Q19::[plain]Dwustronna kolejka (deque) zawiera kolejno od początku [1,2,3]. Wykonano push_front(4) oraz pop_back(). Jaka jest kolejność pozostałych elementów? {
-  ~[1,2,4]
-  ~[4,2,3]
-  =[4,1,2]
-  ~[2,3,4]
-  ####Push_front dodaje 4 przed 1, a pop_back usuwa 3.
+  ~[1,2,4]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[4,1,2]”. Push_front dodaje 4 przed 1, a pop_back usuwa 3.
+  ~[4,2,3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[4,1,2]”. Push_front dodaje 4 przed 1, a pop_back usuwa 3.
+  =[4,1,2]#Prawidłowo. Push_front dodaje 4 przed 1, a pop_back usuwa 3.
+  ~[2,3,4]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[4,1,2]”. Push_front dodaje 4 przed 1, a pop_back usuwa 3.
+  ####Poprawna odpowiedź to „[4,1,2]”. Push_front dodaje 4 przed 1, a pop_back usuwa 3.
 }
 
 ::AISD-11-Q20::[plain]Zadania A,B,C trafiają do jednozadaniowego serwera FIFO w chwili t\=0. Czas obsługi wynosi odpowiednio 5,2,3. Jak długo czeka na rozpoczęcie obsługi C i kiedy kończy się C? {
-  ~C czeka 5, kończy się w t\=8.
-  =C czeka 7, kończy się w t\=10.
-  ~C czeka 3, kończy się w t\=6.
-  ~C nie czeka, kończy się w t\=3.
-  ####Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
+  ~C czeka 5, kończy się w t\=8.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
+  =C czeka 7, kończy się w t\=10.#Prawidłowo. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
+  ~C czeka 3, kończy się w t\=6.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
+  ~C nie czeka, kończy się w t\=3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
+  ####Poprawna odpowiedź to „C czeka 7, kończy się w t\=10”. Przed C wykonywane są A i B, łącznie przez 7 jednostek. C zaczyna w t\=7 i kończy się w t\=10.
 }
 
