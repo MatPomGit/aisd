@@ -1,5 +1,5 @@
 // AIiSD 11: Kolejki
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-11-Q01::[plain]Pusta kolejka FIFO otrzymuje A,B,C; wykonano dequeue(), enqueue(D), dequeue(). Który element zostanie usunięty w następnym dequeue()? {
@@ -50,7 +50,7 @@
   ####BFS przetwarza B przed C, odkrywa D z B i przypisuje odległość 2. Odległości w nieważonym grafie są minimalne.
 }
 
-::AISD-11-Q07::[plain]Które operacje udostępnia deque, a nie wymaga ich standardowa kolejka FIFO? {
+::AISD-11-Q07::[plain]Które operacje oferuje kolejka dwustronna (deque), a których nie udostępnia zwykła kolejka FIFO? {
   ~Dodawanie na obu końcach, ale usuwanie wyłącznie z początku.
   ~Dodawanie na końcu i usuwanie z dowolnego środka w stałym czasie.
   ~Usuwanie na obu końcach, lecz dodawanie wyłącznie na końcu.
