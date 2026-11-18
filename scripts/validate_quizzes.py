@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Statyczna kontrola 20 banków pytań Moodle GIFT.
+"""Statyczna kontrola 20 banków pytań Moodle GIFT (jedno- i wielokrotny wybór).
 
 Sprawdza strukturę pytań, kodowanie UTF-8 oraz zapis znaków sterujących
 GIFT. Nie zastępuje importu do Moodle ani recenzji merytorycznej.
@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 QUIZZES = ROOT / "quizzes"
 QUESTION = re.compile(r"^::AISD-(\d{2})-Q(\d{2})::\[plain\](.+) \{$")
-CHOICE = re.compile(r"^  ([=~])(.+)$")
+CHOICE = re.compile(r"^  ([=~])(?:%(-?\d+(?:\.\d+)?)%)?(.+)$")
 FEEDBACK = re.compile(r"^  ####(.+)$")
 EXPECTED_LECTURES = 20
 EXPECTED_QUESTIONS = 20
@@ -65,7 +65,8 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
     ids: set[str] = set()
     stems: set[str] = set()
     key_positions = [0, 0, 0, 0]
-    key_sequence: list[int] = []
+    key_sequence: list[int | None] = []
+    multiple_questions = 0
 
     for position, chunk in enumerate(chunks, start=1):
         lines = chunk.splitlines()
@@ -93,16 +94,35 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         if not nonempty or nonempty[-1] != "}":
             errors.append(f"{path}: brak zakończenia bloku odpowiedzi w {key}")
 
-        options = [line for line in lines if CHOICE.fullmatch(line)]
-        correct = [line for line in options if line.startswith("  =")]
-        wrong = [line for line in options if line.startswith("  ~")]
+        raw_options = [line for line in lines if line.startswith(("  =", "  ~"))]
+        options = [CHOICE.fullmatch(line) for line in raw_options]
         feedback = [line for line in lines if FEEDBACK.fullmatch(line)]
-        if len(options) != 4 or len(correct) != 1 or len(wrong) != 3:
-            errors.append(f"{path}: {key} musi mieć cztery warianty i dokładnie jeden klucz")
+        key_sequence.append(None)
+        if len(raw_options) != 4 or any(item is None for item in options):
+            errors.append(f"{path}: {key} wymaga czterech poprawnych składniowo wariantów GIFT")
+            continue
+        weighted = any(item.group(2) is not None for item in options)
+        if weighted:
+            multiple_questions += 1
+            weights = [float(item.group(2)) if item.group(2) is not None else None
+                       for item in options]
+            positives = [weight for weight in weights if weight is not None and weight > 0]
+            negatives = [weight for weight in weights if weight is not None and weight < 0]
+            if (any(item.group(1) != "~" for item in options)
+                    or any(weight is None or weight == 0 for weight in weights)
+                    or len(positives) < 2 or len(negatives) < 1
+                    or abs(sum(positives) - 100) > 0.01
+                    or sum(negatives) > -99.99):
+                errors.append(f"{path}: {key} niepoprawne wagi wielokrotnego wyboru")
+            if "Zaznacz wszystkie poprawne odpowiedzi" not in stem:
+                errors.append(f"{path}: {key} brak jawnego polecenia wielokrotnego wyboru")
         else:
-            correct_position = options.index(correct[0])
-            key_positions[correct_position] += 1
-            key_sequence.append(correct_position)
+            correct = [i for i, item in enumerate(options) if item.group(1) == "="]
+            if len(correct) != 1:
+                errors.append(f"{path}: {key} musi mieć dokładnie jeden klucz jednokrotnego wyboru")
+            else:
+                key_positions[correct[0]] += 1
+                key_sequence[-1] = correct[0]
         if len(feedback) != 1:
             errors.append(f"{path}: {key} wymaga jednego uzasadnienia")
 
@@ -110,7 +130,7 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         # Nie używamy casefold(), bo zmieniłoby znaczenie odpowiedzi.
         choices: list[str] = []
         for option in options:
-            value = option[3:]
+            value = option.group(3)
             errors.extend(check_gift_text(value, f"{path}: {key}: wariant"))
             choices.append(re.sub(r"\\([~=#{}\\])", r"\1", value).strip())
         if len(set(choices)) != len(choices):
@@ -125,17 +145,24 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         for item in feedback:
             errors.extend(check_gift_text(item[6:], f"{path}: {key}: uzasadnienie"))
 
-    if key_positions != [EXPECTED_QUESTIONS // 4] * 4:
-        errors.append(f"{path}: nierówny rozkład pozycji klucza: {key_positions}")
+    if multiple_questions == 0:
+        if key_positions != [EXPECTED_QUESTIONS // 4] * 4:
+            errors.append(f"{path}: nierówny rozkład pozycji klucza: {key_positions}")
+    elif max(key_positions) - min(key_positions) > 2:
+        errors.append(f"{path}: nierówny rozkład kluczy jednokrotnego wyboru: {key_positions}")
     if len(key_sequence) == EXPECTED_QUESTIONS:
-        if any(key_sequence[i] == key_sequence[i - 1] == key_sequence[i - 2]
+        if any(key_sequence[i] is not None
+               and key_sequence[i] == key_sequence[i - 1] == key_sequence[i - 2]
                for i in range(2, EXPECTED_QUESTIONS)):
             errors.append(f"{path}: trzy identyczne pozycje klucza z rzędu")
-        if any(all(key_sequence[i] == key_sequence[i - period]
-                   for i in range(period, EXPECTED_QUESTIONS))
-               for period in range(1, EXPECTED_QUESTIONS // 2 + 1)):
+        if multiple_questions == 0 and any(
+                all(key_sequence[i] == key_sequence[i - period]
+                    for i in range(period, EXPECTED_QUESTIONS))
+                for period in range(1, EXPECTED_QUESTIONS // 2 + 1)):
             errors.append(f"{path}: okresowy, przewidywalny klucz odpowiedzi")
-        if any(all(key_sequence[i + j] == key_sequence[i + j + 2]
+        if any(all(key_sequence[i + j] is not None
+                   and key_sequence[i + j + 2] is not None
+                   and key_sequence[i + j] == key_sequence[i + j + 2]
                    for j in range(4))
                for i in range(EXPECTED_QUESTIONS - 5)):
             errors.append(f"{path}: sześć kolejnych pozycji z naprzemiennym wzorcem klucza")
@@ -157,7 +184,13 @@ def main() -> int:
     if errors:
         print("\n".join(f"BŁĄD: {message}" for message in errors))
         return 1
-    print(f"PASS: {EXPECTED_LECTURES} banków, {EXPECTED_LECTURES * EXPECTED_QUESTIONS} pytań GIFT (UTF-8, [plain])")
+    multiple = sum(
+        "Zaznacz wszystkie poprawne odpowiedzi" in line
+        for path in QUIZZES.glob("*.gift")
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.startswith("::AISD-")
+    )
+    print(f"PASS: {EXPECTED_LECTURES} banków, {EXPECTED_LECTURES * EXPECTED_QUESTIONS} pytań GIFT, w tym {multiple} wielokrotnego wyboru (UTF-8, [plain])")
     return 0
 
 

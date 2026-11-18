@@ -1,5 +1,5 @@
 // AIiSD 03: Pseudokod i schematy blokowe
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-03-Q01::[plain]Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli obejmuje wszystkie elementy, gdy i\=0 na początku i zwiększa się o 1 po każdej iteracji? {
@@ -74,12 +74,12 @@
   ####Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
 }
 
-::AISD-03-Q10::[plain]W schemacie blokowym obliczamy sumę liczb od 1 do n. Który warunek testu przy inicjalizacji i\=1 i zwiększaniu i po dodaniu zapewnia uwzględnienie n? {
-  ~i<n
-  =i<\=n
-  ~i<n+1
-  ~i<\=n-1
-  ####Warunek i<\=n pozwala wykonać dodawanie także dla i równego n.
+::AISD-03-Q10::[plain]Pętla sumująca liczby od 1 do n zaczyna od i \= 1 i zwiększa i po wykonaniu dodawania. Które z poniższych warunków pozwalają uwzględnić także n? Zaznacz wszystkie poprawne odpowiedzi. {
+  ~%-50%i < n
+  ~%50%i <\= n
+  ~%50%i < n+1
+  ~%-50%i <\= n-1
+  ####Dla całkowitoliczbowego i warunki i <\= n oraz i < n+1 są równoważne. W obu przypadkach ciało pętli wykona się również dla i równego n.
 }
 
 ::AISD-03-Q11::[plain]Funkcja ma zwracać minimum a i b także przy a\=b. Który zapis nie spełni kontraktu przy równości? {
@@ -87,7 +87,7 @@
   ~Jeśli a<b: zwróć a; w przeciwnym razie zwróć b.
   =Jeśli a<b: zwróć a; jeśli a>b: zwróć b; inaczej nie zwracaj wyniku.
   ~Jeśli a>b: zwróć b; w przeciwnym razie zwróć a.
-  ####Dwa ostre porównania nie pokrywają przypadku a\=b, dlatego czwarty wariant nie zwraca wyniku przy remisie. Pozostałe zwracają jedną z wartości równych.
+  ####Dwa ostre porównania nie obejmują przypadku a \= b, dlatego trzeci wariant nie zwraca wtedy wyniku. Pozostałe rozwiązania zwracają jedną z równych wartości.
 }
 
 ::AISD-03-Q12::[plain]Pętla for i\=0..n-1 zawiera instrukcję return po sprawdzeniu A[i]. Jaki jest skutek wykonania tej instrukcji? {

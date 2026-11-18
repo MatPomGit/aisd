@@ -1,5 +1,5 @@
 // AIiSD 15: Grafy
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-15-Q01::[plain]W nieskierowanym grafie prostym o 6 wierzchołkach suma stopni wynosi 14. Ile krawędzi ma graf i dlaczego? {
@@ -43,10 +43,10 @@
 }
 
 ::AISD-15-Q06::[plain]W grafie skierowanym ścieżka A→B→C istnieje, a łuk C→A nie istnieje. Co z tego wynika? {
-  ~A i C są silnie spójne
-  ~W grafie nie istnieje żadna ścieżka prowadząca od C do A.
-  ~A musi być bezpośrednim poprzednikiem C w macierzy sąsiedztwa.
-  =Z A do C jest osiągalność, ale nie wynika osiągalność z C do A.
+  ~Wierzchołki A i C muszą być silnie spójne.
+  ~W grafie nie może istnieć żadna ścieżka od C do A.
+  ~Między A i C musi istnieć bezpośredni łuk.
+  =Z wierzchołka A można dotrzeć do C, ale nie wynika z tego możliwość dotarcia z C do A.
   ####Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
 }
 

@@ -1,5 +1,5 @@
 // AIiSD 13: Binarne drzewa wyszukiwań BST
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-13-Q01::[plain]W BST bez duplikatów wstawiono kolejno 8, 3, 10, 1, 6. Jaką ścieżką będzie przebiegać wyszukiwanie klucza 6? {
@@ -58,7 +58,7 @@
   ####Bez ustalonej polityki porządek i operacje nie mają jednoznacznej semantyki.
 }
 
-::AISD-13-Q08::[plain]BST ma n węzłów i wysokość Θ(log n). Student szacuje najgorsze wyszukiwanie jako Θ(n), ponieważ istnieje n kluczy. Jak poprawić rozumowanie? {
+::AISD-13-Q08::[plain]Drzewo BST ma n węzłów i wysokość Θ(log n). Student twierdzi, że wyszukiwanie musi kosztować Θ(n), ponieważ w drzewie jest n kluczy. Które wyjaśnienie obala ten wniosek? {
   ~Wyszukiwanie w BST przegląda wszystkie n węzłów przed zakończeniem.
   =Wyszukiwanie podąża tylko jedną ścieżką o długości ograniczonej wysokością, więc ma O(log n).
   ~Długość ścieżki jest zawsze Θ(1), niezależnie od liczby węzłów.

@@ -1,5 +1,5 @@
 // AIiSD 09: Listy liniowe
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-09-Q01::[plain]Lista jednokierunkowa ma n węzłów. Chcemy wielokrotnie odczytywać element o indeksie k, zaczynając od head za każdym razem. Ile przejść do next potrzeba na jeden odczyt? {
@@ -34,7 +34,7 @@
   ####W jednowęzłowym cyklu następnik wraca do tego samego węzła.
 }
 
-::AISD-09-Q05::[plain]Lista jednokierunkowa niecykliczna ma wskaźniki head i tail. Po usunięciu jej jedynego węzła head ustawiono na null, lecz nie zmieniono tail. Jaki błąd może nastąpić przy późniejszym enqueue? {
+::AISD-09-Q05::[plain]Niecykliczna lista jednokierunkowa ma wskaźniki head i tail. Po usunięciu jej jedynego węzła ustawiono head na null, lecz pozostawiono dawną wartość tail. Jaki błąd może wystąpić podczas kolejnego dodawania elementu na koniec listy? {
   =tail nadal wskazuje nieaktualny węzeł, więc próba dopisania może naruszyć pamięć.
   ~Nie ma błędu, bo zwolnienie węzła automatycznie zeruje tail.
   ~Koszt enqueue wzrośnie do Θ(log n), ale pamięć pozostanie poprawna.

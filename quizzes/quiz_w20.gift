@@ -1,5 +1,5 @@
 // AIiSD 20: Zaawansowane techniki projektowania algorytmów
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-20-Q01::[plain]Dla monet o nominałach 1,3,4 chcemy wydać kwotę 6 najmniejszą liczbą monet. Dlaczego strategia wybierania zawsze największej dostępnej monety nie jest optymalna? {
@@ -26,7 +26,7 @@
   ####Obie techniki zapamiętują wyniki; różnią się sposobem organizacji ewaluacji stanów.
 }
 
-::AISD-20-Q04::[plain]Algorytm dziel i zwyciężaj dzieli n elementów na dwie połowy, rozwiązuje obie rekurencyjnie i scala w czasie liniowym. Co stanie się z kosztem, jeśli scalanie w każdej ramce zastąpimy operacją o koszcie Θ(n²)? {
+::AISD-20-Q04::[plain]Algorytm dziel i zwyciężaj dzieli problem rozmiaru n na dwie połowy, rozwiązuje je rekurencyjnie i scala wyniki w czasie Θ(n), przy stałym koszcie przypadku bazowego. Jaki będzie rząd całkowitego kosztu, jeśli każde scalanie zastąpimy operacją o koszcie Θ(n²)? {
   =Koszt wzrośnie do Θ(n²), ponieważ na poziomie korzenia przeważa koszt scalania.
   ~Rekurencja nadal ma Θ(n log n), bo liczba podproblemów się nie zmienia.
   ~Koszt spadnie do Θ(log n), bo podział jest binarny.
@@ -82,11 +82,11 @@
   ####Wybór [1,3), [3,4) oraz [4,6) daje trzy zgodne przedziały.
 }
 
-::AISD-20-Q11::[plain]Najkrótsze ścieżki w skierowanym grafie acyklicznym, również z ujemnymi wagami łuków, można obliczać metodą programowania dynamicznego zgodnie z: {
-  ~porządku rosnących wag.
-  ~porządku malejących stopni.
-  ~porządku BFS.
-  =porządku topologicznym.
+::AISD-20-Q11::[plain]W jakiej kolejności należy przetwarzać wierzchołki skierowanego grafu acyklicznego, aby metodą programowania dynamicznego wyznaczać najkrótsze ścieżki także przy ujemnych wagach krawędzi? {
+  ~W kolejności rosnących wag krawędzi.
+  ~W kolejności malejących stopni wierzchołków.
+  ~W kolejności odwiedzania podczas BFS.
+  =W porządku topologicznym.
   ####Porządek topologiczny gwarantuje, że poprzedniki są przetworzone przed następcami.
 }
 

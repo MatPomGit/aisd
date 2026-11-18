@@ -1,5 +1,5 @@
 // AIiSD 18: Sortowanie porównawcze w praktyce
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-18-Q01::[plain]Selection sort przetwarza rosnąco A\=[4,1,3,2]. Po pierwszym przebiegu ma wybrać minimum i zamienić je z A[0]. Który wynik jest prawidłowy? {
@@ -42,7 +42,7 @@
   ####Budowa kopca zajmuje Θ(n), a n pobrań lub przywróceń kopca sumuje się do Θ(n log n).
 }
 
-::AISD-18-Q06::[plain]Dla klasycznego merge sort na tablicy, który zasób ma typowo dodatkowy koszt Θ(n), poza stosem rekurencji? {
+::AISD-18-Q06::[plain]Który element klasycznej implementacji sortowania przez scalanie (merge sort) wymaga dodatkowej pamięci Θ(n), nie licząc stosu rekurencji? {
   ~Pomocniczy stos wywołań głębokości Θ(n) dla zrównoważonych podziałów.
   ~Tablica wskaźników do każdego porównania, po jednym na poziom drzewa rekurencji.
   =Pomocniczy bufor do scalania.

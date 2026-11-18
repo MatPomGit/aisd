@@ -1,5 +1,5 @@
 // AIiSD 16: Przeszukiwanie drzew i grafów
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-16-Q01::[plain]W nieważonym grafie istnieją ścieżki A→B→D oraz A→C→E→D. BFS startuje w A. Dlaczego pierwsze odkrycie D daje odległość 2? {
@@ -10,7 +10,7 @@
   ####Kolejka FIFO zapewnia rozwijanie wierzchołków w niemalejącej liczbie krawędzi od źródła.
 }
 
-::AISD-16-Q02::[plain]Jakie jest górne ograniczenie złożoności czasowej pełnego przeszukiwania BFS w grafie reprezentowanym listami sąsiedztwa? {
+::AISD-16-Q02::[plain]Jakie jest standardowe najściślejsze asymptotyczne oszacowanie czasu pełnego przeszukiwania BFS, wyrażone za pomocą liczby wierzchołków V i krawędzi E, dla grafu reprezentowanego listami sąsiedztwa? {
   ~O(V²)
   ~O(E log V)
   =O(V+E)
@@ -19,27 +19,27 @@
 }
 
 ::AISD-16-Q03::[plain]W skierowanym grafie z cyklem A→B→C→A DFS wykonywany rekurencyjnie bez znaczników odwiedzenia może: {
-  ~Zakończyć po obejściu cyklu dokładnie raz, nawet bez stanu odwiedzenia.
-  =wchodzić w nieskończony ciąg wywołań.
-  ~Znaleźć najkrótszą ścieżkę
-  ~Odwiedzić każdy wierzchołek dwukrotnie, ale nigdy nie powtórzyć aktywnego wywołania.
+  ~Zakończyć się po jednokrotnym przejściu cyklu, pomimo braku znaczników odwiedzenia.
+  =Nie zakończyć się z powodu nieskończonego ciągu wywołań.
+  ~Zawsze znaleźć ścieżkę o najmniejszej liczbie krawędzi.
+  ~Odwiedzić każdy wierzchołek dokładnie dwa razy, bez ponownego wejścia do aktywnego wywołania.
   ####Ponowne wejście do A odtwarza identyczną sekwencję wywołań.
 }
 
-::AISD-16-Q04::[plain]Z A do celu T prowadzą drogi A→B→T o koszcie 2+2 oraz A→C→T o koszcie 1+10. W wierzchołkach B i C heurystyka h(B)\=2, h(C)\=1. Co może zrobić zachłanne best-first wybierające tylko mniejsze h, a co uwzględnia A* przez g+h? {
-  ~Best-first i A* zawsze wybiorą C, bo h(C) jest mniejsze.
-  ~A* ignoruje g i wybiera wyłącznie według h.
-  =Best-first może preferować C przez niższe h, a A* uwzględnia także koszt dotarcia do węzła.
-  ~Best-first minimalizuje całkowity koszt, ponieważ samo h określa koszt drogi już przebytej.
-  ####Zachłanne best-first używa h, natomiast A* używa sumy dotychczasowego kosztu g i oszacowania pozostałego h. Ich kolejność wyborów może się różnić.
+::AISD-16-Q04::[plain]W grafie są dwie trasy z A do T: A→B→T o kosztach krawędzi 2 i 2 oraz A→C→T o kosztach 6 i 1. Heurystyka wynosi h(B) \= 2 i h(C) \= 1. Jakiego wyboru na początku dokonają odpowiednio zachłanne przeszukiwanie best-first, używające samego h, oraz A*, używające g+h? {
+  ~Oba algorytmy wybiorą C, ponieważ h(C) < h(B).
+  ~Best-first wybierze B, a A* wybierze C, ponieważ A* pomija koszt dotarcia do wierzchołka.
+  =Best-first wybierze C, a A* wybierze B, ponieważ uwzględnia koszt dotarcia g.
+  ~Oba algorytmy wybiorą B, ponieważ porównują jedynie koszt końcowej krawędzi.
+  ####Best-first porównuje h(B) \= 2 z h(C) \= 1 i wybiera C. A* porównuje f(B) \= 2+2 \= 4 oraz f(C) \= 6+1 \= 7, dlatego wybiera B.
 }
 
-::AISD-16-Q05::[plain]W jakiej sytuacji standardowy DFS nie gwarantuje znalezienia ścieżki o najmniejszej liczbie krawędzi? {
-  =Gdy cel jest osiągalny przez ścieżki o różnych długościach.
-  ~Gdy wszystkie krawędzie mają tę samą wagę, ale do celu prowadzą dwie ścieżki różnej długości.
-  ~Gdy graf nie zawiera cykli, a z każdego wierzchołka wychodzi najwyżej jedna krawędź.
-  ~Gdy graf ma jedną możliwą ścieżkę od źródła do celu, niezależnie od jej długości.
-  ####DFS zależy od kolejności eksploracji sąsiadów i może najpierw znaleźć dłuższą trasę.
+::AISD-16-Q05::[plain]Które stwierdzenia dotyczące wyznaczania najkrótszej ścieżki w grafie nieważonym są prawdziwe? Zaznacz wszystkie poprawne odpowiedzi. {
+  ~%50%DFS może odnaleźć dłuższą ścieżkę do celu przed krótszą.
+  ~%50%BFS znajduje ścieżkę o minimalnej liczbie krawędzi.
+  ~%-50%DFS zawsze znajduje ścieżkę o minimalnej liczbie krawędzi.
+  ~%-50%W skierowanym grafie acyklicznym DFS zawsze znajduje najkrótszą ścieżkę do celu.
+  ####DFS zależy od kolejności rozwijania gałęzi i nie gwarantuje najkrótszej ścieżki nawet w skierowanym grafie acyklicznym. BFS w grafie nieważonym przegląda kolejne odległości, dlatego znajduje ścieżkę o najmniejszej liczbie krawędzi.
 }
 
 ::AISD-16-Q06::[plain]W grafie A→B, A→C, B→D, C→D BFS dodaje odkryte wierzchołki do kolejki. Co może się stać, jeśli D oznaczymy jako odwiedzony dopiero przy zdejmowaniu z kolejki? {
@@ -50,12 +50,12 @@
   ####Gdy D oczekuje w kolejce, ale jeszcze nie ma znacznika odwiedzenia, kolejny rodzic może ponownie dodać go do kolejki.
 }
 
-::AISD-16-Q07::[plain]W pełnym drzewie rozgałęzień o czynniku b>1 i głębokości d jaka może być asymptotyczna liczba węzłów na najgłębszym poziomie? {
-  =Θ(b^d)
-  ~Θ(d b)
-  ~Θ(bd)
-  ~Θ(b^(d-1))
-  ####Każdy kolejny poziom może mnożyć liczbę węzłów przez b.
+::AISD-16-Q07::[plain]W pełnym drzewie o stałym współczynniku rozgałęzień b > 1 i głębokości d każdy węzeł wewnętrzny ma b dzieci. Które oszacowania liczby węzłów na poziomie d są prawdziwe? Zaznacz wszystkie poprawne odpowiedzi. {
+  ~%50%Θ(b^d).
+  ~%-50%Θ(d·b).
+  ~%-50%O(d).
+  ~%50%O(b^d).
+  ####Każdy kolejny poziom zwiększa liczbę węzłów b-krotnie, więc na poziomie d jest dokładnie b^d węzłów. Wynik ma rząd Θ(b^d) i tym samym spełnia ograniczenie O(b^d).
 }
 
 ::AISD-16-Q08::[plain]Kiedy BFS zwykle zużywa więcej pamięci granicy przeszukiwania niż DFS w bardzo szerokim, płytkim drzewie? {

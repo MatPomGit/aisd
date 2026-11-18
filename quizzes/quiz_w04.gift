@@ -1,5 +1,5 @@
 // AIiSD 04: Analiza i złożoność algorytmów RAM
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-04-Q01::[plain]Pętla wykonuje dla i\=1,...,n dokładnie i porównań. Jaka jest liczba porównań? {
@@ -26,7 +26,7 @@
   ####Sam odczyt wejścia nie tworzy kopii. Akumulator wymaga stałej pamięci, natomiast kopia n elementów pamięci liniowej.
 }
 
-::AISD-04-Q04::[plain]Algorytm A kosztuje 5n²+7n operacji, a B 30n log₂(n) dla n>\=2. Które rozumowanie poprawnie uzasadnia wybór implementacji dla konkretnego n? {
+::AISD-04-Q04::[plain]Koszt algorytmu A wynosi 5n²+7n operacji, a algorytmu B 30n log₂(n) dla n >\= 2. Jak poprawnie wybrać szybszy algorytm dla ustalonej wartości n? {
   ~B jest szybszy dla każdego n>\=2, ponieważ ma mniejszą klasę asymptotyczną.
   ~A jest szybszy dla każdego n>\=2, ponieważ ma mniejszy współczynnik przy n².
   =Dla konkretnego n należy porównać wartości obu funkcji; przewaga asymptotyczna B dotyczy odpowiednio dużych n.

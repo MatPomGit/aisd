@@ -1,5 +1,5 @@
 // AIiSD 19: Zaawansowane algorytmy sortowania i optymalizacji
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-19-Q01::[plain]Quicksort wybiera pierwszy element jako pivot, a wejście jest rosnąco posortowane. Która cecha partycjonowania wyjaśnia czas Θ(n²) dla tej implementacji? {
@@ -26,11 +26,11 @@
   ####Drugi przebieg musi zachować wcześniejszą kolejność według jedności dla równych cyfr dziesiątek.
 }
 
-::AISD-19-Q04::[plain]Kiedy szczególnie przydaje się trójdzielny podział w sortowaniu szybkim, który rozdziela klucze mniejsze, równe i większe od pivota? {
-  ~Gdy powtarza się wiele kluczy, ale wszystkie równe pivotowi nadal poddaje się rekurencji.
-  ~Gdy wszystkie klucze są unikatowe
-  ~Gdy wejście jest już posortowane i trójdzielny podział zawsze daje idealnie równe części.
-  =dane zawierają wiele powtórzeń tych samych kluczy.
+::AISD-19-Q04::[plain]Kiedy trójdzielny podział w sortowaniu szybkim, rozdzielający klucze mniejsze, równe i większe od elementu osiowego (pivota), jest szczególnie korzystny? {
+  ~Gdy wszystkie klucze równe elementowi osiowemu ponownie przekazuje się do rekurencji.
+  ~Gdy wszystkie klucze są różne, a dodatkowy podział na równe wartości niczego nie zmienia.
+  ~Gdy wejście jest posortowane i każdy podział musi utworzyć dwie identyczne części.
+  =Gdy dane zawierają wiele powtarzających się kluczy.
   ####Wyodrębnienie równych kluczy zapobiega ich wielokrotnemu sortowaniu rekurencyjnemu.
 }
 
