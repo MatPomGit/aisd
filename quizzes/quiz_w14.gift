@@ -1,164 +1,164 @@
 // AIiSD 14: Kopce i kolejki priorytetowe
-// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
+// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-14-Q01::[plain]W kopcu minimalnym reprezentowanym tablicą indeksowaną od zera, gdzie znajduje się lewe dziecko węzła o indeksie i, jeśli istnieje? {
-  =2i+1
-  ~2i
-  ~floor(i/2)
-  ~2i+2
-  ####W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
+  =2i+1#Prawidłowo. W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
+  ~2i#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2i+1”. W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
+  ~floor(i/2)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2i+1”. W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
+  ~2i+2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2i+1”. W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
+  ####Poprawna odpowiedź to „2i+1”. W tablicowej reprezentacji drzewa kompletnego dzieci mają indeksy 2i+1 oraz 2i+2.
 }
 
 ::AISD-14-Q02::[plain]Kopiec minimalny reprezentuje tablica [2,5,3,9,7,8]. Student twierdzi, że wszystkie klucze lewego poddrzewa są mniejsze od wszystkich kluczy prawego. Co przeczy temu twierdzeniu? {
-  ~Korzeń 2 jest mniejszy od obu dzieci.
-  ~W kopcu nie można przechowywać kluczy różnych od siebie.
-  =W lewym poddrzewie leży 9, a w prawym 3, mimo że własność kopca jest spełniona.
-  ~Prawy potomek korzenia musi być zawsze największy w całym kopcu.
-  ####Kopiec porządkuje lokalnie rodzica względem dzieci, nie wymaga porządku pomiędzy całymi poddrzewami.
+  ~Korzeń 2 jest mniejszy od obu dzieci.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W lewym poddrzewie leży 9, a w prawym 3, mimo że własność kopca jest spełniona.”. Kopiec porządkuje lokalnie rodzica względem dzieci, nie wymaga porządku pomiędzy całymi poddrzewami.
+  ~W kopcu nie można przechowywać kluczy różnych od siebie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W lewym poddrzewie leży 9, a w prawym 3, mimo że własność kopca jest spełniona.”. Kopiec porządkuje lokalnie rodzica względem dzieci, nie wymaga porządku pomiędzy całymi poddrzewami.
+  =W lewym poddrzewie leży 9, a w prawym 3, mimo że własność kopca jest spełniona.#Prawidłowo. Kopiec porządkuje lokalnie rodzica względem dzieci, nie wymaga porządku pomiędzy całymi poddrzewami.
+  ~Prawy potomek korzenia musi być zawsze największy w całym kopcu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W lewym poddrzewie leży 9, a w prawym 3, mimo że własność kopca jest spełniona.”. Kopiec porządkuje lokalnie rodzica względem dzieci, nie wymaga porządku pomiędzy całymi poddrzewami.
+  ####Poprawna odpowiedź to „W lewym poddrzewie leży 9, a w prawym 3, mimo że własność kopca jest spełniona.”. Kopiec porządkuje lokalnie rodzica względem dzieci, nie wymaga porządku pomiędzy całymi poddrzewami.
 }
 
 ::AISD-14-Q03::[plain]Do kopca maksymalnego wstawiono nowy klucz większy od swojego rodzica. Jaka operacja przywraca własność kopca? {
-  ~Przesianie nowego klucza w dół przez porównania z obydwoma dziećmi.
-  ~Zamiana z rodzicem tylko raz, niezależnie od wysokości kopca.
-  =Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.
-  ~Przesianie korzenia w dół, bez zmiany pozycji nowego węzła.
-  ####Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
+  ~Przesianie nowego klucza w dół przez porównania z obydwoma dziećmi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.”. Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
+  ~Zamiana z rodzicem tylko raz, niezależnie od wysokości kopca.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.”. Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
+  =Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.#Prawidłowo. Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
+  ~Przesianie korzenia w dół, bez zmiany pozycji nowego węzła.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.”. Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
+  ####Poprawna odpowiedź to „Przesuwanie nowego klucza w górę przez zamiany z mniejszym rodzicem.”. Wstawianie naprawia kopiec metodą sift-up wzdłuż jednej ścieżki.
 }
 
 ::AISD-14-Q04::[plain]Usuwamy minimum z kopca minimalnego o n>1 elementach. Który krok zwykle następuje bezpośrednio po zastąpieniu korzenia ostatnim elementem? {
-  =Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.
-  ~Przesianie ostatniego elementu w górę
-  ~Przesianie wszystkich liści w górę, bez sprawdzania dzieci korzenia.
-  ~Przesianie korzenia w dół, zawsze wybierając większe dziecko.
-  ####Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
+  =Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.#Prawidłowo. Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
+  ~Przesianie ostatniego elementu w górę#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.”. Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
+  ~Przesianie wszystkich liści w górę, bez sprawdzania dzieci korzenia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.”. Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
+  ~Przesianie korzenia w dół, zawsze wybierając większe dziecko.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.”. Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
+  ####Poprawna odpowiedź to „Przesiewanie nowego korzenia w dół, wybierając mniejsze dziecko.”. Sift-down naprawia ewentualne naruszenia porządku od korzenia w kierunku liści.
 }
 
 ::AISD-14-Q05::[plain]Budowanie kopca od dołu przez sift-down od ostatniego rodzica kosztuje Θ(n). Dlaczego nie można po prostu pomnożyć n przez maksymalną wysokość log n każdego przesiewania? {
-  =Ponieważ większość węzłów znajduje się blisko liści i może zejść tylko o niewiele poziomów.
-  ~Ponieważ każde przesiewanie wykonuje co najmniej n operacji.
-  ~Ponieważ wysokość kopca wynosi zawsze Θ(1).
-  ~Ponieważ sift-down nie wykonuje żadnych porównań w kopcu.
-  ####Koszt sumuje się po wysokościach poddrzew: duża liczba węzłów ma małą wysokość, co daje całkowity koszt Θ(n).
+  =Ponieważ większość węzłów znajduje się blisko liści i może zejść tylko o niewiele poziomów.#Prawidłowo. Koszt sumuje się po wysokościach poddrzew: duża liczba węzłów ma małą wysokość, co daje całkowity koszt Θ(n).
+  ~Ponieważ każde przesiewanie wykonuje co najmniej n operacji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ większość węzłów znajduje się blisko liści i może zejść tylko o niewiele poziomów.”. Koszt sumuje się po wysokościach poddrzew: duża liczba węzłów ma małą wysokość, co daje całkowity koszt Θ(n).
+  ~Ponieważ wysokość kopca wynosi zawsze Θ(1).#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ większość węzłów znajduje się blisko liści i może zejść tylko o niewiele poziomów.”. Koszt sumuje się po wysokościach poddrzew: duża liczba węzłów ma małą wysokość, co daje całkowity koszt Θ(n).
+  ~Ponieważ sift-down nie wykonuje żadnych porównań w kopcu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ większość węzłów znajduje się blisko liści i może zejść tylko o niewiele poziomów.”. Koszt sumuje się po wysokościach poddrzew: duża liczba węzłów ma małą wysokość, co daje całkowity koszt Θ(n).
+  ####Poprawna odpowiedź to „Ponieważ większość węzłów znajduje się blisko liści i może zejść tylko o niewiele poziomów.”. Koszt sumuje się po wysokościach poddrzew: duża liczba węzłów ma małą wysokość, co daje całkowity koszt Θ(n).
 }
 
 ::AISD-14-Q06::[plain]Rozważamy wstawienie elementu do binarnego kopca o n elementach, gdzie n >\= 2. Które oszacowania czasu operacji w najgorszym przypadku są prawdziwe? Zaznacz wszystkie poprawne odpowiedzi. {
-  ~%-50%O(1).
-  ~%50%O(n).
-  ~%-50%Θ(n).
-  ~%50%O(log n).
-  ####Nowy element może przemieszczać się w górę najwyżej o wysokość kopca, więc koszt wynosi O(log n), a tym samym także O(n). Nie ma ogólnej gwarancji O(1), a Θ(n) nie jest ścisłym oszacowaniem tego przypadku.
+  ~%-50%O(1).#Nie. W najgorszym przypadku element przemieszcza się przez wiele poziomów kopca, więc operacja nie ma stałego ograniczenia O(1).
+  ~%50%O(n).#Tak. O(log n) jest również ograniczeniem O(n), choć jest mniej dokładne.
+  ~%-50%Θ(n).#Nie. Wysokość kopca jest logarytmiczna, dlatego koszt wstawienia nie rośnie liniowo w najgorszym przypadku.
+  ~%50%O(log n).#Tak. Przesiewanie nowego elementu może wymagać przejścia przez wysokość kopca, a ta wynosi O(log n).
+  ####Poprawne odpowiedzi to „O(n).” oraz „O(log n).”. Nowy element może przemieszczać się w górę najwyżej o wysokość kopca, więc koszt wynosi O(log n), a tym samym także O(n). Nie ma ogólnej gwarancji O(1), a Θ(n) nie jest ścisłym oszacowaniem tego przypadku.
 }
 
 ::AISD-14-Q07::[plain]Kopiec minimalny ma tablicę [2,5,3,9,7,8]. Jaka wartość pojawi się w korzeniu po jednokrotnym extract-min i prawidłowej naprawie kopca? {
-  ~5
-  =3
-  ~7
-  ~8
-  ####Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
+  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
+  =3#Prawidłowo. Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
+  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
+  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
+  ####Poprawna odpowiedź to „3”. Po podstawieniu 8 do korzenia zamiana z mniejszym dzieckiem 3 przywraca porządek i 3 staje się nowym minimum.
 }
 
 ::AISD-14-Q08::[plain]Które ograniczenie dotyczy standardowego sortowania przez kopcowanie (heapsort) w tablicy? {
-  =Nie gwarantuje stabilności dla elementów o równych kluczach.
-  ~Standardowy heapsort jest stabilny, o ile klucze są liczbami całkowitymi.
-  ~Standardowy heapsort jest niestabilny tylko przy sortowaniu malejącym.
-  ~Stabilność wynika bezpośrednio z kompletnego kształtu drzewa kopca.
-  ####Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
+  =Nie gwarantuje stabilności dla elementów o równych kluczach.#Prawidłowo. Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
+  ~Standardowy heapsort jest stabilny, o ile klucze są liczbami całkowitymi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie gwarantuje stabilności dla elementów o równych kluczach.”. Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
+  ~Standardowy heapsort jest niestabilny tylko przy sortowaniu malejącym.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie gwarantuje stabilności dla elementów o równych kluczach.”. Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
+  ~Stabilność wynika bezpośrednio z kompletnego kształtu drzewa kopca.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie gwarantuje stabilności dla elementów o równych kluczach.”. Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
+  ####Poprawna odpowiedź to „Nie gwarantuje stabilności dla elementów o równych kluczach.”. Heapsort wykonuje odległe zamiany i standardowo nie zachowuje kolejności równych kluczy.
 }
 
 ::AISD-14-Q09::[plain]Do kopca maksymalnego [9,7,8,2,4,6] wstawiamy 10 na końcu i naprawiamy kopiec przez sift-up. Jaką wartość będzie mieć korzeń? {
-  ~8.
-  ~9.
-  =10.
-  ~7.
-  ####Nowy element 10 jest większy od rodzica 8 i kolejno przechodzi w górę, aż zastąpi korzeń 9.
+  ~8.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10.”. Nowy element 10 jest większy od rodzica 8 i kolejno przechodzi w górę, aż zastąpi korzeń 9.
+  ~9.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10.”. Nowy element 10 jest większy od rodzica 8 i kolejno przechodzi w górę, aż zastąpi korzeń 9.
+  =10.#Prawidłowo. Nowy element 10 jest większy od rodzica 8 i kolejno przechodzi w górę, aż zastąpi korzeń 9.
+  ~7.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10.”. Nowy element 10 jest większy od rodzica 8 i kolejno przechodzi w górę, aż zastąpi korzeń 9.
+  ####Poprawna odpowiedź to „10.”. Nowy element 10 jest większy od rodzica 8 i kolejno przechodzi w górę, aż zastąpi korzeń 9.
 }
 
 ::AISD-14-Q10::[plain]Dla kopca minimalnego [1,3,2,7,6,5] usuwamy minimum i wstawiamy ostatni element do korzenia. Jaka będzie tablica po naprawie sift-down? {
-  ~[3,5,2,7,6]
-  ~[5,3,2,7,6]
-  ~[2,5,3,7,6]
-  =[2,3,5,7,6]
-  ####Po zastąpieniu 1 przez 5 porównuje się dzieci 3 i 2 i zamienia 5 z 2; dalsza pozycja jest liściem.
+  ~[3,5,2,7,6]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,3,5,7,6]”. Po zastąpieniu 1 przez 5 porównuje się dzieci 3 i 2 i zamienia 5 z 2; dalsza pozycja jest liściem.
+  ~[5,3,2,7,6]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,3,5,7,6]”. Po zastąpieniu 1 przez 5 porównuje się dzieci 3 i 2 i zamienia 5 z 2; dalsza pozycja jest liściem.
+  ~[2,5,3,7,6]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[2,3,5,7,6]”. Po zastąpieniu 1 przez 5 porównuje się dzieci 3 i 2 i zamienia 5 z 2; dalsza pozycja jest liściem.
+  =[2,3,5,7,6]#Prawidłowo. Po zastąpieniu 1 przez 5 porównuje się dzieci 3 i 2 i zamienia 5 z 2; dalsza pozycja jest liściem.
+  ####Poprawna odpowiedź to „[2,3,5,7,6]”. Po zastąpieniu 1 przez 5 porównuje się dzieci 3 i 2 i zamienia 5 z 2; dalsza pozycja jest liściem.
 }
 
 ::AISD-14-Q11::[plain]Kopiec o indeksach od zera zawiera 11 węzłów. Jaki jest indeks rodzica ostatniego elementu A[10] i dlaczego? {
-  ~5, bo floor(10/2)\=5.
-  ~9, bo element poprzedni jest zawsze rodzicem.
-  ~2, bo rodzic musi znajdować się na drugim poziomie.
-  =4, bo floor((10-1)/2)\=4.
-  ####W kopcu tablicowym rodzic węzła o indeksie i>0 ma indeks floor((i-1)/2).
+  ~5, bo floor(10/2)\=5.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4, bo floor((10-1)/2)\=4.”. W kopcu tablicowym rodzic węzła o indeksie i>0 ma indeks floor((i-1)/2).
+  ~9, bo element poprzedni jest zawsze rodzicem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4, bo floor((10-1)/2)\=4.”. W kopcu tablicowym rodzic węzła o indeksie i>0 ma indeks floor((i-1)/2).
+  ~2, bo rodzic musi znajdować się na drugim poziomie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4, bo floor((10-1)/2)\=4.”. W kopcu tablicowym rodzic węzła o indeksie i>0 ma indeks floor((i-1)/2).
+  =4, bo floor((10-1)/2)\=4.#Prawidłowo. W kopcu tablicowym rodzic węzła o indeksie i>0 ma indeks floor((i-1)/2).
+  ####Poprawna odpowiedź to „4, bo floor((10-1)/2)\=4.”. W kopcu tablicowym rodzic węzła o indeksie i>0 ma indeks floor((i-1)/2).
 }
 
 ::AISD-14-Q12::[plain]Do kopca minimalnego [2,4,3,9,7,6] dodano 1 na końcu i wykonano sift-up. Która tablica powstaje? {
-  ~[1,2,3,9,7,6,4]
-  ~[2,4,1,9,7,6,3]
-  =[1,4,2,9,7,6,3]
-  ~[1,3,2,9,7,6,4]
-  ####1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
+  ~[1,2,3,9,7,6,4]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,4,2,9,7,6,3]”. 1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
+  ~[2,4,1,9,7,6,3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,4,2,9,7,6,3]”. 1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
+  =[1,4,2,9,7,6,3]#Prawidłowo. 1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
+  ~[1,3,2,9,7,6,4]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[1,4,2,9,7,6,3]”. 1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
+  ####Poprawna odpowiedź to „[1,4,2,9,7,6,3]”. 1 trafia na indeks 6, zamienia się z rodzicem 3 na indeksie 2 i następnie z korzeniem 2.
 }
 
 ::AISD-14-Q13::[plain]W kopcu binarnym o 15 elementach, reprezentowanym tablicą od 0, jaki indeks zajmuje ostatni węzeł? {
-  ~15
-  =14
-  ~7
-  ~13
-  ####Dla n elementów poprawne indeksy to 0,...,n-1.
+  ~15#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14”. Dla n elementów poprawne indeksy to 0,...,n-1.
+  =14#Prawidłowo. Dla n elementów poprawne indeksy to 0,...,n-1.
+  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14”. Dla n elementów poprawne indeksy to 0,...,n-1.
+  ~13#Ta odpowiedź jest niepoprawna. Właściwy wariant to „14”. Dla n elementów poprawne indeksy to 0,...,n-1.
+  ####Poprawna odpowiedź to „14”. Dla n elementów poprawne indeksy to 0,...,n-1.
 }
 
 ::AISD-14-Q14::[plain]Tablica A\=[5,7,6,9,8] jest poprawnym kopcem minimalnym. Zmieniamy A[3] z 9 na 1. Która operacja przywróci własność kopca? {
-  ~Sift-down od indeksu 3, bo zmniejszono klucz.
-  ~Zamiana indeksu 3 z ostatnim liściem bez dalszych porównań.
-  ~Posortowanie wszystkich elementów malejąco, ponieważ tylko tak można odtworzyć kopiec.
-  =Sift-up od indeksu 3, bo nowa wartość jest mniejsza od rodzica 7.
-  ####Zmniejszenie klucza może naruszyć relację z rodzicami, a nie z dziećmi. Należy przesiewać w górę.
+  ~Sift-down od indeksu 3, bo zmniejszono klucz.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Sift-up od indeksu 3, bo nowa wartość jest mniejsza od rodzica 7.”. Zmniejszenie klucza może naruszyć relację z rodzicami, a nie z dziećmi.
+  ~Zamiana indeksu 3 z ostatnim liściem bez dalszych porównań.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Sift-up od indeksu 3, bo nowa wartość jest mniejsza od rodzica 7.”. Zmniejszenie klucza może naruszyć relację z rodzicami, a nie z dziećmi.
+  ~Posortowanie wszystkich elementów malejąco, ponieważ tylko tak można odtworzyć kopiec.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Sift-up od indeksu 3, bo nowa wartość jest mniejsza od rodzica 7.”. Zmniejszenie klucza może naruszyć relację z rodzicami, a nie z dziećmi.
+  =Sift-up od indeksu 3, bo nowa wartość jest mniejsza od rodzica 7.#Prawidłowo. Zmniejszenie klucza może naruszyć relację z rodzicami, a nie z dziećmi.
+  ####Poprawna odpowiedź to „Sift-up od indeksu 3, bo nowa wartość jest mniejsza od rodzica 7.”. Zmniejszenie klucza może naruszyć relację z rodzicami, a nie z dziećmi. Należy przesiewać w górę.
 }
 
 ::AISD-14-Q15::[plain]Ile poziomów ma kopiec o 15 węzłach, jeśli korzeń znajduje się na poziomie 0? {
-  ~3 poziomy
-  ~5 poziomów
-  =4 poziomy
-  ~15 poziomów
-  ####Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
+  ~3 poziomy#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4 poziomy”. Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
+  ~5 poziomów#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4 poziomy”. Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
+  =4 poziomy#Prawidłowo. Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
+  ~15 poziomów#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4 poziomy”. Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
+  ####Poprawna odpowiedź to „4 poziomy”. Kompletne drzewo z 15 węzłami ma poziomy 0,1,2,3; ich liczba wynosi cztery.
 }
 
 ::AISD-14-Q16::[plain]Dla kopca maksymalnego [10,7,9,4,6,8] po usunięciu maksimum i naprawie jaka będzie wartość nowego korzenia? {
-  ~8
-  =9
-  ~7
-  ~10
-  ####Po zastąpieniu 10 ostatnim 8 maksimum pozostałych kluczy wynosi 9, więc musi trafić do korzenia.
+  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Po zastąpieniu 10 ostatnim 8 maksimum pozostałych kluczy wynosi 9, więc musi trafić do korzenia.
+  =9#Prawidłowo. Po zastąpieniu 10 ostatnim 8 maksimum pozostałych kluczy wynosi 9, więc musi trafić do korzenia.
+  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Po zastąpieniu 10 ostatnim 8 maksimum pozostałych kluczy wynosi 9, więc musi trafić do korzenia.
+  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Po zastąpieniu 10 ostatnim 8 maksimum pozostałych kluczy wynosi 9, więc musi trafić do korzenia.
+  ####Poprawna odpowiedź to „9”. Po zastąpieniu 10 ostatnim 8 maksimum pozostałych kluczy wynosi 9, więc musi trafić do korzenia.
 }
 
 ::AISD-14-Q17::[plain]W kopcu minimalnym zmniejszamy klucz wewnętrznego węzła z 9 do 1, nie zmieniając jego dzieci. W którym kierunku zwykle trzeba przywrócić własność kopca? {
-  ~W dół do dzieci.
-  =W górę do rodziców.
-  ~W dół, a potem w górę.
-  ~W obie strony od liści.
-  ####Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
+  ~W dół do dzieci.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W górę do rodziców.”. Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
+  =W górę do rodziców.#Prawidłowo. Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
+  ~W dół, a potem w górę.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W górę do rodziców.”. Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
+  ~W obie strony od liści.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „W górę do rodziców.”. Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
+  ####Poprawna odpowiedź to „W górę do rodziców.”. Zmniejszenie klucza może naruszyć relację z rodzicem, nie z dziećmi.
 }
 
 ::AISD-14-Q18::[plain]Jaki jest koszt odczytu minimum bez jego usuwania w niepustym kopcu minimalnym? {
-  ~Θ(log n)
-  ~Θ(n)
-  ~Θ(n log n)
-  =Θ(1)
-  ####Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
+  ~Θ(log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(1)”. Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
+  ~Θ(n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(1)”. Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
+  ~Θ(n log n)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(1)”. Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
+  =Θ(1)#Prawidłowo. Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
+  ####Poprawna odpowiedź to „Θ(1)”. Minimum znajduje się bezpośrednio w korzeniu, czyli na indeksie 0.
 }
 
 ::AISD-14-Q19::[plain]Kolejka priorytetowa musi często wykonywać insert i extract-min przy n elementach. Dlaczego kopiec binarny może być lepszym kompromisem niż nieposortowana tablica? {
-  ~Nieposortowana tablica zapewnia zawsze O(1) extract-min i O(log n) insert.
-  =Kopiec zapewnia najgorszy koszt O(log n) obu operacji, a nieposortowana tablica ma zazwyczaj koszt Θ(n) przy extract-min.
-  ~Kopiec zapewnia Θ(1) insert i extract-min w najgorszym przypadku.
-  ~Kopiec zachowuje wszystkie klucze w pełnej kolejności rosnącej, więc nie wymaga przesiewania.
-  ####Kopiec organizuje elementy tak, by minimum było dostępne w korzeniu, a aktualizacje nie wymagały pełnego przeglądu.
+  ~Nieposortowana tablica zapewnia zawsze O(1) extract-min i O(log n) insert.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Kopiec zapewnia najgorszy koszt O(log n) obu operacji, a nieposortowana tablica ma zazwyczaj koszt Θ(n) przy extract-min.”. Kopiec organizuje elementy tak, by minimum było dostępne w korzeniu, a aktualizacje nie wymagały pełnego przeglądu.
+  =Kopiec zapewnia najgorszy koszt O(log n) obu operacji, a nieposortowana tablica ma zazwyczaj koszt Θ(n) przy extract-min.#Prawidłowo. Kopiec organizuje elementy tak, by minimum było dostępne w korzeniu, a aktualizacje nie wymagały pełnego przeglądu.
+  ~Kopiec zapewnia Θ(1) insert i extract-min w najgorszym przypadku.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Kopiec zapewnia najgorszy koszt O(log n) obu operacji, a nieposortowana tablica ma zazwyczaj koszt Θ(n) przy extract-min.”. Kopiec organizuje elementy tak, by minimum było dostępne w korzeniu, a aktualizacje nie wymagały pełnego przeglądu.
+  ~Kopiec zachowuje wszystkie klucze w pełnej kolejności rosnącej, więc nie wymaga przesiewania.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Kopiec zapewnia najgorszy koszt O(log n) obu operacji, a nieposortowana tablica ma zazwyczaj koszt Θ(n) przy extract-min.”. Kopiec organizuje elementy tak, by minimum było dostępne w korzeniu, a aktualizacje nie wymagały pełnego przeglądu.
+  ####Poprawna odpowiedź to „Kopiec zapewnia najgorszy koszt O(log n) obu operacji, a nieposortowana tablica ma zazwyczaj koszt Θ(n) przy extract-min.”. Kopiec organizuje elementy tak, by minimum było dostępne w korzeniu, a aktualizacje nie wymagały pełnego przeglądu.
 }
 
 ::AISD-14-Q20::[plain]Kopiec minimalny dopuszcza równe klucze. Dla tablicy [2,2,3,4] które stwierdzenie dotyczące własności kopca jest prawdziwe? {
-  =Spełnia własność, ponieważ każdy rodzic ma klucz nie większy niż jego dzieci.
-  ~Nie spełnia własności, bo dziecko o kluczu 2 jest równe rodzicowi.
-  ~Nie spełnia własności, bo w kopcu nie mogą występować duplikaty.
-  ~Spełnia własność tylko po zamianie dwóch pierwszych elementów.
-  ####Relacja użyta w kopcu minimalnym jest nieostra: parent<\=child. Równe klucze nie wymagają zamiany.
+  =Spełnia własność, ponieważ każdy rodzic ma klucz nie większy niż jego dzieci.#Prawidłowo. Relacja użyta w kopcu minimalnym jest nieostra: parent<\=child. Równe klucze nie wymagają zamiany.
+  ~Nie spełnia własności, bo dziecko o kluczu 2 jest równe rodzicowi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Spełnia własność, ponieważ każdy rodzic ma klucz nie większy niż jego dzieci.”. Relacja użyta w kopcu minimalnym jest nieostra: parent<\=child. Równe klucze nie wymagają zamiany.
+  ~Nie spełnia własności, bo w kopcu nie mogą występować duplikaty.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Spełnia własność, ponieważ każdy rodzic ma klucz nie większy niż jego dzieci.”. Relacja użyta w kopcu minimalnym jest nieostra: parent<\=child. Równe klucze nie wymagają zamiany.
+  ~Spełnia własność tylko po zamianie dwóch pierwszych elementów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Spełnia własność, ponieważ każdy rodzic ma klucz nie większy niż jego dzieci.”. Relacja użyta w kopcu minimalnym jest nieostra: parent<\=child. Równe klucze nie wymagają zamiany.
+  ####Poprawna odpowiedź to „Spełnia własność, ponieważ każdy rodzic ma klucz nie większy niż jego dzieci.”. Relacja użyta w kopcu minimalnym jest nieostra: parent<\=child. Równe klucze nie wymagają zamiany.
 }
 
