@@ -1,5 +1,5 @@
 // AIiSD 01: Podstawy algorytmów
-// Wersja 1.2.2 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-01-Q01::[plain]Która własność miary postępu wystarcza do wykazania, że pętla nie będzie wykonywana w nieskończoność? {
@@ -10,7 +10,7 @@
   ####W nieujemnych liczbach całkowitych nie istnieje nieskończony ściśle malejący ciąg. Samo ograniczenie z góry, nierosnąca miara lub malejąca miara rzeczywista nie zapewniają zakończenia.
 }
 
-::AISD-01-Q02::[plain]Procedura przegląda A od indeksu 0, zwraca i natychmiast po napotkaniu A[i]\=x, a po bezskutecznej pętli zwraca -1. Co jest prawdą przed sprawdzeniem A[i], jeżeli procedura jeszcze się nie zakończyła? {
+::AISD-01-Q02::[plain]Procedura przegląda tablicę A od indeksu 0. Zwraca indeks i po znalezieniu elementu równego x, a jeśli x nie występuje, zwraca -1. Co wiadomo bezpośrednio przed sprawdzeniem A[i], jeżeli procedura jeszcze się nie zakończyła? {
   ~Wśród pierwszych i elementów występuje co najmniej jedno dopasowanie do x.
   ~Element A[i] jest różny od x, mimo że nie został jeszcze sprawdzony.
   ~Wszystkie elementy od A[i] do końca tablicy są różne od x.
