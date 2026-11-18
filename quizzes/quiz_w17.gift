@@ -1,5 +1,5 @@
 // AIiSD 17: Teoria i klasyfikacja sortowania
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-17-Q01::[plain]Sortujemy stabilnie rekordy (2,A),(1,B),(2,C) według klucza rosnąco. Który wynik zachowuje porządek rekordów o równych kluczach? {
@@ -130,12 +130,12 @@
   ####Różne rzędy wzrostu dają przewagę asymptotyczną B, natomiast praktyczny czas przy konkretnym n wymaga uwzględnienia współczynników.
 }
 
-::AISD-17-Q17::[plain]Dlaczego standardowy quicksort nie zapewnia stabilności? {
-  =Zamiany elementów podczas partycjonowania mogą odwracać kolejność równych kluczy.
-  ~Podczas podziału elementy o równych kluczach mogą trafić do odrębnych stron i zmienić względną kolejność.
-  ~Quicksort nigdy nie używa pamięci pomocniczej, więc stabilność jest niemożliwa dla każdej jego wersji.
-  ~Wybieranie pivota zawsze usuwa rekordy o równych kluczach z tablicy.
-  ####Standardowe partycjonowanie nie utrzymuje stabilnego porządku elementów o równych wartościach.
+::AISD-17-Q17::[plain]Które wyjaśnienia opisują możliwą przyczynę niestabilności standardowego sortowania szybkiego (quicksort)? Zaznacz wszystkie poprawne odpowiedzi. {
+  ~%50%Zamiany podczas partycjonowania mogą odwrócić kolejność rekordów o równych kluczach.
+  ~%50%Przenoszenie rekordów między częściami tablicy może zmienić względną kolejność elementów o równych kluczach.
+  ~%-50%Każda implementacja quicksort musi usuwać wszystkie rekordy o równych kluczach.
+  ~%-50%Stabilność wynika automatycznie z wyboru elementu osiowego na początku tablicy.
+  ####Typowe, niestabilne partycjonowanie może przenosić równe klucze w sposób zmieniający ich pierwotną kolejność. Oba wskazane mechanizmy mogą naruszać stabilność, choć istnieją również stabilne warianty quicksort.
 }
 
 ::AISD-17-Q18::[plain]Selection sort wykonuje standardowo n(n-1)/2 porównań. Jak wpływa na tę liczbę całkowicie posortowane wejście przy n\=8? {
