@@ -1,164 +1,164 @@
 // AIiSD 15: Grafy
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.4 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-15-Q01::[plain]W nieskierowanym grafie prostym o 6 wierzchołkach suma stopni wynosi 14. Ile krawędzi ma graf i dlaczego? {
-  ~14, ponieważ każda krawędź wnosi jeden stopień.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7, ponieważ każda krawędź wnosi po jednym stopniu do dwóch wierzchołków”. Twierdzenie o uściskach dłoni daje sumę stopni równą 2E. Dla 14 otrzymujemy E\=7.
-  ~6, ponieważ liczba krawędzi równa się liczbie wierzchołków.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7, ponieważ każda krawędź wnosi po jednym stopniu do dwóch wierzchołków”. Twierdzenie o uściskach dłoni daje sumę stopni równą 2E. Dla 14 otrzymujemy E\=7.
-  ~28, ponieważ sumę stopni należy pomnożyć przez dwa.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7, ponieważ każda krawędź wnosi po jednym stopniu do dwóch wierzchołków”. Twierdzenie o uściskach dłoni daje sumę stopni równą 2E. Dla 14 otrzymujemy E\=7.
+  ~14, ponieważ każda krawędź wnosi jeden stopień.#Suma stopni wynosi dwukrotność liczby krawędzi; 14 to liczba końców krawędzi zliczonych łącznie.
+  ~6, ponieważ liczba krawędzi równa się liczbie wierzchołków.#Liczba wierzchołków 6 nie wyznacza liczby krawędzi; korzystamy z twierdzenia o uściskach dłoni.
+  ~28, ponieważ sumę stopni należy pomnożyć przez dwa.#Należy podzielić sumę stopni przez dwa, a nie ją podwajać.
   =7, ponieważ każda krawędź wnosi po jednym stopniu do dwóch wierzchołków.#Prawidłowo. Twierdzenie o uściskach dłoni daje sumę stopni równą 2E. Dla 14 otrzymujemy E\=7.
   ####Poprawna odpowiedź to „7, ponieważ każda krawędź wnosi po jednym stopniu do dwóch wierzchołków”. Twierdzenie o uściskach dłoni daje sumę stopni równą 2E. Dla 14 otrzymujemy E\=7.
 }
 
 ::AISD-15-Q02::[plain]Graf skierowany zawiera łuk A→B, ale nie zawiera łuku B→A. Jakie wartości ma macierz sąsiedztwa M, gdy pierwszy indeks oznacza początek łuku? {
-  ~M[A,B]\=0 i M[B,A]\=1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „M[A,B]\=1 oraz M[B,A]\=0”. Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
+  ~M[A,B]\=0 i M[B,A]\=1#M[A,B] odpowiada istniejącemu łukowi A→B, dlatego musi mieć 1, a M[B,A] zero.
   =M[A,B]\=1 oraz M[B,A]\=0.#Prawidłowo. Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
-  ~M[A,B]\=1 i M[B,A]\=1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „M[A,B]\=1 oraz M[B,A]\=0”. Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
-  ~M[A,B]\=0 i M[B,A]\=0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „M[A,B]\=1 oraz M[B,A]\=0”. Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
+  ~M[A,B]\=1 i M[B,A]\=1#Istnienie A→B nie implikuje łuku odwrotnego, więc M[B,A] nie może wynosić 1.
+  ~M[A,B]\=0 i M[B,A]\=0#Macierz musi odnotować istniejący łuk A→B wartością 1, a nie zerem.
   ####Poprawna odpowiedź to „M[A,B]\=1 oraz M[B,A]\=0”. Wiersz macierzy opisuje źródło łuku, a kolumna jego cel.
 }
 
 ::AISD-15-Q03::[plain]Graf nieskierowany o V wierzchołkach i E krawędziach przechowujemy listami sąsiedztwa. Jaki jest koszt pamięci reprezentacji? {
-  ~Θ(V²)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(V+E)”. Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
+  ~Θ(V²)#Θ(V²) odpowiada macierzy sąsiedztwa, która przechowuje miejsce na każdą parę wierzchołków.
   =Θ(V+E)#Prawidłowo. Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
-  ~Θ(E)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(V+E)”. Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
-  ~Θ(V log V+E)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(V+E)”. Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
+  ~Θ(E)#Same Θ(E) pomija tablicę nagłówków list lub informacje o V wierzchołkach, także izolowanych.
+  ~Θ(V log V+E)#Listy sąsiedztwa nie wymagają V log V komórek; przy stałym rozmiarze odwołań zajmują Θ(V+E).
   ####Poprawna odpowiedź to „Θ(V+E)”. Listy przechowują nagłówki dla V wierzchołków i łącznie po dwa wpisy na krawędź.
 }
 
-::AISD-15-Q04::[plain]Ile najwyżej krawędzi może mieć prosty graf nieskierowany o V wierzchołkach? {
+::AISD-15-Q04::[plain]Ile najwyżej krawędzi może mieć prosty graf nieskierowany o V ≥ 1 wierzchołkach? {
   =V(V-1)/2#Prawidłowo. Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
-  ~V²#Ta odpowiedź jest niepoprawna. Właściwy wariant to „V(V-1)/2”. Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
-  ~V(V+1)/2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „V(V-1)/2”. Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
-  ~V(V-1)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „V(V-1)/2”. Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
+  ~V²#V² uwzględnia także pętle własne i obie orientacje każdej pary, a graf prosty nieskierowany ich nie liczy.
+  ~V(V+1)/2#V(V+1)/2 liczy również V par (v,v), które odpowiadałyby niedozwolonym pętlom.
+  ~V(V-1)#V(V-1) liczy dwukrotnie każdą nieuporządkowaną parę wierzchołków.
   ####Poprawna odpowiedź to „V(V-1)/2”. Krawędź łączy nieuporządkowaną parę różnych wierzchołków.
 }
 
 ::AISD-15-Q05::[plain]Dla nieskierowanego grafu spójnego o 8 wierzchołkach, który warunek musi zachodzić? {
-  ~Dokładnie V-1 krawędzi#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ma co najmniej 7 krawędzi”. Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
-  ~Co najmniej V krawędzi#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ma co najmniej 7 krawędzi”. Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
-  ~Co najmniej 2(V-1) krawędzi#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ma co najmniej 7 krawędzi”. Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
+  ~Dokładnie V-1 krawędzi#Dokładnie V-1 krawędzi ma drzewo, ale spójny graf może zawierać dodatkowe krawędzie i cykle.
+  ~Co najmniej V krawędzi#Co najmniej V krawędzi nie jest konieczne: drzewo o ośmiu wierzchołkach ma siedem.
+  ~Co najmniej 2(V-1) krawędzi#Minimalna liczba krawędzi spójnego grafu to V-1, a nie dwukrotność tej wartości.
   =Ma co najmniej 7 krawędzi.#Prawidłowo. Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
   ####Poprawna odpowiedź to „Ma co najmniej 7 krawędzi”. Spójny graf zawiera drzewo rozpinające o V-1 krawędziach.
 }
 
 ::AISD-15-Q06::[plain]W grafie skierowanym ścieżka A→B→C istnieje, a łuk C→A nie istnieje. Co z tego wynika? {
-  ~Wierzchołki A i C muszą być silnie spójne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Z wierzchołka A można dotrzeć do C, ale nie wynika z tego możliwość dotarcia z C do A”. Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
-  ~W grafie nie może istnieć żadna ścieżka od C do A.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Z wierzchołka A można dotrzeć do C, ale nie wynika z tego możliwość dotarcia z C do A”. Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
-  ~Między A i C musi istnieć bezpośredni łuk.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Z wierzchołka A można dotrzeć do C, ale nie wynika z tego możliwość dotarcia z C do A”. Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
+  ~Wierzchołki A i C muszą być silnie spójne.#Osiągalność A→C nie dowodzi osiągalności C→A, więc silna spójność nie jest gwarantowana.
+  ~W grafie nie może istnieć żadna ścieżka od C do A.#Brak bezpośredniego C→A nie wyklucza ścieżki przez inne wierzchołki.
+  ~Między A i C musi istnieć bezpośredni łuk.#Ścieżka A→B→C daje osiągalność, lecz nie wymaga istnienia bezpośredniego łuku A→C.
   =Z wierzchołka A można dotrzeć do C, ale nie wynika z tego możliwość dotarcia z C do A.#Prawidłowo. Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
   ####Poprawna odpowiedź to „Z wierzchołka A można dotrzeć do C, ale nie wynika z tego możliwość dotarcia z C do A”. Złożenie łuków daje ścieżkę A do C, ale nie narzuca połączenia w kierunku odwrotnym.
 }
 
 ::AISD-15-Q07::[plain]Jaki jest koszt sprawdzenia istnienia krawędzi (u,v) w grafie reprezentowanym macierzą sąsiedztwa przy poprawnych indeksach? {
-  ~Θ(deg(u))#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(1)”. Wystarcza bezpośredni odczyt jednego pola M[u,v].
+  ~Θ(deg(u))#Θ(deg(u)) jest typowym kosztem przeglądu listy sąsiadów, a macierz zapewnia adresowanie pojedynczej komórki.
   =Θ(1)#Prawidłowo. Wystarcza bezpośredni odczyt jednego pola M[u,v].
-  ~Θ(log V)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(1)”. Wystarcza bezpośredni odczyt jednego pola M[u,v].
-  ~Θ(V)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Θ(1)”. Wystarcza bezpośredni odczyt jednego pola M[u,v].
+  ~Θ(log V)#Macierz nie wymaga wyszukiwania binarnego po wierszu; odczyt M[u][v] jest bezpośredni.
+  ~Θ(V)#Dzięki dostępowi indeksowanemu nie trzeba przeglądać V sąsiadów w macierzy.
   ####Poprawna odpowiedź to „Θ(1)”. Wystarcza bezpośredni odczyt jednego pola M[u,v].
 }
 
 ::AISD-15-Q08::[plain]Podczas BFS w grafie z cyklami w którym momencie najbezpieczniej oznaczać nowo odkryty wierzchołek jako odwiedzony? {
-  ~Przy pobieraniu go z kolejki.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przy dodawaniu go do kolejki”. Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
-  ~Po zakończeniu analizy sąsiadów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przy dodawaniu go do kolejki”. Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
+  ~Przy pobieraniu go z kolejki.#Oznaczanie dopiero przy zdejmowaniu z kolejki pozwala innym sąsiadom dodać ten sam wierzchołek wielokrotnie.
+  ~Po zakończeniu analizy sąsiadów.#Zbyt późne oznaczenie po analizie sąsiadów może powodować wielokrotne odkrycie tego samego wierzchołka.
   =Przy dodawaniu go do kolejki.#Prawidłowo. Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
-  ~Przy ponownym odkryciu wierzchołka.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Przy dodawaniu go do kolejki”. Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
+  ~Przy ponownym odkryciu wierzchołka.#Przy powtórnym odkryciu jest już za późno, ponieważ kolejka mogła zawierać duplikaty.
   ####Poprawna odpowiedź to „Przy dodawaniu go do kolejki”. Oznaczenie przy odkryciu zapobiega wielokrotnemu dodaniu tego samego wierzchołka.
 }
 
-::AISD-15-Q09::[plain]Graf nieważony ma krawędzie AB,BC,AC. Student wybiera trasę A→B→C do przejścia z A do C. Co pokazuje, że nie jest to najkrótsza trasa w liczbie krawędzi? {
-  ~Każda trasa przez B jest zabroniona w grafie nieważonym.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ścieżka A→C ma tylko jedną krawędź, a wybrana ma dwie”. Najkrótsza ścieżka minimalizuje liczbę krawędzi. Bezpośrednia krawędź A-C daje odległość 1.
+::AISD-15-Q09::[plain]Graf nieskierowany i nieważony ma krawędzie AB, BC i AC. Student wybiera trasę A→B→C do przejścia z A do C. Co pokazuje, że nie jest to najkrótsza trasa w liczbie krawędzi? {
+  ~Każda trasa przez B jest zabroniona w grafie nieważonym.#W grafie nieważonym ścieżka przez B jest dozwolona, tylko nie jest najkrótsza w liczbie krawędzi.
   =Ścieżka A→C ma tylko jedną krawędź, a wybrana ma dwie.#Prawidłowo. Najkrótsza ścieżka minimalizuje liczbę krawędzi. Bezpośrednia krawędź A-C daje odległość 1.
-  ~Trasa A→B→C ma zawsze mniejszy koszt niż A→C, bo zawiera więcej wierzchołków.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ścieżka A→C ma tylko jedną krawędź, a wybrana ma dwie”. Najkrótsza ścieżka minimalizuje liczbę krawędzi. Bezpośrednia krawędź A-C daje odległość 1.
-  ~W grafie nieważonym długości ścieżek nie da się porównywać.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ścieżka A→C ma tylko jedną krawędź, a wybrana ma dwie”. Najkrótsza ścieżka minimalizuje liczbę krawędzi. Bezpośrednia krawędź A-C daje odległość 1.
+  ~Trasa A→B→C ma zawsze mniejszy koszt niż A→C, bo zawiera więcej wierzchołków.#Dłuższa o jedną krawędź trasa A→B→C nie ma mniejszej liczby kroków niż A→C.
+  ~W grafie nieważonym długości ścieżek nie da się porównywać.#Bez wag długość ścieżki można mierzyć liczbą krawędzi; tutaj jest to 2 wobec 1.
   ####Poprawna odpowiedź to „Ścieżka A→C ma tylko jedną krawędź, a wybrana ma dwie”. Najkrótsza ścieżka minimalizuje liczbę krawędzi. Bezpośrednia krawędź A-C daje odległość 1.
 }
 
 ::AISD-15-Q10::[plain]Graf skierowany ma łuki A→B, B→C, C→A. Ile wynosi stopień wejściowy każdego wierzchołka? {
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
+  ~0#Każdy z A, B i C otrzymuje jeden łuk, więc stopień wejściowy nie wynosi zero.
+  ~2#Do każdego wierzchołka wchodzi tylko jeden łuk cyklu, a nie dwa.
   =1#Prawidłowo. Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
+  ~3#Trzy to liczba wszystkich łuków grafu, a nie łuków wchodzących do jednego wierzchołka.
   ####Poprawna odpowiedź to „1”. Każdy wierzchołek otrzymuje dokładnie jeden łuk od poprzednika w cyklu.
 }
 
 ::AISD-15-Q11::[plain]Prosty graf nieskierowany ma 4 wierzchołki i wszystkie możliwe krawędzie. Dodajemy piąty wierzchołek i łączymy go z każdym starym. Ile krawędzi ma otrzymany graf? {
   =10.#Prawidłowo. K4 ma 6 krawędzi, a nowy wierzchołek wnosi 4, razem 10.
-  ~8.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10”. K4 ma 6 krawędzi, a nowy wierzchołek wnosi 4, razem 10.
-  ~9.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10”. K4 ma 6 krawędzi, a nowy wierzchołek wnosi 4, razem 10.
-  ~12.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „10”. K4 ma 6 krawędzi, a nowy wierzchołek wnosi 4, razem 10.
+  ~8.#Pełny graf o czterech wierzchołkach miał sześć krawędzi, a nowy wierzchołek dodaje cztery, więc nie osiem.
+  ~9.#Dziesięć krawędzi wynika z 6+4; wartość 9 pomija jedno nowe połączenie.
+  ~12.#Wynik 12 byłby większy niż maksymalna liczba krawędzi prostego grafu o pięciu wierzchołkach, równa 10.
   ####Poprawna odpowiedź to „10”. K4 ma 6 krawędzi, a nowy wierzchołek wnosi 4, razem 10.
 }
 
-::AISD-15-Q12::[plain]Graf nieskierowany zawiera dwa rozłączne trójkąty, łącznie sześć wierzchołków. Ile ma składowych spójności? {
-  ~1 składowa#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2 składowe”. Każdy trójkąt tworzy osobną składową spójności, ponieważ między trójkątami nie ma krawędzi.
-  ~3 składowe#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2 składowe”. Każdy trójkąt tworzy osobną składową spójności, ponieważ między trójkątami nie ma krawędzi.
-  ~6 składowych#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2 składowe”. Każdy trójkąt tworzy osobną składową spójności, ponieważ między trójkątami nie ma krawędzi.
+::AISD-15-Q12::[plain]Graf nieskierowany składa się z dwóch rozłącznych trójkątów, bez krawędzi między nimi, łącznie z sześciu wierzchołków. Ile ma składowych spójności? {
+  ~1 składowa#Brak połączenia między trójkątami wyklucza jedną wspólną składową.
+  ~3 składowe#Każdy trójkąt jest spójny sam w sobie, więc nie tworzy trzech oddzielnych składowych.
+  ~6 składowych#Sześć pojedynczych składowych oznaczałoby brak krawędzi, a trójkąty zawierają ich po trzy.
   =2 składowe#Prawidłowo. Każdy trójkąt tworzy osobną składową spójności, ponieważ między trójkątami nie ma krawędzi.
   ####Poprawna odpowiedź to „2 składowe”. Każdy trójkąt tworzy osobną składową spójności, ponieważ między trójkątami nie ma krawędzi.
 }
 
 ::AISD-15-Q13::[plain]Graf skierowany ma łuki 0→1,0→2,2→1. Jaki jest stopień wyjściowy wierzchołka 0? {
   =2#Prawidłowo. Z wierzchołka 0 wychodzą dokładnie dwa łuki.
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Z wierzchołka 0 wychodzą dokładnie dwa łuki.
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Z wierzchołka 0 wychodzą dokładnie dwa łuki.
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Z wierzchołka 0 wychodzą dokładnie dwa łuki.
+  ~1#Ze wierzchołka 0 wychodzą dwa łuki, do 1 i 2, nie jeden.
+  ~3#Trzeci łuk 2→1 nie wychodzi z 0, więc nie zwiększa jego stopnia wyjściowego.
+  ~0#Wierzchołek 0 ma wychodzące krawędzie, zatem stopień wyjściowy nie jest zerowy.
   ####Poprawna odpowiedź to „2”. Z wierzchołka 0 wychodzą dokładnie dwa łuki.
 }
 
 ::AISD-15-Q14::[plain]Graf nieskierowany ma V\=5 i E\=4. Która dodatkowa informacja wystarcza, aby stwierdzić, że jest drzewem? {
-  ~Graf ma dokładnie dwa wierzchołki stopnia 1, ale może zawierać cykl.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Graf jest spójny, ponieważ spójność wraz z E\=V-1 wyklucza cykle”. Spójny graf nieskierowany z V-1 krawędziami jest drzewem. Sama liczba krawędzi nie wystarcza.
-  ~Graf nie ma pętli własnych, choć może być niespójny.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Graf jest spójny, ponieważ spójność wraz z E\=V-1 wyklucza cykle”. Spójny graf nieskierowany z V-1 krawędziami jest drzewem. Sama liczba krawędzi nie wystarcza.
+  ~Graf ma dokładnie dwa wierzchołki stopnia 1, ale może zawierać cykl.#Dwa wierzchołki stopnia 1 nie gwarantują spójności; przy E\=V-1 nadal może istnieć osobny cykl.
+  ~Graf nie ma pętli własnych, choć może być niespójny.#Brak pętli własnych nie wyklucza cykli długości co najmniej trzy ani niespójności.
   =Graf jest spójny, ponieważ spójność wraz z E\=V-1 wyklucza cykle.#Prawidłowo. Spójny graf nieskierowany z V-1 krawędziami jest drzewem. Sama liczba krawędzi nie wystarcza.
-  ~Każdy wierzchołek ma co najmniej jednego sąsiada, ale graf może być niespójny.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Graf jest spójny, ponieważ spójność wraz z E\=V-1 wyklucza cykle”. Spójny graf nieskierowany z V-1 krawędziami jest drzewem. Sama liczba krawędzi nie wystarcza.
+  ~Każdy wierzchołek ma co najmniej jednego sąsiada, ale graf może być niespójny.#Brak wierzchołków izolowanych nie musi oznaczać jednego połączonego składnika.
   ####Poprawna odpowiedź to „Graf jest spójny, ponieważ spójność wraz z E\=V-1 wyklucza cykle”. Spójny graf nieskierowany z V-1 krawędziami jest drzewem. Sama liczba krawędzi nie wystarcza.
 }
 
 ::AISD-15-Q15::[plain]Która reprezentacja jest zwykle oszczędniejsza pamięciowo dla grafu z 1000 wierzchołkami i 10 krawędziami? {
-  ~Macierz sąsiedztwa#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista sąsiedztwa”. Lista sąsiedztwa zajmuje Θ(V+E) pamięci, natomiast macierz sąsiedztwa wymaga Θ(V²) pól.
-  ~Pełna macierz wag#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista sąsiedztwa”. Lista sąsiedztwa zajmuje Θ(V+E) pamięci, natomiast macierz sąsiedztwa wymaga Θ(V²) pól.
+  ~Macierz sąsiedztwa#Macierz sąsiedztwa zapisuje rozmiar Θ(V²), nawet gdy jest tylko 10 krawędzi.
+  ~Pełna macierz wag#Pełna macierz wag przechowuje wagę lub znacznik braku krawędzi dla wielu par wierzchołków.
   =Lista sąsiedztwa.#Prawidłowo. Lista sąsiedztwa zajmuje Θ(V+E) pamięci, natomiast macierz sąsiedztwa wymaga Θ(V²) pól.
-  ~Macierz osiągalności#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista sąsiedztwa”. Lista sąsiedztwa zajmuje Θ(V+E) pamięci, natomiast macierz sąsiedztwa wymaga Θ(V²) pól.
+  ~Macierz osiągalności#Macierz osiągalności także jest tablicą V×V i wymaga pamięci kwadratowej.
   ####Poprawna odpowiedź to „Lista sąsiedztwa”. Lista sąsiedztwa zajmuje Θ(V+E) pamięci, natomiast macierz sąsiedztwa wymaga Θ(V²) pól.
 }
 
 ::AISD-15-Q16::[plain]W grafie nieskierowanym dodano nową krawędź między dwoma wcześniej niepołączonymi wierzchołkami. Jak zmieni się suma stopni? {
   =Wzrośnie o 2.#Prawidłowo. Nowa krawędź zwiększa stopień obu końców o jeden, więc suma rośnie o 2.
-  ~Wzrośnie o 1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wzrośnie o 2”. Nowa krawędź zwiększa stopień obu końców o jeden, więc suma rośnie o 2.
-  ~Pozostanie bez zmian, bo liczba wierzchołków nie wzrasta.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wzrośnie o 2”. Nowa krawędź zwiększa stopień obu końców o jeden, więc suma rośnie o 2.
-  ~Wzrośnie o liczbę wierzchołków grafu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wzrośnie o 2”. Nowa krawędź zwiększa stopień obu końców o jeden, więc suma rośnie o 2.
+  ~Wzrośnie o 1.#Każda nowa krawędź nieskierowana zwiększa stopień obu końców o jeden, łącznie o dwa.
+  ~Pozostanie bez zmian, bo liczba wierzchołków nie wzrasta.#Zmiana nie zależy tylko od liczby wierzchołków, ponieważ dodajemy nowe połączenie.
+  ~Wzrośnie o liczbę wierzchołków grafu.#Suma stopni rośnie o dwa, niezależnie od całkowitej liczby wierzchołków grafu.
   ####Poprawna odpowiedź to „Wzrośnie o 2”. Nowa krawędź zwiększa stopień obu końców o jeden, więc suma rośnie o 2.
 }
 
 ::AISD-15-Q17::[plain]Spójny prosty graf nieskierowany ma pięć wierzchołków, a każdy ma stopień 2. Która struktura musi powstać? {
-  ~Pięć rozłącznych krawędzi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pojedynczy cykl z pięcioma wierzchołkami”. Każda spójna składowa grafu dwuregularnego jest cyklem. Spójność zapewnia, że jest jeden cykl.
-  ~Jedna ścieżka z pięcioma wierzchołkami.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pojedynczy cykl z pięcioma wierzchołkami”. Każda spójna składowa grafu dwuregularnego jest cyklem. Spójność zapewnia, że jest jeden cykl.
-  ~Drzewo z pięcioma wierzchołkami.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Pojedynczy cykl z pięcioma wierzchołkami”. Każda spójna składowa grafu dwuregularnego jest cyklem. Spójność zapewnia, że jest jeden cykl.
+  ~Pięć rozłącznych krawędzi.#Pięć rozłącznych krawędzi wymagałoby dziesięciu końców, a graf ma pięć wierzchołków i jest spójny.
+  ~Jedna ścieżka z pięcioma wierzchołkami.#Ścieżka ma dwa końce stopnia 1, co przeczy warunkowi stopnia 2 u wszystkich wierzchołków.
+  ~Drzewo z pięcioma wierzchołkami.#Drzewo z pięcioma wierzchołkami ma cztery krawędzie, a suma stopni 10 oznacza pięć krawędzi i cykl.
   =Pojedynczy cykl z pięcioma wierzchołkami.#Prawidłowo. Każda spójna składowa grafu dwuregularnego jest cyklem. Spójność zapewnia, że jest jeden cykl.
   ####Poprawna odpowiedź to „Pojedynczy cykl z pięcioma wierzchołkami”. Każda spójna składowa grafu dwuregularnego jest cyklem. Spójność zapewnia, że jest jeden cykl.
 }
 
 ::AISD-15-Q18::[plain]W grafie skierowanym ścieżki A→B i B→C istnieją. Która relacja wynika z przechodniości osiągalności? {
-  ~A jest osiągalne z C#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C jest osiągalne z A”. Połączenie ścieżek A→B oraz B→C daje ścieżkę z A do C.
-  ~Łuk A→C musi istnieć bezpośrednio#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C jest osiągalne z A”. Połączenie ścieżek A→B oraz B→C daje ścieżkę z A do C.
+  ~A jest osiągalne z C#Z A można przejść do B, a dalej do C; to daje C osiągalne z A, nie A z C.
+  ~Łuk A→C musi istnieć bezpośrednio#Osiągalność przez B nie oznacza obecności bezpośredniego łuku A→C.
   =C jest osiągalne z A.#Prawidłowo. Połączenie ścieżek A→B oraz B→C daje ścieżkę z A do C.
-  ~B i C muszą należeć do jednego silnie spójnego składnika.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C jest osiągalne z A”. Połączenie ścieżek A→B oraz B→C daje ścieżkę z A do C.
+  ~B i C muszą należeć do jednego silnie spójnego składnika.#Ścieżki A→B i B→C nie dowodzą drogi powrotnej C→B, więc nie gwarantują silnej spójności.
   ####Poprawna odpowiedź to „C jest osiągalne z A”. Połączenie ścieżek A→B oraz B→C daje ścieżkę z A do C.
 }
 
 ::AISD-15-Q19::[plain]Macierz sąsiedztwa prostego grafu nieskierowanego bez pętli ma element M[1][3]\=1. Co musi zachodzić? {
-  ~M[3][1]\=0, ponieważ macierz jest skierowana.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „M[3][1]\=1 i M[1][1]\=0”. Symetria wynika z nieskierowania krawędzi, a brak pętli daje zera na przekątnej.
+  ~M[3][1]\=0, ponieważ macierz jest skierowana.#W nieskierowanym grafie macierz jest symetryczna, więc M[3][1] musi równać się M[1][3].
   =M[3][1]\=1 i M[1][1]\=0.#Prawidłowo. Symetria wynika z nieskierowania krawędzi, a brak pętli daje zera na przekątnej.
-  ~M[1][1]\=1, ponieważ wierzchołek 1 ma sąsiada.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „M[3][1]\=1 i M[1][1]\=0”. Symetria wynika z nieskierowania krawędzi, a brak pętli daje zera na przekątnej.
-  ~M[3][3]\=1, ponieważ istnieje krawędź między wierzchołkami 1 i 3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „M[3][1]\=1 i M[1][1]\=0”. Symetria wynika z nieskierowania krawędzi, a brak pętli daje zera na przekątnej.
+  ~M[1][1]\=1, ponieważ wierzchołek 1 ma sąsiada.#Istnienie sąsiada 3 nie tworzy pętli w wierzchołku 1; diagonalna M[1][1] pozostaje zero.
+  ~M[3][3]\=1, ponieważ istnieje krawędź między wierzchołkami 1 i 3.#Krawędź między 1 i 3 nie oznacza pętli przy 3; diagonalna M[3][3] jest zerowa.
   ####Poprawna odpowiedź to „M[3][1]\=1 i M[1][1]\=0”. Symetria wynika z nieskierowania krawędzi, a brak pętli daje zera na przekątnej.
 }
 
 ::AISD-15-Q20::[plain]Dla BFS od wierzchołka A w grafie z krawędziami AB,AC,BD,CE i kolejnością sąsiadów alfabetyczną, jaka jest kolejność odkrywania? {
   =A,B,C,D,E#Prawidłowo. BFS najpierw odkrywa sąsiadów A: B,C, a następnie sąsiadów B i C: D,E.
-  ~A,B,D,C,E#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A,B,C,D,E”. BFS najpierw odkrywa sąsiadów A: B,C, a następnie sąsiadów B i C: D,E.
-  ~A,C,E,B,D#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A,B,C,D,E”. BFS najpierw odkrywa sąsiadów A: B,C, a następnie sąsiadów B i C: D,E.
-  ~A,B,C,E,D#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A,B,C,D,E”. BFS najpierw odkrywa sąsiadów A: B,C, a następnie sąsiadów B i C: D,E.
+  ~A,B,D,C,E#Po odkryciu A BFS dodaje B i C na tym samym poziomie, zanim przejdzie do D.
+  ~A,C,E,B,D#Alfabetyczny przegląd odkrywa najpierw B, a nie C; E nie może poprzedzić B.
+  ~A,B,C,E,D#D jest odkrywane z B, którego przetwarzamy przed C, więc D poprzedza E.
   ####Poprawna odpowiedź to „A,B,C,D,E”. BFS najpierw odkrywa sąsiadów A: B,C, a następnie sąsiadów B i C: D,E.
 }
 

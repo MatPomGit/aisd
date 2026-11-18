@@ -1,164 +1,164 @@
 // AIiSD 12: Podstawy drzew
-// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.4 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-12-Q01::[plain]Wysokość drzewa definiujemy jako liczbę krawędzi na najdłuższej ścieżce od korzenia do liścia. Jaką wysokość ma drzewo składające się z jednego węzła? {
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Ścieżka od korzenia do niego samego zawiera zero krawędzi.
-  ~-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Ścieżka od korzenia do niego samego zawiera zero krawędzi.
+  ~1#Przy wysokości liczonej w krawędziach pojedynczy węzeł nie tworzy krawędzi, więc wysokość nie wynosi 1.
+  ~-1#Wartość -1 bywa konwencją dla pustego drzewa, ale zadane drzewo ma jeden węzeł.
   =0#Prawidłowo. Ścieżka od korzenia do niego samego zawiera zero krawędzi.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „0”. Ścieżka od korzenia do niego samego zawiera zero krawędzi.
+  ~2#Wysokość 2 wymagałaby ścieżki z dwiema krawędziami, których tutaj nie ma.
   ####Poprawna odpowiedź to „0”. Ścieżka od korzenia do niego samego zawiera zero krawędzi.
 }
 
 ::AISD-12-Q02::[plain]Drzewo binarne ma korzeń R, lewe dziecko A i prawe dziecko B. Jaka jest kolejność przejścia inorder? {
-  ~R, A, B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A, R, B”. Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
-  ~A, B, R#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A, R, B”. Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
-  ~B, R, A#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A, R, B”. Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
+  ~R, A, B#Preorder zaczyna od korzenia R, lecz inorder odwiedza najpierw lewe poddrzewo A.
+  ~A, B, R#Postorder miałby kolejność A,B,R, ale inorder umieszcza korzeń między lewym i prawym dzieckiem.
+  ~B, R, A#Kolejność B,R,A zamienia lewe i prawe poddrzewo, nie odpowiada definicji inorder.
   =A, R, B#Prawidłowo. Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
   ####Poprawna odpowiedź to „A, R, B”. Inorder odwiedza lewe poddrzewo, korzeń i prawe poddrzewo.
 }
 
 ::AISD-12-Q03::[plain]Drzewo binarne ma korzeń R oraz dokładnie jedno dziecko A. Które stwierdzenie jest prawdziwe, gdy pełne drzewo binarne oznacza drzewo, w którym każdy węzeł ma zero lub dwoje dzieci? {
-  ~Jest pełne, bo korzeń nie jest liściem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie jest pełne, bo korzeń ma tylko jedno dziecko”. Drzewo jest binarne, bo każdy węzeł ma najwyżej dwoje dzieci, lecz nie jest pełne, ponieważ korzeń ma tylko jedno.
-  ~Jest pełne, bo wysokość wynosi 1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie jest pełne, bo korzeń ma tylko jedno dziecko”. Drzewo jest binarne, bo każdy węzeł ma najwyżej dwoje dzieci, lecz nie jest pełne, ponieważ korzeń ma tylko jedno.
-  ~Nie jest drzewem binarnym, bo każdy węzeł musi mieć dokładnie dwoje dzieci.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Nie jest pełne, bo korzeń ma tylko jedno dziecko”. Drzewo jest binarne, bo każdy węzeł ma najwyżej dwoje dzieci, lecz nie jest pełne, ponieważ korzeń ma tylko jedno.
+  ~Jest pełne, bo korzeń nie jest liściem.#Definicja pełnego drzewa wymaga u każdego węzła 0 albo 2 dzieci; nielistkowy korzeń z 1 dzieckiem łamie ten warunek.
+  ~Jest pełne, bo wysokość wynosi 1.#Wysokość 1 nie gwarantuje pełności, bo liczy się liczba dzieci każdego węzła.
+  ~Nie jest drzewem binarnym, bo każdy węzeł musi mieć dokładnie dwoje dzieci.#Drzewo binarne dopuszcza również węzły z jednym dzieckiem; nie każde drzewo binarne jest pełne.
   =Nie jest pełne, bo korzeń ma tylko jedno dziecko.#Prawidłowo. Drzewo jest binarne, bo każdy węzeł ma najwyżej dwoje dzieci, lecz nie jest pełne, ponieważ korzeń ma tylko jedno.
   ####Poprawna odpowiedź to „Nie jest pełne, bo korzeń ma tylko jedno dziecko”. Drzewo jest binarne, bo każdy węzeł ma najwyżej dwoje dzieci, lecz nie jest pełne, ponieważ korzeń ma tylko jedno.
 }
 
-::AISD-12-Q04::[plain]Dla drzewa binarnego o wysokości h liczonej w krawędziach, jaka jest maksymalna liczba węzłów? {
-  ~2^h#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2^(h+1)-1”. Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
+::AISD-12-Q04::[plain]Dla niepustego drzewa binarnego o wysokości h ≥ 0 liczonej w krawędziach, jaka jest maksymalna liczba węzłów? {
+  ~2^h#Liczba 2^h opisuje w idealnym drzewie wyłącznie węzły najniższego poziomu, a nie całość.
   =2^(h+1)-1#Prawidłowo. Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
-  ~2^(h+1)#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2^(h+1)-1”. Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
-  ~2^h-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2^(h+1)-1”. Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
+  ~2^(h+1)#Wyrażenie 2^(h+1) pomija odjęcie 1 wynikające z sumy poziomów od 0 do h.
+  ~2^h-1#Wyrażenie 2^h-1 odpowiada sumie do poziomu h-1, a pomija najniższy poziom.
   ####Poprawna odpowiedź to „2^(h+1)-1”. Na kolejnych poziomach maksymalnie jest 1,2,4,...,2^h węzłów.
 }
 
 ::AISD-12-Q05::[plain]Pełne drzewo binarne ma dokładnie 7 węzłów wewnętrznych, każdy z dwojgiem dzieci. Student twierdzi, że musi mieć także 7 liści. Co wyjaśnia błąd? {
-  ~Liczba liści jest zawsze dwukrotnie większa niż liczba węzłów wewnętrznych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba liści to I+1, zatem w tym przypadku 8”. W pełnym drzewie binarnym liczba liści L i węzłów wewnętrznych I spełnia L\=I+1.
+  ~Liczba liści jest zawsze dwukrotnie większa niż liczba węzłów wewnętrznych.#W pełnym drzewie liści jest o jeden więcej niż węzłów wewnętrznych, nie dwa razy więcej dla każdego I.
   =Liczba liści to I+1, zatem w tym przypadku 8.#Prawidłowo. W pełnym drzewie binarnym liczba liści L i węzłów wewnętrznych I spełnia L\=I+1.
-  ~Liczba liści to I-1, ponieważ korzeń nie jest liczony.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba liści to I+1, zatem w tym przypadku 8”. W pełnym drzewie binarnym liczba liści L i węzłów wewnętrznych I spełnia L\=I+1.
-  ~Liczba liści jest niezależna od liczby węzłów wewnętrznych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczba liści to I+1, zatem w tym przypadku 8”. W pełnym drzewie binarnym liczba liści L i węzłów wewnętrznych I spełnia L\=I+1.
+  ~Liczba liści to I-1, ponieważ korzeń nie jest liczony.#Odjęcie jednego błędnie pomija liść; ze struktury 2I krawędzi wynika L\=I+1.
+  ~Liczba liści jest niezależna od liczby węzłów wewnętrznych.#Pełność narzuca ścisły związek L\=I+1, więc liczba liści nie jest dowolna.
   ####Poprawna odpowiedź to „Liczba liści to I+1, zatem w tym przypadku 8”. W pełnym drzewie binarnym liczba liści L i węzłów wewnętrznych I spełnia L\=I+1. Dla I\=7 otrzymujemy 8.
 }
 
 ::AISD-12-Q06::[plain]Nieskierowane drzewo ma n ≥ 1 węzłów, jest spójne i nie zawiera cykli. Ile ma krawędzi? {
-  ~n#Nie. Drzewo o jednym węźle ma zero krawędzi, a nie jedną; ogólnie krawędzi jest o jedną mniej niż węzłów.
-  ~n+1#Nie. Tyle krawędzi przy n ≥ 1 nie jest możliwe w drzewie; dodatkowe krawędzie prowadziłyby do powstania cyklu.
+  ~n#n krawędzi przy n węzłach tworzyłoby cykl lub sprzeczność z własnością drzewa.
+  ~n+1#n+1 przekracza liczbę krawędzi drzewa, które ma dokładnie n-1.
   =n-1#Prawidłowo. Po wybraniu korzenia każdy z pozostałych n-1 węzłów ma dokładnie jednego rodzica, a więc jedną krawędź do niego.
-  ~2n-2#Nie. Każdą krawędź drzewa nieskierowanego liczymy tylko raz, a nie oddzielnie w obu kierunkach.
+  ~2n-2#2n-2 liczyłoby krawędzie tak, jakby każdy kierunek był osobną krawędzią.
   ####Poprawna odpowiedź to „n-1”. W każdym niepustym drzewie nieskierowanym z n węzłami jest dokładnie n-1 krawędzi. Po wybraniu korzenia każdy pozostały węzeł jest połączony z jednym rodzicem.
 }
 
 ::AISD-12-Q07::[plain]Przejście preorder drzewa binarnego daje kolejność R, A, B, a przejście inorder kolejność A, R, B. Który węzeł jest korzeniem? {
   =Węzeł R#Prawidłowo. Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
-  ~Węzeł A#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Węzeł R”. Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
-  ~Węzeł B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Węzeł R”. Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
-  ~Brak danych#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Węzeł R”. Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
+  ~Węzeł A#Preorder podaje korzeń jako pierwszy element, a jest nim R, nie A.
+  ~Węzeł B#B występuje na końcu preorder, więc nie może być korzeniem.
+  ~Brak danych#Preorder rozpoczyna się od R, zatem dane wystarczają do ustalenia korzenia.
   ####Poprawna odpowiedź to „Węzeł R”. Pierwszy element preorder jest korzeniem; kolejność inorder potwierdza podział na poddrzewa.
 }
 
 ::AISD-12-Q08::[plain]Przejście inorder wykonuje się rekurencyjnie na drzewie o n węzłach i wysokości h. Co może sprawić, że dwa drzewa o jednakowej liczbie węzłów mają różne maksymalne zużycie stosu? {
-  ~Liczba liści, ale nie wysokość drzewa.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Maksymalna głębokość rekurencji zależy od wysokości h, więc zdegenerowane drzewo wymaga głębszego stosu”. Każde wywołanie dotyczy kolejnego poziomu. Łańcuch n węzłów może mieć Θ(n) głębokości, a drzewo zrównoważone Θ(log n).
+  ~Liczba liści, ale nie wysokość drzewa.#Liczba liści sama nie wyznacza maksymalnej głębokości wywołań; zależy ona od wysokości drzewa.
   =Maksymalna głębokość rekurencji zależy od wysokości h, więc zdegenerowane drzewo wymaga głębszego stosu.#Prawidłowo. Każde wywołanie dotyczy kolejnego poziomu. Łańcuch n węzłów może mieć Θ(n) głębokości, a drzewo zrównoważone Θ(log n).
-  ~Wartości przechowywane w węzłach, nawet gdy sterowanie jest identyczne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Maksymalna głębokość rekurencji zależy od wysokości h, więc zdegenerowane drzewo wymaga głębszego stosu”. Każde wywołanie dotyczy kolejnego poziomu. Łańcuch n węzłów może mieć Θ(n) głębokości, a drzewo zrównoważone Θ(log n).
-  ~Przejście inorder używa zawsze Θ(1) stosu niezależnie od drzewa.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Maksymalna głębokość rekurencji zależy od wysokości h, więc zdegenerowane drzewo wymaga głębszego stosu”. Każde wywołanie dotyczy kolejnego poziomu. Łańcuch n węzłów może mieć Θ(n) głębokości, a drzewo zrównoważone Θ(log n).
+  ~Wartości przechowywane w węzłach, nawet gdy sterowanie jest identyczne.#Jeśli struktura i przebieg sterowania są takie same, same etykiety węzłów nie zmienią głębokości rekurencji.
+  ~Przejście inorder używa zawsze Θ(1) stosu niezależnie od drzewa.#Przy drzewie zdegenerowanym stos zawiera wiele aktywnych ramek, więc nie jest stale Θ(1).
   ####Poprawna odpowiedź to „Maksymalna głębokość rekurencji zależy od wysokości h, więc zdegenerowane drzewo wymaga głębszego stosu”. Każde wywołanie dotyczy kolejnego poziomu. Łańcuch n węzłów może mieć Θ(n) głębokości, a drzewo zrównoważone Θ(log n).
 }
 
 ::AISD-12-Q09::[plain]Drzewo binarne ma korzeń R, lewe dziecko A oraz prawe dziecko B. Węzeł A ma prawe dziecko C. Jaka jest kolejność przejścia preorder? {
-  ~A,C,R,B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „R,A,C,B”. Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
-  ~C,A,B,R#Ta odpowiedź jest niepoprawna. Właściwy wariant to „R,A,C,B”. Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
+  ~A,C,R,B#A jest lewym dzieckiem R, zatem przejście preorder musi rozpocząć się od R.
+  ~C,A,B,R#C jest potomkiem A, więc nie może być odwiedzane przed R w preorder.
   =R,A,C,B#Prawidłowo. Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
-  ~R,B,A,C#Ta odpowiedź jest niepoprawna. Właściwy wariant to „R,A,C,B”. Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
+  ~R,B,A,C#Preorder odwiedza lewe poddrzewo przed prawym, dlatego B nie może poprzedzać A i C.
   ####Poprawna odpowiedź to „R,A,C,B”. Preorder odwiedza korzeń, potem całe lewe poddrzewo, na końcu prawe.
 }
 
 ::AISD-12-Q10::[plain]Drzewo binarne ma korzeń R, lewe dziecko A oraz prawe dziecko B. Węzeł A ma prawe dziecko C. Jaka jest kolejność przejścia postorder? {
-  ~A,C,B,R#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C,A,B,R”. Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
+  ~A,C,B,R#Postorder najpierw odwiedza prawe dziecko C węzła A, dopiero potem A.
   =C,A,B,R#Prawidłowo. Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
-  ~B,C,A,R#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C,A,B,R”. Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
-  ~R,A,C,B#Ta odpowiedź jest niepoprawna. Właściwy wariant to „C,A,B,R”. Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
+  ~B,C,A,R#Postorder odwiedza lewe poddrzewo R przed prawym B, a nie odwrotnie.
+  ~R,A,C,B#R jest korzeniem, więc w postorder musi pojawić się na końcu, nie na początku.
   ####Poprawna odpowiedź to „C,A,B,R”. Postorder przegląda lewe poddrzewo C,A, następnie B i na końcu R.
 }
 
 ::AISD-12-Q11::[plain]Drzewo binarne ma preorder R,A,C,B i inorder A,C,R,B. Jakie relacje rodzic-dziecko wynikają z tych dwóch przejść? {
-  ~R ma lewe dziecko C, a A jest prawym dzieckiem B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „R ma lewe dziecko A, a A ma prawe dziecko C; B jest prawym dzieckiem R”. Preorder wskazuje R jako korzeń. W inorder lewa część A,C jest lewym poddrzewem, w którym A ma prawe dziecko C; B jest prawym dzieckiem R.
-  ~C jest korzeniem, a R jest jego lewym dzieckiem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „R ma lewe dziecko A, a A ma prawe dziecko C; B jest prawym dzieckiem R”. Preorder wskazuje R jako korzeń. W inorder lewa część A,C jest lewym poddrzewem, w którym A ma prawe dziecko C; B jest prawym dzieckiem R.
-  ~R ma dzieci B i C, a A jest potomkiem B.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „R ma lewe dziecko A, a A ma prawe dziecko C; B jest prawym dzieckiem R”. Preorder wskazuje R jako korzeń. W inorder lewa część A,C jest lewym poddrzewem, w którym A ma prawe dziecko C; B jest prawym dzieckiem R.
+  ~R ma lewe dziecko C, a A jest prawym dzieckiem B.#Preorder zaczyna się od R, więc C nie jest lewym dzieckiem korzenia wskazanym w odpowiedzi.
+  ~C jest korzeniem, a R jest jego lewym dzieckiem.#Korzeń drzewa wynosi R, a nie C, ponieważ R otwiera preorder.
+  ~R ma dzieci B i C, a A jest potomkiem B.#B znajduje się w prawym poddrzewie R według inorder; A i C należą do lewego.
   =R ma lewe dziecko A, a A ma prawe dziecko C; B jest prawym dzieckiem R.#Prawidłowo. Preorder wskazuje R jako korzeń. W inorder lewa część A,C jest lewym poddrzewem, w którym A ma prawe dziecko C; B jest prawym dzieckiem R.
   ####Poprawna odpowiedź to „R ma lewe dziecko A, a A ma prawe dziecko C; B jest prawym dzieckiem R”. Preorder wskazuje R jako korzeń. W inorder lewa część A,C jest lewym poddrzewem, w którym A ma prawe dziecko C; B jest prawym dzieckiem R.
 }
 
 ::AISD-12-Q12::[plain]Dwa drzewa binarne mają po pięć węzłów. Pierwsze jest łańcuchem, a drugie ma najmniejszą możliwą wysokość. Które porównanie ich wysokości, mierzonych liczbą krawędzi, jest poprawne? {
-  ~Oba mają wysokość 4, ponieważ mają tyle samo węzłów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Łańcuch ma wysokość 4, a najlepiej zrównoważone drzewo może mieć wysokość 2”. Pięć węzłów w łańcuchu tworzy cztery krawędzie, natomiast rozłożenie ich na poziomach 0,1,2 umożliwia wysokość 2.
-  ~Łańcuch ma wysokość 5, a zrównoważone drzewo 1.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Łańcuch ma wysokość 4, a najlepiej zrównoważone drzewo może mieć wysokość 2”. Pięć węzłów w łańcuchu tworzy cztery krawędzie, natomiast rozłożenie ich na poziomach 0,1,2 umożliwia wysokość 2.
+  ~Oba mają wysokość 4, ponieważ mają tyle samo węzłów.#Łańcuch pięciu węzłów ma cztery krawędzie, lecz drugie drzewo może mieć mniejszą wysokość.
+  ~Łańcuch ma wysokość 5, a zrównoważone drzewo 1.#Łańcuch ma wysokość 4, a drzewo pięciowęzłowe nie może zmieścić się na dwóch poziomach o wysokości 1.
   =Łańcuch ma wysokość 4, a najlepiej zrównoważone drzewo może mieć wysokość 2.#Prawidłowo. Pięć węzłów w łańcuchu tworzy cztery krawędzie, natomiast rozłożenie ich na poziomach 0,1,2 umożliwia wysokość 2.
-  ~Łańcuch ma wysokość 2, a zrównoważone drzewo 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Łańcuch ma wysokość 4, a najlepiej zrównoważone drzewo może mieć wysokość 2”. Pięć węzłów w łańcuchu tworzy cztery krawędzie, natomiast rozłożenie ich na poziomach 0,1,2 umożliwia wysokość 2.
+  ~Łańcuch ma wysokość 2, a zrównoważone drzewo 4.#Wysokość 2 jest osiągalna dla pięciu węzłów, więc najlepiej zbalansowane drzewo nie ma wysokości 4.
   ####Poprawna odpowiedź to „Łańcuch ma wysokość 4, a najlepiej zrównoważone drzewo może mieć wysokość 2”. Pięć węzłów w łańcuchu tworzy cztery krawędzie, natomiast rozłożenie ich na poziomach 0,1,2 umożliwia wysokość 2.
 }
 
 ::AISD-12-Q13::[plain]W idealnym drzewie binarnym z trzema poziomami (0,1,2) ile jest węzłów? {
   =7#Prawidłowo. Liczba węzłów na poziomach to 1,2,4, więc suma wynosi 7.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Liczba węzłów na poziomach to 1,2,4, więc suma wynosi 7.
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Liczba węzłów na poziomach to 1,2,4, więc suma wynosi 7.
-  ~15#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Liczba węzłów na poziomach to 1,2,4, więc suma wynosi 7.
+  ~6#Idealne drzewo o poziomach 0, 1 i 2 ma 1+2+4\=7 węzłów, nie 6.
+  ~8#Osiem to liczba węzłów na trzech poziomach liczonych niewłaściwie; suma wynosi 7.
+  ~15#Piętnaście to liczba węzłów idealnego drzewa o czterech poziomach 0–3.
   ####Poprawna odpowiedź to „7”. Liczba węzłów na poziomach to 1,2,4, więc suma wynosi 7.
 }
 
 ::AISD-12-Q14::[plain]Jaka jest minimalna możliwa liczba węzłów w drzewie binarnym o wysokości h\=5, liczonej w krawędziach? {
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Aby osiągnąć wysokość 5, wystarczy pojedyncza ścieżka o sześciu węzłach.
+  ~5#Wysokość 5 oznacza ścieżkę z pięcioma krawędziami i sześcioma węzłami, nie pięcioma.
   =6#Prawidłowo. Aby osiągnąć wysokość 5, wystarczy pojedyncza ścieżka o sześciu węzłach.
-  ~11#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Aby osiągnąć wysokość 5, wystarczy pojedyncza ścieżka o sześciu węzłach.
-  ~32#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Aby osiągnąć wysokość 5, wystarczy pojedyncza ścieżka o sześciu węzłach.
+  ~11#Jedenaście węzłów może mieć wysokość 5, ale nie jest minimalną licznością.
+  ~32#Trzydzieści dwa węzły nie są konieczne; wystarczy pojedynczy łańcuch długości sześciu węzłów.
   ####Poprawna odpowiedź to „6”. Aby osiągnąć wysokość 5, wystarczy pojedyncza ścieżka o sześciu węzłach.
 }
 
 ::AISD-12-Q15::[plain]W drzewie ukorzenionym każdy węzeł oprócz korzenia ma dokładnie jednego rodzica. Dla 12 węzłów ile jest relacji rodzic-dziecko? {
   =11#Prawidłowo. Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
-  ~12#Ta odpowiedź jest niepoprawna. Właściwy wariant to „11”. Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „11”. Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
-  ~22#Ta odpowiedź jest niepoprawna. Właściwy wariant to „11”. Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
+  ~12#Korzeń nie ma rodzica, więc dla dwunastu węzłów relacji rodzic–dziecko jest o jedną mniej.
+  ~10#Dziesięć relacji nie połączy wszystkich 12 węzłów w drzewo.
+  ~22#Liczba 22 liczyłaby niepotrzebnie relacje w obie strony zamiast pojedyncze krawędzie.
   ####Poprawna odpowiedź to „11”. Każdy z 11 węzłów niebędących korzeniem dokłada jedną krawędź do rodzica.
 }
 
 ::AISD-12-Q16::[plain]Dla drzewa binarnego ukorzenionego z 7 węzłami jaka jest maksymalna wysokość liczona w krawędziach? {
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Maksimum osiąga łańcuch siedmiu węzłów, czyli sześć krawędzi.
-  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Maksimum osiąga łańcuch siedmiu węzłów, czyli sześć krawędzi.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Maksimum osiąga łańcuch siedmiu węzłów, czyli sześć krawędzi.
+  ~3#Wysokość 3 może wystąpić dla siedmiu węzłów, ale maksymalna to 6 dla łańcucha.
+  ~7#Łańcuch o siedmiu węzłach ma sześć, nie siedem krawędzi.
+  ~2#Wysokość 2 odpowiada zbalansowanemu drzewu siedmiowęzłowemu, nie maksymalnej głębokości.
   =6#Prawidłowo. Maksimum osiąga łańcuch siedmiu węzłów, czyli sześć krawędzi.
   ####Poprawna odpowiedź to „6”. Maksimum osiąga łańcuch siedmiu węzłów, czyli sześć krawędzi.
 }
 
 ::AISD-12-Q17::[plain]Korzeń R ma dwoje dzieci: A oraz B. Węzeł A ma dzieci C i D. Ile liści ma to drzewo? {
   =3#Prawidłowo. Liśćmi są C,D,B; R i A mają dzieci.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Liśćmi są C,D,B; R i A mają dzieci.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Liśćmi są C,D,B; R i A mają dzieci.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Liśćmi są C,D,B; R i A mają dzieci.
+  ~2#Liśćmi są C, D i B, a nie tylko C i D.
+  ~4#Cztery węzły nie mogą być liśćmi, ponieważ R i A mają dzieci.
+  ~5#W całym drzewie jest pięć węzłów, ale dwa z nich są wewnętrzne, więc liści nie ma pięciu.
   ####Poprawna odpowiedź to „3”. Liść to węzeł niemający dzieci. R oraz A mają potomków, natomiast B, C i D nie mają dzieci, więc w drzewie występują trzy liście.
 }
 
-::AISD-12-Q18::[plain]Rekurencyjne przejście inorder drzewa o wysokości h mierzonej w krawędziach przechowuje po jednej ramce na poziom. Które drzewo o n\=15 węzłach może wymagać najgłębszego stosu? {
+::AISD-12-Q18::[plain]Rekurencyjne przejście inorder drzewa o wysokości h mierzonej w krawędziach utrzymuje ramki dla kolejnych aktywnych węzłów na ścieżce od korzenia. Które drzewo o n\=15 węzłach może wymagać najgłębszego stosu? {
   =Drzewo zdegenerowane w łańcuch o wysokości 14.#Prawidłowo. Wysokość ogranicza liczbę aktywnych wywołań; łańcuch wymaga głębokości proporcjonalnej do n.
-  ~Idealne drzewo o wysokości 3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewo zdegenerowane w łańcuch o wysokości 14”. Wysokość ogranicza liczbę aktywnych wywołań; łańcuch wymaga głębokości proporcjonalnej do n.
-  ~Drzewo wysokości 4 bez pustych gałęzi.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewo zdegenerowane w łańcuch o wysokości 14”. Wysokość ogranicza liczbę aktywnych wywołań; łańcuch wymaga głębokości proporcjonalnej do n.
-  ~Każde drzewo ma dokładnie 15 aktywnych ramek podczas inorder.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Drzewo zdegenerowane w łańcuch o wysokości 14”. Wysokość ogranicza liczbę aktywnych wywołań; łańcuch wymaga głębokości proporcjonalnej do n.
+  ~Idealne drzewo o wysokości 3.#Idealne drzewo o wysokości 3 wymaga znacznie mniej aktywnych ramek niż łańcuch o wysokości 14.
+  ~Drzewo wysokości 4 bez pustych gałęzi.#Drzewo wysokości 4 ma płytszą rekurencję niż drzewo wysokości 14.
+  ~Każde drzewo ma dokładnie 15 aktywnych ramek podczas inorder.#Liczba aktywnych ramek odpowiada długości bieżącej ścieżki, więc nie zawsze wynosi 15.
   ####Poprawna odpowiedź to „Drzewo zdegenerowane w łańcuch o wysokości 14”. Wysokość ogranicza liczbę aktywnych wywołań; łańcuch wymaga głębokości proporcjonalnej do n.
 }
 
-::AISD-12-Q19::[plain]Przechodzimy drzewo w porządku poziomowym od lewej do prawej. Korzeń 8 ma dzieci 3 i 10, a 3 ma dzieci 1 i 6. Jaka kolejność wynikowa? {
-  ~8,3,1,6,10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8,3,10,1,6”. Przejście poziomami odwiedza oba dzieci korzenia przed wnukami.
-  ~1,3,6,8,10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8,3,10,1,6”. Przejście poziomami odwiedza oba dzieci korzenia przed wnukami.
-  ~8,10,3,6,1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8,3,10,1,6”. Przejście poziomami odwiedza oba dzieci korzenia przed wnukami.
+::AISD-12-Q19::[plain]Przechodzimy drzewo w porządku poziomowym od lewej do prawej. Korzeń 8 ma lewe dziecko 3 i prawe 10, a węzeł 3 ma lewe dziecko 1 i prawe 6. Jaka kolejność wynikowa? {
+  ~8,3,1,6,10#Po odwiedzeniu korzenia przejście poziomowe odwiedza oba dzieci 3 i 10, zanim przejdzie do wnuków 1 i 6.
+  ~1,3,6,8,10#To kolejność związana z inorder, a nie BFS poziomami od korzenia.
+  ~8,10,3,6,1#Na pierwszym poziomie od lewej jest 3, a potem 10; kolejność 10 przed 3 jest nieprawidłowa.
   =8,3,10,1,6#Prawidłowo. Przejście poziomami odwiedza oba dzieci korzenia przed wnukami.
   ####Poprawna odpowiedź to „8,3,10,1,6”. Przejście poziomami odwiedza oba dzieci korzenia przed wnukami.
 }
 
 ::AISD-12-Q20::[plain]Pełne drzewo binarne (każdy węzeł ma zero lub dwoje dzieci) ma 9 liści. Ile ma węzłów wewnętrznych i ile wszystkich węzłów? {
-  ~9 wewnętrznych i 18 wszystkich.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 wewnętrznych i 17 wszystkich”. Z zależności L\=I+1 otrzymujemy I\=8, a liczba wszystkich węzłów to I+L\=17.
-  ~10 wewnętrznych i 19 wszystkich.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 wewnętrznych i 17 wszystkich”. Z zależności L\=I+1 otrzymujemy I\=8, a liczba wszystkich węzłów to I+L\=17.
+  ~9 wewnętrznych i 18 wszystkich.#Przy dziewięciu liściach pełne drzewo ma osiem węzłów wewnętrznych, a nie dziewięć.
+  ~10 wewnętrznych i 19 wszystkich.#Dziesięć węzłów wewnętrznych wymagałoby jedenastu liści, a nie dziewięciu.
   =8 wewnętrznych i 17 wszystkich.#Prawidłowo. Z zależności L\=I+1 otrzymujemy I\=8, a liczba wszystkich węzłów to I+L\=17.
-  ~8 wewnętrznych i 18 wszystkich.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 wewnętrznych i 17 wszystkich”. Z zależności L\=I+1 otrzymujemy I\=8, a liczba wszystkich węzłów to I+L\=17.
+  ~8 wewnętrznych i 18 wszystkich.#Przy ośmiu węzłach wewnętrznych oraz dziewięciu liściach suma wynosi 17, nie 18.
   ####Poprawna odpowiedź to „8 wewnętrznych i 17 wszystkich”. Z zależności L\=I+1 otrzymujemy I\=8, a liczba wszystkich węzłów to I+L\=17.
 }
 
