@@ -1,5 +1,5 @@
 // AIiSD 03: Pseudokod i schematy blokowe
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.0 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-03-Q01::[plain]Algorytm przegląda tablicę A[0..n-1]. Który warunek pętli obejmuje wszystkie elementy, gdy i\=0 na początku i zwiększa się o 1 po każdej iteracji? {
@@ -74,12 +74,12 @@
   ####Poprawna odpowiedź to „6”. Kolejne wartości to 2,4,6; po ostatniej warunek i<5 jest fałszywy.
 }
 
-::AISD-03-Q10::[plain]Pętla sumująca liczby od 1 do n zaczyna od i \= 1 i zwiększa i po wykonaniu dodawania. Które z poniższych warunków pozwalają uwzględnić także n? Zaznacz wszystkie poprawne odpowiedzi. {
-  ~%-50%i < n#Ten warunek wyklucza iterację z i równym n, więc ostatnia liczba nie zostanie dodana.
-  ~%50%i <\= n#Poprawnie. Porównanie nieostre dopuszcza i równe n, dzięki czemu ostatni składnik trafia do sumy.
-  ~%50%i < n+1#Poprawnie. Dla całkowitego i warunek i < n+1 jest równoważny i <\= n.
-  ~%-50%i <\= n-1#Ten warunek zatrzymuje pętlę przed osiągnięciem indeksu n, dlatego wynik jest niepełny.
-  ####Poprawne odpowiedzi to „i <\= n” oraz „i < n+1”. Dla całkowitoliczbowego i warunki i <\= n oraz i < n+1 są równoważne. W obu przypadkach ciało pętli wykona się również dla i równego n.
+::AISD-03-Q10::[plain]Pętla sumuje liczby całkowite od 1 do n włącznie (n ≥ 1), zaczynając od i \= 1 i zwiększając i o 1 po każdej iteracji. Który warunek kontynuowania pętli pozwala dodać wszystkie liczby bez wykonywania dodatkowej iteracji? {
+  ~i < n#Ten warunek kończy pętlę przed iteracją z i równym n, dlatego pomija ostatni składnik.
+  =i ≤ n#Poprawnie. Warunek obejmuje iterację z i równym n i nie dopuszcza kolejnej iteracji po osiągnięciu n+1.
+  ~i ≤ n+1#Ten warunek dopuszcza również iterację z i równym n+1, co powoduje dodanie niepożądanej liczby.
+  ~i ≤ n-1#Ten warunek powoduje zakończenie pętli przed dodaniem ostatniego składnika n.
+  ####Poprawna odpowiedź to „i ≤ n”. Pętla rozpoczyna obliczenia od i równego 1 i zwiększa licznik o jeden. Warunek i ≤ n obejmuje wszystkie liczby do n włącznie, ale nie dopuszcza iteracji z i równym n+1.
 }
 
 ::AISD-03-Q11::[plain]Funkcja ma zwracać minimum a i b także przy a\=b. Który zapis nie spełni kontraktu przy równości? {
