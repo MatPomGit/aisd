@@ -2,7 +2,8 @@
 """Statyczna kontrola 20 banków pytań Moodle GIFT (jedno- i wielokrotny wybór).
 
 Sprawdza strukturę pytań, kodowanie UTF-8 oraz zapis znaków sterujących
-GIFT. Nie zastępuje importu do Moodle ani recenzji merytorycznej.
+GIFT. Sprawdza również objaśnienia poszczególnych odpowiedzi, ale nie zastępuje
+importu do Moodle ani recenzji merytorycznej.
 """
 from __future__ import annotations
 
@@ -47,6 +48,19 @@ def check_gift_text(value: str, location: str) -> list[str]:
             break
         index += 1
     return errors
+
+
+def split_gift_feedback(value: str) -> tuple[str, str | None]:
+    """Oddziela odpowiedź od komentarza przy pierwszym niezamaskowanym #."""
+    escaped = False
+    for position, char in enumerate(value):
+        if escaped:
+            escaped = False
+        elif char == "\\":
+            escaped = True
+        elif char == "#":
+            return value[:position], value[position + 1:]
+    return value, None
 
 
 def inspect_file(path: Path, lecture: int) -> list[str]:
@@ -130,9 +144,13 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
         # Nie używamy casefold(), bo zmieniłoby znaczenie odpowiedzi.
         choices: list[str] = []
         for option in options:
-            value = option.group(3)
-            errors.extend(check_gift_text(value, f"{path}: {key}: wariant"))
-            choices.append(re.sub(r"\\([~=#{}\\])", r"\1", value).strip())
+            answer, answer_feedback = split_gift_feedback(option.group(3))
+            errors.extend(check_gift_text(answer, f"{path}: {key}: wariant"))
+            choices.append(re.sub(r"\\([~=#{}\\])", r"\1", answer).strip())
+            if answer_feedback is None or len(answer_feedback.strip()) < 25:
+                errors.append(f"{path}: {key} wymaga merytorycznej informacji zwrotnej dla każdego wariantu")
+            else:
+                errors.extend(check_gift_text(answer_feedback, f"{path}: {key}: komentarz wariantu"))
         if len(set(choices)) != len(choices):
             errors.append(f"{path}: {key} zawiera powtórzone warianty")
         if any(UNFINISHED_ANSWER.search(answer) for answer in choices):
@@ -143,7 +161,10 @@ def inspect_file(path: Path, lecture: int) -> list[str]:
                     errors.append(f"{path}: {key} zawiera dwie odpowiedzi o tej samej wartości logicznej")
 
         for item in feedback:
-            errors.extend(check_gift_text(item[6:], f"{path}: {key}: uzasadnienie"))
+            explanation = item[6:]
+            errors.extend(check_gift_text(explanation, f"{path}: {key}: uzasadnienie"))
+            if len(explanation.strip()) < 70 or not explanation.startswith(("Poprawna odpowiedź", "Poprawne odpowiedzi")):
+                errors.append(f"{path}: {key} wymaga podsumowania poprawnych odpowiedzi i ich uzasadnienia")
 
     if multiple_questions == 0:
         if key_positions != [EXPECTED_QUESTIONS // 4] * 4:
