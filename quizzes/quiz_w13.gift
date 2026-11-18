@@ -7,7 +7,7 @@
   ~8 → 3 → 1 → 6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 → 3 → 6”. 6<8 kieruje w lewo, a 6>3 w prawo.
   =8 → 3 → 6#Prawidłowo. 6<8 kieruje w lewo, a 6>3 w prawo.
   ~8 → 6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8 → 3 → 6”. 6<8 kieruje w lewo, a 6>3 w prawo.
-  ####Poprawna odpowiedź to „8 → 3 → 6”. 6<8 kieruje w lewo, a 6>3 w prawo.
+  ####Poprawna odpowiedź to „8 → 3 → 6”. W BST porównujemy szukany klucz z każdym napotkanym węzłem. Ponieważ 6<8, idziemy w lewo do 3, a ponieważ 6>3, idziemy w prawo do 6.
 }
 
 ::AISD-13-Q02::[plain]BST ma korzeń 10, lewe poddrzewo zawierające 4 i 7 oraz prawe zawierające 12 i 15. Usuwamy korzeń przez podstawienie następnika inorder. Jaki klucz zastępuje 10? {
@@ -119,7 +119,7 @@
   ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
   ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
   =3#Prawidłowo. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
-  ####Poprawna odpowiedź to „3”. Ścieżka to 9→5→7→6, czyli trzy krawędzie.
+  ####Poprawna odpowiedź to „3”. Głębokość to liczba krawędzi od korzenia do rozpatrywanego węzła. Na ścieżce 9→5→7→6 występują trzy krawędzie, więc głębokość 6 wynosi 3.
 }
 
 ::AISD-13-Q16::[plain]BST zawiera klucze 4,2,6,1,3,5,7. Który wskaźnik należy zmienić po usunięciu liścia o kluczu 1? {
