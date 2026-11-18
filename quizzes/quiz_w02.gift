@@ -95,7 +95,7 @@
   ~19#Ta odpowiedź jest niepoprawna. Właściwy wariant to „23”. Dokładny koszt wynosi 4·5+3\=23.
   =23#Prawidłowo. Dokładny koszt wynosi 4·5+3\=23.
   ~27#Ta odpowiedź jest niepoprawna. Właściwy wariant to „23”. Dokładny koszt wynosi 4·5+3\=23.
-  ####Poprawna odpowiedź to „23”. Dokładny koszt wynosi 4·5+3\=23.
+  ####Poprawna odpowiedź to „23”. Pętla wykonuje cztery instrukcje w każdej z pięciu iteracji, czyli 20 instrukcji. Dodajemy trzy instrukcje poza pętlą: łącznie 4·5+3\=23.
 }
 
 ::AISD-02-Q13::[plain]W modelu RAM każdy rejestr danych przechowuje co najwyżej 64 bity bez znaku. Program ma zapisać dokładną wartość 2^100. Które wyjaśnienie poprawnie opisuje problem? {
