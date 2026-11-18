@@ -1,164 +1,164 @@
 // AIiSD 07: Tablice dwuwymiarowe
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.3 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-07-Q01::[plain]Macierz 3×4 jest przechowywana wierszowo w ciągłym buforze. Jaki jest indeks liniowy elementu A[2][1] przy indeksowaniu od 0? {
   =9#Prawidłowo. Przy czterech kolumnach indeks to 2·4+1\=9.
-  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Przy czterech kolumnach indeks to 2·4+1\=9.
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Przy czterech kolumnach indeks to 2·4+1\=9.
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Przy czterech kolumnach indeks to 2·4+1\=9.
+  ~7#Wynik 7 odpowiada wzorowi błędnie traktującemu liczbę kolumn jako mniejszą niż 4.
+  ~10#Wynik 10 byłby o jeden za duży: poprawny offset to 2 razy 4 plus 1.
+  ~8#Wynik 8 wskazuje pierwszy element trzeciego wiersza, czyli A[2][0], a nie A[2][1].
   ####Poprawna odpowiedź to „9”. Przy czterech kolumnach indeks to 2·4+1\=9.
 }
 
 ::AISD-07-Q02::[plain]Macierz A ma rozmiar 3×5 i A[1][4]\=7. Po transpozycji do B, gdzie B[j][i]\=A[i][j], który odczyt daje wartość 7? {
-  ~B[1][4].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „B[4][1]”. Transpozycja zmienia indeksy miejscami, dlatego A[1][4] odpowiada B[4][1].
-  ~B[3][5].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „B[4][1]”. Transpozycja zmienia indeksy miejscami, dlatego A[1][4] odpowiada B[4][1].
-  ~B[4][3].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „B[4][1]”. Transpozycja zmienia indeksy miejscami, dlatego A[1][4] odpowiada B[4][1].
+  ~B[1][4].#Po transpozycji zamieniamy miejscami indeks wiersza i kolumny; B[1][4] ma kolejność odwrotną od wymaganej.
+  ~B[3][5].#Wynikowa macierz ma 5 wierszy i 3 kolumny, więc indeks kolumny 5 wykracza poza jej zakres.
+  ~B[4][3].#B[4][3] używa nieistniejącej kolumny: po transpozycji drugi indeks musi być 1.
   =B[4][1].#Prawidłowo. Transpozycja zmienia indeksy miejscami, dlatego A[1][4] odpowiada B[4][1].
   ####Poprawna odpowiedź to „B[4][1]”. Transpozycja zmienia indeksy miejscami, dlatego A[1][4] odpowiada B[4][1].
 }
 
-::AISD-07-Q03::[plain]Wierszowo przechowywana macierz ma m wierszy i n kolumn. Która kolejność przejścia zwykle lepiej wykorzystuje lokalność pamięci? {
-  ~Przejście kolumnami#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach”. W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
-  ~Przejście wierszami, ale od ostatniej kolumny do pierwszej, niezależnie od ułożenia danych.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach”. W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
+::AISD-07-Q03::[plain]Macierz o m wierszach i n kolumnach jest przechowywana w ciągłym buforze wierszowo. Które z poniższych przejść odwiedza kolejne adresy elementów od najniższego do najwyższego? {
+  ~Przejście kolumnami#Przejście kolumnowe wymaga skoków o długość wiersza w pamięci zapisanej wierszowo.
+  ~Przejście wierszami, lecz od ostatniej kolumny do pierwszej w każdym wierszu.#Odwiedzanie kolumn od prawej do lewej w każdym wierszu daje malejące, a nie rosnące adresy komórek.
   =Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach.#Prawidłowo. W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
-  ~Przejście po przekątnych#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach”. W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
+  ~Przejście po przekątnych#Przekątne nie odpowiadają ciągłym fragmentom pamięci w reprezentacji wierszowej.
   ####Poprawna odpowiedź to „Zewnętrzna pętla po wierszach, wewnętrzna po kolumnach”. W układzie row-major sąsiadujące kolumny tego samego wiersza mają kolejne adresy.
 }
 
 ::AISD-07-Q04::[plain]Dla kwadratowej macierzy n×n wyznaczamy transpozycję w miejscu. Które zamiany wystarczają? {
   =Dla każdej pary i<j zamienić A[i][j] z A[j][i].#Prawidłowo. Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
-  ~Dla wszystkich i różnego od j wykonać zamianę A[i][j] z A[j][i] dokładnie raz dla obu kierunków.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla każdej pary i<j zamienić A[i][j] z A[j][i]”. Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
-  ~Zamienić tylko elementy sąsiadujące z główną przekątną.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla każdej pary i<j zamienić A[i][j] z A[j][i]”. Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
-  ~Dla każdej pary i<j zamienić A[i][j] z A[n-1-j][n-1-i].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla każdej pary i<j zamienić A[i][j] z A[j][i]”. Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
+  ~Dla wszystkich i różnego od j wykonać zamianę A[i][j] z A[j][i] dokładnie raz dla obu kierunków.#Zamienianie obu uporządkowań par (i,j) i (j,i) podwójnie odwraca efekt pojedynczej transpozycji.
+  ~Zamienić tylko elementy sąsiadujące z główną przekątną.#Zmiana wyłącznie najbliższych elementów przekątnej nie przenosi wszystkich elementów poza nią.
+  ~Dla każdej pary i<j zamienić A[i][j] z A[n-1-j][n-1-i].#Indeksy n-1-j oraz n-1-i opisują odbicie względem innej osi, a nie prostą transpozycję.
   ####Poprawna odpowiedź to „Dla każdej pary i<j zamienić A[i][j] z A[j][i]”. Każdą parę symetryczną należy wymienić dokładnie raz; przekątna pozostaje bez zmian.
 }
 
-::AISD-07-Q05::[plain]Reprezentujemy bardzo rzadki graf o 1000 wierzchołkach i 10 krawędziach. Przy zwykłym kodowaniu listowym i macierzowym, która reprezentacja zazwyczaj zużywa mniej pamięci i dlaczego? {
-  ~Macierz sąsiedztwa, bo jej rozmiar zależy od E, a nie od V.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista sąsiedztwa, ponieważ zajmuje O(V+E), podczas gdy macierz wymaga Θ(V²)”. Dla rzadkiego grafu przechowywanie całej macierzy V×V jest kosztowne, podczas gdy listy przechowują wierzchołki i istniejące relacje.
-  =Lista sąsiedztwa, ponieważ zajmuje O(V+E), podczas gdy macierz wymaga Θ(V²).#Prawidłowo. Dla rzadkiego grafu przechowywanie całej macierzy V×V jest kosztowne, podczas gdy listy przechowują wierzchołki i istniejące relacje.
-  ~Obie mają Θ(E²), jeśli graf nie jest spójny.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista sąsiedztwa, ponieważ zajmuje O(V+E), podczas gdy macierz wymaga Θ(V²)”. Dla rzadkiego grafu przechowywanie całej macierzy V×V jest kosztowne, podczas gdy listy przechowują wierzchołki i istniejące relacje.
-  ~Macierz sąsiedztwa, bo zapamiętuje tylko istniejące krawędzie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Lista sąsiedztwa, ponieważ zajmuje O(V+E), podczas gdy macierz wymaga Θ(V²)”. Dla rzadkiego grafu przechowywanie całej macierzy V×V jest kosztowne, podczas gdy listy przechowują wierzchołki i istniejące relacje.
-  ####Poprawna odpowiedź to „Lista sąsiedztwa, ponieważ zajmuje O(V+E), podczas gdy macierz wymaga Θ(V²)”. Dla rzadkiego grafu przechowywanie całej macierzy V×V jest kosztowne, podczas gdy listy przechowują wierzchołki i istniejące relacje.
+::AISD-07-Q05::[plain]Macierz 1000×1000 zawiera tylko 10 elementów niezerowych. Porównujemy gęstą tablicę dwuwymiarową oraz format CSR, który przechowuje początki wierszy, indeksy kolumn i wartości niezerowe. Która reprezentacja zwykle wymaga mniej pamięci? {
+  ~Gęsta tablica, ponieważ zapisuje tylko 10 niezerowych wartości.#Nie. Gęsta reprezentacja przechowuje miejsca również dla 999990 zer, czyli milion komórek.
+  =CSR, ponieważ zużywa Θ(liczba wierszy + liczba elementów niezerowych), a gęsta tablica zajmuje Θ(liczba wierszy × liczba kolumn).#Prawidłowo. CSR wymaga około 1001 pozycji indeksujących wiersze i danych o 10 elementach niezerowych zamiast miliona wartości.
+  ~Obie wymagają Θ(10⁶) pamięci, ponieważ mają te same wymiary logiczne.#Nie. Format rzadki pomija przechowywanie wartości zerowych i zamiast pełnej tablicy używa indeksów.
+  ~CSR przechowuje tylko 10 wartości, bez dodatkowych indeksów wierszy i kolumn.#Nie. CSR wymaga również tablicy wskaźników wierszy i indeksów kolumn elementów niezerowych.
+  ####Poprawna odpowiedź to „CSR, ponieważ zużywa Θ(liczba wierszy + liczba elementów niezerowych), a gęsta tablica zajmuje Θ(liczba wierszy × liczba kolumn)”. W macierzy 1000×1000 z zaledwie 10 elementami niezerowymi CSR przechowuje dane tylko dla niezerowych pozycji oraz indeksy, w tym wskaźniki 1001 początków i końca wierszy. Gęsta tablica przechowuje milion wartości.
 }
 
 ::AISD-07-Q06::[plain]Obraz w skali szarości ma H wierszy i W kolumn. Filtr 3×3 z dopełnieniem brzegów oblicza jeden wynik dla każdego piksela. Ile wartości wynikowych powstanie? {
   =H·W wyników#Prawidłowo. Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
-  ~(H-2)(W-2) wyników#Ta odpowiedź jest niepoprawna. Właściwy wariant to „H·W wyników”. Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
-  ~(H+2)(W+2) wyników#Ta odpowiedź jest niepoprawna. Właściwy wariant to „H·W wyników”. Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
-  ~9HW wyników#Ta odpowiedź jest niepoprawna. Właściwy wariant to „H·W wyników”. Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
+  ~(H-2)(W-2) wyników#Wynik (H-2)(W-2) odpowiada pominięciu ramki brzegowej bez dopełnienia, którego tu używamy.
+  ~(H+2)(W+2) wyników#Dopełnienie nie oznacza, że wynik powiększa się do (H+2)(W+2); rozmiar obrazu wyjściowego pozostaje H×W.
+  ~9HW wyników#Dziewięć wejściowych pikseli wpływa na jeden wynik filtra 3×3, nie powstaje dziewięć wyników na piksel.
   ####Poprawna odpowiedź to „H·W wyników”. Dopełnienie brzegu umożliwia obliczenie wyniku także na brzegach, zachowując rozmiar obrazu.
 }
 
 ::AISD-07-Q07::[plain]Macierz A\=[[1,2,3],[4,5,6]] obrócono o 90 stopni zgodnie z ruchem wskazówek zegara. Która tablica wynikowa zachowuje wszystkie elementy i właściwy kierunek obrotu? {
-  ~[[3,6],[2,5],[1,4]].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[[4,1],[5,2],[6,3]]”. Obrót zgodny z zegarem zamienia kolejne wiersze na kolumny od góry ku dołowi.
-  ~[[6,5,4],[3,2,1]].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[[4,1],[5,2],[6,3]]”. Obrót zgodny z zegarem zamienia kolejne wiersze na kolumny od góry ku dołowi.
+  ~[[3,6],[2,5],[1,4]].#To obrót o 90 stopni przeciwnie do ruchu wskazówek zegara, a nie zgodnie z nim.
+  ~[[6,5,4],[3,2,1]].#Ten wynik zachowuje wymiary 2×3 i odpowiada innemu przestawieniu elementów niż obrót 90 stopni.
   =[[4,1],[5,2],[6,3]].#Prawidłowo. Obrót zgodny z zegarem zamienia kolejne wiersze na kolumny od góry ku dołowi.
-  ~[[1,4],[2,5],[3,6]].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[[4,1],[5,2],[6,3]]”. Obrót zgodny z zegarem zamienia kolejne wiersze na kolumny od góry ku dołowi.
+  ~[[1,4],[2,5],[3,6]].#Wynik [[1,4],[2,5],[3,6]] odpowiada transpozycji, nie obrotowi o 90 stopni zgodnie z zegarem.
   ####Poprawna odpowiedź to „[[4,1],[5,2],[6,3]]”. Obrót zgodny z zegarem zamienia kolejne wiersze na kolumny od góry ku dołowi. Wynik ma trzy wiersze i dwie kolumny.
 }
 
 ::AISD-07-Q08::[plain]Dla komórek wewnętrznych tablicy programowania dynamicznego F[i][j] wynik zależy wyłącznie od F[i-1][j] oraz F[i][j-1]. Zakładamy, że wartości brzegowe są już zainicjalizowane. Która kolejność obliczania pozostałych komórek gwarantuje dostępność obu poprzedników? {
   =Rosnące i, a wewnątrz każdego wiersza rosnące j.#Prawidłowo. Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
-  ~Malejące i, ale rosnące j#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Rosnące i, a wewnątrz każdego wiersza rosnące j”. Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
-  ~Rosnące i i malejące j#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Rosnące i, a wewnątrz każdego wiersza rosnące j”. Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
-  ~Rosnące j oraz malejące i#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Rosnące i, a wewnątrz każdego wiersza rosnące j”. Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
+  ~Malejące i, ale rosnące j#Malejące i może wymagać wartości F[i-1][j], która jeszcze nie została obliczona.
+  ~Rosnące i i malejące j#Malejące j może wymagać wartości F[i][j-1] z tego samego wiersza, która pozostaje nieobliczona.
+  ~Rosnące j oraz malejące i#Malejące i łamie zależność od poprzedniego wiersza, nawet jeśli j rośnie.
   ####Poprawna odpowiedź to „Rosnące i, a wewnątrz każdego wiersza rosnące j”. Przejście wierszami od góry i od lewej gwarantuje obliczenie komórek z góry oraz z lewej wcześniej.
 }
 
 ::AISD-07-Q09::[plain]Macierz A\=[[2,3,4],[5,6,7]] ma dwa wiersze i trzy kolumny. Jaka jest suma elementów w drugiej kolumnie (indeks 1)? {
-  ~11#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. W drugiej kolumnie znajdują się wartości 3 i 6, których suma wynosi 9.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. W drugiej kolumnie znajdują się wartości 3 i 6, których suma wynosi 9.
-  ~12#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. W drugiej kolumnie znajdują się wartości 3 i 6, których suma wynosi 9.
+  ~11#11 to suma 4+7 z trzeciej kolumny, a nie 3+6 z drugiej.
+  ~6#Wartość 6 jest jednym z dwóch składników drugiej kolumny, ale brakuje 3.
+  ~12#Wynik 12 nie jest sumą elementów z indeksu kolumny 1; należą tam 3 i 6.
   =9#Prawidłowo. W drugiej kolumnie znajdują się wartości 3 i 6, których suma wynosi 9.
   ####Poprawna odpowiedź to „9”. W drugiej kolumnie znajdują się wartości 3 i 6, których suma wynosi 9.
 }
 
 ::AISD-07-Q10::[plain]Macierz 4×6 jest przechowywana wierszowo. Jaki jest indeks liniowy elementu A[3][4], gdy indeksowanie zaczyna się od zera? {
-  ~18#Ta odpowiedź jest niepoprawna. Właściwy wariant to „22”. Indeks liniowy oblicza się jako 3·6+4\=22.
+  ~18#Wynik 18 to początek czwartego wiersza, a trzeba przesunąć się jeszcze o cztery kolumny.
   =22#Prawidłowo. Indeks liniowy oblicza się jako 3·6+4\=22.
-  ~19#Ta odpowiedź jest niepoprawna. Właściwy wariant to „22”. Indeks liniowy oblicza się jako 3·6+4\=22.
-  ~24#Ta odpowiedź jest niepoprawna. Właściwy wariant to „22”. Indeks liniowy oblicza się jako 3·6+4\=22.
+  ~19#Wynik 19 byłby indeksem A[3][1]; poprawnie obliczamy 3 razy 6 plus 4.
+  ~24#Wynik 24 wychodzi poza czwarty wiersz 4×6, którego indeksy liniowe są od 18 do 23.
   ####Poprawna odpowiedź to „22”. Indeks liniowy oblicza się jako 3·6+4\=22.
 }
 
 ::AISD-07-Q11::[plain]Macierz A ma rozmiar 2×3, B ma rozmiar 3×4. Jaki jest rozmiar iloczynu AB? {
-  ~3×2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2×4”. Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
+  ~3×2#Wymiar 3×2 odwraca kolejność zewnętrznych rozmiarów, a w iloczynie zostają wiersze A i kolumny B.
   =2×4#Prawidłowo. Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
-  ~2×3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2×4”. Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
-  ~3×4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2×4”. Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
+  ~2×3#Wynik 2×3 nie uwzględnia czterech kolumn macierzy B.
+  ~3×4#Wynik 3×4 zachowuje liczbę wierszy B, podczas gdy powinien mieć dwa wiersze A.
   ####Poprawna odpowiedź to „2×4”. Liczba kolumn A równa się liczbie wierszy B, a wynik ma wymiar 2×4.
 }
 
 ::AISD-07-Q12::[plain]Dla kwadratowej macierzy A 3×3 o indeksach od 0 jak można policzyć sumę przekątnej pobocznej? {
-  ~A[0][0]+A[1][1]+A[2][2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A[0][2]+A[1][1]+A[2][0]”. Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
-  ~A[0][1]+A[1][1]+A[2][1]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A[0][2]+A[1][1]+A[2][0]”. Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
-  ~A[0][2]+A[1][2]+A[2][2]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A[0][2]+A[1][1]+A[2][0]”. Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
+  ~A[0][0]+A[1][1]+A[2][2]#A[0][0]+A[1][1]+A[2][2] sumuje przekątną główną, a nie poboczną.
+  ~A[0][1]+A[1][1]+A[2][1]#Stała kolumna o indeksie 1 jest kolumną środkową, nie przekątną poboczną.
+  ~A[0][2]+A[1][2]+A[2][2]#Elementy A[0][2], A[1][2], A[2][2] znajdują się w jednej kolumnie, nie na przekątnej pobocznej.
   =A[0][2]+A[1][1]+A[2][0]#Prawidłowo. Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
   ####Poprawna odpowiedź to „A[0][2]+A[1][1]+A[2][0]”. Na przekątnej pobocznej indeksy wiersza i kolumny sumują się do n-1\=2.
 }
 
 ::AISD-07-Q13::[plain]Program próbuje transponować macierz 2×3 w miejscu, wykonując zamiany A[i][j] z A[j][i] bez zmiany wymiarów bufora. Dlaczego ogólny algorytm transpozycji macierzy kwadratowej nie działa tutaj bez zmian? {
-  ~Ponieważ macierze prostokątne nie mają transpozycji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ indeks A[j][i] może wykraczać poza liczbę wierszy, a wynik ma wymiary 3×2”. Transpozycja macierzy prostokątnej wymaga zmiany wymiarów; bez zmiany reprezentacji nie wolno stosować wszystkich indeksów przeznaczonych dla kwadratowej macierzy.
+  ~Ponieważ macierze prostokątne nie mają transpozycji.#Transpozycja macierzy prostokątnej istnieje, lecz jej wymiary i sposób indeksowania ulegają zmianie.
   =Ponieważ indeks A[j][i] może wykraczać poza liczbę wierszy, a wynik ma wymiary 3×2.#Prawidłowo. Transpozycja macierzy prostokątnej wymaga zmiany wymiarów; bez zmiany reprezentacji nie wolno stosować wszystkich indeksów przeznaczonych dla kwadratowej macierzy.
-  ~Ponieważ każda transpozycja wymaga obrotu o 180 stopni.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ indeks A[j][i] może wykraczać poza liczbę wierszy, a wynik ma wymiary 3×2”. Transpozycja macierzy prostokątnej wymaga zmiany wymiarów; bez zmiany reprezentacji nie wolno stosować wszystkich indeksów przeznaczonych dla kwadratowej macierzy.
-  ~Ponieważ transpozycja zachowuje zawsze liczby wierszy i kolumn.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Ponieważ indeks A[j][i] może wykraczać poza liczbę wierszy, a wynik ma wymiary 3×2”. Transpozycja macierzy prostokątnej wymaga zmiany wymiarów; bez zmiany reprezentacji nie wolno stosować wszystkich indeksów przeznaczonych dla kwadratowej macierzy.
+  ~Ponieważ każda transpozycja wymaga obrotu o 180 stopni.#Transpozycja zamienia wiersze z kolumnami, nie jest obrotem o 180 stopni.
+  ~Ponieważ transpozycja zachowuje zawsze liczby wierszy i kolumn.#W macierzy 2×3 transpozycja ma wymiary 3×2, więc nie zachowuje obu rozmiarów.
   ####Poprawna odpowiedź to „Ponieważ indeks A[j][i] może wykraczać poza liczbę wierszy, a wynik ma wymiary 3×2”. Transpozycja macierzy prostokątnej wymaga zmiany wymiarów; bez zmiany reprezentacji nie wolno stosować wszystkich indeksów przeznaczonych dla kwadratowej macierzy.
 }
 
-::AISD-07-Q14::[plain]Mnożymy klasycznie A o wymiarach 2×3 przez B o wymiarach 3×4. Algorytm wykonuje k mnożeń na każdą komórkę wyniku. Ile mnożeń skalarnych wykona? {
-  ~12.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. Wynik ma 2×4\=8 komórek, a każda wymaga 3 mnożeń, razem 24.
-  ~16.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. Wynik ma 2×4\=8 komórek, a każda wymaga 3 mnożeń, razem 24.
-  ~36.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. Wynik ma 2×4\=8 komórek, a każda wymaga 3 mnożeń, razem 24.
+::AISD-07-Q14::[plain]Mnożymy klasycznie A o wymiarach 2×3 przez B o wymiarach 3×4. Algorytm wykonuje tyle mnożeń na każdą komórkę wyniku, ile kolumn ma A. Ile mnożeń skalarnych wykona? {
+  ~12.#Dwanaście uwzględnia tylko połowę z 2×4 komórek wyniku lub zbyt mało mnożeń na komórkę.
+  ~16.#Szesnaście odpowiada dwóm mnożeniom na każdą z ośmiu komórek, a wspólny wymiar wynosi trzy.
+  ~36.#Trzydzieści sześć oznacza zbyt wiele mnożeń: każda z 2×4 komórek wymaga dokładnie trzech iloczynów.
   =24.#Prawidłowo. Wynik ma 2×4\=8 komórek, a każda wymaga 3 mnożeń, razem 24.
   ####Poprawna odpowiedź to „24”. Wynik ma 2×4\=8 komórek, a każda wymaga 3 mnożeń, razem 24.
 }
 
 ::AISD-07-Q15::[plain]Do znalezienia maksimum w macierzy o rozmiarze 3×4, przy inicjalizacji pierwszym elementem, ile porównań trzeba wykonać? {
-  ~12#Ta odpowiedź jest niepoprawna. Właściwy wariant to „11”. Macierz ma 12 elementów; pierwszy ustala maksimum, a pozostałe 11 wymaga porównania.
+  ~12#Dwanaście to liczba elementów; pierwszy ustala maksimum bez porównania.
   =11#Prawidłowo. Macierz ma 12 elementów; pierwszy ustala maksimum, a pozostałe 11 wymaga porównania.
-  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „11”. Macierz ma 12 elementów; pierwszy ustala maksimum, a pozostałe 11 wymaga porównania.
-  ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „11”. Macierz ma 12 elementów; pierwszy ustala maksimum, a pozostałe 11 wymaga porównania.
+  ~7#Siedem porównań nie wystarczy do sprawdzenia wszystkich pozostałych 11 elementów.
+  ~10#Dziesięć pomija jeden z elementów, który trzeba porównać z bieżącym maksimum.
   ####Poprawna odpowiedź to „11”. Macierz ma 12 elementów; pierwszy ustala maksimum, a pozostałe 11 wymaga porównania.
 }
 
 ::AISD-07-Q16::[plain]Dwa obrazy RGB mają te same wymiary H×W. Pierwszy przechowuje kanały po 8 bitów, drugi po 16 bitów. Jak zmieni się pamięć samych pikseli, bez nagłówków i wyrównania? {
-  ~Pozostanie bez zmian, bo liczba pikseli jest taka sama.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wzrośnie dwukrotnie, bo każdy z trzech kanałów ma dwa razy więcej bitów”. Rozmiary wynoszą odpowiednio 3HW bajtów i 6HW bajtów.
-  ~Wzrośnie trzykrotnie, bo RGB ma trzy kanały.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wzrośnie dwukrotnie, bo każdy z trzech kanałów ma dwa razy więcej bitów”. Rozmiary wynoszą odpowiednio 3HW bajtów i 6HW bajtów.
+  ~Pozostanie bez zmian, bo liczba pikseli jest taka sama.#Liczba pikseli jest ta sama, ale rośnie liczba bitów przeznaczonych na każdy kanał.
+  ~Wzrośnie trzykrotnie, bo RGB ma trzy kanały.#Trzy kanały występują w obu obrazach, a zmienia się tylko ich głębokość bitowa: z 8 do 16.
   =Wzrośnie dwukrotnie, bo każdy z trzech kanałów ma dwa razy więcej bitów.#Prawidłowo. Rozmiary wynoszą odpowiednio 3HW bajtów i 6HW bajtów.
-  ~Zmniejszy się dwukrotnie, bo kanały są bardziej precyzyjne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wzrośnie dwukrotnie, bo każdy z trzech kanałów ma dwa razy więcej bitów”. Rozmiary wynoszą odpowiednio 3HW bajtów i 6HW bajtów.
+  ~Zmniejszy się dwukrotnie, bo kanały są bardziej precyzyjne.#Większa precyzja kanału wymaga więcej, nie mniej pamięci na piksel.
   ####Poprawna odpowiedź to „Wzrośnie dwukrotnie, bo każdy z trzech kanałów ma dwa razy więcej bitów”. Rozmiary wynoszą odpowiednio 3HW bajtów i 6HW bajtów.
 }
 
 ::AISD-07-Q17::[plain]W macierzy sąsiedztwa grafu nieskierowanego bez pętli o 4 wierzchołkach ilu elementów spoza przekątnej może odpowiadać jednej krawędzi? {
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
+  ~1#Jedna krawędź nieskierowana odpowiada dwóm symetrycznym komórkom macierzy.
+  ~4#Liczba 4 to liczba wierzchołków grafu, nie liczba komórek opisujących pojedynczą krawędź.
+  ~8#Osiem komórek nie jest potrzebne dla jednej krawędzi; wystarczają pozycje (u,v) i (v,u).
   =2#Prawidłowo. Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
   ####Poprawna odpowiedź to „2”. Krawędź u-v jest reprezentowana symetrycznymi wpisami A[u][v] oraz A[v][u].
 }
 
 ::AISD-07-Q18::[plain]Dla DP wyznaczającego liczbę ścieżek w siatce 3×3 od (0,0) do (2,2), z ruchami wyłącznie w prawo i w dół, ile jest ścieżek? {
-  ~4 ścieżki#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6 ścieżek”. Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
-  ~8 ścieżek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6 ścieżek”. Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
+  ~4 ścieżki#Cztery ścieżki pomijają niektóre kolejności dwóch kroków w prawo i dwóch w dół.
+  ~8 ścieżek#Osiem nie wynika z liczby możliwych permutacji czterech ruchów z dwoma ruchami każdego rodzaju.
   =6 ścieżek#Prawidłowo. Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
-  ~9 ścieżek#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6 ścieżek”. Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
+  ~9 ścieżek#Dziewięć jest liczbą pól siatki 3×3, nie liczbą ścieżek spełniających ograniczenia.
   ####Poprawna odpowiedź to „6 ścieżek”. Każda ścieżka ma 2 ruchy w prawo i 2 w dół; liczba ich układów to C(4,2)\=6.
 }
 
-::AISD-07-Q19::[plain]Macierz 3×5 transponujemy do osobnego bufora. Jaki indeks w wyniku zajmie element źródłowy A[1][4]? {
-  ~B[1][4]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „B[4][1]”. Przy transpozycji zamienia się indeksy wiersza i kolumny.
-  ~B[3][1]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „B[4][1]”. Przy transpozycji zamienia się indeksy wiersza i kolumny.
-  =B[4][1]#Prawidłowo. Przy transpozycji zamienia się indeksy wiersza i kolumny.
-  ~B[4][3]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „B[4][1]”. Przy transpozycji zamienia się indeksy wiersza i kolumny.
-  ####Poprawna odpowiedź to „B[4][1]”. Przy transpozycji zamienia się indeksy wiersza i kolumny.
+::AISD-07-Q19::[plain]Macierz A o wymiarach 3×5 jest przechowywana wierszowo. Po transpozycji do osobnego, także wierszowego bufora B o wymiarach 5×3, jaki indeks liniowy (od zera) zajmie w B element źródłowy A[1][4]? {
+  ~9#Nie. Indeks 9 to pozycja A[1][4] w pierwotnym buforze 3×5; po transpozycji zmienia się układ danych.
+  ~11#Nie. Macierz wynikowa ma trzy kolumny, więc offset B[4][1] liczymy jako 4 razy 3 plus 1.
+  =13#Prawidłowo. Element źródłowy A[1][4] trafia do B[4][1], a jego indeks liniowy wynosi 4·3+1\=13.
+  ~14#Nie. Offset 14 wskazuje kolejny element po B[4][1]; poprawna pozycja to 13.
+  ####Poprawna odpowiedź to „13”. Po transpozycji A[1][4] odpowiada B[4][1]. Ponieważ B ma trzy kolumny i jest przechowywana wierszowo, indeks liniowy to 4·3+1\=13.
 }
 
 ::AISD-07-Q20::[plain]Macierz 4×4 leży w pamięci wierszowo. Chcemy zamienić całe wiersze 0 i 3 w miejscu, nie zmieniając innych wierszy. Co zapewnia poprawność operacji? {
   =Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[3][j].#Prawidłowo. Wymiana całych wierszy wymaga czterech niezależnych zamian odpowiadających sobie kolumn.
-  ~Wymiana wyłącznie A[0][0] z A[3][3].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[3][j]”. Wymiana całych wierszy wymaga czterech niezależnych zamian odpowiadających sobie kolumn.
-  ~Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[j][3].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[3][j]”. Wymiana całych wierszy wymaga czterech niezależnych zamian odpowiadających sobie kolumn.
-  ~Transpozycja całej macierzy bez kolejnych operacji.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[3][j]”. Wymiana całych wierszy wymaga czterech niezależnych zamian odpowiadających sobie kolumn.
+  ~Wymiana wyłącznie A[0][0] z A[3][3].#Jedna zamiana dwóch elementów nie wystarcza do zamiany wszystkich czterech kolumn wierszy.
+  ~Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[j][3].#Zamiana A[0][j] z A[j][3] miesza różne wiersze i nie zachowuje pozostałych danych.
+  ~Transpozycja całej macierzy bez kolejnych operacji.#Transpozycja zamienia wiersze z kolumnami, a celem jest zamiana wyłącznie dwóch wierszy.
   ####Poprawna odpowiedź to „Dla każdej kolumny j\=0..3 zamiana A[0][j] z A[3][j]”. Wymiana całych wierszy wymaga czterech niezależnych zamian odpowiadających sobie kolumn.
 }
 

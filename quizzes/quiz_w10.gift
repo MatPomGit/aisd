@@ -1,164 +1,164 @@
 // AIiSD 10: Stosy
-// Wersja 1.5.0 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.3 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-10-Q01::[plain]Początkowo stos jest pusty. Wykonujemy kolejno push(3), push(7), pop(), push(4), a potem jeszcze dwa wywołania pop(). Jakie wartości zwrócą dwa ostatnie wywołania, zgodnie z zasadą LIFO? {
-  ~7, 3.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4, 3”. Pierwszy pop usuwa 7. Przed dwoma ostatnimi wywołaniami stos zawiera 3 oraz 4, więc pop zwraca kolejno 4 i 3.
+  ~7, 3.#Wartość 7 została zdjęta przez wcześniejsze pop(), więc nie może być wynikiem żadnego z dwóch ostatnich wywołań.
   =4, 3.#Prawidłowo. Pierwszy pop usuwa 7. Przed dwoma ostatnimi wywołaniami stos zawiera 3 oraz 4, więc pop zwraca kolejno 4 i 3.
-  ~4, 7.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4, 3”. Pierwszy pop usuwa 7. Przed dwoma ostatnimi wywołaniami stos zawiera 3 oraz 4, więc pop zwraca kolejno 4 i 3.
-  ~3, 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4, 3”. Pierwszy pop usuwa 7. Przed dwoma ostatnimi wywołaniami stos zawiera 3 oraz 4, więc pop zwraca kolejno 4 i 3.
+  ~4, 7.#Po pierwszym pop() na stosie zostają 3 i 4, a nie 7.
+  ~3, 4.#Stos zwraca ostatnio dodany element najpierw, więc otrzymamy 4 przed 3, nie odwrotnie.
   ####Poprawna odpowiedź to „4, 3”. Pierwszy pop usuwa 7. Przed dwoma ostatnimi wywołaniami stos zawiera 3 oraz 4, więc pop zwraca kolejno 4 i 3.
 }
 
-::AISD-10-Q02::[plain]Na stos trafiają kolejno liczby 2, 5, 8. Wykonujemy dwa razy pop(). W jakiej kolejności otrzymamy wyniki? {
-  =8, 5#Prawidłowo. Stos działa zgodnie z zasadą LIFO, więc ostatnio dodany element jest usuwany jako pierwszy.
-  ~2, 5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8, 5”. Stos działa zgodnie z zasadą LIFO, więc ostatnio dodany element jest usuwany jako pierwszy.
-  ~5, 8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8, 5”. Stos działa zgodnie z zasadą LIFO, więc ostatnio dodany element jest usuwany jako pierwszy.
-  ~8, 2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8, 5”. Stos działa zgodnie z zasadą LIFO, więc ostatnio dodany element jest usuwany jako pierwszy.
-  ####Poprawna odpowiedź to „8, 5”. Stos działa zgodnie z zasadą LIFO, więc ostatnio dodany element jest usuwany jako pierwszy.
+::AISD-10-Q02::[plain]Na stosie znajdują się kolejno od dna liczby 2, 5, 8. Wykonujemy peek(), pop(), peek(), przy czym peek odczytuje szczyt bez zdejmowania elementu. Jakie wartości zwrócą kolejno te trzy operacje? {
+  =8, 8, 5.#Prawidłowo. Pierwszy peek widzi 8, pop zwraca i usuwa 8, a ostatni peek odczytuje nowy szczyt 5.
+  ~8, 5, 5.#Peek nie usuwa elementu; druga operacja, czyli pop(), również zwraca 8, a dopiero kolejne peek() widzi 5.
+  ~2, 2, 5.#Operacja peek obserwuje szczyt, a nie najstarszy element ze spodu stosu.
+  ~8, 8, 8.#Pop usuwa 8, dlatego ostatnie peek wskazuje nowy szczyt 5, a nie 8.
+  ####Poprawna odpowiedź to „8, 8, 5”. Peek nie usuwa elementu i zwraca szczyt 8. Następne pop zwraca i usuwa 8. Kolejne peek zwraca 5, bo stało się nowym szczytem.
 }
 
 ::AISD-10-Q03::[plain]Podczas analizy ciągu nawiasów stos zawiera kolejno otwarte nawiasy '(' oraz '[' (szczyt '['). Następnym znakiem jest ')'. Co powinien zrobić poprawny parser? {
-  ~Zdjąć '[' i uznać ')' za domknięcie '(' niżej.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zgłosić błąd dopasowania, ponieważ typ zamknięcia nie odpowiada szczytowi stosu”. Poprawnie zagnieżdżone nawiasy muszą być zamykane w odwrotnej kolejności ich otwarcia.
-  ~Pominąć ')' i kontynuować, dopóki nie pojawi się ']'.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zgłosić błąd dopasowania, ponieważ typ zamknięcia nie odpowiada szczytowi stosu”. Poprawnie zagnieżdżone nawiasy muszą być zamykane w odwrotnej kolejności ich otwarcia.
+  ~Zdjąć '[' i uznać ')' za domknięcie '(' niżej.#Nawias zamykający musi odpowiadać typowi aktualnie otwartego nawiasu na szczycie, nie temu głębiej.
+  ~Pominąć ')' i kontynuować, dopóki nie pojawi się ']'.#Pominięcie niepasującego nawiasu pozostawia błąd składni zamiast go wykryć.
   =Zgłosić błąd dopasowania, ponieważ typ zamknięcia nie odpowiada szczytowi stosu.#Prawidłowo. Poprawnie zagnieżdżone nawiasy muszą być zamykane w odwrotnej kolejności ich otwarcia.
-  ~Przenieść ')' na stos, aby odłożyć sprawdzenie do końca wejścia.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Zgłosić błąd dopasowania, ponieważ typ zamknięcia nie odpowiada szczytowi stosu”. Poprawnie zagnieżdżone nawiasy muszą być zamykane w odwrotnej kolejności ich otwarcia.
+  ~Przenieść ')' na stos, aby odłożyć sprawdzenie do końca wejścia.#W standardowym sprawdzaniu nawiasów znak zamykający porównuje się ze szczytem od razu, nie odkłada na stos.
   ####Poprawna odpowiedź to „Zgłosić błąd dopasowania, ponieważ typ zamknięcia nie odpowiada szczytowi stosu”. Poprawnie zagnieżdżone nawiasy muszą być zamykane w odwrotnej kolejności ich otwarcia. ')' nie pasuje do '['.
 }
 
-::AISD-10-Q04::[plain]W notacji postfiksowej wyrażenie '4 2 - 3 *' ma jaką wartość? {
-  ~-6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
-  ~18#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
+::AISD-10-Q04::[plain]Jaką wartość ma wyrażenie '4 2 - 3 *' zapisane w notacji postfiksowej? {
+  ~-6#Wartość -6 wynika z odwróconej kolejności odejmowania; w RPN jest 4-2, potem mnożenie przez 3.
+  ~18#Wynik 18 wymagałby innych operatorów lub kolejności niż odejmowanie i mnożenie.
   =6#Prawidłowo. Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
-  ~-2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „6”. Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
+  ~-2#Wartość -2 jest wynikiem błędnej interpretacji kolejności operandów i pominięcia mnożenia.
   ####Poprawna odpowiedź to „6”. Najpierw 4-2\=2, następnie 2·3\=6; przy odejmowaniu ważna jest kolejność argumentów.
 }
 
-::AISD-10-Q05::[plain]Stos tablicowy ma pojemność c, a top wskazuje indeks ostatniego elementu. Dla pustego stosu top\=-1. Kiedy wywołanie push spowoduje przepełnienie? {
+::AISD-10-Q05::[plain]Stos tablicowy ma pojemność c ≥ 2, a top wskazuje indeks ostatniego elementu. Dla pustego stosu top\=-1. Kiedy wywołanie push spowoduje przepełnienie? {
   =Gdy top\=c-1.#Prawidłowo. Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
-  ~Gdy top\=c#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy top\=c-1”. Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
-  ~Gdy top\=c-2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy top\=c-1”. Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
-  ~Gdy top\=0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Gdy top\=c-1”. Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
+  ~Gdy top\=c#Indeks top\=c jest już poza buforem; przepełnienie trzeba wykryć przed próbą wstawienia ponad c-1.
+  ~Gdy top\=c-2#Przy top\=c-2 istnieje jeszcze wolna komórka o indeksie c-1, więc jeden push jest możliwy.
+  ~Gdy top\=0#Top\=0 oznacza zajęty pierwszy element, ale przy pojemności c>1 pozostają wolne miejsca.
   ####Poprawna odpowiedź to „Gdy top\=c-1”. Przy top\=c-1 wszystkie indeksy od 0 do c-1 są już zajęte.
 }
 
 ::AISD-10-Q06::[plain]Implementacja stosu tablicowego ma top\=-1 dla pustki. Funkcja peek odczytuje A[top] bez sprawdzenia top. Co jest błędem przy pustym stosie? {
-  ~Odczyt A[-1] zawsze zwraca zero, niezależnie od języka.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Odczyt A[-1] jest poza przyjętym kontraktem, więc najpierw należy sprawdzić top>\=0”. Gdy top\=-1 nie ma elementu do odczytania. Procedura musi najpierw obsłużyć pusty stos.
+  ~Odczyt A[-1] zawsze zwraca zero, niezależnie od języka.#Odczyt A[-1] zależy od języka i reprezentacji, a dla pustego stosu nie jest prawidłowym peek.
   =Odczyt A[-1] jest poza przyjętym kontraktem, więc najpierw należy sprawdzić top>\=0.#Prawidłowo. Gdy top\=-1 nie ma elementu do odczytania. Procedura musi najpierw obsłużyć pusty stos.
-  ~Należy zmniejszyć top o 1 przed odczytem, aby przywrócić indeksowanie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Odczyt A[-1] jest poza przyjętym kontraktem, więc najpierw należy sprawdzić top>\=0”. Gdy top\=-1 nie ma elementu do odczytania. Procedura musi najpierw obsłużyć pusty stos.
-  ~Należy odczytać A[0], bo pierwszy element jest zawsze dostępny.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Odczyt A[-1] jest poza przyjętym kontraktem, więc najpierw należy sprawdzić top>\=0”. Gdy top\=-1 nie ma elementu do odczytania. Procedura musi najpierw obsłużyć pusty stos.
+  ~Należy zmniejszyć top o 1 przed odczytem, aby przywrócić indeksowanie.#Zmniejszanie top z -1 do -2 pogłębia błąd i nie tworzy elementu do odczytu.
+  ~Należy odczytać A[0], bo pierwszy element jest zawsze dostępny.#Fakt istnienia bufora A nie oznacza, że pusty stos zawiera logiczny element pod A[0].
   ####Poprawna odpowiedź to „Odczyt A[-1] jest poza przyjętym kontraktem, więc najpierw należy sprawdzić top>\=0”. Gdy top\=-1 nie ma elementu do odczytania. Procedura musi najpierw obsłużyć pusty stos.
 }
 
 ::AISD-10-Q07::[plain]Dlaczego iteracyjne przeszukiwanie w głąb (DFS) zwykle wykorzystuje stos, a przeszukiwanie wszerz (BFS) kolejkę? {
-  ~DFS i BFS różnią się wyłącznie porządkiem sąsiadów, ale oba używają LIFO.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania”. LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
-  ~BFS pobiera najnowszy element, a DFS najstarszy element granicy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania”. LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
-  ~DFS wymaga kolejki tylko przy braku cykli; BFS stosu przy obecności cykli.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania”. LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
+  ~DFS i BFS różnią się wyłącznie porządkiem sąsiadów, ale oba używają LIFO.#DFS i BFS różnią się sposobem wybierania następnego wierzchołka z granicy, nie tylko kolejnością sąsiadów.
+  ~BFS pobiera najnowszy element, a DFS najstarszy element granicy.#Wariant odwraca zasady: BFS używa FIFO, a klasyczny iteracyjny DFS używa LIFO.
+  ~DFS wymaga kolejki tylko przy braku cykli; BFS stosu przy obecności cykli.#Cykl w grafie wymaga kontroli odwiedzin, ale nie zamienia standardowych struktur BFS i DFS.
   =DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania.#Prawidłowo. LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
   ####Poprawna odpowiedź to „DFS rozwija najnowszy odłożony wierzchołek, a BFS najwcześniej dodany do granicy przeszukiwania”. LIFO sprzyja eksploracji głębokiej ścieżki, FIFO przetwarza kolejne poziomy grafu.
 }
 
 ::AISD-10-Q08::[plain]Operacja pop() na pustym stosie bez zdefiniowanej obsługi błędów prowadzi do którego problemu? {
-  ~Powoduje zmniejszenie top poniżej zera, lecz nadal poprawnie zwraca element z indeksu 0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Narusza kontrakt operacji, bo nie istnieje element do zwrócenia”. Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
-  ~Zwraca wartość zero jako neutralną dla pustego stosu.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Narusza kontrakt operacji, bo nie istnieje element do zwrócenia”. Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
-  ~Kończy się poprawnie, jeśli pod spodem jest tablica o dodatniej pojemności.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Narusza kontrakt operacji, bo nie istnieje element do zwrócenia”. Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
+  ~Powoduje zmniejszenie top poniżej zera, lecz nadal poprawnie zwraca element z indeksu 0.#Po pustym stosie top wskazuje brak elementu; zmniejszenie wskaźnika nie pozwala zwrócić poprawnego A[0].
+  ~Zwraca wartość zero jako neutralną dla pustego stosu.#Zero nie jest domyślnym wynikiem operacji pop na pustym stosie, jeśli kontrakt tego nie określa.
+  ~Kończy się poprawnie, jeśli pod spodem jest tablica o dodatniej pojemności.#Dodatnia pojemność fizycznej tablicy nie gwarantuje istnienia logicznego elementu na stosie.
   =Narusza kontrakt operacji, bo nie istnieje element do zwrócenia.#Prawidłowo. Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
   ####Poprawna odpowiedź to „Narusza kontrakt operacji, bo nie istnieje element do zwrócenia”. Stan pusty wymaga jawnej obsługi, np. zgłoszenia wyjątku lub wyniku opcjonalnego.
 }
 
 ::AISD-10-Q09::[plain]Analizator wyrażenia postfiksowego odkłada operandy, a przy operatorze '-' zdejmuje najpierw prawy, potem lewy operand. Jaki wynik otrzymamy dla '10 3 2 - -'? {
-  ~5.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Najpierw 3-2\=1, a następnie 10-1\=9. Odwrotna kolejność operandów zmieniłaby wynik.
+  ~5.#Wewnętrzne 3 2 - daje 1, więc zewnętrzne odejmowanie to 10-1\=9, nie 5.
   =9.#Prawidłowo. Najpierw 3-2\=1, a następnie 10-1\=9. Odwrotna kolejność operandów zmieniłaby wynik.
-  ~11.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Najpierw 3-2\=1, a następnie 10-1\=9. Odwrotna kolejność operandów zmieniłaby wynik.
-  ~-9.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „9”. Najpierw 3-2\=1, a następnie 10-1\=9. Odwrotna kolejność operandów zmieniłaby wynik.
+  ~11.#Wynik 11 odpowiadałby dodaniu 1 do 10, a końcowy operator to minus.
+  ~-9.#Wartość -9 powstałaby przy odwróceniu operandów drugiego odejmowania, a stos interpretuje najpierw prawy operand.
   ####Poprawna odpowiedź to „9”. Najpierw 3-2\=1, a następnie 10-1\=9. Odwrotna kolejność operandów zmieniłaby wynik.
 }
 
 ::AISD-10-Q10::[plain]Jaki wynik da postfiksowe wyrażenie '7 2 3 * -'? {
-  ~15#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Najpierw 2·3\=6, a następnie 7-6\=1.
-  ~-15#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Najpierw 2·3\=6, a następnie 7-6\=1.
+  ~15#15 to wartość 7+2+3+... przy błędnym traktowaniu operatorów; najpierw trzeba pomnożyć 2×3.
+  ~-15#Wynik -15 nie odpowiada wykonaniu 7-(2×3), które daje 1.
   =1#Prawidłowo. Najpierw 2·3\=6, a następnie 7-6\=1.
-  ~-1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Najpierw 2·3\=6, a następnie 7-6\=1.
+  ~-1#Wynik -1 oznacza zamianę kolejności końcowego odejmowania 7-6 na 6-7.
   ####Poprawna odpowiedź to „1”. W zapisie postfiksowym operator działa na dwóch wcześniejszych operandach. Najpierw obliczamy 2·3\=6, następnie 7-6\=1.
 }
 
 ::AISD-10-Q11::[plain]Jaki jest maksymalny rozmiar stosu podczas sprawdzania poprawności ciągu nawiasów '([\{\}])'? {
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
+  ~2#Wewnątrz ciągu '([\{\}])' jednocześnie otwarte są trzy typy nawiasów, więc szczyt rośnie ponad dwa.
+  ~4#Czwarty nawias otwierający nie występuje przed pierwszym zamknięciem, więc szczyt nie osiąga czterech.
+  ~6#Sześć znaków obejmuje także zamknięcia; stos otwartych nawiasów nie zawiera ich jednocześnie.
   =3#Prawidłowo. Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
   ####Poprawna odpowiedź to „3”. Przed zamykaniem na stosie znajdują się kolejno (, [ i \{, czyli trzy nawiasy otwierające.
 }
 
 ::AISD-10-Q12::[plain]Którą parę nawiasów jako pierwszą uzna za niezgodną analizator stosowy sprawdzający ciąg '([)]'? {
   =[ oraz )#Prawidłowo. Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
-  ~( oraz )#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[ oraz )”. Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
-  ~[ oraz ]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[ oraz )”. Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
-  ~( oraz ]#Ta odpowiedź jest niepoprawna. Właściwy wariant to „[ oraz )”. Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
+  ~( oraz )#Nawias ')' pasuje do '(' niżej w stosie, lecz aktualnym szczytem jest '[', więc to nie jest sprawdzana para.
+  ~[ oraz ]#Nawias ']' pojawia się później; pierwszy konflikt powstaje już przy przetwarzaniu ')'.
+  ~( oraz ]#Para '(' i ']' byłaby niezgodna, ale to nie ona zostaje sprawdzona jako pierwsza.
   ####Poprawna odpowiedź to „[ oraz )”. Po wczytaniu ( i [ na szczycie znajduje się [, a kolejny znak ) go nie domyka.
 }
 
 ::AISD-10-Q13::[plain]Stos o pojemności 4 posiada top\=2, gdzie top to indeks ostatniego elementu. Ile kolejnych wywołań push może wykonać bez przepełnienia? {
   =1#Prawidłowo. Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
+  ~2#Przy top\=2 i pojemności 4 wolny jest tylko indeks 3; po jednym push stos jest pełny.
+  ~3#Trzy kolejne push wymagałyby jeszcze dwóch komórek poza pojemnością bufora.
+  ~0#Przy top\=2 indeks 3 nie jest zajęty, więc jeden push nadal jest dozwolony.
   ####Poprawna odpowiedź to „1”. Zajęte są indeksy 0,1,2; wolna jest jedynie pozycja 3.
 }
 
 ::AISD-10-Q14::[plain]W tablicowym stosie top\=-1 oznacza pustkę. Jaką wartość będzie mieć top po trzech push i jednym pop? {
-  ~2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Po kolejnych push indeks szczytu to 0,1,2; po pop zmniejsza się do 1.
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Po kolejnych push indeks szczytu to 0,1,2; po pop zmniejsza się do 1.
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „1”. Po kolejnych push indeks szczytu to 0,1,2; po pop zmniejsza się do 1.
+  ~2#Po trzech push top rośnie z -1 do 2, a po jednym pop spada do 1.
+  ~0#Top\=0 oznaczałoby jeden aktywny element, a po operacjach zostały dwa.
+  ~3#Top\=3 oznaczałoby cztery elementy; po trzech wstawieniach i jednym zdjęciu są dwa.
   =1#Prawidłowo. Po kolejnych push indeks szczytu to 0,1,2; po pop zmniejsza się do 1.
   ####Poprawna odpowiedź to „1”. Po kolejnych push indeks szczytu to 0,1,2; po pop zmniejsza się do 1.
 }
 
 ::AISD-10-Q15::[plain]W odwracaniu ciągu 'KOT' przez stos znaków, jaka będzie kolejność trzech wywołań pop? {
-  ~K,O,T#Ta odpowiedź jest niepoprawna. Właściwy wariant to „T,O,K”. Ostatnio wstawiona litera T jest zdejmowana jako pierwsza.
-  ~O,T,K#Ta odpowiedź jest niepoprawna. Właściwy wariant to „T,O,K”. Ostatnio wstawiona litera T jest zdejmowana jako pierwsza.
-  ~T,K,O#Ta odpowiedź jest niepoprawna. Właściwy wariant to „T,O,K”. Ostatnio wstawiona litera T jest zdejmowana jako pierwsza.
+  ~K,O,T#K,O,T jest kolejnością wstawiania, a pop zwraca znaki w odwrotnej kolejności.
+  ~O,T,K#O,T,K nie zachowuje ani porządku LIFO, ani kolejności trzech zdjęć szczytu.
+  ~T,K,O#Po zdjęciu T nowym szczytem staje się O, a nie K.
   =T,O,K#Prawidłowo. Ostatnio wstawiona litera T jest zdejmowana jako pierwsza.
   ####Poprawna odpowiedź to „T,O,K”. Ostatnio wstawiona litera T jest zdejmowana jako pierwsza.
 }
 
 ::AISD-10-Q16::[plain]Jaką wartość zwróci wyrażenie postfiksowe '8 4 / 2 +' przy dzieleniu całkowitym bez reszty? {
-  ~3#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. 8/4\=2, następnie 2+2\=4.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. 8/4\=2, następnie 2+2\=4.
+  ~3#Działanie 8/4 daje 2, a po dodaniu 2 otrzymujemy 4, nie 3.
+  ~6#Wartość 6 wynikałaby np. z 8/2+2, lecz operator dzielenia stosuje najpierw 8 i 4.
   =4#Prawidłowo. 8/4\=2, następnie 2+2\=4.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „4”. 8/4\=2, następnie 2+2\=4.
+  ~5#Wynik 5 nie odpowiada żadnemu z kolejnych działań 8/4 i +2.
   ####Poprawna odpowiedź to „4”. W zapisie postfiksowym najpierw wykonujemy dzielenie 8/4\=2, odkładamy wynik na stos i dodajemy kolejne 2. Ostatecznie otrzymujemy 4.
 }
 
 ::AISD-10-Q17::[plain]Przekształcamy wyrażenie infiksowe '2 * 3 + 4' na postfiksowe. Po odczytaniu '2 * 3' na stosie operatorów jest tylko '*', a bieżącym operatorem jest '+'. Co zrobić przed odłożeniem '+'? {
-  ~Pozostawić '*', bo stos może przechowywać wszystkie operatory do końca.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najpierw zdjąć '*', ponieważ ma wyższy priorytet niż '+'”. Operator '*' ma wyższy priorytet i powinien trafić do wyjścia przed odłożeniem '+'.
-  ~Zdjąć dopiero '+' po odczytaniu kolejnej liczby.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najpierw zdjąć '*', ponieważ ma wyższy priorytet niż '+'”. Operator '*' ma wyższy priorytet i powinien trafić do wyjścia przed odłożeniem '+'.
+  ~Pozostawić '*', bo stos może przechowywać wszystkie operatory do końca.#Operator * ma wyższy priorytet od +, więc nie może czekać na stosie za nowym plusem.
+  ~Zdjąć dopiero '+' po odczytaniu kolejnej liczby.#Bieżący plus nie jest jeszcze na stosie i nie można zdejmować go przed odczytem kolejnej liczby.
   =Najpierw zdjąć '*', ponieważ ma wyższy priorytet niż '+'.#Prawidłowo. Operator '*' ma wyższy priorytet i powinien trafić do wyjścia przed odłożeniem '+'.
-  ~Zamienić '*' na '+', ponieważ mnożenie zostało już wykonane.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Najpierw zdjąć '*', ponieważ ma wyższy priorytet niż '+'”. Operator '*' ma wyższy priorytet i powinien trafić do wyjścia przed odłożeniem '+'.
+  ~Zamienić '*' na '+', ponieważ mnożenie zostało już wykonane.#Zamiana operatora * na + zgubiłaby mnożenie, które należy zapisać przed nowym plusem.
   ####Poprawna odpowiedź to „Najpierw zdjąć '*', ponieważ ma wyższy priorytet niż '+'”. Operator '*' ma wyższy priorytet i powinien trafić do wyjścia przed odłożeniem '+'.
 }
 
 ::AISD-10-Q18::[plain]W rekurencyjnej funkcji f(n)\=f(n-1)+1 dla n>0, f(0)\=0, ile aktywnych ramek istnieje jednocześnie tuż przed powrotem z f(0), jeśli wywołano f(4)? {
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Na stosie są wywołania f(4),f(3),f(2),f(1),f(0).
+  ~4#Cztery ramki pomijają jedną z aktywnych funkcji f(4), f(3), f(2), f(1), f(0).
   =5#Prawidłowo. Na stosie są wywołania f(4),f(3),f(2),f(1),f(0).
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Na stosie są wywołania f(4),f(3),f(2),f(1),f(0).
-  ~1#Ta odpowiedź jest niepoprawna. Właściwy wariant to „5”. Na stosie są wywołania f(4),f(3),f(2),f(1),f(0).
+  ~6#Ramek jest pięć dla argumentów od 4 do 0, nie sześć.
+  ~1#Jedna ramka odpowiadałaby wykonaniu bez rekurencji; tu kolejne wywołania pozostają aktywne.
   ####Poprawna odpowiedź to „5”. Na stosie są wywołania f(4),f(3),f(2),f(1),f(0).
 }
 
 ::AISD-10-Q19::[plain]Stos wykorzystuje tablicę i top oznaczający indeks ostatniego elementu. Które operacje w standardowej implementacji działają bez przesuwania pozostałych elementów? {
   =push i pop.#Prawidłowo. Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
-  ~push i usuwanie z dna.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „push i pop”. Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
-  ~pop i wstawienie na dno.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „push i pop”. Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
-  ~wstawienie na dno i pop.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „push i pop”. Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
+  ~push i usuwanie z dna.#Usuwanie z dna standardowego stosu tablicowego wymaga przemieszczenia pozostałych elementów lub dodatkowej reprezentacji.
+  ~pop i wstawienie na dno.#Wstawienie na dno wymaga przesunięcia n elementów, choć pop na szczycie jest stałoczasowe.
+  ~wstawienie na dno i pop.#Obie operacje obejmujące dno nie należą do standardowych stałoczasowych operacji stosu tablicowego.
   ####Poprawna odpowiedź to „push i pop”. Operacje na szczycie aktualizują tylko top i ewentualnie pojedyncze pole tablicy.
 }
 
 ::AISD-10-Q20::[plain]Program próbuje odwrócić napis 'KOT' za pomocą stosu znaków. Po odłożeniu K,O,T wykonuje dwa pop i dopisuje ich wyniki do wyjścia, po czym kończy. Na czym polega błąd? {
-  ~Wyjście będzie 'OK', ponieważ stos działa FIFO.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyjście będzie 'TO', ponieważ pominięto trzecie pop zdejmujące K”. Trzy odkładane znaki wymagają trzech pop. Zakończenie po dwóch pomija ostatni znak.
+  ~Wyjście będzie 'OK', ponieważ stos działa FIFO.#'OK' nie wynika z LIFO: po odłożeniu K,O,T pierwsze dwa pop dają T oraz O.
   =Wyjście będzie 'TO', ponieważ pominięto trzecie pop zdejmujące K.#Prawidłowo. Trzy odkładane znaki wymagają trzech pop. Zakończenie po dwóch pomija ostatni znak.
-  ~Wyjście będzie 'TOK', ponieważ pop usuwa wszystkie znaki naraz.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyjście będzie 'TO', ponieważ pominięto trzecie pop zdejmujące K”. Trzy odkładane znaki wymagają trzech pop. Zakończenie po dwóch pomija ostatni znak.
-  ~Wyjście będzie 'T', ponieważ drugie pop nie działa na niepustym stosie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyjście będzie 'TO', ponieważ pominięto trzecie pop zdejmujące K”. Trzy odkładane znaki wymagają trzech pop. Zakończenie po dwóch pomija ostatni znak.
+  ~Wyjście będzie 'TOK', ponieważ pop usuwa wszystkie znaki naraz.#Pop zwraca jeden znak, a nie zdejmuje wszystkich trzech jednocześnie.
+  ~Wyjście będzie 'T', ponieważ drugie pop nie działa na niepustym stosie.#Po pierwszym pop stos nadal zawiera K i O, dlatego drugie pop jest poprawne i zwraca O.
   ####Poprawna odpowiedź to „Wyjście będzie 'TO', ponieważ pominięto trzecie pop zdejmujące K”. Trzy odkładane znaki wymagają trzech pop. Zakończenie po dwóch pomija ostatni znak.
 }
 
