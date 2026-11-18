@@ -31,3 +31,5 @@ jobs:
           persist-credentials: false
       - name: Check 20 GIFT banks
         run: python3 scripts/validate_quizzes.py
+      - name: Regression tests for single- and multiple-choice GIFT
+        run: python3 -m unittest discover -s tests -p 'test_quiz_validator.py'
