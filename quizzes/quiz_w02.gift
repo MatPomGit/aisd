@@ -1,164 +1,164 @@
 // AIiSD 02: Maszyna RAM
-// Wersja 1.6.1 | 2026-11-18 | 20 pytań z informacją zwrotną
+// Wersja 1.6.2 | 2026-11-18 | 20 pytań z informacją zwrotną
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-02-Q01::[plain]W maszynie RAM przyjmujemy: LOAD r ustawia akumulator na R[r], ADD r dodaje R[r] do akumulatora, STORE r zapisuje akumulator do R[r]. Dla R[2]\=7 i R[3]\=5 wykonano LOAD 2; ADD 3; STORE 4. Ile wynosi R[4]? {
-  ~7#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
+  ~7#LOAD 2 wczytuje 7, lecz ADD 3 dodaje jeszcze 5; wynik zapisany w R[4] nie pozostaje równy 7.
   =12#Prawidłowo. Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
-  ~19#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
+  ~5#To tylko wartość R[3], czyli dodawany składnik; akumulator zawiera 7+5.
+  ~19#W programie wykonywane jest jedno dodawanie 7+5, a nie operacje dające 19.
   ####Poprawna odpowiedź to „12”. Akumulator po LOAD ma wartość 7, po ADD wynosi 12 i tę wartość zapisuje STORE.
 }
 
 ::AISD-02-Q02::[plain]Jakie założenie najbardziej zmienia analizę operacji dodawania dwóch n-bitowych liczb w modelu RAM? {
-  ~Czy dopuszcza się instrukcję mnożenia, poza dodawaniem.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów”. Model jednostkowy może przypisywać dodawaniu stały koszt, natomiast model bitowy uwzględnia długość liczb.
+  ~Czy dopuszcza się instrukcję mnożenia, poza dodawaniem.#Obecność osobnej instrukcji mnożenia nie przesądza, ile kosztuje dodawanie n-bitowych liczb.
   =Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów.#Prawidłowo. Model jednostkowy może przypisywać dodawaniu stały koszt, natomiast model bitowy uwzględnia długość liczb.
-  ~Czy dodawanie zmienia akumulator czy osobny rejestr wynikowy.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów”. Model jednostkowy może przypisywać dodawaniu stały koszt, natomiast model bitowy uwzględnia długość liczb.
-  ~Czy długość słowa maszynowego jest stała, ale nieograniczona liczba słów może reprezentować operand.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów”. Model jednostkowy może przypisywać dodawaniu stały koszt, natomiast model bitowy uwzględnia długość liczb.
+  ~Czy dodawanie zmienia akumulator czy osobny rejestr wynikowy.#Miejsce zapisania wyniku wpływa na semantykę instrukcji, ale nie wyjaśnia różnicy między kosztem jednostkowym a bitowym.
+  ~Czy długość słowa maszynowego jest stała, ale nieograniczona liczba słów może reprezentować operand.#Sama możliwość użycia wielu słów nie ustala kosztu dodawania; trzeba określić model opłat za operacje na operandach.
   ####Poprawna odpowiedź to „Czy instrukcja arytmetyczna ma stały koszt, czy koszt zależny od długości operandów”. Model jednostkowy może przypisywać dodawaniu stały koszt, natomiast model bitowy uwzględnia długość liczb.
 }
 
 ::AISD-02-Q03::[plain]Instrukcja JZERO L skacze do etykiety L, gdy akumulator ma wartość 0. Akumulator ma wartość -2. Co się wydarzy? {
-  ~Nastąpi skok do L#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wykonanie przejdzie do następnej instrukcji bez skoku”. Warunek dotyczy równości zeru, a nie znaku liczby.
-  ~Nastąpi skok do L po znormalizowaniu wartości akumulatora do zera.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wykonanie przejdzie do następnej instrukcji bez skoku”. Warunek dotyczy równości zeru, a nie znaku liczby.
+  ~Nastąpi skok do L#JZERO wykonuje skok tylko dla zera, a akumulator ma wartość -2.
+  ~Nastąpi skok do L po znormalizowaniu wartości akumulatora do zera.#W podanej semantyce nie ma normalizacji ujemnego akumulatora do zera przed testem.
   =Wykonanie przejdzie do następnej instrukcji bez skoku.#Prawidłowo. Warunek dotyczy równości zeru, a nie znaku liczby.
-  ~Wykonanie przejdzie dalej, ale akumulator zostanie wyzerowany przez test.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wykonanie przejdzie do następnej instrukcji bez skoku”. Warunek dotyczy równości zeru, a nie znaku liczby.
+  ~Wykonanie przejdzie dalej, ale akumulator zostanie wyzerowany przez test.#Instrukcja JZERO jedynie sprawdza warunek skoku i nie zeruje akumulatora.
   ####Poprawna odpowiedź to „Wykonanie przejdzie do następnej instrukcji bez skoku”. Warunek dotyczy równości zeru, a nie znaku liczby.
 }
 
 ::AISD-02-Q04::[plain]W danym wariancie RAM READ r pobiera liczbę z wejścia do R[r], nie zmieniając akumulatora. Akumulator wynosi 9; wykonano READ 0, a wejściem było 4. Jaki jest stan? {
-  ~Akumulator pozostanie równy 9, natomiast R[0] zachowa wcześniejszą wartość.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Akumulator 9, R[0]\=4”. Semantyka READ została określona jawnie: zmienia wyłącznie wskazany rejestr.
-  ~Akumulator przyjmie 4, a R[0] pozostanie niezmieniony.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Akumulator 9, R[0]\=4”. Semantyka READ została określona jawnie: zmienia wyłącznie wskazany rejestr.
-  ~Akumulator i R[0] przyjmą 4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Akumulator 9, R[0]\=4”. Semantyka READ została określona jawnie: zmienia wyłącznie wskazany rejestr.
+  ~Akumulator pozostanie równy 9, natomiast R[0] zachowa wcześniejszą wartość.#READ 0 zapisuje wejściowe 4 do R[0], więc rejestr nie zachowuje poprzedniej wartości.
+  ~Akumulator przyjmie 4, a R[0] pozostanie niezmieniony.#Akumulator pozostaje równy 9, gdyż w zadaniu READ nie modyfikuje akumulatora.
+  ~Akumulator i R[0] przyjmą 4#Nie zmieniają się oba miejsca: zmienia się tylko R[0], podczas gdy akumulator pozostaje równy 9.
   =Akumulator 9, R[0]\=4.#Prawidłowo. Semantyka READ została określona jawnie: zmienia wyłącznie wskazany rejestr.
   ####Poprawna odpowiedź to „Akumulator 9, R[0]\=4”. Semantyka READ została określona jawnie: zmienia wyłącznie wskazany rejestr.
 }
 
 ::AISD-02-Q05::[plain]Jakie informacje należy uwzględnić przy porównywaniu zużycia pamięci przez dwa programy RAM wczytujące n liczb? {
   =Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu.#Prawidłowo. Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
-  ~Liczbę rejestrów kiedykolwiek zapisanych, pomijając ich ponowne użycie oraz rozmiar liczb.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu”. Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
-  ~Największy numer rejestru, traktowany zawsze jako liczbę zajętych komórek.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu”. Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
-  ~Maksymalną liczbę aktywnych rejestrów, niezależnie od kosztu kodowania ich zawartości.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu”. Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
+  ~Liczbę rejestrów kiedykolwiek zapisanych, pomijając ich ponowne użycie oraz rozmiar liczb.#Liczba wszystkich zapisanych kiedyś rejestrów może przewyższać liczbę używanych jednocześnie; istotny jest też rozmiar wartości.
+  ~Największy numer rejestru, traktowany zawsze jako liczbę zajętych komórek.#Największy indeks rejestru nie musi odpowiadać liczbie faktycznie wykorzystanych komórek przy rzadkim adresowaniu.
+  ~Maksymalną liczbę aktywnych rejestrów, niezależnie od kosztu kodowania ich zawartości.#Sama liczba aktywnych rejestrów nie wystarcza w modelu bitowym: liczy się też wielkość zapisanych liczb.
   ####Poprawna odpowiedź to „Liczbę używanych rejestrów i rozmiary przechowywanych wartości w przyjętym modelu”. Analiza pamięci wymaga zdefiniowania mierzonego zasobu; w modelu bitowym liczy się także rozmiar liczb.
 }
 
 ::AISD-02-Q06::[plain]Program RAM sprawdza przed każdą iteracją warunek c ≠ 0. Gdy jest spełniony, zmniejsza całkowitoliczbowy licznik c o 1 i ponownie sprawdza warunek; w przeciwnym razie kończy działanie. Przyjmujemy dokładną arytmetykę całkowitą bez przepełnienia. Który zbiór obejmuje dokładnie wszystkie wartości początkowe gwarantujące zakończenie? {
-  ~Wszystkie liczby całkowite.#Nie. Dla ujemnego c kolejne zmniejszenia oddalają licznik od zera, więc pętla nie osiągnie warunku zakończenia.
-  ~Tylko dodatnie liczby całkowite.#Nie. Początkowe c równe zero także prowadzi do zakończenia, bez wykonania żadnej iteracji.
-  ~Wszystkie liczby całkowite różne od zera.#Nie. Ten zbiór zawiera wartości ujemne, które przy zmniejszaniu o jeden nie osiągają zera.
+  ~Wszystkie liczby całkowite.#Dla ujemnego c powtarzane odejmowanie jedynki oddala licznik od zera i nie daje zakończenia.
+  ~Tylko dodatnie liczby całkowite.#Początkowe zero także kończy program bez żadnej iteracji, więc dodatniość nie jest konieczna.
+  ~Wszystkie liczby całkowite różne od zera.#Zbiór niezerowych liczb obejmuje ujemne wartości, przy których licznik nie osiąga zera.
   =Wszystkie nieujemne liczby całkowite.#Prawidłowo. Dla zera program kończy się od razu, a dla dodatniego c licznik po skończonej liczbie iteracji osiąga zero.
   ####Poprawna odpowiedź to „Wszystkie nieujemne liczby całkowite”. Warunek jest sprawdzany przed zmniejszeniem licznika. Wartość zero powoduje natychmiastowe zakończenie, dodatnia osiąga zero po skończonej liczbie kroków, natomiast ujemna oddala się od zera.
 }
 
 ::AISD-02-Q07::[plain]Tablica A jest indeksowana od 0. Program sumujący ma postać: s :\= 0; dla i od 1 do n-1 wykonuj s :\= s + A[i]. Który test ujawnia błąd polegający na pominięciu pierwszego elementu? {
-  ~Dla A \= [7] program zwraca 14 zamiast 7.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla A \= [7] program zwraca 0 zamiast 7”. Pętla rozpoczyna sumowanie od indeksu 1, dlatego dla tablicy jednoelementowej nie wykona się ani razu.
+  ~Dla A \= [7] program zwraca 14 zamiast 7.#Przy jednoelementowej tablicy pętla zaczyna się od indeksu 1, więc nie wykonuje się ani razu i pozostawia sumę równą zero.
   =Dla A \= [7] program zwraca 0 zamiast 7.#Prawidłowo. Pętla rozpoczyna sumowanie od indeksu 1, dlatego dla tablicy jednoelementowej nie wykona się ani razu.
-  ~Dla A \= [7, 2] program zwraca 9, czyli prawidłową sumę.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla A \= [7] program zwraca 0 zamiast 7”. Pętla rozpoczyna sumowanie od indeksu 1, dlatego dla tablicy jednoelementowej nie wykona się ani razu.
-  ~Dla A \= [] program odczytuje A[0], mimo że pętla się nie wykonuje.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Dla A \= [7] program zwraca 0 zamiast 7”. Pętla rozpoczyna sumowanie od indeksu 1, dlatego dla tablicy jednoelementowej nie wykona się ani razu.
+  ~Dla A \= [7, 2] program zwraca 9, czyli prawidłową sumę.#Dla [7,2] algorytm dodaje wyłącznie A[1], czyli 2; wynik 9 wymagałby także A[0].
+  ~Dla A \= [] program odczytuje A[0], mimo że pętla się nie wykonuje.#Przy pustej tablicy zakres pętli jest pusty; kod nie wykonuje odczytu A[0].
   ####Poprawna odpowiedź to „Dla A \= [7] program zwraca 0 zamiast 7”. Pętla rozpoczyna sumowanie od indeksu 1, dlatego dla tablicy jednoelementowej nie wykona się ani razu. Program zwróci 0, chociaż oczekiwana suma wynosi 7.
 }
 
 ::AISD-02-Q08::[plain]Program RAM wykonuje n dodawań liczb, których długość może wzrastać aż do n bitów. Co można stwierdzić bez dodatkowych założeń? {
   =Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów.#Prawidłowo. Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
-  ~Oba koszty są liniowe, jeśli liczba dodawań jest liniowa.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów”. Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
-  ~Koszt jednostkowy jest liniowy tylko wtedy, gdy każda liczba ma długość O(1) bitów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów”. Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
-  ~Koszt bitowy wynosi zawsze Θ(n²), skoro każdy operand ma co najwyżej n bitów.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów”. Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
+  ~Oba koszty są liniowe, jeśli liczba dodawań jest liniowa.#W modelu bitowym pojedyncze dodawanie może kosztować więcej niż stałą liczbę operacji bitowych.
+  ~Koszt jednostkowy jest liniowy tylko wtedy, gdy każda liczba ma długość O(1) bitów.#Jednostkowy RAM zakłada stały koszt instrukcji, niezależnie od liczby bitów argumentów.
+  ~Koszt bitowy wynosi zawsze Θ(n²), skoro każdy operand ma co najwyżej n bitów.#Granica n bitów na operand daje co najwyżej ograniczenie kosztu, lecz nie oznacza, że każde z n dodawań kosztuje Θ(n).
   ####Poprawna odpowiedź to „Koszt jednostkowy wynosi Θ(n), a koszt bitowy może zależeć od rozmiarów operandów”. Jednostkowe zliczenie n dodawań to Θ(n); koszt bitowy wymaga uwzględnienia długości argumentów.
 }
 
 ::AISD-02-Q09::[plain]W RAM z instrukcjami LOAD r, SUB r, STORE r: R[1]\=12, R[2]\=5. Po LOAD 1; SUB 2; STORE 3, jaka wartość jest w R[3]? {
-  ~17#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Akumulator otrzymuje 12, po odjęciu 5 ma 7 i ta wartość trafia do R[3].
-  ~5#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Akumulator otrzymuje 12, po odjęciu 5 ma 7 i ta wartość trafia do R[3].
+  ~17#Wynik 17 powstałby z dodania 12 i 5, ale SUB 2 wykonuje odejmowanie.
+  ~5#To wartość odejmowanego R[2]; po instrukcji SUB akumulator wynosi 12-5.
   =7#Prawidłowo. Akumulator otrzymuje 12, po odjęciu 5 ma 7 i ta wartość trafia do R[3].
-  ~12#Ta odpowiedź jest niepoprawna. Właściwy wariant to „7”. Akumulator otrzymuje 12, po odjęciu 5 ma 7 i ta wartość trafia do R[3].
+  ~12#Wartość 12 jest stanem po LOAD 1, przed odejmowaniem R[2].
   ####Poprawna odpowiedź to „7”. Akumulator otrzymuje 12, po odjęciu 5 ma 7 i ta wartość trafia do R[3].
 }
 
 ::AISD-02-Q10::[plain]Dla programu LOAD 1; ADD 1; STORE 1 przy początkowym R[1]\=6 jaka jest końcowa wartość R[1]? {
   =12#Prawidłowo. LOAD pobiera 6, ADD dodaje pierwotne R[1]\=6, a STORE zapisuje 12.
-  ~18#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. LOAD pobiera 6, ADD dodaje pierwotne R[1]\=6, a STORE zapisuje 12.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. LOAD pobiera 6, ADD dodaje pierwotne R[1]\=6, a STORE zapisuje 12.
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „12”. LOAD pobiera 6, ADD dodaje pierwotne R[1]\=6, a STORE zapisuje 12.
+  ~18#Program dwukrotnie wykorzystuje 6 w akumulatorze, a nie trzykrotnie.
+  ~6#R[1] nie pozostaje równe 6, ponieważ STORE 1 zapisuje wynik dodawania.
+  ~0#Nie ma instrukcji zerującej; LOAD i ADD prowadzą do wyniku dodatniego.
   ####Poprawna odpowiedź to „12”. LOAD pobiera 6, ADD dodaje pierwotne R[1]\=6, a STORE zapisuje 12.
 }
 
 ::AISD-02-Q11::[plain]W RAM instrukcja JZERO L skacze do etykiety L, gdy akumulator wynosi zero, i nie modyfikuje akumulatora. R[2]\=0. Wykonano LOAD 2; JZERO L; ADD 3; L: STORE 4. Co zostanie wykonane bezpośrednio po JZERO? {
-  ~ADD 3, ponieważ sprawdzenie nie zmienia akumulatora.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „STORE 4, ponieważ spełniono warunek skoku”. LOAD 2 ustawia akumulator na 0. JZERO przenosi sterowanie do etykiety L, więc ADD 3 zostaje pominięte, a STORE 4 wykonane.
+  ~ADD 3, ponieważ sprawdzenie nie zmienia akumulatora.#Warunek JZERO jest spełniony, zatem sterowanie omija ADD 3 i przechodzi do etykiety L.
   =STORE 4, ponieważ spełniono warunek skoku.#Prawidłowo. LOAD 2 ustawia akumulator na 0. JZERO przenosi sterowanie do etykiety L, więc ADD 3 zostaje pominięte, a STORE 4 wykonane.
-  ~ADD 3, a następnie STORE 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „STORE 4, ponieważ spełniono warunek skoku”. LOAD 2 ustawia akumulator na 0. JZERO przenosi sterowanie do etykiety L, więc ADD 3 zostaje pominięte, a STORE 4 wykonane.
-  ~Zakończenie programu bez wykonania STORE 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „STORE 4, ponieważ spełniono warunek skoku”. LOAD 2 ustawia akumulator na 0. JZERO przenosi sterowanie do etykiety L, więc ADD 3 zostaje pominięte, a STORE 4 wykonane.
+  ~ADD 3, a następnie STORE 4.#ADD 3 wykonano by tylko przy niespełnionym warunku skoku; tutaj akumulator wynosi zero.
+  ~Zakończenie programu bez wykonania STORE 4.#Skok do L nie kończy programu, lecz prowadzi do instrukcji STORE 4 pod tą etykietą.
   ####Poprawna odpowiedź to „STORE 4, ponieważ spełniono warunek skoku”. LOAD 2 ustawia akumulator na 0. JZERO przenosi sterowanie do etykiety L, więc ADD 3 zostaje pominięte, a STORE 4 wykonane.
 }
 
 ::AISD-02-Q12::[plain]W jednostkowym RAM wykonanie pętli o n iteracjach kosztuje 4 instrukcje na iterację i 3 poza pętlą. Ile instrukcji wykona dla n\=5? {
-  ~20#Ta odpowiedź jest niepoprawna. Właściwy wariant to „23”. Dokładny koszt wynosi 4·5+3\=23.
-  ~19#Ta odpowiedź jest niepoprawna. Właściwy wariant to „23”. Dokładny koszt wynosi 4·5+3\=23.
+  ~20#20 obejmuje tylko cztery instrukcje w każdej z pięciu iteracji i pomija trzy instrukcje poza pętlą.
+  ~19#Przy pięciu iteracjach pętla zużywa 20 instrukcji, więc całkowity wynik nie wynosi 19.
   =23#Prawidłowo. Dokładny koszt wynosi 4·5+3\=23.
-  ~27#Ta odpowiedź jest niepoprawna. Właściwy wariant to „23”. Dokładny koszt wynosi 4·5+3\=23.
+  ~27#Wartość 27 przekracza sumę 5 razy 4 instrukcje oraz 3 instrukcji poza pętlą.
   ####Poprawna odpowiedź to „23”. Pętla wykonuje cztery instrukcje w każdej z pięciu iteracji, czyli 20 instrukcji. Dodajemy trzy instrukcje poza pętlą: łącznie 4·5+3\=23.
 }
 
 ::AISD-02-Q13::[plain]W modelu RAM każdy rejestr danych przechowuje co najwyżej 64 bity bez znaku. Program ma zapisać dokładną wartość 2^100. Które wyjaśnienie poprawnie opisuje problem? {
-  ~Wartość wymaga 100 bitów i mieści się w jednym rejestrze.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wartość wymaga 101 bitów, więc pojedynczy rejestr nie wystarczy”. Zapis binarny 2^100 składa się z jedynki i stu zer, a więc ma 101 bitów.
-  ~Wartość mieści się w jednym rejestrze, ponieważ jest potęgą dwójki.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wartość wymaga 101 bitów, więc pojedynczy rejestr nie wystarczy”. Zapis binarny 2^100 składa się z jedynki i stu zer, a więc ma 101 bitów.
-  ~Wystarczy odrzucić bit znaku, aby zachować dokładną wartość.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wartość wymaga 101 bitów, więc pojedynczy rejestr nie wystarczy”. Zapis binarny 2^100 składa się z jedynki i stu zer, a więc ma 101 bitów.
+  ~Wartość wymaga 100 bitów i mieści się w jednym rejestrze.#W zapisie binarnym 2 do potęgi 100 ma jedynkę na pozycji 100 i wymaga łącznie 101 bitów.
+  ~Wartość mieści się w jednym rejestrze, ponieważ jest potęgą dwójki.#Potęga dwójki ma prosty zapis binarny, ale jej wykładnik określa pozycję najwyższego bitu.
+  ~Wystarczy odrzucić bit znaku, aby zachować dokładną wartość.#Rejestr jest już bez znaku; usunięcie bitu znaku nie pozwala zmieścić 101 bitów w 64.
   =Wartość wymaga 101 bitów, więc pojedynczy rejestr nie wystarczy.#Prawidłowo. Zapis binarny 2^100 składa się z jedynki i stu zer, a więc ma 101 bitów.
   ####Poprawna odpowiedź to „Wartość wymaga 101 bitów, więc pojedynczy rejestr nie wystarczy”. Zapis binarny 2^100 składa się z jedynki i stu zer, a więc ma 101 bitów. W rejestrze 64-bitowym potrzebna jest reprezentacja wielosłowowa.
 }
 
 ::AISD-02-Q14::[plain]R[0]\=3, R[1]\=8; wykonano LOAD 0; STORE 1; LOAD 1. Jaką wartość ma ostatecznie akumulator? {
-  ~8#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. STORE 1 nadpisuje poprzednie 8 wartością 3; ponowny LOAD 1 daje 3.
+  ~8#Instrukcja STORE 1 nadpisuje R[1] wartością 3, więc późniejszy LOAD 1 nie odczyta dawnej ósemki.
   =3#Prawidłowo. STORE 1 nadpisuje poprzednie 8 wartością 3; ponowny LOAD 1 daje 3.
-  ~11#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. STORE 1 nadpisuje poprzednie 8 wartością 3; ponowny LOAD 1 daje 3.
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „3”. STORE 1 nadpisuje poprzednie 8 wartością 3; ponowny LOAD 1 daje 3.
+  ~11#Program nie wykonuje dodawania: LOAD i STORE jedynie przenoszą wartość 3.
+  ~0#Żadna podana instrukcja nie wytwarza zera; w końcu ponownie wczytujemy 3.
   ####Poprawna odpowiedź to „3”. STORE 1 nadpisuje poprzednie 8 wartością 3; ponowny LOAD 1 daje 3.
 }
 
 ::AISD-02-Q15::[plain]W przyjętym RAM instrukcja LOAD \=k wczytuje do akumulatora stałą k, a LOAD r wczytuje R[r]. Jeżeli R[4]\=9, jaki będzie stan akumulatora po wykonaniu LOAD \=4; ADD 4, gdzie ADD 4 dodaje R[4]? {
-  ~8, ponieważ obie instrukcje używają stałej 4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13, ponieważ 4 jest stałą, a R[4] zawiera 9”. Pierwsza instrukcja wczytuje stałą 4, a druga dodaje zawartość R[4]\=9.
-  ~18, ponieważ obie instrukcje odczytują R[4].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13, ponieważ 4 jest stałą, a R[4] zawiera 9”. Pierwsza instrukcja wczytuje stałą 4, a druga dodaje zawartość R[4]\=9.
+  ~8, ponieważ obie instrukcje używają stałej 4.#LOAD z natychmiastową stałą ustawia 4, ale ADD 4 odczytuje rejestr R[4] równy 9.
+  ~18, ponieważ obie instrukcje odczytują R[4].#Pierwszy argument LOAD to stała 4, więc akumulator nie zaczyna od 9 i nie może wynieść 18.
   =13, ponieważ 4 jest stałą, a R[4] zawiera 9.#Prawidłowo. Pierwsza instrukcja wczytuje stałą 4, a druga dodaje zawartość R[4]\=9.
-  ~9, ponieważ ADD zastępuje akumulator zawartością R[4].#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13, ponieważ 4 jest stałą, a R[4] zawiera 9”. Pierwsza instrukcja wczytuje stałą 4, a druga dodaje zawartość R[4]\=9.
+  ~9, ponieważ ADD zastępuje akumulator zawartością R[4].#ADD dodaje R[4] do dotychczasowej wartości akumulatora, a nie zastępuje jej dziewiątką.
   ####Poprawna odpowiedź to „13, ponieważ 4 jest stałą, a R[4] zawiera 9”. Pierwsza instrukcja wczytuje stałą 4, a druga dodaje zawartość R[4]\=9. Wynik wynosi 13. Tryb natychmiastowy i bezpośredni są różne.
 }
 
-::AISD-02-Q16::[plain]Dla ustalonej semantyki READ 1 zapisuje kolejną liczbę wejściową wyłącznie do R[1]. Przy A\=7, R[1]\=2 i wejściu 9 jaki stan otrzymamy po READ 1? {
-  ~Akumulator A\=9 i R[1]\=9#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=7 i R[1]\=9”. READ modyfikuje wskazany rejestr bez zmiany akumulatora w przyjętym wariancie.
-  ~Akumulator A\=2 i R[1]\=9#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=7 i R[1]\=9”. READ modyfikuje wskazany rejestr bez zmiany akumulatora w przyjętym wariancie.
-  ~Akumulator A\=7 i R[1]\=2#Ta odpowiedź jest niepoprawna. Właściwy wariant to „A\=7 i R[1]\=9”. READ modyfikuje wskazany rejestr bez zmiany akumulatora w przyjętym wariancie.
+::AISD-02-Q16::[plain]Dla ustalonej semantyki READ 1 zapisuje kolejną liczbę wejściową wyłącznie do R[1]. Przy akumulatorze A\=7, R[1]\=2 i wejściu 9 jaki stan otrzymamy po READ 1? {
+  ~Akumulator A\=9 i R[1]\=9#READ 1 nie zmienia akumulatora, więc A nadal wynosi 7, a tylko R[1] przyjmuje 9.
+  ~Akumulator A\=2 i R[1]\=9#Wartość 2 to stara zawartość R[1], która zostaje nadpisana, a nie wczytana do akumulatora.
+  ~Akumulator A\=7 i R[1]\=2#Nowe wejście 9 zastępuje zawartość R[1], więc rejestr nie pozostaje równy 2.
   =A\=7 i R[1]\=9.#Prawidłowo. READ modyfikuje wskazany rejestr bez zmiany akumulatora w przyjętym wariancie.
   ####Poprawna odpowiedź to „A\=7 i R[1]\=9”. READ modyfikuje wskazany rejestr bez zmiany akumulatora w przyjętym wariancie.
 }
 
 ::AISD-02-Q17::[plain]Program RAM: c\=n; dopóki c!\=0 wykonuj c\=c-2. Przyjmujemy dokładne liczby całkowite. Które wejście pokazuje, że przypadek bazowy c\=0 nie gwarantuje zakończenia dla wszystkich n>\=0? {
-  ~n\=0.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n\=3”. Dla n\=3 kolejne wartości licznika to 3,1,-1,-3,..., więc c nigdy nie jest równe zeru.
-  ~n\=2.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n\=3”. Dla n\=3 kolejne wartości licznika to 3,1,-1,-3,..., więc c nigdy nie jest równe zeru.
+  ~n\=0.#Przy n równym zero pętla kończy się od razu, co nie wykazuje problemu terminacji.
+  ~n\=2.#Start od 2 daje przebieg 2, 0 i poprawne zakończenie.
   =n\=3.#Prawidłowo. Dla n\=3 kolejne wartości licznika to 3,1,-1,-3,..., więc c nigdy nie jest równe zeru.
-  ~n\=4.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „n\=3”. Dla n\=3 kolejne wartości licznika to 3,1,-1,-3,..., więc c nigdy nie jest równe zeru.
+  ~n\=4.#Start od 4 prowadzi do 2, następnie 0, więc program się kończy.
   ####Poprawna odpowiedź to „n\=3”. Dla n\=3 kolejne wartości licznika to 3,1,-1,-3,..., więc c nigdy nie jest równe zeru. Należy zmienić warunek lub sposób postępu.
 }
 
 ::AISD-02-Q18::[plain]Jeżeli w RAM numer rejestru jest obliczany z akumulatora (adresowanie pośrednie), jaki dodatkowy warunek trzeba kontrolować? {
-  ~Adres musi wskazywać wcześniej zapisany rejestr, nawet jeżeli dopuszcza się niezainicjalizowane komórki.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyliczony adres musi wskazywać dopuszczalny rejestr”. Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
-  ~Adres musi być mniejszy od wartości akumulatora po odczycie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyliczony adres musi wskazywać dopuszczalny rejestr”. Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
-  ~Adres musi być nieujemny, co samo wystarcza niezależnie od granic przyjętej pamięci.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „Wyliczony adres musi wskazywać dopuszczalny rejestr”. Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
+  ~Adres musi wskazywać wcześniej zapisany rejestr, nawet jeżeli dopuszcza się niezainicjalizowane komórki.#W tym modelu odczyt może być dopuszczalny także dla rejestru wcześniej niezapisanego; decydują reguły adresowania i inicjalizacji.
+  ~Adres musi być mniejszy od wartości akumulatora po odczycie.#Nie ma ogólnej zależności wymagającej, aby numer rejestru był mniejszy od wartości akumulatora po odczycie.
+  ~Adres musi być nieujemny, co samo wystarcza niezależnie od granic przyjętej pamięci.#Nieujemny indeks może nadal przekraczać górną granicę pamięci rejestrów.
   =Wyliczony adres musi wskazywać dopuszczalny rejestr.#Prawidłowo. Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
   ####Poprawna odpowiedź to „Wyliczony adres musi wskazywać dopuszczalny rejestr”. Przy adresowaniu pośrednim poprawność adresu zależy od stanu wykonania, a nie wyłącznie od statycznego kodu.
 }
 
 ::AISD-02-Q19::[plain]W RAM JZERO L skacze do L, gdy akumulator jest zerowy. Dla R[1]\=6 i R[2]\=2 wykonano LOAD 1; SUB 2; JZERO L; SUB 2; L: STORE 3. Ile wyniesie R[3]? {
   =2#Prawidłowo. Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
-  ~4#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
-  ~0#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
-  ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „2”. Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
+  ~4#Po pierwszym SUB akumulator wynosi 4, ale po JZERO następuje jeszcze jedno SUB 2.
+  ~0#Wynik zero wymagałby kolejnego odejmowania 2; w programie wykonujemy tylko dwa takie odejmowania.
+  ~6#Wartość 6 to R[1] przed obliczeniami, nie końcowa zawartość zapisanego R[3].
   ####Poprawna odpowiedź to „2”. Po pierwszym SUB akumulator ma wartość 4, więc JZERO nie skacze; drugie SUB daje 2 i STORE zapisuje tę wartość.
 }
 
 ::AISD-02-Q20::[plain]RAM ma instrukcje LOAD r, SUB r, STORE r, gdzie SUB odejmuje R[r] od akumulatora. R[1]\=9, R[2]\=4. Program LOAD 1; STORE 3; SUB 2 kończy działanie. Co jest niezgodne z celem zapisania R[1]-R[2] do R[3]? {
   =STORE 3 następuje przed odejmowaniem, więc zapisuje 9 zamiast 5.#Prawidłowo. STORE 3 zapisuje zawartość akumulatora sprzed SUB. Naprawa wymaga kolejności LOAD 1; SUB 2; STORE 3.
-  ~SUB 2 działa na liczbie 4, a powinien na liczbie 9.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „STORE 3 następuje przed odejmowaniem, więc zapisuje 9 zamiast 5”. STORE 3 zapisuje zawartość akumulatora sprzed SUB. Naprawa wymaga kolejności LOAD 1; SUB 2; STORE 3.
-  ~LOAD 1 nadpisuje R[1], zanim wykona się odejmowanie.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „STORE 3 następuje przed odejmowaniem, więc zapisuje 9 zamiast 5”. STORE 3 zapisuje zawartość akumulatora sprzed SUB. Naprawa wymaga kolejności LOAD 1; SUB 2; STORE 3.
-  ~Wynik nie może być ujemny, więc SUB 2 jest niedopuszczalne.#Ta odpowiedź jest niepoprawna. Właściwy wariant to „STORE 3 następuje przed odejmowaniem, więc zapisuje 9 zamiast 5”. STORE 3 zapisuje zawartość akumulatora sprzed SUB. Naprawa wymaga kolejności LOAD 1; SUB 2; STORE 3.
+  ~SUB 2 działa na liczbie 4, a powinien na liczbie 9.#SUB 2 prawidłowo odejmuje R[2] równe 4 od akumulatora 9; problemem jest wcześniejsze STORE.
+  ~LOAD 1 nadpisuje R[1], zanim wykona się odejmowanie.#LOAD 1 odczytuje R[1], lecz nie nadpisuje go; utrata poprawności następuje przy STORE 3.
+  ~Wynik nie może być ujemny, więc SUB 2 jest niedopuszczalne.#Zamierzony wynik wynosi 9-4, czyli 5, więc znak wyniku nie stanowi przeszkody.
   ####Poprawna odpowiedź to „STORE 3 następuje przed odejmowaniem, więc zapisuje 9 zamiast 5”. STORE 3 zapisuje zawartość akumulatora sprzed SUB. Naprawa wymaga kolejności LOAD 1; SUB 2; STORE 3.
 }
 
