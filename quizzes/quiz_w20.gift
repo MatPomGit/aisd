@@ -111,7 +111,7 @@
   =13#Prawidłowo. Kolejne wartości to 1,2,3,5,8,13.
   ~21#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Kolejne wartości to 1,2,3,5,8,13.
   ~11#Ta odpowiedź jest niepoprawna. Właściwy wariant to „13”. Kolejne wartości to 1,2,3,5,8,13.
-  ####Poprawna odpowiedź to „13”. Kolejne wartości to 1,2,3,5,8,13.
+  ####Poprawna odpowiedź to „13”. Z warunków początkowych F[0]\=1 i F[1]\=2 wyznaczamy kolejne wartości za pomocą sumy dwóch poprzednich: 3,5,8,13. Zatem F[5]\=13.
 }
 
 ::AISD-20-Q15::[plain]W algorytmie dziel i zwyciężaj T(n)\=2T(n/2)+Θ(n) i n jest potęgą 2. Student usuwa pracę scalania, twierdząc, że na wyniku kosztu nic się nie zmieni. Który wniosek jest prawidłowy? {
