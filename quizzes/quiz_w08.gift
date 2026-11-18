@@ -7,7 +7,7 @@
   ~10#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. f(4)\=4·3·2·1·1\=24.
   ~16#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. f(4)\=4·3·2·1·1\=24.
   ~120#Ta odpowiedź jest niepoprawna. Właściwy wariant to „24”. f(4)\=4·3·2·1·1\=24.
-  ####Poprawna odpowiedź to „24”. f(4)\=4·3·2·1·1\=24.
+  ####Poprawna odpowiedź to „24”. Funkcja oblicza silnię: przypadek bazowy zwraca 1, a każde kolejne wywołanie mnoży wynik przez bieżące n. Dlatego f(4)\=4·3·2·1·1\=24.
 }
 
 ::AISD-08-Q02::[plain]Funkcja f(n) zwraca 0, jeśli n \= 0. W przeciwnym przypadku wywołuje f(n-2). Co stanie się po wywołaniu f(5), jeśli działania wykonujemy na liczbach całkowitych bez ograniczenia zakresu? {
@@ -79,7 +79,7 @@
   ~13#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Kolejne wartości to 0,1,1,2,3,5,8.
   ~6#Ta odpowiedź jest niepoprawna. Właściwy wariant to „8”. Kolejne wartości to 0,1,1,2,3,5,8.
   =8#Prawidłowo. Kolejne wartości to 0,1,1,2,3,5,8.
-  ####Poprawna odpowiedź to „8”. Kolejne wartości to 0,1,1,2,3,5,8.
+  ####Poprawna odpowiedź to „8”. Z warunków f(0)\=0 i f(1)\=1 otrzymujemy kolejno f(2)\=1, f(3)\=2, f(4)\=3, f(5)\=5 i f(6)\=8.
 }
 
 ::AISD-08-Q11::[plain]W rekurencyjnym przejściu drzewa binarnego rozmiaru n, jeśli każda funkcja odwiedza węzeł raz i wykonuje stałą pracę, jaki jest czas? {
