@@ -1,5 +1,5 @@
 // AIiSD 08: Rekurencja i dynamiczne struktury danych
-// Wersja 1.3.0 | 2026-11-17 | 20 pytań jednokrotnego wyboru
+// Wersja 1.4.0 | 2026-11-18 | 20 pytań wyboru
 // Import: Moodle > Baza pytań > Import > GIFT
 
 ::AISD-08-Q01::[plain]Rekurencyjna funkcja f(n) dla n>\=0 zwraca 1 przy n\=0, a w przeciwnym razie n·f(n-1). Jaki jest wynik f(4)? {
@@ -10,7 +10,7 @@
   ####f(4)\=4·3·2·1·1\=24.
 }
 
-::AISD-08-Q02::[plain]Funkcja dla n\=0 zwraca 0, a dla n>0 wywołuje f(n-2). Co stanie się dla n\=5 przy dokładnej arytmetyce całkowitej? {
+::AISD-08-Q02::[plain]Funkcja f(n) zwraca 0, jeśli n \= 0. W przeciwnym przypadku wywołuje f(n-2). Co stanie się po wywołaniu f(5), jeśli działania wykonujemy na liczbach całkowitych bez ograniczenia zakresu? {
   ~Zakończy się na n\=1, bo zejście o dwa oznacza osiągnięcie zera.
   ~Zwróci 0 po trzech wywołaniach, bo n zostanie zaokrąglone.
   ~Zakończy się dla wszystkich dodatnich n, ponieważ argument maleje.
@@ -50,7 +50,7 @@
   ####Na każdym z log₂ n poziomów koszt łączny wynosi Θ(n).
 }
 
-::AISD-08-Q07::[plain]Program wykonuje bardzo wiele wstawień na początku sekwencji liczb i rzadko odczytuje element o dowolnym indeksie. Która struktura lepiej wspiera najważniejszą operację bez kopiowania n elementów? {
+::AISD-08-Q07::[plain]Program często wstawia liczby na początek sekwencji, a tylko sporadycznie odczytuje element o zadanym indeksie. Która struktura umożliwia wydajne wykonywanie dominującej operacji bez przesuwania n elementów? {
   ~Zwykła tablica zwarta, bo wstawienie na początku zawsze kosztuje Θ(1).
   ~Posortowana tablica, bo gwarantuje brak przesunięć.
   ~Macierz sąsiedztwa, bo przechowuje każdą sekwencję w jednym wierszu.
